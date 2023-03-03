@@ -25,4 +25,10 @@ public class Position {
 		return Math.abs( pos.getX() - this.getX() ) < epsilon 
 				&& Math.abs( pos.getX() - this.getX() ) < epsilon;
 	}
+
+	public double getDistanceFrom(Position pos) {
+		final double deltaX = x - pos.getX();
+		final double deltaY = y - pos.getY();
+		return Math.sqrt((deltaX*deltaX) + (deltaY+deltaY));
+	}
 }

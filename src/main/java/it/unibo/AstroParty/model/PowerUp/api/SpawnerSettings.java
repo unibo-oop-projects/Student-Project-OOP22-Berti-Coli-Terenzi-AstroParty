@@ -10,5 +10,6 @@ public interface SpawnerSettings {
 	public void enableUpgradedSpeed(boolean enable);
 	public void enableLaserShot(boolean enable);
 	public void enableLaserSword(boolean enable);
+	public void enableShield(boolean enable);
 	
 }

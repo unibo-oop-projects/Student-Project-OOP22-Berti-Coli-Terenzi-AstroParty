@@ -1,5 +1,7 @@
 package it.unibo.AstroParty.model.PowerUp.api;
 
+import it.unibo.AstroParty.model.api.PowerUpSpawner;
+
 public interface SpawnerSettings {
 	
 	public PowerUpSpawner startGame();
@@ -11,5 +13,7 @@ public interface SpawnerSettings {
 	public void enableLaserShot(boolean enable);
 	public void enableLaserSword(boolean enable);
 	public void enableShield(boolean enable);
+	public void enableAll();
+	public void DisableAll();
 	
 }

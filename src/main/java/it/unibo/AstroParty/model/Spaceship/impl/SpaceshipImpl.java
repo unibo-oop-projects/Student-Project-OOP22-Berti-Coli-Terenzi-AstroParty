@@ -15,8 +15,6 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private final int maxBullets;
 	private final String playerId;
 	private final double bulletRegenTime;
-	private final HitBox hitbox;
-	
 	private Position position;							// gestione movimento
 	private Direction direction;
 	private double angle;
@@ -30,14 +28,13 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private boolean shield;								// defensive;
 	private boolean immortal;
 	
-	public SpaceshipImpl(double speed, int maxBullets, boolean startingShield, String playerId, double bulletRegenTime, HitBox hitbox){
+	public SpaceshipImpl(double speed, int maxBullets, boolean startingShield, String playerId, double bulletRegenTime){
 		this.shield = startingShield;
 		this.maxBullets = maxBullets;
 		this.playerId = playerId;
 		this.speed = speed;
 		this.bulletRegenTime = bulletRegenTime;
 		this.shield = startingShield;
-		this.hitbox = hitbox;
 		this.bullets = this.maxBullets;
 	}
 	
@@ -66,7 +63,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	@Override
 	public HitBox getHitBox() {
 		
-		return this.hitbox;
+		return  null; //new CircleHitBox(this.position , Spaceship.relativeSize);
 	}
 
 	public void update(double currTime) {
@@ -108,8 +105,6 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 
 	//usati dai PowerUp
-	
-	//Usati dai PowerUp
 
 	@Override
 	public void makeImmortal() {

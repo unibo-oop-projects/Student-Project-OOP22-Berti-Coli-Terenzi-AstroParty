@@ -14,7 +14,8 @@ public interface GameState {
     public Collection<Entity> getEntities();
 
     /**
-     * 
+     * this method update the position of all the entities in the map
+     * and manage their interactions
      * @param time the time elapsed from the past update
      */
     public void update(double time);

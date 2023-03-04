@@ -3,6 +3,7 @@ package it.unibo.AstroParty.model.impl;
 import java.util.Collection;
 import java.util.HashSet;
 
+import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.api.Entity;
 import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.Obstacle;
@@ -41,7 +42,30 @@ public class GameStateImpl implements GameState {
 
     @Override
     public void update(double time) {
-        // TO-DO
+        for (Spaceship currSpaceship : spaceships) {
+            currSpaceship.update(time);
+            double r = currSpaceship.getHitBox().getRadius();
+            Position pos = currSpaceship.getPosition();
+            double fixedX = pos.getX();
+            double fixedY = pos.getY();
+
+            if (pos.getX() + r > width) {
+                fixedX = width - r;
+            } else if (pos.getX() - r < 0) {
+                fixedX = r;
+            }
+
+            if (pos.getY() + r > height) {
+                fixedY = height - r;
+            } else if (pos.getY() - r < 0) {
+                fixedY = r;
+            }
+
+            if (fixedX != pos.getX() || fixedY != pos.getY()) {
+                currSpaceship.setPosition(new Position(fixedX, fixedY));
+            }
+            
+        }
     }
 
     @Override

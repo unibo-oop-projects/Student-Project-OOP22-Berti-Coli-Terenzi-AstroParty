@@ -13,4 +13,7 @@ public interface Spaceship extends Entity {
     public void shoot();
     public void startTurn();
     public void stopTurn();
+
+    @Override
+    public CircleHitBox getHitBox();
 }

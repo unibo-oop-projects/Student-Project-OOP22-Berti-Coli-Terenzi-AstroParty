@@ -10,4 +10,7 @@ public interface PowerUp extends Entity {
     public boolean pickUp( Spaceship owner );
     public boolean isOffensive();
     public PowerUpTypes getType();
+
+    @Override
+    public RectangleHitBox getHitBox();
 }

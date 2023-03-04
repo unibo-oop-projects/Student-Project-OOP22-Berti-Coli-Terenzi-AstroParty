@@ -10,7 +10,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	
 	private double speed;
 	private int maxBullets;
-	private double time;
+	private long time;
 	private boolean shield;
 	
 	SpaceshipBuilderImpl(){
@@ -33,7 +33,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	}
 
 	@Override
-	public void setRechargeTime(double time) {
+	public void setRechargeTime(long time) {
 
 		this.time = time ;
 	}

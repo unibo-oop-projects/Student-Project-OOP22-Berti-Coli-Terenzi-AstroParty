@@ -1,6 +1,8 @@
 package it.unibo.AstroParty.model.Spaceship.impl;
 
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import it.unibo.AstroParty.common.Direction;
 import it.unibo.AstroParty.common.Position;
@@ -8,13 +10,12 @@ import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
 import it.unibo.AstroParty.model.api.HitBox;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
+import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
 
 public class SpaceshipImpl implements SimpleSpaceship {
 
 	private double speed;								//impostazioni prese dal builder
-	private final int maxBullets;
 	private final String playerId;
-	private final double bulletRegenTime;
 	private Position position;							// gestione movimento
 	private Direction direction;
 	private double angle;
@@ -23,12 +24,16 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	
 	private Optional<PowerUp> powerUp;
 	
-	private int bullets;
+	private int bullets;								//proiettili
+	private final int maxBullets;
+	private final long bulletRegenTime;
+	private Timer timer = new Timer();
 	
 	private boolean shield;								// defensive;
 	private boolean immortal;
 	
-	public SpaceshipImpl(double speed, int maxBullets, boolean startingShield, String playerId, double bulletRegenTime){
+	public SpaceshipImpl(double speed, int maxBullets, boolean startingShield, String playerId, long bulletRegenTime){
+		
 		this.shield = startingShield;
 		this.maxBullets = maxBullets;
 		this.playerId = playerId;
@@ -63,7 +68,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	@Override
 	public HitBox getHitBox() {
 		
-		return  null; //new CircleHitBox(this.position , Spaceship.relativeSize);
+		return new CircleHitBoxImpl(this.position , Spaceship.relativeSize);
 	}
 
 	public void update(double currTime) {
@@ -115,7 +120,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 
 	@Override
 	public void makeMortal() {
-		// TODO Auto-generated method stub
+		
 		this.immortal = false;
 	}
 	
@@ -199,11 +204,23 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 	
 	private void startTimer() {
-											// TODO fai partire il timer
-		
+
+		timer.schedule( new TimerTask() {
+
+			@Override
+			public void run() {
+				addBullet();
+			}
+			
+		}, this.bulletRegenTime);
 	}
 	
 	private void addBullet() {
-											// TODO usato dal timer, se non sono a max ne parte un altro
+		
+		this.bullets ++;
+		
+		if(this.bullets < this.maxBullets) {
+			this.startTimer();
+		}
 	}
 }

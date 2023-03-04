@@ -8,7 +8,7 @@ public interface SpaceshipBuilder {
 	
 	public void setSpeed(double speed);
 	public void setMaxBullets(int maxBullets);
-	public void setRechargeTime(double time);
+	public void setRechargeTime(long time);
 	public void setStartingShield(boolean enable);
 	
 	public Collection<Spaceship> create(Collection<String> playerId);

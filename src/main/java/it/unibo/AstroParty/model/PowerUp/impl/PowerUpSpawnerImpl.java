@@ -60,7 +60,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 			
 			pos = new Position( rand.nextDouble( GameState.length ) , rand.nextDouble( GameState.height ) );
 			
-		} while ( this.world.getWorld().stream()
+		} while ( this.world.getEntities().stream()
 				.map( entity -> entity.getPosition() )
 				.collect(Collectors.toSet())
 				.contains(pos) );

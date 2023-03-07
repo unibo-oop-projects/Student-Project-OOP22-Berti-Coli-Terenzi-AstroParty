@@ -19,12 +19,12 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private double speed;								//impostazioni prese dal builder
 	private final PlayerId playerId;
 	private Position position;							// gestione movimento
-	private Direction direction;
-	private double angle;
+	private Direction direction = new Direction(1,-0.5);
+	private double angle=0;
 	private Optional<Double> rotationStartTime ;
 	private double lastTime;
 	
-	private Optional<PowerUp> powerUp;
+	private Optional<PowerUp> powerUp = Optional.empty();
 	
 	private int bullets;								//proiettili
 	private final int maxBullets;
@@ -60,7 +60,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	public boolean equipPowerUp(PowerUp pUp) {
 		
 		if ( powerUp.isEmpty()) {
-			powerUp = Optional.of(pUp);
+			powerUp = Optional.ofNullable(pUp);
 			return true;
 		}
 		
@@ -79,7 +79,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 
 	public void update(double currTime) {
 		
-		double timeDiff = this.lastTime - currTime;
+		double timeDiff = currTime - this.lastTime;
 		this.lastTime = currTime;
 		
 		this.move(timeDiff);
@@ -94,10 +94,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		if ( this.powerUp.isPresent() && this.powerUp.get().isOffensive() ) {
 			
 			switch ( this.powerUp.get().getType() ) {
-				case LASERSHOT:
-																	// TODO 
-					break;
-					
+				
 				case DOUBLESHOT:
 					this.createProjectile();
 					this.createProjectile();
@@ -173,7 +170,6 @@ public class SpaceshipImpl implements SimpleSpaceship {
 			this.shield = false;
 			return false;
 		}
-		
 		return true;
 	}
 
@@ -208,8 +204,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 
 	private void move(double timeDiff) {
 		
-		this.position = this.position.move( this.direction.multiply( this.speed * timeDiff ));
-		
+		this.position = this.position.move( this.direction.multiply( this.speed * timeDiff ) );
 	}
 
 	private void createProjectile() {

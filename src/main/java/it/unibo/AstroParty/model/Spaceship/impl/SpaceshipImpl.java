@@ -9,7 +9,6 @@ import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.api.PlayerId;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
 import it.unibo.AstroParty.model.api.CircleHitBox;
-import it.unibo.AstroParty.model.api.HitBox;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
 import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;

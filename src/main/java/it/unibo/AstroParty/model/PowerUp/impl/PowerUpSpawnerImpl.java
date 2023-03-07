@@ -2,6 +2,8 @@ package it.unibo.AstroParty.model.PowerUp.impl;
 
 import java.util.Collection;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 import it.unibo.AstroParty.common.Position;
@@ -13,11 +15,13 @@ import it.unibo.AstroParty.model.api.PowerUpSpawner;
 public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	
 	private final Collection<PowerUpTypes> possiblePowerUpTypes;
-	private final double SpawnDelay;
+	private final long SpawnDelay;
 	private GameState world;
 	private PowerUpFactory pUPfacrtory;
 	
-	PowerUpSpawnerImpl(Collection<PowerUpTypes> possiblePowerUpTypes, double spawnDelay){
+	private Timer timer = new Timer();
+	
+	PowerUpSpawnerImpl(Collection<PowerUpTypes> possiblePowerUpTypes, long spawnDelay){
 		this.possiblePowerUpTypes = possiblePowerUpTypes;
 		this.SpawnDelay = spawnDelay;
 	}
@@ -25,16 +29,21 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	public void start(GameState world) {
 		
 		this.world=world;
+		this.timer.scheduleAtFixedRate( new TimerTask() {
+			@Override
+			public void run() {
+				generate();
+			}
+		}, 2*SpawnDelay, SpawnDelay);
 	}
 	@Override
 	public void stop() {
-												// TODO implementa timer
+		timer.cancel();
 	}
 	
 	protected void generate() {
 		
 		this.world.addPowerUp( this.pUPfacrtory.createPowerUp( this.generateType() , this.generatePos() ) );
-											//TODO fai partire un nuovo timer
 	}
 
 	private PowerUpTypes generateType() {

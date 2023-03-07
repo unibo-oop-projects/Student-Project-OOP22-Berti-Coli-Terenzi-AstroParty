@@ -6,7 +6,7 @@ public interface SpawnerSettings {
 	
 	public PowerUpSpawner startGame();
 	
-	public void setSpawnDelay(double timeInterval);
+	public void setSpawnDelay(long timeInterval);
 	public void enableDoubleShot(boolean enable);
 	public void enableTemporaryImmortality(boolean enable);
 	public void enableUpgradedSpeed(boolean enable);

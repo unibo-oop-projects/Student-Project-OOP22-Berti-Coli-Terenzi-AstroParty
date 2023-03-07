@@ -8,7 +8,7 @@ import it.unibo.AstroParty.model.api.PowerUpSpawner;
 public class SpawnerSettingImpl implements SpawnerSettings {
 	
 	EnumSet<PowerUpTypes> possible = EnumSet.noneOf( PowerUpTypes.class );
-	double spawnDelay;
+	long spawnDelay;
 	
 	@Override
 	public PowerUpSpawner startGame() {
@@ -27,7 +27,7 @@ public class SpawnerSettingImpl implements SpawnerSettings {
 	}
 
 	@Override
-	public void setSpawnDelay(double timeInterval) {
+	public void setSpawnDelay(long timeInterval) {
 
 		this.spawnDelay = timeInterval;
 	}

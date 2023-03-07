@@ -13,5 +13,5 @@ public interface PowerUp extends Entity {
     public PowerUpTypes getType();
 
     @Override
-    public RectangleHitBox getHitBox();
+    public CircleHitBox getHitBox();
 }

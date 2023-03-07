@@ -3,6 +3,7 @@ package it.unibo.AstroParty.model.PowerUp.impl;
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
+import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.HitBox;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
@@ -20,7 +21,7 @@ public abstract class BasicPowerUp implements PowerUp {
 	}
 	
 	@Override
-	public HitBox getHitBox() {
+	public CircleHitBox getHitBox() {
 
 		return new CircleHitBoxImpl( this.position, PowerUp.relativaSize);
 	}

@@ -3,6 +3,7 @@ package it.unibo.AstroParty.model.Spaceship.impl;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import it.unibo.AstroParty.core.api.PlayerId;
 import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
 import it.unibo.AstroParty.model.api.Spaceship;
 
@@ -45,7 +46,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	}
 
 	@Override
-	public Collection<Spaceship> create(Collection<String> playerIds) {
+	public Collection<Spaceship> create(Collection<PlayerId> playerIds) {
 		
 		return playerIds.stream()
 				.map( id -> new SpaceshipImpl(speed , maxBullets, shield, id, time))

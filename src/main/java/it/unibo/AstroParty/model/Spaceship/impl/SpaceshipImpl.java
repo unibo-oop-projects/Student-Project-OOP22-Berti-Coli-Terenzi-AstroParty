@@ -6,7 +6,9 @@ import java.util.TimerTask;
 
 import it.unibo.AstroParty.common.Direction;
 import it.unibo.AstroParty.common.Position;
+import it.unibo.AstroParty.core.api.PlayerId;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
+import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.HitBox;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
@@ -15,7 +17,7 @@ import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
 public class SpaceshipImpl implements SimpleSpaceship {
 
 	private double speed;								//impostazioni prese dal builder
-	private final String playerId;
+	private final PlayerId playerId;
 	private Position position;							// gestione movimento
 	private Direction direction;
 	private double angle;
@@ -32,11 +34,11 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private boolean shield;								// defensive;
 	private boolean immortal;
 	
-	public SpaceshipImpl(double speed, int maxBullets, boolean startingShield, String playerId, long bulletRegenTime){
+	public SpaceshipImpl(double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
 		
 		this.shield = startingShield;
 		this.maxBullets = maxBullets;
-		this.playerId = playerId;
+		this.playerId = id;
 		this.speed = speed;
 		this.bulletRegenTime = bulletRegenTime;
 		this.shield = startingShield;
@@ -66,9 +68,13 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 
 	@Override
-	public HitBox getHitBox() {
+	public CircleHitBox getHitBox() {
 		
 		return new CircleHitBoxImpl(this.position , Spaceship.relativeSize);
+	}
+	
+	public PlayerId getId() {
+		return this.playerId;
 	}
 
 	public void update(double currTime) {

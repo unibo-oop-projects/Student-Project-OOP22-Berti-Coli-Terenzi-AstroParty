@@ -14,7 +14,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	private long time;
 	private boolean shield;
 	
-	SpaceshipBuilderImpl(){
+	public SpaceshipBuilderImpl(){
 										//TODO usa un file .yml per salvare i default
 		this.setSpeed(2);
 		this.setStartingShield(false);

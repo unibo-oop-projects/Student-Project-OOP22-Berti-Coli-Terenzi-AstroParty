@@ -23,4 +23,8 @@ public class Direction {
 	public Direction multiply( double alpha ) {
 		return new Direction( this.x * alpha , this.y * alpha );
 	}
+	
+	public String toString() {
+		return Double.toString(x) + ":" + Double.toString(y);
+	}
 }

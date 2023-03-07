@@ -10,7 +10,7 @@ public class Position {
 	}
 	
 	public Position move(Direction v) {										//ad ogni update aggiungo alla posizione attuale il punto di arrivo
-		return new Position( this.x+v.getX() , this.y+v.getX() );
+		return new Position( this.x+v.getX() , this.y+v.getY() );
 	}
 
 	public double getX() {
@@ -30,5 +30,9 @@ public class Position {
 		final double deltaX = x - pos.getX();
 		final double deltaY = y - pos.getY();
 		return Math.sqrt((deltaX*deltaX) + (deltaY+deltaY));
+	}
+	
+	public String toString() {
+		return Double.toString(x) + ":" + Double.toString(y);
 	}
 }

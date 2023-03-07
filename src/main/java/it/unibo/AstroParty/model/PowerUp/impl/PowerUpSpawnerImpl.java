@@ -12,8 +12,6 @@ import it.unibo.AstroParty.model.api.PowerUpSpawner;
 
 public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	
-	private final static double epsilon = 0.000001;
-	
 	private final Collection<PowerUpTypes> possiblePowerUpTypes;
 	private final double SpawnDelay;
 	private GameState world;

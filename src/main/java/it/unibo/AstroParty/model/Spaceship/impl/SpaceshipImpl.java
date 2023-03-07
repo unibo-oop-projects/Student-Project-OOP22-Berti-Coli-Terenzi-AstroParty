@@ -110,6 +110,14 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 
 	//usati dai PowerUp
+	
+	@Override
+	public void removePowerUp(PowerUp pUp) {
+
+		if( this.powerUp.isPresent() &&  this.powerUp.get().equals(pUp)) {
+			this.powerUp = Optional.empty();
+		}
+	}
 
 	@Override
 	public void makeImmortal() {
@@ -223,4 +231,5 @@ public class SpaceshipImpl implements SimpleSpaceship {
 			this.startTimer();
 		}
 	}
+
 }

@@ -1,5 +1,6 @@
 package it.unibo.AstroParty.model.Spaceship.api;
 
+import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
 
 public interface SimpleSpaceship extends Spaceship {
@@ -11,4 +12,5 @@ public interface SimpleSpaceship extends Spaceship {
 	public void newShield() ;
 	public void upgradeSpeed() ;
 	public void normalSpeed() ;
+	public void removePowerUp(PowerUp upgradedSpeed);
 }

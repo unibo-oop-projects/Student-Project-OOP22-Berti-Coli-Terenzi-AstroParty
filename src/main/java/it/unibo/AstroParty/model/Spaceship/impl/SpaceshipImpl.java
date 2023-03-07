@@ -61,6 +61,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		
 		if ( powerUp.isEmpty()) {
 			powerUp = Optional.ofNullable(pUp);
+			pUp.pickUp(this);
 			return true;
 		}
 		

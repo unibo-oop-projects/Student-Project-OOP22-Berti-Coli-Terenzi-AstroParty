@@ -4,7 +4,7 @@ import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.api.Spaceship;
 
-public class TemporaryImmportality extends BasicPowerUp {
+public class TemporaryImmortality extends BasicPowerUp {
 	private final static double duration = 5;
 	private final static double epsilon = 0.000001;
 	
@@ -12,7 +12,7 @@ public class TemporaryImmportality extends BasicPowerUp {
 	
 	private double startingTime = 0;
 	
-	public TemporaryImmportality(Position position) {
+	public TemporaryImmortality(Position position) {
 		super(position);
 	}
 	
@@ -27,7 +27,7 @@ public class TemporaryImmportality extends BasicPowerUp {
 
 	@Override
 	public void use() {
-
+		this.inUse=true;
 		super.owner.makeImmortal();;
 	}
 
@@ -46,11 +46,11 @@ public class TemporaryImmportality extends BasicPowerUp {
 	@Override
 	public void update(double time) {
 		
-		if ( super.pickedUp && this.inUse && Math.abs(this.startingTime) < TemporaryImmportality.epsilon ) {
+		if ( super.pickedUp && this.inUse && Math.abs(this.startingTime) < TemporaryImmortality.epsilon ) {
 			this.startingTime = time;
 		}
 		
-		if ( this.inUse && this.startingTime + TemporaryImmportality.duration  >= time ) {
+		if ( this.inUse && this.startingTime + TemporaryImmortality.duration  <= time ) {
 			super.owner.makeMortal();
 			super.owner.removePowerUp( this );
 		}

@@ -28,7 +28,7 @@ public class UpgradedSpeed extends BasicPowerUp {
 
 	@Override
 	public void use() {
-
+		this.inUse=true;
 		super.owner.upgradeSpeed();
 	}
 
@@ -46,7 +46,7 @@ public class UpgradedSpeed extends BasicPowerUp {
 
 	@Override
 	public void update(double time) {
-		
+
 		if ( super.pickedUp && this.inUse && Math.abs(this.startingTime) < UpgradedSpeed.epsilon ) {
 			this.startingTime = time;
 		}

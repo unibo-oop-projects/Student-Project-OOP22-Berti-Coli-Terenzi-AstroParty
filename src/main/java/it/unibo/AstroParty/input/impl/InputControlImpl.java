@@ -13,7 +13,7 @@ import it.unibo.AstroParty.model.api.Spaceship;
 public class InputControlImpl implements InputControl {
 	
 	private final Collection<Spaceship> spaceships;
-	private final InputReader reader = null;
+	private final InputReader reader = new KeyboardInput(this);
 	private final List<Pair<GameId, SpaceshipAction>> actions = new LinkedList<>();
 	
 	public InputControlImpl(Collection<Spaceship> spaceships){
@@ -22,6 +22,10 @@ public class InputControlImpl implements InputControl {
 	@Override
 	public void stop() {
 		reader.stop();
+	}
+	
+	public void start() {
+		reader.start();
 	}
 
 	@Override

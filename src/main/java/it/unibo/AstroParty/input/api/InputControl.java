@@ -6,6 +6,7 @@ import it.unibo.AstroParty.input.impl.SpaceshipAction;
 
 public interface InputControl {
     public void stop();
+    public void start();
     public void compute();
     public void addEvent(Pair<GameId,SpaceshipAction> action);
 }

@@ -18,18 +18,6 @@ public class GameStateImpl implements GameState {
     private final Collection<PowerUp> powerUps = new HashSet<>();
     private final Collection<Projectile> projectiles = new HashSet<>();
 
-    public final double width, height;
-
-    /**
-     * 
-     * @param width the width of the world map
-     * @param height the heigth of the world map
-     */
-    public GameStateImpl(double width, double height) {
-        this.width = width;
-        this.height = height;
-    }
-
     @Override
     public Collection<Entity> getEntities() {
         final Collection<Entity> entities = new HashSet<>();
@@ -91,16 +79,6 @@ public class GameStateImpl implements GameState {
     @Override
     public void addProjectile(Projectile p) {
         projectiles.add(p);
-    }
-
-    @Override
-    public double getWorldHeight() {
-        return height;
-    }
-
-    @Override
-    public double getWorldWidth() {
-        return width;
     }
     
 }

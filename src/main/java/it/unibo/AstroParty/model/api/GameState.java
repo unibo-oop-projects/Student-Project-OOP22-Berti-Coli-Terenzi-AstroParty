@@ -4,8 +4,11 @@ import java.util.Collection;
 
 public interface GameState {
 
-	public static final double height = 10.0 ;
-	public static final double length = 20.0 ;
+    /* the logic dimensions of the map are always the same, the effective sizes
+     * are elaborated by the graphical part using the window sizes
+    */
+	public static final double height = 20.0 ;
+	public static final double width = 20.0 ;
 
     /**
      * 
@@ -34,15 +37,4 @@ public interface GameState {
     
     public void addProjectile(Projectile p);
 
-    /**
-     * 
-     * @return the height of the world map
-     */
-    public double getWorldHeight();
-
-    /**
-     * 
-     * @return the width of the world map
-     */
-    public double getWorldWidth();
 }

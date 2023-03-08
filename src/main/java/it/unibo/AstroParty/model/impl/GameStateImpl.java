@@ -30,10 +30,28 @@ public class GameStateImpl implements GameState {
 
     @Override
     public void update(double time) {
+        double r;
+        Position pos;
+
+        spaceships.forEach(obj -> obj.update(time));
+        projectiles.forEach(obj -> obj.update(time));
+        powerUps.forEach(obj -> obj.update(time));
+
+        for (Projectile currProjectile : projectiles) {
+            r = currProjectile.getHitBox().getRadius();
+            pos = currProjectile.getPosition();
+
+            if (pos.getX() + r > width || pos.getX() - r < 0 ||
+                    pos.getY() + r > height || pos.getY() - r < 0) {
+                projectiles.remove(currProjectile);
+            }
+            //TODO: check collision with obstacles
+        }
+
         for (Spaceship currSpaceship : spaceships) {
-            currSpaceship.update(time);
-            double r = currSpaceship.getHitBox().getRadius();
-            Position pos = currSpaceship.getPosition();
+            r = currSpaceship.getHitBox().getRadius();
+            pos = currSpaceship.getPosition();
+
             double fixedX = pos.getX();
             double fixedY = pos.getY();
 
@@ -52,7 +70,16 @@ public class GameStateImpl implements GameState {
             if (fixedX != pos.getX() || fixedY != pos.getY()) {
                 currSpaceship.setPosition(new Position(fixedX, fixedY));
             }
-            
+            //TODO: check collision with obstacles
+
+            for (Projectile p : projectiles) {
+                if (p.getHitBox().isHitted(pos,r)) {
+                    if (currSpaceship.hit()) {
+                        spaceships.remove(currSpaceship);
+                    }
+                    projectiles.remove(p);
+                }
+            }
         }
     }
 

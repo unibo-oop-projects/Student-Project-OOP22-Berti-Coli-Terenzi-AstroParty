@@ -43,4 +43,17 @@ public class PlayerId {
 	public GameId getGameId() {
 		return this.id;
 	}
+	
+	@Override
+	public boolean equals( Object obj) {
+		
+		if( obj.getClass().isInstance( this.getClass())) {
+			PlayerId ob = (PlayerId) obj;
+			if( ob.getGameId().equals( this.getGameId() ) || ob.getPalyerName().equals( this.getPalyerName() )) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

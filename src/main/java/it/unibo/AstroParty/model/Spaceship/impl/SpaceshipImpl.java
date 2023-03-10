@@ -9,6 +9,7 @@ import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.impl.PlayerId;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
 import it.unibo.AstroParty.model.api.CircleHitBox;
+import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
 import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
@@ -25,7 +26,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private Position position;							// gestione movimento
 	private Direction direction = new Direction(1,-0.5);
 	private double angle=0;
-	private Optional<Double> rotationStartTime ;
+	boolean turning;
 	private double lastTime;
 	
 	private Optional<PowerUp> powerUp = Optional.empty();
@@ -34,12 +35,14 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private final int maxBullets;
 	private final long bulletRegenTime;
 	private Timer timer = new Timer();
+	private final GameState world;
 	
 	private boolean shield;								// defensive;
 	private boolean immortal;
 	
-	public SpaceshipImpl(double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
+	public SpaceshipImpl(GameState world, double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
 		
+		this.world = world;
 		this.shield = startingShield;
 		this.maxBullets = maxBullets;
 		this.playerId = id;
@@ -86,6 +89,10 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		
 		double timeDiff = currTime - this.lastTime;
 		this.lastTime = currTime;
+		
+		if(this.turning ) {
+			this.updateDirection(timeDiff);
+		}
 		
 		this.move(timeDiff);
 	}
@@ -179,18 +186,12 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 
 	public void startTurn() {
-		this.rotationStartTime = Optional.ofNullable(this.lastTime);
+		this.turning = true;
 	}
 
 	public void stopTurn() {
 		
-		if (this.rotationStartTime.isEmpty() ) {
-			return;
-		}
-	
-		double turnTime = this.rotationStartTime.get() - this.lastTime;
-		this.rotationStartTime = Optional.empty();   
-		this.updateDirection(turnTime);
+		this.turning = false;
 	}
 
 	// metodi ad Uso interno
@@ -224,9 +225,8 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 * creates and adds to the world a new {@link Projectile}
 	 */
 	private void createProjectile() {
-
-		// TODO Auto-generated method stub
 		
+		//TODO creazione proiettili
 	}
 	
 	/**

@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import it.unibo.AstroParty.core.impl.PlayerId;
 import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
+import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.Spaceship;
 
 /**
@@ -49,13 +50,12 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 
 		this.shield = enable;
 	}
-
-	//TODO controllo doppi GameId
 	@Override
-	public Collection<Spaceship> create(Collection<PlayerId> playerIds) {
+	public Collection<Spaceship> create(GameState world, Collection<PlayerId> playerIds) {
 		
 		return playerIds.stream()
-				.map( id -> new SpaceshipImpl(speed , maxBullets, shield, id, time))
+				.distinct() 	// controlla se ci sono due nomi o GameId uguali
+				.map( id -> new SpaceshipImpl(world,speed , maxBullets, shield, id, time))
 				.collect( Collectors.toSet());
 	}
 

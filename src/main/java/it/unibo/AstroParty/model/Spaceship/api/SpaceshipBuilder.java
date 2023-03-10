@@ -3,6 +3,7 @@ package it.unibo.AstroParty.model.Spaceship.api;
 import java.util.Collection;
 
 import it.unibo.AstroParty.core.impl.PlayerId;
+import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.Spaceship;
 
 /**
@@ -39,9 +40,10 @@ public interface SpaceshipBuilder {
 	/**
 	 * creates the spaceships needed for the game
 	 * 
+	 * @param tha {@link GameState} of the current game
 	 * @param a collection of {@link PlayerId}, one for each {@link Spaceship} to be created
 	 * @return a collection with one spaceship for each PlayerId given
 	 */
-	public Collection<Spaceship> create(Collection<PlayerId> playerIds);
+	public Collection<Spaceship> create(GameState world, Collection<PlayerId> playerIds);
 	
 }

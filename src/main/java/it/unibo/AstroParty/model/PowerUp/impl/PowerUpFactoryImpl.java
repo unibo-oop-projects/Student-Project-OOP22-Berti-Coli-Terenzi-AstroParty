@@ -24,7 +24,6 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 				case DOUBLESHOT:
 					pUp = this.createDoubleShot(pos);
 					break;
-					
 				case UPGRADEDSPEED:
 					pUp = this.createSpeed(pos);
 					break;			

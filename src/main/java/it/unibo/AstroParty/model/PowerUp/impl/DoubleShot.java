@@ -4,26 +4,37 @@ import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.api.PowerUp;
 
+/**
+ * 
+ * @author Alessandro Coli
+ * implementation of a {@link PowerUp} that shoots two {@link Projectile} with one bullets for a limited time
+ */
 public class DoubleShot extends BasicPowerUp implements PowerUp {
 
+	private final static double duration = 5;
+	
+	private boolean inUse;
+	private double useTime=0;
+
 	public DoubleShot(Position position) {
-		super(position);
+		super(position, true);
 	}
 
 	@Override
 	public void update(double time) {
-		// nothing to be done
+		
+		if( this.inUse ) {
+			this.useTime +=time;
+			if(this.useTime <= DoubleShot.duration) {
+				super.owner.removePowerUp( this );
+			}
+		}
+		
 	}
 
 	@Override
 	public void use() {
-		super.owner.removePowerUp( this );
-	}
-
-	@Override
-	public boolean isOffensive() {
-
-		return true;
+		this.inUse=true;
 	}
 
 	@Override

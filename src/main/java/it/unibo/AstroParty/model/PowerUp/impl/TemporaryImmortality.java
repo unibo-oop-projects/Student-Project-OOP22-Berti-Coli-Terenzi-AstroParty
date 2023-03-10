@@ -18,7 +18,7 @@ public class TemporaryImmortality extends BasicPowerUp {
 	private double startingTime = 0;
 	
 	public TemporaryImmortality(Position position) {
-		super(position);
+		super(position, false);
 	}
 	
 	@Override
@@ -34,12 +34,6 @@ public class TemporaryImmortality extends BasicPowerUp {
 	public void use() {
 		this.inUse=true;
 		super.owner.makeImmortal();;
-	}
-
-	@Override
-	public boolean isOffensive() {
-
-		return false;
 	}
 
 	@Override

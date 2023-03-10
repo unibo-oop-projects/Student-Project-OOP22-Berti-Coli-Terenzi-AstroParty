@@ -12,16 +12,14 @@ import it.unibo.AstroParty.model.api.Spaceship;
 public class UpgradedSpeed extends BasicPowerUp {
 	
 	private final static double duration = 5;
-	private final static double epsilon = 0.000001;
 	
 	private boolean inUse;
 	
 	private double upTime = 0;
 	
 	public UpgradedSpeed(Position position) {
-		super(position);
+		super(position, false);
 	}
-	
 	@Override
 	public boolean pickUp(Spaceship owner) {
 		
@@ -35,12 +33,6 @@ public class UpgradedSpeed extends BasicPowerUp {
 	public void use() {
 		this.inUse=true;
 		super.owner.upgradeSpeed();
-	}
-
-	@Override
-	public boolean isOffensive() {
-
-		return false;
 	}
 
 	@Override

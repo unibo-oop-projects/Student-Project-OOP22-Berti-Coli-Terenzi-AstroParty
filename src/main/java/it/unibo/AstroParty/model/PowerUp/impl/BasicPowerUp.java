@@ -18,10 +18,12 @@ public abstract class BasicPowerUp implements PowerUp {
 	protected SimpleSpaceship owner;
 	protected final Position position;
 	protected boolean pickedUp;
+	private final boolean offensive;
 	
-	public BasicPowerUp(Position position) {
+	public BasicPowerUp(Position position, boolean offensive) {
 		
 		this.position = position;
+		this.offensive = offensive;
 	}
 	
 	@Override
@@ -60,7 +62,9 @@ public abstract class BasicPowerUp implements PowerUp {
 		return true;
 	}
 	@Override
-	public abstract boolean isOffensive() ;
+	public boolean isOffensive() {
+		return this.offensive;
+	}
 	@Override
 	public abstract PowerUpTypes getType();
 

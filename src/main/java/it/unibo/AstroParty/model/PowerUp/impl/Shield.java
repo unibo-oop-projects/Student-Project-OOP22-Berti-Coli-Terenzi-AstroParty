@@ -12,7 +12,7 @@ import it.unibo.AstroParty.model.api.Spaceship;
 public class Shield extends BasicPowerUp {
 
 	public Shield(Position position) {
-		super(position);
+		super(position, false);
 	}
 
 	@Override
@@ -33,12 +33,6 @@ public class Shield extends BasicPowerUp {
 	public void use() {
 		super.owner.newShield();
 		super.owner.removePowerUp( this );
-	}
-
-	@Override
-	public boolean isOffensive() {
-		
-		return false;
 	}
 
 	@Override

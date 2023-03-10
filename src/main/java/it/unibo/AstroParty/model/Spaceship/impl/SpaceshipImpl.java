@@ -27,7 +27,6 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private Direction direction = new Direction(1,-0.5);
 	private double angle=0;
 	boolean turning;
-	private double lastTime;
 	
 	private Optional<PowerUp> powerUp = Optional.empty();
 	
@@ -85,16 +84,13 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		return this.playerId;
 	}
 
-	public void update(double currTime) {
-		
-		double timeDiff = currTime - this.lastTime;
-		this.lastTime = currTime;
+	public void update(double time) {
 		
 		if(this.turning ) {
-			this.updateDirection(timeDiff);
+			this.updateDirection(time);
 		}
 		
-		this.move(timeDiff);
+		this.move(time);
 	}
 
 	public void shoot() {
@@ -109,8 +105,8 @@ public class SpaceshipImpl implements SimpleSpaceship {
 				
 				case DOUBLESHOT:
 					this.createProjectile();
+					this.powerUp.get().use();
 					this.createProjectile();
-					
 					break;
 					
 				default :
@@ -168,7 +164,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		this.speed = this.speed / PowerUp.speedModifier;
 	}
 	
-	//usati per input da tastiera
+	//usati per input 
 	
 	@Override
 	public boolean hit() {			// basta dire che soso stato ucciso a gamestate, che lascia il mio riferimento e avvisa InputControl 

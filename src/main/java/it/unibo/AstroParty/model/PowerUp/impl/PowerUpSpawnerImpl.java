@@ -22,7 +22,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	private final Collection<PowerUpTypes> possiblePowerUpTypes;
 	private final long SpawnDelay;
 	private GameState world;
-	private PowerUpFactory pUPfacrtory; //TODO PowerUpFactoryImpl
+	private PowerUpFactory pUPfactory= new PowerUpFactoryImpl();
 	
 	private Timer timer = new Timer();
 	
@@ -51,7 +51,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	 */
 	private void generate() {
 		
-		this.world.addPowerUp( this.pUPfacrtory.createPowerUp( this.generateType() , this.generatePos() ) );
+		this.world.addPowerUp( this.pUPfactory.createPowerUp( this.generateType() , this.generatePos() ) );
 	}
 	
 	/**

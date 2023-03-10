@@ -16,7 +16,7 @@ public class UpgradedSpeed extends BasicPowerUp {
 	
 	private boolean inUse;
 	
-	private double startingTime = 0;
+	private double upTime = 0;
 	
 	public UpgradedSpeed(Position position) {
 		super(position);
@@ -52,11 +52,11 @@ public class UpgradedSpeed extends BasicPowerUp {
 	@Override
 	public void update(double time) {
 
-		if ( super.pickedUp && this.inUse && Math.abs(this.startingTime) < UpgradedSpeed.epsilon ) {
-			this.startingTime = time;
+		if ( super.pickedUp ) {
+			this.upTime += time;
 		}
 		
-		if ( this.inUse && this.startingTime + UpgradedSpeed.duration  >= time ) {
+		if ( this.inUse && this.upTime <= UpgradedSpeed.duration) {
 			super.owner.normalSpeed();
 			super.owner.removePowerUp( this );
 		}

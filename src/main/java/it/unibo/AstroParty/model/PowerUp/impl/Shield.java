@@ -4,6 +4,11 @@ import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.api.Spaceship;
 
+/** 
+ * 
+ * @author Alessandro Coli
+ * a {@link PowerUp} that gives a shield that tanks one damage instance
+ */
 public class Shield extends BasicPowerUp {
 
 	public Shield(Position position) {

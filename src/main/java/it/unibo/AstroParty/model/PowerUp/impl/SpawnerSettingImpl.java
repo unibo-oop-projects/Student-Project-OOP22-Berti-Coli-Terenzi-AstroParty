@@ -5,6 +5,12 @@ import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.PowerUp.api.SpawnerSettings;
 import it.unibo.AstroParty.model.api.PowerUpSpawner;
 
+/** 
+ * 
+ * @author Alessandro Coli
+ * 
+ * a concrete implementation of {@link SpawnerSettings }
+ */
 public class SpawnerSettingImpl implements SpawnerSettings {
 	
 	EnumSet<PowerUpTypes> possible = EnumSet.noneOf( PowerUpTypes.class );
@@ -59,26 +65,6 @@ public class SpawnerSettingImpl implements SpawnerSettings {
 			this.enable(  PowerUpTypes.UPGRADEDSPEED );
 		}else {
 			this.disable(  PowerUpTypes.UPGRADEDSPEED );
-		}
-	}
-
-	@Override
-	public void enableLaserShot(boolean enable) {
-		
-		if( enable ) {
-			this.enable(  PowerUpTypes.LASERSHOT );
-		}else {
-			this.disable(  PowerUpTypes.LASERSHOT );
-		}
-	}
-
-	@Override
-	public void enableLaserSword(boolean enable) {
-		
-		if( enable ) {
-			this.enable(  PowerUpTypes.LASERSWORD );
-		}else {
-			this.disable(  PowerUpTypes.LASERSWORD );
 		}
 	}
 

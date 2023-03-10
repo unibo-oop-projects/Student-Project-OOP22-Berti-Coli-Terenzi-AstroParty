@@ -6,13 +6,18 @@ import java.util.TimerTask;
 
 import it.unibo.AstroParty.common.Direction;
 import it.unibo.AstroParty.common.Position;
-import it.unibo.AstroParty.core.api.PlayerId;
+import it.unibo.AstroParty.core.impl.PlayerId;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
 import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
 import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
 
+/**
+ * 
+ * @author Alessandro Coli
+ * a {@link Spaceship} inside an AstroParty game
+ */
 public class SpaceshipImpl implements SimpleSpaceship {
 
 	private double speed;								//impostazioni prese dal builder
@@ -109,7 +114,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 			this.createProjectile();
 		}
 		this.bullets -- ;
-		this.startTimer(); 								// non e' contenuto in createProjectile in quanto in caso di DuobleShot deve toglierne uno solo al counter
+		this.startTimer(); 					// non e' contenuto in createProjectile in quanto in caso di DuobleShot deve toglierne uno solo al counter
 	}
 
 	//usati dai PowerUp
@@ -190,6 +195,10 @@ public class SpaceshipImpl implements SimpleSpaceship {
 
 	// metodi ad Uso interno
 
+	/** 
+	 * updtaes the direction of the spaceship based on how much time it has been turning
+	 * @param turnTime in milliseconds
+	 */
 	private void updateDirection(double turnTime) {
 		
 		// uso le formule per trovare le coordinate di un punto dala la distanza dall'origine del piano e l'angolo rispetto all'asse x a velocita 1x
@@ -202,16 +211,27 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		this.direction = new Direction( dirX , dirY) ;		
 	}
 
+	/**
+	 * updates the position based on the current direction and time between updates
+	 * @param timeDiff in milliseconds
+	 */
 	private void move(double timeDiff) {
 		
 		this.position = this.position.move( this.direction.multiply( this.speed * timeDiff ) );
 	}
 
+	/**
+	 * creates and adds to the world a new {@link Projectile}
+	 */
 	private void createProjectile() {
-											// TODO Auto-generated method stub
+
+		// TODO Auto-generated method stub
 		
 	}
 	
+	/**
+	 * start the timer to recharge a bullet
+	 */
 	private void startTimer() {
 
 		timer.schedule( new TimerTask() {
@@ -224,6 +244,9 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		}, this.bulletRegenTime);
 	}
 	
+	/**
+	 * adds a new bullet to the spaceship
+	 */
 	private void addBullet() {
 		
 		this.bullets ++;

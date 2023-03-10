@@ -4,6 +4,11 @@ import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.api.Spaceship;
 
+/** 
+ * 
+ * @author Alessandro Coli
+ * a {@link PowerUp} that upgrades speed for a limited time
+ */
 public class UpgradedSpeed extends BasicPowerUp {
 	
 	private final static double duration = 5;

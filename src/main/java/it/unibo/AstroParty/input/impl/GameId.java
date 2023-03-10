@@ -1,5 +1,10 @@
-package it.unibo.AstroParty.core.api;
+package it.unibo.AstroParty.input.impl;
 
+/**
+ * @author Alessandro Coli
+ *
+ * an enum that rapresents the possible players in game, helpfull for connecting the right input
+ */
 public enum GameId {
 	Player1("Player1"),
 	Player2("Player2"),
@@ -7,6 +12,7 @@ public enum GameId {
 	Player4("Player4");
 	
 	private String stringRep;
+	
 	GameId(String name){
 		this.stringRep = name;
 	}

@@ -4,10 +4,14 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import it.unibo.AstroParty.common.Pair;
-import it.unibo.AstroParty.core.api.GameId;
 import it.unibo.AstroParty.input.api.InputControl;
 import it.unibo.AstroParty.input.api.InputReader;
 
+/**
+ * 
+ * @author Alessandro Coli
+ * a {@link InputReader} for commands from keyboard
+ */
 public class KeyboardInput implements InputReader, KeyListener {
 	
 	private final InputControl controller ;
@@ -17,8 +21,11 @@ public class KeyboardInput implements InputReader, KeyListener {
 		this.controller = controller;	
 		
 	}
-
+	
 	@Override
+	/**
+	 * the possible actions to be performed depending on which key is pressed
+	 */
 	public void keyPressed(KeyEvent key ) {
 		
 		switch ( key.getExtendedKeyCode() ) {
@@ -50,6 +57,9 @@ public class KeyboardInput implements InputReader, KeyListener {
 	}
 
 	@Override
+	/**
+	 * the possible actions to be performed depending on which key is relesed
+	 */
 	public void keyReleased(KeyEvent key ) {
 		
 		switch ( key.getExtendedKeyCode() ) {
@@ -76,7 +86,11 @@ public class KeyboardInput implements InputReader, KeyListener {
 	public void start() {
 		this.read = true;
 	}
-	
+	/** 
+	 * add an action to the que
+	 * @param player: the {@link GameId} of the spaceship
+	 * @param action: the {@link SpaceshipAction} to be performed
+	 */
 	private void addToQue(GameId player , SpaceshipAction action) {
 		if( this.read ) controller.addEvent(  new Pair<>( player, action));
 	}

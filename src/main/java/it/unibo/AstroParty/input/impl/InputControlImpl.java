@@ -5,11 +5,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import it.unibo.AstroParty.common.Pair;
-import it.unibo.AstroParty.core.api.GameId;
 import it.unibo.AstroParty.input.api.InputControl;
 import it.unibo.AstroParty.input.api.InputReader;
 import it.unibo.AstroParty.model.api.Spaceship;
 
+/**
+ * 
+ * @author Alessandro Coli
+ * a concrete {@link InputControl} to signal the right spaceship the input commands at the right time
+ */
 public class InputControlImpl implements InputControl {
 	
 	private final Collection<Spaceship> spaceships;

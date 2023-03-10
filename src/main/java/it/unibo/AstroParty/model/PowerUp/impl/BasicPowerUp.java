@@ -8,6 +8,11 @@ import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
 import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
 
+/** 
+ * 
+ * @author Alessandro Coli
+ * an abstract class implementing methonds in common between {@link PowerUp} in AstroParty
+ */
 public abstract class BasicPowerUp implements PowerUp {
 
 	protected SimpleSpaceship owner;

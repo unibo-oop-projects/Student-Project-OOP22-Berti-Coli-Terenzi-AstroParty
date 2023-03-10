@@ -2,18 +2,63 @@ package it.unibo.AstroParty.model.PowerUp.api;
 
 import it.unibo.AstroParty.model.api.PowerUpSpawner;
 
+/**
+ * 
+ * @author Alessandro Coli
+ * a builder for {@link PowerUpSpawner }
+ */
 public interface SpawnerSettings {
 	
+	/**
+	 * when the game starts the setting of  {@link PowerUpSpawner } cannot be changhed anymore so it is created
+	 * @return the {@link PowerUpSpawner } for the game
+	 */
 	public PowerUpSpawner startGame();
 	
+	/**
+	 * set the time between spawns
+	 * @param time in milliseconds
+	 */
 	public void setSpawnDelay(long timeInterval);
+	
+	/**
+	 * enable the DoubleShot PowerUp
+	 * @param enable: true for enable, false for disable
+	 */
 	public void enableDoubleShot(boolean enable);
+	
+	/**
+	 * enable the TemporaryImmortality PowerUp
+	 * @param enable: true for enable, false for disable
+	 */
 	public void enableTemporaryImmortality(boolean enable);
+	
+	/**
+	 * enable the UpgradedSpeed PowerUp
+	 * @param enable: true for enable, false for disable
+	 */
 	public void enableUpgradedSpeed(boolean enable);
+	
+	/*
+	for future implementations: 
 	public void enableLaserShot(boolean enable);
-	public void enableLaserSword(boolean enable);
+	public void enableLaserSword(boolean enable); 
+	*/
+	
+	/**
+	 * enable the shield PowerUp
+	 * @param enable: true for enable, false for disable
+	 */
 	public void enableShield(boolean enable);
+	
+	/**
+	 * enable all the power ups
+	 */
 	public void enableAll();
+	
+	/**
+	 * disable all the power ups
+	 */
 	public void DisableAll();
 	
 }

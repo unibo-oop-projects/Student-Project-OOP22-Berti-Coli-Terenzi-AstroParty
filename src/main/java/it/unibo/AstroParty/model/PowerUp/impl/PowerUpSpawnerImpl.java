@@ -12,12 +12,17 @@ import it.unibo.AstroParty.model.PowerUp.api.PowerUpFactory;
 import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.PowerUpSpawner;
 
+/**
+ * 
+ * @author Alessandro Coli
+ * concrete implementation of {@link PowerUpSpawner}
+ */
 public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	
 	private final Collection<PowerUpTypes> possiblePowerUpTypes;
 	private final long SpawnDelay;
 	private GameState world;
-	private PowerUpFactory pUPfacrtory;
+	private PowerUpFactory pUPfacrtory; //TODO PowerUpFactoryImpl
 	
 	private Timer timer = new Timer();
 	
@@ -41,11 +46,18 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 		timer.cancel();
 	}
 	
-	protected void generate() {
+	/**
+	 * creates and adds a new powerUp to the world
+	 */
+	private void generate() {
 		
 		this.world.addPowerUp( this.pUPfacrtory.createPowerUp( this.generateType() , this.generatePos() ) );
 	}
-
+	
+	/**
+	 * generate the type of the new Power Up between the active ones in the world
+	 * @return the {@link PowerUpTypes}
+	 */
 	private PowerUpTypes generateType() {
 		
 		int rand = new Random().nextInt( this.possiblePowerUpTypes.size() );
@@ -58,6 +70,10 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 		return it.next();
 	}
 
+	/**
+	 * generates a possible {@link Position} for the new PowerUp
+	 * @return the position
+	 */
 	private Position generatePos() {
 		
 		Position pos;

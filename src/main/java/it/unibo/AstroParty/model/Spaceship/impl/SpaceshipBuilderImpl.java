@@ -3,10 +3,15 @@ package it.unibo.AstroParty.model.Spaceship.impl;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-import it.unibo.AstroParty.core.api.PlayerId;
+import it.unibo.AstroParty.core.impl.PlayerId;
 import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
 import it.unibo.AstroParty.model.api.Spaceship;
 
+/**
+ * 
+ * @author Alessandro Coli
+ * a concrete implementation of {@link SpaceshipBuilder}
+ */
 public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	
 	private double speed;
@@ -45,6 +50,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 		this.shield = enable;
 	}
 
+	//TODO controllo doppi GameId
 	@Override
 	public Collection<Spaceship> create(Collection<PlayerId> playerIds) {
 		

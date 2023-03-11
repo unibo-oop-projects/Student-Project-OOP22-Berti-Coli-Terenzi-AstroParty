@@ -7,7 +7,7 @@ import it.unibo.AstroParty.model.impl.RectangleHitBoxImpl;
 
 public class ObstacleImpl implements Obstacle {
 
-    boolean destroyable, active;
+    boolean destroyable, active, harm;
     Position position;
     RectangleHitBox hBox;
     ActiveSetter setActive;
@@ -16,14 +16,16 @@ public class ObstacleImpl implements Obstacle {
      * 
      * @param pos the down-left corner of the obstacle
      * @param destroyable true if the obstacle can be destroyed
+     * @param harm true if the obstacle is harmful
      * @param setActive 
      */
-    public ObstacleImpl(Position pos, boolean destroyable, ActiveSetter setActive) {
-        this.destroyable = destroyable;
+    public ObstacleImpl(Position pos, boolean destroyable, boolean harm, ActiveSetter setActive) {
         this.position = pos;
-        this.hBox = new RectangleHitBoxImpl(pos, Obstacle.size, Obstacle.size);
+        this.destroyable = destroyable;
+        this.harm = harm;
         this.active = true;     // always starts as active
         this.setActive = setActive;
+        this.hBox = new RectangleHitBoxImpl(pos, Obstacle.size, Obstacle.size);
     }
 
     @Override
@@ -44,6 +46,11 @@ public class ObstacleImpl implements Obstacle {
     @Override
     public boolean isActive() {
         return active;
+    }
+
+    @Override
+    public boolean isHarmful() {
+        return harm;
     }
 
     @Override

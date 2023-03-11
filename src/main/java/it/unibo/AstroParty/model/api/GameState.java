@@ -10,6 +10,15 @@ public interface GameState {
 	public static final double height = 20.0 ;
 	public static final double width = 20.0 ;
 
+    /*
+     * the coordinates of the sides of the world map
+     */
+    public static final double lowerSide = 0;
+    public static final double leftSide = 0;
+    public static final double upperSide = lowerSide + height;
+    public static final double rightSide = leftSide + width;
+
+
     /**
      * 
      * @return a collection of all the entities in the game

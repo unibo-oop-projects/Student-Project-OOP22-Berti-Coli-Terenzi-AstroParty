@@ -10,13 +10,14 @@ public class ObstacleFactoryImpl implements ObstacleFactory {
 
     @Override
     public Obstacle createSimpleObstacle(Position pos) {
-        return new ObstacleImpl(pos, true, new ActiveSetter((sum,t) -> true));
+        return new ObstacleImpl(pos, true, false, new ActiveSetter((sum,t) -> true));
     }
 
     @Override
     public Obstacle createLaser(Position pos) {
         return new ObstacleImpl(pos,
                 false,
+                true,
                 new ActiveSetter((sum,t) -> {
                     sum += t;
                     if (sum >= laserInterval) {

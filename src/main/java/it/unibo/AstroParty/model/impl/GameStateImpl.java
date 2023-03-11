@@ -9,7 +9,6 @@ import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.Obstacle;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Projectile;
-import it.unibo.AstroParty.model.api.RectangleHitBox;
 import it.unibo.AstroParty.model.api.Spaceship;
 
 public class GameStateImpl implements GameState {
@@ -44,8 +43,8 @@ public class GameStateImpl implements GameState {
             r = currProjectile.getHitBox().getRadius();
             pos = currProjectile.getPosition();
 
-            if (pos.getX() + r > width || pos.getX() - r < 0 ||
-                    pos.getY() + r > height || pos.getY() - r < 0) {
+            if (pos.getX() + r > rightSide || pos.getX() - r < leftSide ||
+                    pos.getY() + r > upperSide || pos.getY() - r < lowerSide) {
                 projectiles.remove(currProjectile);
             }
             
@@ -68,21 +67,34 @@ public class GameStateImpl implements GameState {
             double fixedY = pos.getY();
 
             // controllo la collisione delle astronavi con i bordi e in caso sistemo la loro posizione
-            if (pos.getX() + r > width) {
-                fixedX = width - r;
-            } else if (pos.getX() - r < 0) {
-                fixedX = r;
+            if (pos.getX() + r > rightSide) {
+                fixedX = rightSide - r;
+            } else if (pos.getX() - r < leftSide) {
+                fixedX = leftSide + r;
             }
 
-            if (pos.getY() + r > height) {
-                fixedY = height - r;
-            } else if (pos.getY() - r < 0) {
-                fixedY = r;
+            if (pos.getY() + r > upperSide) {
+                fixedY = upperSide - r;
+            } else if (pos.getY() - r < lowerSide) {
+                fixedY = lowerSide + r;
             }
 
-            if (fixedX != pos.getX() || fixedY != pos.getY()) {
-                currSpaceship.setPosition(new Position(fixedX, fixedY));
+            if (fixedX != pos.getX() || fixedY != pos.getY()) { // fix the position if needed
+                pos = new Position(fixedX, fixedY);
+                currSpaceship.setPosition(pos);
             }
+
+            // controllo le collisioni astronavi-ostacoli
+            for (Obstacle o : obstacles) {
+                if (o.getHitBox().isHitted(pos, r)) {
+                    if (o.isHarmful() && currSpaceship.hit()) {
+                        spaceships.remove(currSpaceship);
+                    } else {
+                        //TODO: correggere la posizione in caso di collisione
+                    }
+                }
+            }
+            //TODO: collisione astronave-astronave
 
             // controllo le collisioni astronavi-proiettili
             for (Projectile p : projectiles) {

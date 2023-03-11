@@ -10,6 +10,12 @@ public interface Obstacle extends Entity {
      */
     public boolean isActive();
 
+    /**
+     * 
+     * @return true if the obstacle damages the spaceship
+     */
+    public boolean isHarmful();
+
     @Override
     public RectangleHitBox getHitBox();
 

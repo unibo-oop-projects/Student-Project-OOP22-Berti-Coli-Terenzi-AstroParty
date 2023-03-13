@@ -1,6 +1,8 @@
 package it.unibo.AstroParty.model.impl;
 
 import it.unibo.AstroParty.common.Position;
+import it.unibo.AstroParty.model.api.CircleHitBox;
+import it.unibo.AstroParty.model.api.HitBox;
 import it.unibo.AstroParty.model.api.RectangleHitBox;
 
 public class RectangleHitBoxImpl implements RectangleHitBox {
@@ -9,8 +11,8 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
 
     /**
      * 
-     * @param DLCorner the down-left corner position
-     * @param URCorner the up-right corner position
+     * @param DLCorner the down-left corner {@link Position}
+     * @param URCorner the up-right corner {@link Position}
      */
     public RectangleHitBoxImpl(Position DLCorner, Position URCorner) {
         this.DLCorner = DLCorner;
@@ -19,7 +21,7 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
 
     /**
      * 
-     * @param DLCorner the down-left corner position
+     * @param DLCorner the down-left corner {@link Position}
      * @param width the rectangle width
      * @param height the rectangle height
      */
@@ -28,43 +30,48 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
         URCorner = new Position(DLCorner.getX()+width, DLCorner.getY()+height);
     }
 
+    /**
+     * {@inheritDoc}}
+     */
     @Override
-    public boolean isHitted(Position pos, double radius) {
-        return pos.getDistanceFrom(getPerimeterPosition(pos)) < radius;
+    public boolean isHittedBy(HitBox hBox) throws IllegalArgumentException {
+        if (hBox instanceof CircleHitBox) {     // we currently have only circle entities moving, this is for future updates
+            Position center = ((CircleHitBox) hBox).getCenter();
+            return center.getDistanceFrom(clampOnRectangle(center)) < ((CircleHitBox) hBox).getRadius();
+        }
+        throw new IllegalArgumentException();
+    }
+
+    // method found in "2D Game Collision Detection" by Thomas Schwarzl
+    private Position clampOnRectangle(Position pos) {
+        double x,y;
+        x = clampOnRange(pos.getX(), DLCorner.getX(), URCorner.getX());
+        y = clampOnRange(pos.getY(), DLCorner.getY(), URCorner.getY());
+        return new Position(x,y);
+    }
+
+    // method found in "2D Game Collision Detection" by Thomas Schwarzl
+    private double clampOnRange(double x, double min, double max) {
+        if (x < min) {
+            return min;
+        } else if (x > max) {
+            return max;
+        } else {
+            return x;
+        }
     }
 
     /**
-     * this method is used to have the position of the perimeter point 
-     * closest to the position given in input
-     * @param pos the position of the external entity
-     * @return the nearest point on the perimeter
+     * {@inheritDoc}}
      */
-    private Position getPerimeterPosition(Position pos) {
-        double x,y;
-        if (pos.getX() < DLCorner.getX()) {
-            x = DLCorner.getX();
-        } else if (pos.getX() > URCorner.getX()) {
-            x = URCorner.getX();
-        } else {
-            x = pos.getX();
-        }
-
-        if (pos.getY() < DLCorner.getY()) {
-            y = DLCorner.getY();
-        } else if (pos.getY() > URCorner.getY()) {
-            y = URCorner.getY();
-        } else {
-            y = pos.getY();
-        }
-
-        return new Position(x, y);
-    }
-
     @Override
     public Position getDLCorner() {
         return DLCorner;
     }
-
+    
+    /**
+     * {@inheritDoc}}
+     */
     @Override
     public Position getURCorner() {
         return URCorner;

@@ -6,13 +6,13 @@ public interface RectangleHitBox extends HitBox {
 
     /**
      * 
-     * @return the down-left corner position
+     * @return the down-left corner {@link Position}
      */
     public Position getDLCorner();
 
     /**
      * 
-     * @return the up-right corner position
+     * @return the up-right corner {@link Position}
      */
     public Position getURCorner();
 }

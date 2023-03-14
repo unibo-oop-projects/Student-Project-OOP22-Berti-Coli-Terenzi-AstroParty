@@ -1,9 +1,10 @@
 package it.unibo.AstroParty.model.impl;
 
-import java.util.Collection;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import it.unibo.AstroParty.common.Position;
+import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.Entity;
 import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.Obstacle;
@@ -13,121 +14,139 @@ import it.unibo.AstroParty.model.api.Spaceship;
 
 public class GameStateImpl implements GameState {
 
-    private final Collection<Spaceship> spaceships = new HashSet<>();
-    private final Collection<Obstacle> obstacles = new HashSet<>();
-    private final Collection<PowerUp> powerUps = new HashSet<>();
-    private final Collection<Projectile> projectiles = new HashSet<>();
+    private final List<Spaceship> spaceships;
+    private final List<Projectile> projectiles;
+    private final List<Obstacle> obstacles;
+    private final List<Entity> powerUps;
 
+    public GameStateImpl() {
+        spaceships = new ArrayList<>();
+        projectiles = new ArrayList<>();
+        obstacles = new ArrayList<>();
+        powerUps = new ArrayList<>();
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
     @Override
-    public Collection<Entity> getEntities() {
-        final Collection<Entity> entities = new HashSet<>();
+    public List<Entity> getEntities() {
+        final List<Entity> entities = new ArrayList<>();
         entities.addAll(spaceships);
+        entities.addAll(projectiles);
         entities.addAll(obstacles);
         entities.addAll(powerUps);
-        entities.addAll(projectiles);
         return entities;
     }
 
+    /**
+     * {@inheritDoc}}
+     */
     @Override
     public void update(double time) {
-        double r;
-        Position pos;
 
-        spaceships.forEach(obj -> obj.update(time));
-        projectiles.forEach(obj -> obj.update(time));
-        powerUps.forEach(obj -> obj.update(time));
-        obstacles.forEach(obj -> obj.update(time));
+        powerUps.forEach(p -> p.update(time));
+        obstacles.forEach(o -> o.update(time));
 
-        // controllo le collisioni dei proiettili con i bordi della mappa (in caso li elimino)
-        for (Projectile currProjectile : projectiles) {
-            r = currProjectile.getHitBox().getRadius();
-            pos = currProjectile.getPosition();
+        projectiles.forEach(p -> {
+            boolean found = false;
+            p.update(time);
 
-            if (pos.getX() + r > rightSide || pos.getX() - r < leftSide ||
-                    pos.getY() + r > upperSide || pos.getY() - r < lowerSide) {
-                projectiles.remove(currProjectile);
-            }
-            
-            // controllo collisioni proiettile-ostacolo
-            for (Obstacle obs : obstacles) {
-                if (obs.getHitBox().isHitted(pos, r)) {
-                    if (obs.hit()) {
-                        obstacles.remove(obs);
-                    }
-                    projectiles.remove(currProjectile);
+            for (Spaceship s : spaceships) {
+                if (s.getHitBox().checkCircleCollision(p.getHitBox()) && s.hit()) {
+                    spaceships.remove(s);
+                    found = true;
                 }
             }
-        }
-        
-        for (Spaceship currSpaceship : spaceships) {
-            r = currSpaceship.getHitBox().getRadius();
-            pos = currSpaceship.getPosition();
 
-            double fixedX = pos.getX();
-            double fixedY = pos.getY();
-
-            // controllo la collisione delle astronavi con i bordi e in caso sistemo la loro posizione
-            if (pos.getX() + r > rightSide) {
-                fixedX = rightSide - r;
-            } else if (pos.getX() - r < leftSide) {
-                fixedX = leftSide + r;
-            }
-
-            if (pos.getY() + r > upperSide) {
-                fixedY = upperSide - r;
-            } else if (pos.getY() - r < lowerSide) {
-                fixedY = lowerSide + r;
-            }
-
-            if (fixedX != pos.getX() || fixedY != pos.getY()) { // fix the position if needed
-                pos = new Position(fixedX, fixedY);
-                currSpaceship.setPosition(pos);
-            }
-
-            // controllo le collisioni astronavi-ostacoli
             for (Obstacle o : obstacles) {
-                if (o.getHitBox().isHitted(pos, r)) {
-                    if (o.isHarmful() && currSpaceship.hit()) {
-                        spaceships.remove(currSpaceship);
-                    } else {
-                        //TODO: correggere la posizione in caso di collisione
-                    }
+                if (o.isActive() && o.getHitBox().checkCircleCollision(p.getHitBox()) && o.hit()) {
+                    obstacles.remove(o);
+                    found = true;
                 }
             }
-            //TODO: collisione astronave-astronave
 
-            // controllo le collisioni astronavi-proiettili
-            for (Projectile p : projectiles) {
-                if (p.getHitBox().isHitted(pos,r)) {
-                    if (currSpaceship.hit()) {
-                        spaceships.remove(currSpaceship);
-                    }
-                    projectiles.remove(p);
+            if (found || checkBoundariesCollision(p.getHitBox())) {
+                projectiles.remove(p);
+            }
+        });
+
+        List<Spaceship> updatedSpaceships = new ArrayList<>();
+        spaceships.forEach(s -> {
+            Position curr = s.getPosition();
+            boolean found = false;
+            s.update(time);
+
+            for (Spaceship updated : updatedSpaceships) {
+                if (updated.getHitBox().checkCircleCollision(s.getHitBox())) {
+                    found = true;
                 }
             }
-        }
+
+            for (Obstacle o : obstacles) {
+                if (o.isActive() && o.getHitBox().checkCircleCollision(s.getHitBox())) {
+                    if (o.isHarmful()) {
+                        spaceships.remove(s);
+                        break;
+                    }
+                    found = true;
+                }
+            }
+
+            if (found || checkBoundariesCollision(s.getHitBox())) {
+                s.setPosition(curr);
+            }
+
+            updatedSpaceships.add(s);
+        });
     }
 
+    private boolean checkBoundariesCollision(CircleHitBox hb) {
+        Position pos = hb.getCenter();
+        double r = hb.getRadius();
+
+        return pos.getX() + r > rightSide
+                || pos.getX() - r < leftSide
+                || pos.getY() + r > upperSide
+                || pos.getY() - r < lowerSide;
+        
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
     @Override
     public boolean isOver() {
         return spaceships.size() == 1;  //the game ends when there's only one player left
     }
 
+    /**
+     * {@inheritDoc}}
+     */
     @Override
     public void addSpaceship(Spaceship s) {
         spaceships.add(s);
     }
 
+    /**
+     * {@inheritDoc}}
+     */
     @Override
     public void addObstacle(Obstacle o) {
         obstacles.add(o);
     }
 
+    /**
+     * {@inheritDoc}}
+     */
     @Override
-    public void addPowerUp(PowerUp pUp) {
-        powerUps.add(pUp);
+    public void addPowerUp(PowerUp p) {
+        powerUps.add(p);
     }
 
+    /**
+     * {@inheritDoc}}
+     */
     @Override
     public void addProjectile(Projectile p) {
         projectiles.add(p);

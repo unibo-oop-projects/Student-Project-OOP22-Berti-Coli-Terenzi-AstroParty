@@ -2,7 +2,6 @@ package it.unibo.AstroParty.model.impl;
 
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.api.CircleHitBox;
-import it.unibo.AstroParty.model.api.HitBox;
 import it.unibo.AstroParty.model.api.RectangleHitBox;
 
 public class RectangleHitBoxImpl implements RectangleHitBox {
@@ -34,12 +33,9 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
      * {@inheritDoc}}
      */
     @Override
-    public boolean isHittedBy(HitBox hBox) throws IllegalArgumentException {
-        if (hBox instanceof CircleHitBox) {     // we currently have only circle entities moving, this is for future updates
-            Position center = ((CircleHitBox) hBox).getCenter();
-            return center.getDistanceFrom(clampOnRectangle(center)) < ((CircleHitBox) hBox).getRadius();
-        }
-        throw new IllegalArgumentException();
+    public boolean checkCircleCollision(CircleHitBox hBox) {
+        Position center = hBox.getCenter();
+        return center.getDistanceFrom(clampOnRectangle(center)) < hBox.getRadius();
     }
 
     // method found in "2D Game Collision Detection" by Thomas Schwarzl

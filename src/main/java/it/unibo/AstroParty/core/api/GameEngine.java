@@ -1,6 +1,6 @@
 package it.unibo.AstroParty.core.api;
 
-public interface GameEngineInterface {
+public interface GameEngine {
     public void init();
     public void mainLoop();
 }

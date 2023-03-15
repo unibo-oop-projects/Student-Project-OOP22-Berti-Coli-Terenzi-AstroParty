@@ -11,14 +11,18 @@ import it.unibo.AstroParty.model.api.PowerUpSpawner;
  * 
  * a concrete implementation of {@link SpawnerSettings }
  */
-public class SpawnerSettingImpl implements SpawnerSettings {
+public class SpawnerSettingsImpl implements SpawnerSettings {
 	
 	EnumSet<PowerUpTypes> possible = EnumSet.noneOf( PowerUpTypes.class );
 	long spawnDelay;
 	
+	SpawnerSettingsImpl(){
+		this.DisableAll();
+		this.spawnDelay = SpawnerSettings.basic_spawn_delay;
+	}
 	@Override
 	public PowerUpSpawner startGame() {
-		// TODO Auto-generated method stub
+		
 		return new PowerUpSpawnerImpl( this.possible , this.spawnDelay );
 	}
 	

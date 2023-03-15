@@ -8,6 +8,7 @@ import it.unibo.AstroParty.model.api.PowerUpSpawner;
  * a builder for {@link PowerUpSpawner }
  */
 public interface SpawnerSettings {
+	static final long basic_spawn_delay = 20000;	//uso una variable statica in quanto non reputo necessario usare un file config per un solo parametro
 	
 	/**
 	 * when the game starts the setting of  {@link PowerUpSpawner } cannot be changhed anymore so it is created

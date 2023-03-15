@@ -26,9 +26,8 @@ public interface GameState {
     public Collection<Entity> getEntities();
 
     /**
-     * this method update the position of all the entities in the map
-     * and manage their interactions
-     * @param time the time elapsed from the past update
+     * this method update the position and status of all the entities in the map and manage their interactions
+     * @param time the time elapsed from the last update
      */
     public void update(double time);
 
@@ -38,12 +37,28 @@ public interface GameState {
      */
     public boolean isOver();
 
+    /**
+     * 
+     * @param s the {@link Spaceship} to add in the game
+     */
     public void addSpaceship(Spaceship s);
 
+    /**
+     * 
+     * @param o the {@link Obstacle} to add in the game
+     */
     public void addObstacle(Obstacle o);
 
-    public void addPowerUp(PowerUp pUp);
+    /**
+     * 
+     * @param p the {@link PowerUp}  to add in the game
+     */
+    public void addPowerUp(PowerUp p);
     
+    /**
+     * 
+     * @param p the {@link Projectile} to add in the game
+     */
     public void addProjectile(Projectile p);
 
 }

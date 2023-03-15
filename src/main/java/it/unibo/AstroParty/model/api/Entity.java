@@ -24,7 +24,7 @@ public interface Entity {
     public boolean hit();
     
     /**
-     * tells the entity how much time has passed since the start of the game
+     * tells the entity how much time has passed since the last update
      * @param time in milliseconds
      */
     public void update(double time);

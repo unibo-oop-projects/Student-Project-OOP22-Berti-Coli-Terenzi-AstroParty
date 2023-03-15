@@ -1,0 +1,4 @@
+speed: 10
+maxBullets: 60
+time: 5
+startingShield: False

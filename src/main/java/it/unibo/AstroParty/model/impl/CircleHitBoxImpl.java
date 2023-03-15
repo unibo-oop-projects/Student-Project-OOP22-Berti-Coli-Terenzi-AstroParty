@@ -10,7 +10,7 @@ public class CircleHitBoxImpl implements CircleHitBox {
 
     /**
      * 
-     * @param center the position of the center
+     * @param center the {@link Position} of the center
      * @param radius the radius
      */
     public CircleHitBoxImpl(Position center, double radius) {
@@ -18,14 +18,29 @@ public class CircleHitBoxImpl implements CircleHitBox {
         this.radius = radius;
     }
 
+    /**
+     * {@inheritDoc}}
+     */
     @Override
-    public boolean isHitted(Position pos, double radius) {
-        return center.getDistanceFrom(pos) <= radius + this.radius;
+    public boolean checkCircleCollision(CircleHitBox hBox) {
+        return center.getDistanceFrom((hBox).getCenter())
+                <= (hBox).getRadius() + this.radius;
     }
 
+    /**
+     * {@inheritDoc}}
+     */
     @Override
     public double getRadius() {
         return radius;
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    @Override
+    public Position getCenter() {
+        return center;
     }
     
 }

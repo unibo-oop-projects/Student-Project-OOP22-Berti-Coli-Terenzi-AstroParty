@@ -1,8 +1,7 @@
 package it.unibo.AstroParty.input.api;
 
 import it.unibo.AstroParty.common.Pair;
-import it.unibo.AstroParty.input.impl.GameId;
-import it.unibo.AstroParty.input.impl.SpaceshipAction;
+import it.unibo.AstroParty.input.impl.InputCommand;
 
 /** 
  * @author Alessandro Coli
@@ -30,5 +29,5 @@ public interface InputControl {
      * add an input event to the que
      * @param a {@link Pair} of the {@link SpaceshipAction} to be performed and the {@link GameId} of the spaceship
      */
-    public void addEvent(Pair<GameId,SpaceshipAction> action);
+    public void addEvent(InputCommand action);
 }

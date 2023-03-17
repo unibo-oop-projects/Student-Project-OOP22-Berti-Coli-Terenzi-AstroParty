@@ -3,21 +3,18 @@ package it.unibo.AstroParty.input.impl;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-import it.unibo.AstroParty.common.Pair;
-import it.unibo.AstroParty.input.api.InputControl;
-import it.unibo.AstroParty.input.api.InputReader;
+import it.unibo.AstroParty.input.api.GameId;
 
 /**
  * 
  * @author Alessandro Coli
  * a {@link InputReader} for commands from keyboard
  */
-public class KeyboardInput implements InputReader, KeyListener {
+public class KeyboardInput implements KeyListener {
 	
-	private final InputControl controller ;
-	private boolean read = false;
+	private final InputCommandFactory controller ;
 	
-	public KeyboardInput(InputControl controller) {
+	public KeyboardInput(InputCommandFactory controller) {
 		this.controller = controller;	
 		
 	}
@@ -30,28 +27,28 @@ public class KeyboardInput implements InputReader, KeyListener {
 		
 		switch ( key.getExtendedKeyCode() ) {
 		case KeyEvent.VK_Q:
-			this.addToQue( GameId.Player1, SpaceshipAction.StartTurn );
+			 controller.startTurn( GameId.Player1 );
 			break;
 		case KeyEvent.VK_A:
-			this.addToQue( GameId.Player1, SpaceshipAction.Shoot );
+			controller.shoot( GameId.Player1 );
 			break;
 		case KeyEvent.VK_X:
-			this.addToQue( GameId.Player2, SpaceshipAction.StartTurn );
+			controller.startTurn( GameId.Player2 );
 			break;
 		case KeyEvent.VK_C:
-			this.addToQue( GameId.Player2, SpaceshipAction.Shoot );
+			controller.shoot( GameId.Player2 );
 			break;
 		case KeyEvent.VK_P:
-			this.addToQue( GameId.Player3, SpaceshipAction.StartTurn );
+			controller.startTurn( GameId.Player3 );
 			break;
 		case KeyEvent.VK_L:
-			this.addToQue( GameId.Player3, SpaceshipAction.Shoot );
+			controller.shoot( GameId.Player3 );
 			break;
 		case KeyEvent.VK_N:
-			this.addToQue( GameId.Player4, SpaceshipAction.StartTurn );
+			controller.startTurn( GameId.Player4 );
 			break;
 		case KeyEvent.VK_M:
-			this.addToQue( GameId.Player4, SpaceshipAction.Shoot );
+			controller.shoot( GameId.Player4 );
 			break;
 	}
 	}
@@ -64,37 +61,18 @@ public class KeyboardInput implements InputReader, KeyListener {
 		
 		switch ( key.getExtendedKeyCode() ) {
 		case KeyEvent.VK_Q:
-			this.addToQue( GameId.Player1, SpaceshipAction.StopTurn );
-			break;
+			controller.stopTurn( GameId.Player1 );
 		case KeyEvent.VK_X:
-			this.addToQue( GameId.Player2, SpaceshipAction.StopTurn );
+			controller.stopTurn( GameId.Player2 );
 			break;
 		case KeyEvent.VK_P:
-			this.addToQue( GameId.Player3, SpaceshipAction.StopTurn );
+			controller.stopTurn( GameId.Player3 );
 			break;
 		case KeyEvent.VK_N:
-			this.addToQue( GameId.Player4, SpaceshipAction.StopTurn );
+			controller.stopTurn( GameId.Player4 );
 			break;
 		}
 	}
-
-	@Override
-	public void stop() {
-		this.read = false;
-	}
-	
-	public void start() {
-		this.read = true;
-	}
-	/** 
-	 * add an action to the que
-	 * @param player: the {@link GameId} of the spaceship
-	 * @param action: the {@link SpaceshipAction} to be performed
-	 */
-	private void addToQue(GameId player , SpaceshipAction action) {
-		if( this.read ) controller.addEvent(  new Pair<>( player, action));
-	}
-	
 	@Override
 	public void keyTyped(KeyEvent key ) {
 	}

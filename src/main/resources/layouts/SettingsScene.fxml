@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="anchor-pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" stylesheets="@../css/Settings.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Text fill="WHITE" layoutX="46.0" layoutY="60.0" strokeType="OUTSIDE" strokeWidth="0.0" text="IMPOSTAZIONI">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Text>
+      <Rectangle id="p1_preview" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="31.0" layoutY="94.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle id="p2_preview" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="30.0" layoutY="155.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle id="p3_preview" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="32.0" layoutY="216.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Rectangle id="p4_preview" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="31.0" layoutY="279.0" stroke="BLACK" strokeType="INSIDE" width="50.0" />
+      <Text fill="WHITE" layoutX="52.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="inserisci il nome dei giocatori e decidi le impostazioni di gioco" textAlignment="CENTER" wrappingWidth="296.21630859375">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="92.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="per ruotare: Q per sparare: A" wrappingWidth="88.21630859375" />
+      <TextField fx:id="nameP1" layoutX="92.0" layoutY="92.0" prefHeight="27.0" prefWidth="144.0" />
+      <TextField fx:id="nameP2" layoutX="92.0" layoutY="155.0" prefHeight="27.0" prefWidth="144.0" />
+      <TextField fx:id="nameP3" layoutX="93.0" layoutY="214.0" prefHeight="27.0" prefWidth="144.0" />
+      <TextField fx:id="nameP4" layoutX="93.0" layoutY="277.0" prefHeight="27.0" prefWidth="144.0" />
+      <Text fill="WHITE" layoutX="92.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="per ruotare: X per sparare: C" wrappingWidth="88.21631073951721" />
+      <Text fill="WHITE" layoutX="93.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" text="per ruotare: P per sparare: L" wrappingWidth="88.21631073951721" />
+      <Text fill="WHITE" layoutX="93.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" text="per ruotare: N per sparare: M" wrappingWidth="88.21631073951721" />
+      <Button fx:id="start" layoutX="206.0" layoutY="359.0" mnemonicParsing="false" onAction="#startOnClick" text="START" />
+      <Button fx:id="back" layoutX="140.0" layoutY="359.0" mnemonicParsing="false" onAction="#backOnClick" text="BACK" />
+      <CheckBox fx:id="obstacleSelection" contentDisplay="CENTER" layoutX="263.0" layoutY="160.0" mnemonicParsing="false" onAction="#obstacleSelOnClick" text="ostacoli" textFill="WHITE" />
+      <CheckBox fx:id="powerUpSelection" contentDisplay="CENTER" layoutX="261.0" layoutY="126.0" mnemonicParsing="false" onAction="#obstacleSelOnClick" text="power-ups" textFill="WHITE" />
+      <ChoiceBox fx:id="resolutionSelection" layoutX="263.0" layoutY="286.0" prefHeight="27.0" prefWidth="122.0" />
+      <Text fill="WHITE" layoutX="263.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="risoluzione di gioco:" />
+      <ChoiceBox fx:id="roundSelection" layoutX="263.0" layoutY="223.0" prefHeight="27.0" prefWidth="122.0" />
+      <Text fill="WHITE" layoutX="263.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="round per vincere" />
+   </children>
+</AnchorPane>

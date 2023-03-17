@@ -1,79 +1,99 @@
-package it.unibo.AstroParty.input.impl;
-
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+package it.unibo.AstroParty.input.impl ;
 
 import it.unibo.AstroParty.input.api.GameId;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-/**
- * 
- * @author Alessandro Coli
- * a {@link InputReader} for commands from keyboard
- */
-public class KeyboardInput implements KeyListener {
+public class KeyboardInput extends Application{
 	
-	private final InputCommandFactory controller ;
-	
-	public KeyboardInput(InputCommandFactory controller) {
-		this.controller = controller;	
-		
-	}
-	
-	@Override
-	/**
-	 * the possible actions to be performed depending on which key is pressed
-	 */
-	public void keyPressed(KeyEvent key ) {
-		
-		switch ( key.getExtendedKeyCode() ) {
-		case KeyEvent.VK_Q:
-			 controller.startTurn( GameId.Player1 );
-			break;
-		case KeyEvent.VK_A:
-			controller.shoot( GameId.Player1 );
-			break;
-		case KeyEvent.VK_X:
-			controller.startTurn( GameId.Player2 );
-			break;
-		case KeyEvent.VK_C:
-			controller.shoot( GameId.Player2 );
-			break;
-		case KeyEvent.VK_P:
-			controller.startTurn( GameId.Player3 );
-			break;
-		case KeyEvent.VK_L:
-			controller.shoot( GameId.Player3 );
-			break;
-		case KeyEvent.VK_N:
-			controller.startTurn( GameId.Player4 );
-			break;
-		case KeyEvent.VK_M:
-			controller.shoot( GameId.Player4 );
-			break;
-	}
-	}
+	private final InputCommandFactory factory ;
 
+	public KeyboardInput(InputCommandFactory factory) {
+		this.factory = factory;		
+	}
+	
 	@Override
-	/**
-	 * the possible actions to be performed depending on which key is relesed
-	 */
-	public void keyReleased(KeyEvent key ) {
+	public void start(Stage stage) throws Exception {
 		
-		switch ( key.getExtendedKeyCode() ) {
-		case KeyEvent.VK_Q:
-			controller.stopTurn( GameId.Player1 );
-		case KeyEvent.VK_X:
-			controller.stopTurn( GameId.Player2 );
-			break;
-		case KeyEvent.VK_P:
-			controller.stopTurn( GameId.Player3 );
-			break;
-		case KeyEvent.VK_N:
-			controller.stopTurn( GameId.Player4 );
-			break;
-		}
+		VBox root = new VBox();
+		Scene scene = new Scene( root );
+		
+		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+			// suppressed because it happens to press other keys but nothing has to happen
+			@SuppressWarnings("incomplete-switch") 
+			@Override
+			public void handle(KeyEvent key) {
+				
+				switch( key.getCode() ) {
+				
+					case Q:
+						factory.startTurn( GameId.Player1 );
+						break;
+						
+					case A:
+						factory.shoot( GameId.Player1 );
+						break;
+					
+					case X:
+						factory.startTurn( GameId.Player2 );
+						break;
+						
+					case C:
+						factory.shoot( GameId.Player2 );
+						break;
+					
+					case P:
+						factory.startTurn( GameId.Player3 );
+						break;
+						
+					case L:
+						factory.shoot( GameId.Player3 );
+						break;
+					
+					case N:
+						factory.startTurn( GameId.Player4 );
+						break;
+						
+					case M:
+						factory.shoot( GameId.Player4 );
+						break;
+				}
+			}
+			
+		});
+		
+		scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+
+			// suppressed because it happens to press other keys but nothing has to happen
+			@SuppressWarnings("incomplete-switch") 
+			@Override
+			public void handle(KeyEvent key) {
+				
+				switch( key.getCode() ) {
+				
+				case Q:
+					factory.stopTurn( GameId.Player1 );
+					break;
+					
+				case X:
+					factory.stopTurn( GameId.Player2 );
+					break;
+				
+				case P:
+					factory.stopTurn( GameId.Player3 );
+					break;
+				
+				case N:
+					factory.stopTurn( GameId.Player4 );
+					break;
+				}
+			}
+		});
 	}
-	@Override
-	public void keyTyped(KeyEvent key ) {
-	}
+	
 }

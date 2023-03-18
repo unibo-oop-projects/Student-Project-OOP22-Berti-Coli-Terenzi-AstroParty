@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import it.unibo.AstroParty.graphics.api.GameScene;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,87 +17,68 @@ public class SettingsController {
     private final static String BLANK = "";
     private final static String STARTING_MESSAGE = "Write here your name";
     private final static List<Integer> ROUND_CHOICES = List.of(1, 2, 3);
-    private final static List<Resolution> RESOLUTION_CHOICES = List.of(Resolution.values());
 
     private final List<TextField> textAreas;
-    private final GameScene gameScene;
+    private final GameScene scene;
 
     private boolean obstacle, powerUp;
 
-    @FXML private TextField nameP1;
-    @FXML private TextField nameP2;
-    @FXML private TextField nameP3;
-    @FXML private TextField nameP4;
-    @FXML private CheckBox obstacleSelection;
-    @FXML private CheckBox powerUpSelection;
+    @FXML private TextField nameP1, nameP2, nameP3, nameP4;
+    @FXML private CheckBox obstacleSelection, powerUpSelection;
     @FXML private ChoiceBox<Integer> roundSelection;
-    @FXML private ChoiceBox<String> resolutionSelection;
-    @FXML private Button start;
-    @FXML private Button back;
+    @FXML private Button start, back;
 
-    public SettingsController(GameScene gameScene) {
-        this.gameScene = gameScene;
-        this.textAreas = List.of(nameP1, nameP2, nameP3, nameP4);
+    public SettingsController(GameScene scene) {
+        this.scene = scene;
         this.obstacle = false;
         this.powerUp = false;
-
+        this.textAreas = List.of(nameP1, nameP2, nameP3, nameP4);
     }
 
     /**
-     * manages the click on "START" button
+     * event handler for "START" {@link Button}
+     * @param event
      */
-    public void startOnClick() {
+    @FXML
+    public void startOnClick(ActionEvent event) {
         List<String> players = textAreas.stream()
                 .map(t -> t.getText())
                 .filter(n -> n != BLANK && n != STARTING_MESSAGE)
                 .collect(Collectors.toList());
+        int round = roundSelection.getValue();
         // TODO: send the player list and all the other settings to the GameEngine
     }
 
     /**
-     * manage the click on "BACK" button
+     * event handler for "BACK" {@link Button}
+     * @param event
      */
-    public void backOnClick() {
-        gameScene.renderMainPage();
+    @FXML
+    public void backOnClick(ActionEvent event) {
+        scene.renderMainPage();
     }
 
     /**
-     * manage the click on the obstacle selection checkbox
+     * event handler for the obstacle {@link CheckBox}
+     * @param event
      */
-    public void obstacleSelOnClick() {
+    @FXML
+    public void obstacleSelOnClick(ActionEvent event) {
        obstacle = !obstacle;
     }
 
     /**
-     * manage the click on the power-up selection checkbox
-     */
-    public void powerUpSelOnClick() {
-       powerUp = !powerUp;
-    }
-
-    /**
-     * event listener of the resolution selection {@link ChoiceBox}
+     * event handler for the power-up {@link CheckBox}
      * @param event
      */
-    public void resolutionSelOnAction(ActionEvent event) {
-        String selected = resolutionSelection.getValue();
-        Resolution res = RESOLUTION_CHOICES.stream()
-                .filter(t -> t.getName() == selected)
-                .findAny()
-                .get();
-        setResoultion(res.getHeight(), res.getWidth());
-        
-    }
-
-    private void setResoultion(double height, double width) {
-        //TODO: set the new resolution
+    @FXML
+    public void powerUpSelOnClick(ActionEvent event) {
+       powerUp = !powerUp;
     }
 
     public void initialize() {
         textAreas.forEach(t -> t.setText(STARTING_MESSAGE));
         roundSelection.getItems().addAll(ROUND_CHOICES);
-        resolutionSelection.getItems().addAll(RESOLUTION_CHOICES.stream().map(r -> r.getName()).toList());
-        resolutionSelection.setOnAction(this::resolutionSelOnAction);
     }
 
 }

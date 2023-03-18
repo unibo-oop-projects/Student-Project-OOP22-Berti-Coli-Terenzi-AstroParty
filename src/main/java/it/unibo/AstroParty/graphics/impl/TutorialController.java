@@ -1,17 +1,27 @@
 package it.unibo.AstroParty.graphics.impl;
 
+import it.unibo.AstroParty.graphics.api.GameScene;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class TutorialController {
 
-    @FXML private Button back;
+    private final GameScene scene;
 
-    public void backOnClick() {
+    @FXML
+    private Button back;
 
+    private TutorialController(GameScene scene) {
+        this.scene = scene;
     }
 
-    public void initialize() {
-
+    /**
+     * event handler for "BACK" {@link Button}
+     * @param event
+     */
+    @FXML
+    public void backOnClick(ActionEvent event) {
+        scene.renderMainPage();
     }
 }

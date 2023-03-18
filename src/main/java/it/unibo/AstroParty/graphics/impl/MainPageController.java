@@ -1,38 +1,40 @@
 package it.unibo.AstroParty.graphics.impl;
 
+import it.unibo.AstroParty.graphics.api.GameScene;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
 
 public class MainPageController {
 
-    private final Stage stage;
+    private final GameScene scene;
 
-    @FXML private Button play;
-    @FXML private Button tutorial;
+    @FXML
+    private Button play;
 
-    public MainPageController(Stage stage) {
-        this.stage = stage;
+    @FXML
+    private Button tutorial;
+
+    public MainPageController(GameScene scene) {
+        this.scene = scene;
     }
 
     /**
-     * manages the click on "PLAY" button
+     * event handler for "PLAY" {@link Button}
+     * @param event
      */
-    public void playOnClick() {
-        stage.setScene(null); //TODO: renderizzare la pagina successiva (selezione players)
-        stage.show();
+    @FXML
+    public void playOnClick(ActionEvent event) {
+        scene.renderSettings();
     }
 
     /**
-     * manages the click on "HOW TO PLAY" button
+     * event handler for "TUTORIAL" {@link Button}
+     * @param event
      */
-    public void tutorialOnClick() {
-        stage.setScene(null); //TODO: tutorial page
-        stage.show();
-    }
-
-    public void initialize() {
-
+    @FXML
+    public void tutorialOnClick(ActionEvent event) {
+        scene.renderTutorial();
     }
 }
 

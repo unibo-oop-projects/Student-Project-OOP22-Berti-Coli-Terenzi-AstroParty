@@ -37,8 +37,6 @@
       <Button fx:id="back" layoutX="140.0" layoutY="359.0" mnemonicParsing="false" onAction="#backOnClick" text="BACK" />
       <CheckBox fx:id="obstacleSelection" contentDisplay="CENTER" layoutX="263.0" layoutY="160.0" mnemonicParsing="false" onAction="#obstacleSelOnClick" text="ostacoli" textFill="WHITE" />
       <CheckBox fx:id="powerUpSelection" contentDisplay="CENTER" layoutX="261.0" layoutY="126.0" mnemonicParsing="false" onAction="#obstacleSelOnClick" text="power-ups" textFill="WHITE" />
-      <ChoiceBox fx:id="resolutionSelection" layoutX="263.0" layoutY="286.0" prefHeight="27.0" prefWidth="122.0" />
-      <Text fill="WHITE" layoutX="263.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="risoluzione di gioco:" />
       <ChoiceBox fx:id="roundSelection" layoutX="263.0" layoutY="223.0" prefHeight="27.0" prefWidth="122.0" />
       <Text fill="WHITE" layoutX="263.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="round per vincere" />
    </children>

@@ -1,11 +1,19 @@
 package it.unibo.AstroParty.model.impl;
 
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.Entity;
+import it.unibo.AstroParty.model.api.EntityType;
+import it.unibo.AstroParty.model.api.Event;
+import it.unibo.AstroParty.model.api.EventFactory;
 import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.Obstacle;
 import it.unibo.AstroParty.model.api.PowerUp;
@@ -14,91 +22,62 @@ import it.unibo.AstroParty.model.api.Spaceship;
 
 public class GameStateImpl implements GameState {
 
-    private final List<Spaceship> spaceships;
-    private final List<Projectile> projectiles;
-    private final List<Obstacle> obstacles;
-    private final List<Entity> powerUps;
+    private final Map<EntityType, List<Entity>> worldEntities;
+    private final Queue<Event> eventQueue;
+    private final EventFactory eventFactory;
 
     public GameStateImpl() {
-        spaceships = new ArrayList<>();
-        projectiles = new ArrayList<>();
-        obstacles = new ArrayList<>();
-        powerUps = new ArrayList<>();
+        worldEntities = new HashMap<>();
+        eventQueue = new LinkedBlockingQueue<>();
+        eventFactory = new EventFactoryImpl();
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
-    public List<Entity> getEntities() {
-        final List<Entity> entities = new ArrayList<>();
-        entities.addAll(spaceships);
-        entities.addAll(projectiles);
-        entities.addAll(obstacles);
-        entities.addAll(powerUps);
-        return entities;
+    public Collection<Entity> getEntities() {
+        return worldEntities.values().stream()
+                .reduce((l1,l2) -> {l1.addAll(l2); return l1;})
+                .get();
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public void update(double time) {
+        worldEntities.get(EntityType.PROJECTILE).forEach(p -> {
 
-        powerUps.forEach(p -> p.update(time));
-        obstacles.forEach(o -> o.update(time));
-
-        projectiles.forEach(p -> {
-            boolean found = false;
-            p.update(time);
-
-            for (Spaceship s : spaceships) {
-                if (s.getHitBox().checkCircleCollision(p.getHitBox()) && s.hit()) {
-                    spaceships.remove(s);
-                    found = true;
-                }
+            if (checkBoundariesCollision((CircleHitBox) p.getHitBox())) {
+                eventQueue.add(eventFactory.hitEvent((Projectile) p, Optional.empty()));
             }
 
-            for (Obstacle o : obstacles) {
-                if (o.isActive() && o.getHitBox().checkCircleCollision(p.getHitBox()) && o.hit()) {
-                    obstacles.remove(o);
-                    found = true;
-                }
-            }
-
-            if (found || checkBoundariesCollision(p.getHitBox())) {
-                projectiles.remove(p);
-            }
+            this.getTargets(List.of(EntityType.SPACESHIP, EntityType.OBSTACLE)).stream()
+                    .filter(e -> e.getHitBox().checkCircleCollision((CircleHitBox) p.getHitBox()))
+                    .forEach(e -> eventFactory.hitEvent((Projectile) p, Optional.of(e))); 
+                    
         });
 
-        List<Spaceship> updatedSpaceships = new ArrayList<>();
-        spaceships.forEach(s -> {
-            Position curr = s.getPosition();
-            boolean found = false;
-            s.update(time);
+        worldEntities.get(EntityType.SPACESHIP).forEach(s -> {
 
-            for (Spaceship updated : updatedSpaceships) {
-                if (updated.getHitBox().checkCircleCollision(s.getHitBox())) {
-                    found = true;
-                }
+            if (checkBoundariesCollision((CircleHitBox) s.getHitBox())) {
+                eventQueue.add(eventFactory.colliedEvent((Spaceship) s, Optional.empty()));
             }
 
-            for (Obstacle o : obstacles) {
-                if (o.isActive() && o.getHitBox().checkCircleCollision(s.getHitBox())) {
-                    if (o.isHarmful()) {
-                        spaceships.remove(s);
-                        break;
-                    }
-                    found = true;
-                }
-            }
+            getTargets(List.of(EntityType.OBSTACLE, EntityType.PICKABLE)).stream()
+                    .filter(e -> e.getHitBox().checkCircleCollision((CircleHitBox) s.getHitBox()))
+                    .forEach(e -> eventFactory.colliedEvent((Spaceship) s, Optional.of(e)));
 
-            if (found || checkBoundariesCollision(s.getHitBox())) {
-                s.setPosition(curr);
-            }
-
-            updatedSpaceships.add(s);
         });
+    }
+
+    private List<Entity> getTargets(List<EntityType> types) {
+        return worldEntities.entrySet().stream()
+        .filter(entry -> types.stream().anyMatch(t -> t == entry.getKey()))
+        .map(entry -> entry.getValue())
+        .reduce((l1,l2) -> {l1.addAll(l2); return l1;})
+        .get();
     }
 
     private boolean checkBoundariesCollision(CircleHitBox hb) {
@@ -113,49 +92,61 @@ public class GameStateImpl implements GameState {
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
     public boolean isOver() {
-        return spaceships.size() == 1;  //the game ends when there's only one player left
+        return worldEntities.get(EntityType.SPACESHIP).size() == 1;  //the game ends when there's only one player left
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
-    public void addSpaceship(Spaceship s) {
-        spaceships.add(s);
+    public void addSpaceship(Spaceship spaceship) {
+        worldEntities.get(EntityType.SPACESHIP).add(spaceship);
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
-    public void addObstacle(Obstacle o) {
-        obstacles.add(o);
+    public void addObstacle(Obstacle obstacle) {
+        worldEntities.get(EntityType.OBSTACLE).add(obstacle);
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
-    public void addPowerUp(PowerUp p) {
-        powerUps.add(p);
+    public void addPowerUp(PowerUp powerup) {
+        worldEntities.get(EntityType.PICKABLE).add(powerup);
     }
 
     /**
-     * {@inheritDoc}}
+     * {@inheritDoc}
      */
     @Override
-    public void addProjectile(Projectile p) {
-        projectiles.add(p);
+    public void addProjectile(Projectile projectile) {
+        worldEntities.get(EntityType.PROJECTILE).add(projectile);
     }
 
+
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void removeEntity(Entity entity) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeEntity'");
+        if (entity instanceof Spaceship) {
+            this.worldEntities.remove(EntityType.SPACESHIP, entity);
+        } else if (entity instanceof Projectile) {
+            this.worldEntities.remove(EntityType.PROJECTILE, entity);
+        } else if (entity instanceof PowerUp) {
+            this.worldEntities.remove(EntityType.PICKABLE, entity);
+        } else if (entity instanceof Projectile) {
+            this.worldEntities.remove(EntityType.PROJECTILE, entity);
+        }
+        
     }
     
 }

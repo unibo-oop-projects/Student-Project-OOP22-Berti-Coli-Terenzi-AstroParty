@@ -1,5 +1,8 @@
 package it.unibo.AstroParty.model.api;
 
+/**
+ * simple event interface
+ */
 public interface Event {
     
     /**

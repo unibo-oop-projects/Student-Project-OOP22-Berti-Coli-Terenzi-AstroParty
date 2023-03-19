@@ -49,15 +49,15 @@ public class GameStateImpl implements GameState {
         worldEntities.values().stream()     // update all the entities 
                 .forEach(l -> l.forEach(e -> e.update(time)));
 
-        checkWorldCollisions();
+        checkEntityCollisions();
         
         observer.manageEvents(this);
     }
 
-    private void checkWorldCollisions() {
+    private void checkEntityCollisions() {
         worldEntities.get(EntityType.PROJECTILE).stream().forEach(p -> {     // check projectiles collisions
 
-            if (checkBoundariesCollision((CircleHitBox) p.getHitBox())) {
+            if (checkBoundariesCollisions((CircleHitBox) p.getHitBox())) {
                 observer.notify(eventFactory.hitEvent((Projectile) p, Optional.empty()));
             }
 
@@ -69,7 +69,7 @@ public class GameStateImpl implements GameState {
 
         worldEntities.get(EntityType.SPACESHIP).stream().forEach(s -> {      // check spaceships colllisions
 
-            if (checkBoundariesCollision((CircleHitBox) s.getHitBox())) {
+            if (checkBoundariesCollisions((CircleHitBox) s.getHitBox())) {
                 observer.notify(eventFactory.colliedEvent((Spaceship) s, Optional.empty()));
             }
 
@@ -89,7 +89,7 @@ public class GameStateImpl implements GameState {
         .get();
     }
 
-    private boolean checkBoundariesCollision(CircleHitBox hb) {
+    private boolean checkBoundariesCollisions(CircleHitBox hb) {
         Position pos = hb.getCenter();
         double r = hb.getRadius();
 
@@ -131,8 +131,10 @@ public class GameStateImpl implements GameState {
             return EntityType.PROJECTILE;
         } else if (entity instanceof PowerUp) {
             return EntityType.PICKABLE;
-        } else {
+        } else if (entity instanceof Projectile) {
             return EntityType.PROJECTILE;
+        } else {
+            throw new IllegalArgumentException("class not found");
         }
     }
     

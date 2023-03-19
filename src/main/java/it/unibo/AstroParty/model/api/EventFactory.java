@@ -2,6 +2,9 @@ package it.unibo.AstroParty.model.api;
 
 import java.util.Optional;
 
+/**
+ * Factory interface from Factory method
+ */
 public interface EventFactory {
 
     /**

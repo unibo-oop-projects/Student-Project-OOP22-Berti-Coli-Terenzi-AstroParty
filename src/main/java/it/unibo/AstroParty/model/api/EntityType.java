@@ -5,6 +5,25 @@ package it.unibo.AstroParty.model.api;
  */
 public enum EntityType {
 
-    SPACESHIP, PICKABLE, OBSTACLE, PROJECTILE;
+    /**
+     * player spaceship type
+     */
+    SPACESHIP,
+    
+    /**
+     * pickable object type
+     */
+    PICKABLE,
+    
+    /**
+     * solid object type (moving entities like {@link Spaceship} and {@link Projectile} can't go through)
+     * can be harming or not depending on the implementation
+     */
+    OBSTACLE,
+    
+    /**
+     * projectile type
+     */
+    PROJECTILE;
     
 }

@@ -10,6 +10,9 @@ import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Projectile;
 import it.unibo.AstroParty.model.api.Spaceship;
 
+/**
+ * implementation of {@link EventFactory}
+ */
 public class EventFactoryImpl implements EventFactory {
 
     /**
@@ -39,7 +42,7 @@ public class EventFactoryImpl implements EventFactory {
                 return obstacleCollisionEvent(spaceship, (Obstacle) entity);
             }
         }
-        return state -> spaceship.setPosition(null); //TODO reset to last position
+        return state -> spaceship.resetPosition();
     }
 
 
@@ -52,7 +55,7 @@ public class EventFactoryImpl implements EventFactory {
 
     private Event obstacleCollisionEvent(Spaceship spaceship, Obstacle obstacle) {
         return state -> {
-            spaceship.setPosition(null); //TODO reset to last position
+            spaceship.resetPosition();
             if (obstacle.isHarmful()) {
                 state.removeEntity(obstacle);
             }

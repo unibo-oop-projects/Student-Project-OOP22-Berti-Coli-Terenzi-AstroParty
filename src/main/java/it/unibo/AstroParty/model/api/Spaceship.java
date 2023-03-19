@@ -1,6 +1,5 @@
 package it.unibo.AstroParty.model.api;
 
-import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.impl.PlayerId;
 
 /**
@@ -21,10 +20,9 @@ public interface Spaceship extends Entity {
 	public PlayerId getId();
 	
 	/**
-	 * force set a position to the spaceship
-	 * @param position
+	 * reset the position of the spaceship before of the update
 	 */
-    public void setPosition(Position pos);
+    public void resetPosition();
     
     /**
      * equips a power up to the spaceship

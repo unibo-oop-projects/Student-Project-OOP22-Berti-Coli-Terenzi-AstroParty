@@ -37,6 +37,9 @@ public interface SpaceshipBuilder {
 	 */
 	public void setStartingShield(boolean enable);
 	
+	public void setids( Collection<PlayerId> playerIds);
+		
+	public void setNames( Collection<String> playerNames);
 	/**
 	 * creates the spaceships needed for the game
 	 * 
@@ -44,6 +47,6 @@ public interface SpaceshipBuilder {
 	 * @param a collection of {@link PlayerId}, one for each {@link Spaceship} to be created
 	 * @return a collection with one spaceship for each PlayerId given
 	 */
-	public Collection<Spaceship> create(GameState world, Collection<PlayerId> playerIds);
+	public Collection<Spaceship> create(GameState world);
 	
 }

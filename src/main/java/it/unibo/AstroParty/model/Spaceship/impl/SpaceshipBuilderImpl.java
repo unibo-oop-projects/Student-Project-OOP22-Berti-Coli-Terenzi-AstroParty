@@ -6,9 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.stream.Collectors;
 
 import it.unibo.AstroParty.core.impl.PlayerId;
+import it.unibo.AstroParty.input.impl.GameId;
 import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
 import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.Spaceship;
@@ -33,6 +35,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	private static final String SHIELD = "startingShield: ";
 	private static final String TIME = "time: ";
 	private final String FILE_NAME = System.getProperty ("user.dir") + SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "default_settings" + SEP + "SpaceshipBuilder_config.yml ";
+	private Collection<PlayerId> playerIds;
 	
 	public SpaceshipBuilderImpl(){
 		this.uploadBasicConfig();
@@ -60,10 +63,48 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 
 		this.startingShield = enable;
 	}
+
 	@Override
-	public Collection<Spaceship> create(GameState world, Collection<PlayerId> playerIds) {
+	public void setids(Collection<PlayerId> playerIds) {
+		this.playerIds = playerIds;
+	}
+
+	@Override
+	public void setNames(Collection<String> playerNames) {
 		
-		return playerIds.stream()
+		if( ! ( this.playerIds == null || this.playerIds.isEmpty() ) ) {
+			return ;
+		}
+		
+		this.playerIds = new HashSet<>();
+		
+		for ( String name : playerNames ) {
+			switch( this.playerIds.size() ) {
+			
+				case 0:
+					this.playerIds.add( new PlayerId( name, GameId.Player1 ));
+					break;
+					
+				case 1:
+					this.playerIds.add( new PlayerId( name, GameId.Player2 ));
+					break;
+					
+				case 2:
+					this.playerIds.add( new PlayerId( name, GameId.Player3 ));
+					break;
+					
+				case 3:
+					this.playerIds.add( new PlayerId( name, GameId.Player4 ));
+					break;
+			}
+		}
+		
+	}
+
+	@Override
+	public Collection<Spaceship> create(GameState world) {
+		
+		return this.playerIds.stream()
 				.distinct() 	// controlla se ci sono due nomi o GameId uguali
 				.map( id -> new SpaceshipImpl(world,baseSpeed , maxBullets, startingShield, id, rechargeTime))
 				.collect( Collectors.toSet());
@@ -107,5 +148,4 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 		e.printStackTrace();
 	}
 	}
-
 }

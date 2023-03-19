@@ -2,7 +2,7 @@ package it.unibo.AstroParty.core.impl;
 
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.api.GameEngine;
-import it.unibo.AstroParty.graphics.impl.MainPageView;
+import it.unibo.AstroParty.graphics.impl.MainPageController;
 import it.unibo.AstroParty.model.Obstacle.api.ObstacleFactory;
 import it.unibo.AstroParty.model.Obstacle.impl.ObstacleFactoryImpl;
 import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
@@ -19,7 +19,7 @@ import it.unibo.AstroParty.model.impl.GameStateImpl;
 public class GameEngineImpl implements GameEngine {
 	
 	private static final int FPS = 60;
-	private MainPageView view;
+	private MainPageController view;
 	private GameState gameState;
 	private SpawnerSettings spawnerSettings;
 	private PowerUpFactory powerUpFactory;

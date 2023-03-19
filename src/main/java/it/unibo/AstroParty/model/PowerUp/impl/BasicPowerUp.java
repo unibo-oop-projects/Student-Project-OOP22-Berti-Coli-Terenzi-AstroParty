@@ -19,11 +19,12 @@ public abstract class BasicPowerUp implements PowerUp {
 	protected final Position position;
 	protected boolean pickedUp;
 	private final boolean offensive;
+	private final PowerUpTypes type;
 	
-	public BasicPowerUp(Position position, boolean offensive) {
-		
+	public BasicPowerUp(Position position, boolean offensive, PowerUpTypes type) {
 		this.position = position;
 		this.offensive = offensive;
+		this.type = type;
 	}
 	
 	@Override
@@ -66,6 +67,8 @@ public abstract class BasicPowerUp implements PowerUp {
 		return this.offensive;
 	}
 	@Override
-	public abstract PowerUpTypes getType();
+	public PowerUpTypes getType() {
+		return this.type;
+	}
 
 }

@@ -16,7 +16,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	EnumSet<PowerUpTypes> possible = EnumSet.noneOf( PowerUpTypes.class );
 	long spawnDelay;
 	
-	SpawnerSettingsImpl(){
+	public SpawnerSettingsImpl(){
 		this.DisableAll();
 		this.spawnDelay = SpawnerSettings.basic_spawn_delay;
 	}

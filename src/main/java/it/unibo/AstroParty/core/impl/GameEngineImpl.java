@@ -10,6 +10,7 @@ import it.unibo.AstroParty.model.PowerUp.api.PowerUpFactory;
 import it.unibo.AstroParty.model.PowerUp.api.SpawnerSettings;
 import it.unibo.AstroParty.model.PowerUp.impl.PowerUpFactoryImpl;
 import it.unibo.AstroParty.model.PowerUp.impl.SpawnerSettingImpl;
+import it.unibo.AstroParty.model.PowerUp.impl.SpawnerSettingsImpl;
 import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
 import it.unibo.AstroParty.model.Spaceship.impl.SpaceshipBuilderImpl;
 import it.unibo.AstroParty.model.api.GameState;
@@ -34,7 +35,7 @@ public class GameEngineImpl implements GameEngine {
 		gameState = new GameStateImpl();
 		
 		//Set of the SpawnDelay and enumeration of PowerUpTypes
-		spawnerSettings = new SpawnerSettingImpl();
+		spawnerSettings = new SpawnerSettingsImpl();
 		spawnerSettings.enableAll();
 		spawnerSettings.setSpawnDelay(20);
 		

@@ -12,7 +12,7 @@ public class TutorialController {
     @FXML
     private Button back;
 
-    private TutorialController(GameScene scene) {
+    public TutorialController(GameScene scene) {
         this.scene = scene;
     }
 

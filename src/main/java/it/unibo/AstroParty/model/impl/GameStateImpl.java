@@ -151,5 +151,11 @@ public class GameStateImpl implements GameState {
     public void addProjectile(Projectile p) {
         projectiles.add(p);
     }
+
+    @Override
+    public void removeEntity(Entity entity) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeEntity'");
+    }
     
 }

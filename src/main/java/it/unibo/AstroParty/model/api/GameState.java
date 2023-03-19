@@ -61,4 +61,6 @@ public interface GameState {
      */
     public void addProjectile(Projectile p);
 
+    public void removeEntity(Entity entity);
+
 }

@@ -3,10 +3,9 @@ package it.unibo.AstroParty.input.impl;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
-import it.unibo.AstroParty.common.Pair;
+
+import it.unibo.AstroParty.input.api.GameId;
 import it.unibo.AstroParty.input.api.InputControl;
-import it.unibo.AstroParty.input.api.InputReader;
 import it.unibo.AstroParty.model.api.Spaceship;
 
 /**
@@ -17,61 +16,57 @@ import it.unibo.AstroParty.model.api.Spaceship;
 public class InputControlImpl implements InputControl {
 	
 	private final Collection<Spaceship> spaceships;
-	private final InputReader reader = new KeyboardInput(this);
-	private final List<Pair<GameId, SpaceshipAction>> actions = new LinkedList<>();
+	private final List<InputCommand> commands = new LinkedList<>();
+	private boolean read;
 	
 	public InputControlImpl(Collection<Spaceship> spaceships){
 		this.spaceships = spaceships;
 	}
 	@Override
 	public void stop() {
-		reader.stop();
+		this.read = false;
 	}
 	
 	public void start() {
-		reader.start();
+		this.read = true;
 	}
 
 	@Override
 	public void compute() {
 		
-		for( var event : actions) {
-			switch( event.getY() ) {
-			case Shoot:
-				this.shoot( this.spaceships.stream()
-						.filter( s -> s.getId().getGameId().equals(event.getX()))
-						.findAny());
-				break;
-			case StartTurn:
-				this.startTurn(this.spaceships.stream()
-						.filter( s -> s.getId().getGameId().equals(event.getX()))
-						.findAny());
-				break;
-			case StopTurn:
-				this.stopTurn(this.spaceships.stream()
-						.filter( s -> s.getId().getGameId().equals(event.getX()))
-						.findAny());
-			break;
-			}
+		for( InputCommand event : commands) {
+			event.compute( this.spaceships.stream()
+						.filter( s -> s.getId().getGameId().equals( event.getID() ))
+						.findAny() );
 		}
-		this.actions.clear();
+		this.commands.clear();
 	}
 
-	@Override
-	public void addEvent(Pair<GameId, SpaceshipAction> action) {
-		actions.add(action);
+	private void addEvent(InputCommand action) {
+		if( this.read ) {
+			this.commands.add(action);
+		}
+	}
+	/**
+	 * @param player: the GameId of the spaceship that has to shoot
+	 */
+	public void shoot(GameId player) {
+		this.addEvent(new InputCommand( player, s -> s.shoot()));
 	}
 	
-	private void shoot(Optional<Spaceship> ship) {
-		ship.ifPresent( s -> s.shoot());;
+	/**
+	 * @param player: the GameId of the spaceship that has to start turning
+	 */
+	public void startTurn(GameId player) {
+		this.addEvent(new InputCommand( player, s -> s.stopTurn()));
 	}
 	
-	private void startTurn(Optional<Spaceship> ship) {
-		ship.ifPresent( s -> s.startTurn());
+	/**
+	 * @param player: the GameId of the spaceship that has to stop turning
+	 */
+	public void stopTurn(GameId player) {
+		this.addEvent(new InputCommand( player, s -> s.startTurn()));
 	}
 
-	private void stopTurn(Optional<Spaceship> ship) {
-		ship.ifPresent(s -> s.startTurn());
-	}
 
 }

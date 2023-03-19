@@ -1,4 +1,4 @@
-package it.unibo.AstroParty.input.impl;
+package it.unibo.AstroParty.input.api;
 
 /**
  * @author Alessandro Coli

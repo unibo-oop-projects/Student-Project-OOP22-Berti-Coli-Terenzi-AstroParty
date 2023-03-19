@@ -1,13 +1,12 @@
 package it.unibo.AstroParty.input.api;
 
 import it.unibo.AstroParty.common.Pair;
-import it.unibo.AstroParty.input.impl.GameId;
-import it.unibo.AstroParty.input.impl.SpaceshipAction;
+import it.unibo.AstroParty.input.impl.InputCommand;
 
 /** 
  * @author Alessandro Coli
  *	
- *	a controller used to signal to the model tha input signals
+ *	a controller used to signal to the model the input signals
  */
 public interface InputControl {
 	
@@ -22,13 +21,25 @@ public interface InputControl {
 	public void start();
 	
 	/**
-	 * compute all the input events in que
+	 * compute all the input events in queue
 	 */
-    public void compute();
-    
-    /**
-     * add an input event to the que
-     * @param a {@link Pair} of the {@link SpaceshipAction} to be performed and the {@link GameId} of the spaceship
-     */
-    public void addEvent(Pair<GameId,SpaceshipAction> action);
+	public void compute();
+
+	/**
+	 * adds a startTurn command to the queue
+	 * @param player1: the id of the |player that executed the command
+	 */
+	public void startTurn(GameId player1);
+
+	/**
+	 * adds a shoot command to the queue
+	 * @param player1: the id of the |player that executed the command
+	 */
+	public void shoot(GameId player1);
+
+	/**
+	 * adds a stopTurn command to the queue
+	 * @param player1: the id of the |player that executed the command
+	 */
+	public void stopTurn(GameId player1);
 }

@@ -1,8 +1,5 @@
 package it.unibo.AstroParty.model.impl;
 
-import java.util.Optional;
-
-import it.unibo.AstroParty.model.api.Entity;
 import it.unibo.AstroParty.model.api.Event;
 import it.unibo.AstroParty.model.api.EventFactory;
 import it.unibo.AstroParty.model.api.Obstacle;
@@ -15,51 +12,41 @@ import it.unibo.AstroParty.model.api.Spaceship;
  */
 public class EventFactoryImpl implements EventFactory {
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public Event hitEvent(Projectile projectile, Optional<Entity> target) {
-        return state -> {
-            state.removeEntity(projectile);
-            if (target.isPresent() && target.get().hit()) {
-                state.removeEntity(target.get());
-            }
-        };
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Event colliedEvent(Spaceship spaceship, Optional<Entity> target) {
-        if (target.isPresent()) {   // if the target isn't present means that the spaceship have collied with world boundarie
-            final Entity entity = target.get();
-
-            if (entity instanceof PowerUp) {
-                return pickupEvent(spaceship, (PowerUp) entity);
-            } else if (entity instanceof Obstacle) {
-                return obstacleCollisionEvent(spaceship, (Obstacle) entity);
-            }
-        }
+    public Event SpaceshipColliedEvent(Spaceship spaceship) {
         return state -> spaceship.resetPosition();
     }
 
-
-    private Event pickupEvent(Spaceship spaceship, PowerUp pickable) {
-        return state -> {
-            state.removeEntity(pickable);
-            spaceship.equipPowerUp(pickable);
-        };
+    @Override
+    public Event projectileHitEvent(Projectile projectile) {
+        return state -> state.removeProjectile(projectile);
     }
 
-    private Event obstacleCollisionEvent(Spaceship spaceship, Obstacle obstacle) {
+    @Override
+    public Event obstacleHittedEvent(Obstacle obstacle) {
         return state -> {
-            spaceship.resetPosition();
-            if (obstacle.isHarmful()) {
-                state.removeEntity(obstacle);
+            if (obstacle.hit()) {
+                state.removeObstacle(obstacle);
             }
         };
     }
+
+    @Override
+    public Event spaceshipHittedEvent(Spaceship spaceship) {
+        return state -> {
+            if (spaceship.hit()) {
+                state.removeSpaceship(spaceship);
+            }
+        };
+    }
+
+    @Override
+    public Event powerUpEquipEvent(PowerUp powerUp, Spaceship spaceship) {
+        return state -> {
+            powerUp.pickUp(spaceship);
+            spaceship.equipPowerUp(powerUp);
+        };
+    }
+
     
 }

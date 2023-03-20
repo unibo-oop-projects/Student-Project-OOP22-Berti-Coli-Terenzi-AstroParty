@@ -38,15 +38,51 @@ public interface GameState {
     public boolean isOver();
 
     /**
-     * adds a new entity to the world
-     * @param entity to be added
+     * 
+     * @param spaceship to be added
      */
-    public void addEntity(Entity entity);
+    public void addSpaceship(Spaceship spaceship);
 
     /**
-     * removes an entity from the world 
-     * @param entity to be removed
+     * 
+     * @param obstacle to be added
      */
-    public void removeEntity(Entity entity);
+    public void addObstacle(Obstacle obstacle);
+
+    /**
+     * 
+     * @param projectile to be added
+     */
+    public void addProjectile(Projectile projectile);
+
+    /**
+     * 
+     * @param powerUp to be added
+     */
+    public void addPowerUp(PowerUp powerUp);
+
+    /**
+     * 
+     * @param spaceship to be removed
+     */
+    public void removeSpaceship(Spaceship spaceship);
+
+    /**
+     * 
+     * @param obstacle to be removed
+     */
+    public void removeObstacle(Obstacle obstacle);
+
+    /**
+     * 
+     * @param projectile to be removed
+     */
+    public void removeProjectile(Projectile projectile);
+
+    /**
+     * 
+     * @param powerUp to be removed
+     */
+    public void removePowerUp(PowerUp powerUp);
 
 }

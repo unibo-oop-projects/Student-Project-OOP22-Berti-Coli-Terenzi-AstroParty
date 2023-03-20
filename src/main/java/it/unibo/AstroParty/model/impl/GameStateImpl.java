@@ -1,17 +1,15 @@
 package it.unibo.AstroParty.model.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.Entity;
-import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.EventFactory;
 import it.unibo.AstroParty.model.api.GameState;
+import it.unibo.AstroParty.model.api.Obstacle;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Projectile;
 import it.unibo.AstroParty.model.api.Spaceship;
@@ -21,12 +19,18 @@ import it.unibo.AstroParty.model.api.Spaceship;
  */
 public class GameStateImpl implements GameState {
 
-    private final Map<EntityType, List<Entity>> worldEntities;
+    private final List<Spaceship> spaceships;
+    private final List<Obstacle> obstacles;
+    private final List<Projectile> projectiles;
+    private final List<PowerUp> powerUps;
     private final EventFactory eventFactory;
     private final CollisionObserver observer;
 
     public GameStateImpl() {
-        worldEntities = new HashMap<>();
+        spaceships = new ArrayList<>();
+        obstacles = new ArrayList<>();
+        projectiles = new ArrayList<>();
+        powerUps = new ArrayList<>();
         eventFactory = new EventFactoryImpl();
         observer = new CollisionObserver();
     }
@@ -36,9 +40,12 @@ public class GameStateImpl implements GameState {
      */
     @Override
     public Collection<Entity> getEntities() {
-        return worldEntities.values().stream()
-                .reduce((l1,l2) -> {l1.addAll(l2); return l1;})
-                .get();
+        final List<Entity> worldEntities = new ArrayList<>();
+        worldEntities.addAll(spaceships);
+        worldEntities.addAll(obstacles);
+        worldEntities.addAll(projectiles);
+        worldEntities.addAll(powerUps);
+        return worldEntities;
     }
 
     /**
@@ -46,47 +53,68 @@ public class GameStateImpl implements GameState {
      */
     @Override
     public void update(double time) {
-        worldEntities.values().stream()     // update all the entities 
-                .forEach(l -> l.forEach(e -> e.update(time)));
 
-        checkEntityCollisions();
+        this.getEntities().stream()     // update all the entities 
+                .forEach(e -> e.update(time));
+
+        checkPlayerMovement();
         
-        observer.manageEvents(this);
+        observer.manageEvents(this);    // manage movement events
+        
+        checkProjectileInteractions();
+        checkSpaceshipInteractions();
+        
+        observer.manageEvents(this);    // manage interaction events
     }
 
-    private void checkEntityCollisions() {
-        worldEntities.get(EntityType.PROJECTILE).stream().forEach(p -> {     // check projectiles collisions
-
-            if (checkBoundariesCollisions((CircleHitBox) p.getHitBox())) {
-                observer.notify(eventFactory.hitEvent((Projectile) p, Optional.empty()));
+    private void checkPlayerMovement() {
+        spaceships.stream().forEach(s -> {
+            if (checkBoundariesCollisions(s.getHitBox())
+                    || obstacles.stream()
+                        .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))
+                    || spaceships.stream()
+                        .filter(targetSpaceship -> !targetSpaceship.equals(s))
+                        .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))) {
+                observer.notify(eventFactory.SpaceshipColliedEvent(s));
             }
-
-            this.getTargets(List.of(EntityType.SPACESHIP, EntityType.OBSTACLE)).stream()
-                    .filter(e -> e.getHitBox().checkCircleCollision((CircleHitBox) p.getHitBox()))
-                    .forEach(e -> eventFactory.hitEvent((Projectile) p, Optional.of(e))); 
-                    
         });
+    }
+    
+    private void checkProjectileInteractions() {
+        projectiles.stream().forEach(p -> {
+            boolean hit = false;
 
-        worldEntities.get(EntityType.SPACESHIP).stream().forEach(s -> {      // check spaceships colllisions
-
-            if (checkBoundariesCollisions((CircleHitBox) s.getHitBox())) {
-                observer.notify(eventFactory.colliedEvent((Spaceship) s, Optional.empty()));
+            if (checkBoundariesCollisions(p.getHitBox())) {
+                hit = true;
             }
 
-            getTargets(List.of(EntityType.OBSTACLE, EntityType.PICKABLE)).stream()
-                    .filter(e -> e.getHitBox().checkCircleCollision((CircleHitBox) s.getHitBox()))
-                    .forEach(e -> eventFactory.colliedEvent((Spaceship) s, Optional.of(e)));
+            for (Spaceship s : spaceships) {
+                if (s.getHitBox().checkCircleCollision(p.getHitBox())) {
+                    observer.notify(eventFactory.spaceshipHittedEvent(s));
+                    hit = true;
+                }
+            }
 
+            for (Obstacle o : obstacles) {
+                if (o.getHitBox().checkCircleCollision(p.getHitBox())) {
+                    observer.notify(eventFactory.obstacleHittedEvent(o));
+                    hit = true;
+                }
+            }
+
+            if (hit) {
+                observer.notify(eventFactory.projectileHitEvent(p));
+            }
         });
     }
 
-    // returns all the entities in game of the types given in input
-    private List<Entity> getTargets(List<EntityType> types) {
-        return worldEntities.entrySet().stream()
-        .filter(entry -> types.stream().anyMatch(t -> t == entry.getKey()))
-        .map(entry -> entry.getValue())
-        .reduce((l1,l2) -> {l1.addAll(l2); return l1;})
-        .get();
+    private void checkSpaceshipInteractions() {
+        for (Spaceship s : spaceships) {
+
+            powerUps.stream()
+                    .filter(p -> p.getHitBox().checkCircleCollision(s.getHitBox()))
+                    .forEach(p -> eventFactory.powerUpEquipEvent(p, s));
+        }
     }
 
     private boolean checkBoundariesCollisions(CircleHitBox hb) {
@@ -97,7 +125,6 @@ public class GameStateImpl implements GameState {
                 || pos.getX() - r < leftSide
                 || pos.getY() + r > upperSide
                 || pos.getY() - r < lowerSide;
-        
     }
 
     /**
@@ -105,37 +132,71 @@ public class GameStateImpl implements GameState {
      */
     @Override
     public boolean isOver() {
-        return worldEntities.get(EntityType.SPACESHIP).size() == 1;  //the game ends when there's only one player left
+        return spaceships.size() == 1;  //the game ends when there's only one player left
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void addEntity(Entity entity) {
-        worldEntities.get(this.getType(entity)).add(entity);
+    public void addSpaceship(Spaceship spaceship) {
+        spaceships.add(spaceship);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void removeEntity(Entity entity) {
-        worldEntities.get(this.getType(entity)).remove(entity); 
+    public void addObstacle(Obstacle obstacle) {
+        obstacles.add(obstacle);
     }
 
-    private EntityType getType(Entity entity) {
-        if (entity instanceof Spaceship) {
-            return EntityType.SPACESHIP;
-        } else if (entity instanceof Projectile) {
-            return EntityType.PROJECTILE;
-        } else if (entity instanceof PowerUp) {
-            return EntityType.PICKABLE;
-        } else if (entity instanceof Projectile) {
-            return EntityType.PROJECTILE;
-        } else {
-            throw new IllegalArgumentException("class not found");
-        }
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addProjectile(Projectile projectile) {
+        projectiles.add(projectile);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addPowerUp(PowerUp powerUp) {
+        powerUps.add(powerUp);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeSpaceship(Spaceship spaceship) {
+        spaceships.remove(spaceship);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeObstacle(Obstacle obstacle) {
+        obstacles.remove(obstacle);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removeProjectile(Projectile projectile) {
+        projectiles.remove(projectile);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void removePowerUp(PowerUp powerUp) {
+        powerUps.remove(powerUp);
     }
     
 }

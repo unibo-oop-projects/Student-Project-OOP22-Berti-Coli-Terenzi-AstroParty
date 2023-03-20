@@ -43,10 +43,9 @@ public class EventFactoryImpl implements EventFactory {
     @Override
     public Event powerUpEquipEvent(PowerUp powerUp, Spaceship spaceship) {
         return state -> {
-            powerUp.pickUp(spaceship);
-            spaceship.equipPowerUp(powerUp);
+            if (spaceship.equipPowerUp(powerUp)) {
+                state.removePowerUp(powerUp);
+            };
         };
-    }
-
-    
+    }    
 }

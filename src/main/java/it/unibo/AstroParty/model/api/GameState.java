@@ -39,26 +39,50 @@ public interface GameState {
 
     /**
      * 
-     * @param s the {@link Spaceship} to add in the game
+     * @param spaceship to be added
      */
-    public void addSpaceship(Spaceship s);
+    public void addSpaceship(Spaceship spaceship);
 
     /**
      * 
-     * @param o the {@link Obstacle} to add in the game
+     * @param obstacle to be added
      */
-    public void addObstacle(Obstacle o);
+    public void addObstacle(Obstacle obstacle);
 
     /**
      * 
-     * @param p the {@link PowerUp}  to add in the game
+     * @param projectile to be added
      */
-    public void addPowerUp(PowerUp p);
-    
+    public void addProjectile(Projectile projectile);
+
     /**
      * 
-     * @param p the {@link Projectile} to add in the game
+     * @param powerUp to be added
      */
-    public void addProjectile(Projectile p);
+    public void addPowerUp(PowerUp powerUp);
+
+    /**
+     * 
+     * @param spaceship to be removed
+     */
+    public void removeSpaceship(Spaceship spaceship);
+
+    /**
+     * 
+     * @param obstacle to be removed
+     */
+    public void removeObstacle(Obstacle obstacle);
+
+    /**
+     * 
+     * @param projectile to be removed
+     */
+    public void removeProjectile(Projectile projectile);
+
+    /**
+     * 
+     * @param powerUp to be removed
+     */
+    public void removePowerUp(PowerUp powerUp);
 
 }

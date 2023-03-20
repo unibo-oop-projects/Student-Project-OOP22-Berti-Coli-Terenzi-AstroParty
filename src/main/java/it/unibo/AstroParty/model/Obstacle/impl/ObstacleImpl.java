@@ -9,10 +9,12 @@ import it.unibo.AstroParty.model.impl.RectangleHitBoxImpl;
 
 public class ObstacleImpl implements Obstacle {
 
-    boolean destroyable, active, harm;
-    Position position;
-    RectangleHitBox hBox;
-    Optional<Timer> timer;
+    private final boolean destroyable, harm;
+    private final Position position;
+    private final RectangleHitBox hBox;
+    private final Optional<Timer> timer;
+
+    private boolean active;
 
     private ObstacleImpl(Position pos, boolean destroyable, boolean harm, Optional<Timer> timer) {
         this.hBox = new RectangleHitBoxImpl(pos, Obstacle.size, Obstacle.size);

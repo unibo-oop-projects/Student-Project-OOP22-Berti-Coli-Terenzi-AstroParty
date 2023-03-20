@@ -9,7 +9,6 @@ import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.PowerUp.api.PowerUpFactory;
 import it.unibo.AstroParty.model.PowerUp.api.SpawnerSettings;
 import it.unibo.AstroParty.model.PowerUp.impl.PowerUpFactoryImpl;
-import it.unibo.AstroParty.model.PowerUp.impl.SpawnerSettingImpl;
 import it.unibo.AstroParty.model.PowerUp.impl.SpawnerSettingsImpl;
 import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
 import it.unibo.AstroParty.model.Spaceship.impl.SpaceshipBuilderImpl;
@@ -95,7 +94,7 @@ public class GameEngineImpl implements GameEngine {
 	protected void processInput() {
 	}
 	
-	protected void updateGame(long timePassedCycle) {
+	protected void updateGame(double timePassedCycle) {
 		gameState.update(timePassedCycle);
 	}
 	

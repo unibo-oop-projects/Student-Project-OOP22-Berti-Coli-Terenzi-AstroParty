@@ -62,7 +62,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 
 	@Override
 	public Position getPosition() {
-		return new Position( this.position.getX() , this.position.getY() );
+		return this.position.copy();
 	}
 
 	@Override

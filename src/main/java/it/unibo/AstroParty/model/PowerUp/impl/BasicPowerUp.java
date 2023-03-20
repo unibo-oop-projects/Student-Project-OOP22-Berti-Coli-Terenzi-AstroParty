@@ -63,12 +63,14 @@ public abstract class BasicPowerUp implements PowerUp {
 		return true;
 	}
 	@Override
+	
 	public boolean isOffensive() {
 		return this.offensive;
 	}
+	
 	@Override
 	public EntityType getType() {
 		return this.type;
 	}
-
+	
 }

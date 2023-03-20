@@ -1,6 +1,7 @@
 package it.unibo.AstroParty.model.api;
 
 import it.unibo.AstroParty.common.Position;
+import it.unibo.AstroParty.graphics.api.GraphicEntity;
 
 /**
  * 
@@ -33,4 +34,6 @@ public interface Entity {
      * @return the {@link PowerUpTypes} of this power up
      */
     public EntityType getType();
+    
+    public GraphicEntity getGraphicComponent() ;
 }

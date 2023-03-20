@@ -59,4 +59,12 @@ public class Position {
 	public String toString() {
 		return Double.toString(x) + ":" + Double.toString(y);
 	}
+
+	/**
+	 * @return a defensive copy of this Position
+	 */
+	public Position copy() {
+		
+		return new Position( this.x , this.y );
+	}
 }

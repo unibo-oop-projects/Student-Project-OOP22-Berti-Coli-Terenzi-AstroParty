@@ -5,7 +5,6 @@ import it.unibo.AstroParty.core.api.GameEngine;
 import it.unibo.AstroParty.graphics.impl.MainPageController;
 import it.unibo.AstroParty.model.Obstacle.api.ObstacleFactory;
 import it.unibo.AstroParty.model.Obstacle.impl.ObstacleFactoryImpl;
-import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.PowerUp.api.PowerUpFactory;
 import it.unibo.AstroParty.model.PowerUp.api.SpawnerSettings;
 import it.unibo.AstroParty.model.PowerUp.impl.PowerUpFactoryImpl;
@@ -13,6 +12,7 @@ import it.unibo.AstroParty.model.PowerUp.impl.SpawnerSettingsImpl;
 import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
 import it.unibo.AstroParty.model.Spaceship.impl.SpaceshipBuilderImpl;
 import it.unibo.AstroParty.model.api.GameState;
+import it.unibo.AstroParty.model.api.PowerUpTypes;
 import it.unibo.AstroParty.model.impl.GameStateImpl;
 
 public class GameEngineImpl implements GameEngine {

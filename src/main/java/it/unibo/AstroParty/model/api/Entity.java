@@ -28,4 +28,9 @@ public interface Entity {
      * @param time in milliseconds
      */
     public void update(double time);
+    
+    /**
+     * @return the {@link PowerUpTypes} of this power up
+     */
+    public EntityType getType();
 }

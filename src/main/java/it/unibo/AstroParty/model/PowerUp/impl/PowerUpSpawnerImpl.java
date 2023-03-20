@@ -7,8 +7,8 @@ import java.util.TimerTask;
 import java.util.stream.Collectors;
 
 import it.unibo.AstroParty.common.Position;
-import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.PowerUp.api.PowerUpFactory;
+import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.PowerUpSpawner;
 
@@ -19,14 +19,14 @@ import it.unibo.AstroParty.model.api.PowerUpSpawner;
  */
 public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	
-	private final Collection<PowerUpTypes> possiblePowerUpTypes;
+	private final Collection<EntityType> possiblePowerUpTypes;
 	private final long SpawnDelay;
 	private GameState world;
 	private PowerUpFactory pUPfactory= new PowerUpFactoryImpl();
 	
 	private Timer timer = new Timer();
 	
-	PowerUpSpawnerImpl(Collection<PowerUpTypes> possiblePowerUpTypes, long spawnDelay){
+	PowerUpSpawnerImpl(Collection<EntityType> possiblePowerUpTypes, long spawnDelay){
 		this.possiblePowerUpTypes = possiblePowerUpTypes;
 		this.SpawnDelay = spawnDelay;
 	}
@@ -58,7 +58,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	 * generate the type of the new Power Up between the active ones in the world
 	 * @return the {@link PowerUpTypes}
 	 */
-	private PowerUpTypes generateType() {
+	private EntityType generateType() {
 		
 		int rand = new Random().nextInt( this.possiblePowerUpTypes.size() );
 		var it = this.possiblePowerUpTypes.iterator();

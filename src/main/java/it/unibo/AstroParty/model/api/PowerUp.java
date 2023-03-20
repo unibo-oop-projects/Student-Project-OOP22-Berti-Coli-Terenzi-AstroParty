@@ -1,7 +1,5 @@
 package it.unibo.AstroParty.model.api;
 
-import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
-
 /**
  * 
  * @author Alessandro Coli
@@ -30,11 +28,6 @@ public interface PowerUp extends Entity {
      * @return true if it is an offensive power up
      */
     public boolean isOffensive();
-    
-    /**
-     * @return the {@link PowerUpTypes} of this power up
-     */
-    public PowerUpTypes getType();
 
     @Override
     public CircleHitBox getHitBox();

@@ -9,6 +9,7 @@ import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.impl.PlayerId;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
 import it.unibo.AstroParty.model.api.CircleHitBox;
+import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
@@ -24,6 +25,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private double speed;								//impostazioni prese dal builder
 	private final PlayerId playerId;
 	private Position position;							// gestione movimento
+	private Position lastPos;
 	private Direction direction = new Direction(1,-0.5);
 	private double angle=0;
 	boolean turning;
@@ -49,12 +51,13 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		this.bulletRegenTime = bulletRegenTime;
 		this.shield = startingShield;
 		this.bullets = this.maxBullets;
+		this.lastPos = this.position;
 	}
 	
 	// Usati dal gameLoop
 	@Override
-	public void setPosition(Position pos) {
-		this.position = pos ;
+	public void resetPosition() {
+		this.position = this.lastPos ;
 	}
 
 	@Override
@@ -214,6 +217,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 */
 	private void move(double timeDiff) {
 		
+		this.lastPos = this.position;
 		this.position = this.position.move( this.direction.multiply( this.speed * timeDiff ) );
 	}
 
@@ -250,6 +254,18 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		if(this.bullets < this.maxBullets) {
 			this.startTimer();
 		}
+	}
+
+	@Override
+	public double getAngle() {
+		
+		return this.angle;
+	}
+
+	@Override
+	public EntityType getType() {
+		
+		return EntityType.SPACESHIP;
 	}
 
 }

@@ -1,4 +1,4 @@
-package it.unibo.AstroParty.model.PowerUp;
+package it.unibo.AstroParty.model.api;
 
 /**
  * 
@@ -6,8 +6,9 @@ package it.unibo.AstroParty.model.PowerUp;
  * 
  * an enum of the possible types of {@link PowerUp} inside AstroParty
  */
-public enum PowerUpTypes {
+public enum EntityType {
 	
+	SPACESHIP,
 	SHIELD,
 	IMMORTALITY,
 	DOUBLESHOT,

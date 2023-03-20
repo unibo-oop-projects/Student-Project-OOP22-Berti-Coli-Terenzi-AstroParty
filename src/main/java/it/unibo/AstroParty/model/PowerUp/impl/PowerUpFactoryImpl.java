@@ -1,8 +1,8 @@
 package it.unibo.AstroParty.model.PowerUp.impl;
 
 import it.unibo.AstroParty.common.Position;
-import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.PowerUp.api.PowerUpFactory;
+import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.PowerUp;
 
 /**
@@ -13,7 +13,7 @@ import it.unibo.AstroParty.model.api.PowerUp;
 public class PowerUpFactoryImpl implements PowerUpFactory {
 
 	@Override
-	public PowerUp createPowerUp(PowerUpTypes type, Position pos) {
+	public PowerUp createPowerUp(EntityType type, Position pos) {
 		PowerUp pUp = null;
 		
 		switch (type) {
@@ -31,7 +31,9 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 					break;
 				case UPGRADEDSPEED:
 					pUp = this.createSpeed(pos);
-					break;			
+					break;
+				default:
+					throw( new UnsupportedOperationException() );			
 		}
 		
 		return pUp;
@@ -39,7 +41,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 	private PowerUp createSpeed(Position pos) {
 		
-		return new BasicPowerUp( pos, true,  PowerUpTypes.UPGRADEDSPEED ) {
+		return new BasicPowerUp( pos, true,  EntityType.UPGRADEDSPEED ) {
 
 
 			private boolean inUse;
@@ -71,7 +73,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 	private PowerUp createDoubleShot(Position pos) {
 		
-		return new BasicPowerUp( pos, true,  PowerUpTypes.DOUBLESHOT ) {
+		return new BasicPowerUp( pos, true,  EntityType.DOUBLESHOT ) {
 
 			private boolean inUse;
 			private double useTime;
@@ -96,7 +98,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 	private PowerUp createImmortality(Position pos) {
 		
-		return new BasicPowerUp( pos, true,  PowerUpTypes.IMMORTALITY ) {
+		return new BasicPowerUp( pos, true,  EntityType.IMMORTALITY ) {
 
 
 			private boolean inUse;
@@ -128,7 +130,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 	private PowerUp createShield(Position pos) {
 		
-		return new BasicPowerUp( pos, false, PowerUpTypes.SHIELD) {
+		return new BasicPowerUp( pos, false, EntityType.SHIELD) {
 
 			@Override
 			public void update(double time) {

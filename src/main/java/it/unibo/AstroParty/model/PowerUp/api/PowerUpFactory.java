@@ -1,7 +1,7 @@
 package it.unibo.AstroParty.model.PowerUp.api;
 
 import it.unibo.AstroParty.common.Position;
-import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
+import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.PowerUp;
 
 /**
@@ -17,5 +17,5 @@ public interface PowerUpFactory {
 	 * @param pos: the position inside the map
 	 * @return the powerup
 	 */
-	public PowerUp createPowerUp(PowerUpTypes type, Position pos);
+	public PowerUp createPowerUp(EntityType type, Position pos);
 }

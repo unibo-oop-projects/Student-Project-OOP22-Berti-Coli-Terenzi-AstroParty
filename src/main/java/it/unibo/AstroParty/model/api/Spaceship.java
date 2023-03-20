@@ -42,6 +42,11 @@ public interface Spaceship extends Entity {
     public void startTurn();
     
     /**
+     * @return the rotation angle relative to the x axis
+     */
+    public double getAngle();
+    
+    /**
      * stop turning
      */
     public void stopTurn();

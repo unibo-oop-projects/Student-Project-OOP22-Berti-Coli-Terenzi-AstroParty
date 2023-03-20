@@ -1,9 +1,9 @@
 package it.unibo.AstroParty.model.PowerUp.impl;
 
 import it.unibo.AstroParty.common.Position;
-import it.unibo.AstroParty.model.PowerUp.PowerUpTypes;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
 import it.unibo.AstroParty.model.api.CircleHitBox;
+import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
 import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
@@ -19,9 +19,9 @@ public abstract class BasicPowerUp implements PowerUp {
 	protected final Position position;
 	protected boolean pickedUp;
 	private final boolean offensive;
-	private final PowerUpTypes type;
+	private final EntityType type;
 	
-	public BasicPowerUp(Position position, boolean offensive, PowerUpTypes type) {
+	public BasicPowerUp(Position position, boolean offensive, EntityType type) {
 		this.position = position;
 		this.offensive = offensive;
 		this.type = type;
@@ -67,7 +67,7 @@ public abstract class BasicPowerUp implements PowerUp {
 		return this.offensive;
 	}
 	@Override
-	public PowerUpTypes getType() {
+	public EntityType getType() {
 		return this.type;
 	}
 

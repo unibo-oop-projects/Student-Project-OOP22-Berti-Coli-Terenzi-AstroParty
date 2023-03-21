@@ -5,18 +5,20 @@ import it.unibo.AstroParty.graphics.api.GameScene;
 import it.unibo.AstroParty.graphics.api.GraphicEntity;
 import it.unibo.AstroParty.input.api.InputControl;
 import it.unibo.AstroParty.input.impl.KeyboardEventsHandler;
+import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-public class GameSceneImpl extends Pane implements GameScene{
+public class GameSceneImpl extends Scene implements GameScene{
 
-    private ImgPaths pathFinder = new ImgPaths();
+    //private ImgPaths pathFinder = new ImgPaths();
+    private Pane pane;
     
-    public GameSceneImpl( ImgPaths finder, InputControl keyController ) {
+    public GameSceneImpl( InputControl keyController ) {
     	
-    	 this.pathFinder = finder;
-    	 
+    	super( new Pane() , 100,100);			// TODO: cambia i 100 nelle dim effettive + setta lo sfondo
+    	this.pane = (Pane) this.getRoot();
     	 KeyboardEventsHandler keyHandler =new KeyboardEventsHandler( keyController );
     	 this.setOnKeyPressed( keyHandler );
     	 this.setOnKeyReleased( keyHandler );
@@ -25,9 +27,9 @@ public class GameSceneImpl extends Pane implements GameScene{
     @Override
     public void renderAll(Collection<GraphicEntity> world) {
     	
-    	this.getChildren().clear();
+    	this.pane.getChildren().clear();
     	
-        world.forEach( e ->  this.getChildren().add( this.paint( e ) ) );
+        world.forEach( e ->  this.pane.getChildren().add( this.paint( e ) ) );
         
     }
 

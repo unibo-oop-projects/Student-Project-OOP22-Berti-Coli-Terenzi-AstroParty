@@ -3,8 +3,8 @@ package it.unibo.AstroParty.graphics.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import it.unibo.AstroParty.graphics.api.GameScene;
-
+import it.unibo.AstroParty.core.api.GameApplication;
+import it.unibo.AstroParty.graphics.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,15 +12,14 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
-public class SettingsController {
+public class SettingsController implements Controller {
 
     private final static String BLANK = "";
     private final static String STARTING_MESSAGE = "Write here your name";
     private final static List<Integer> ROUND_CHOICES = List.of(1, 2, 3);
 
-    private final List<TextField> textAreas;
-    private final GameScene scene;
-
+    private GameApplication app;
+    private List<TextField> textAreas;
     private boolean obstacle, powerUp;
 
     @FXML private TextField nameP1, nameP2, nameP3, nameP4;
@@ -28,8 +27,8 @@ public class SettingsController {
     @FXML private ChoiceBox<Integer> roundSelection;
     @FXML private Button start, back;
 
-    public SettingsController(GameScene scene) {
-        this.scene = scene;
+    public SettingsController(GameApplication app) {
+        this.app = app;
         this.obstacle = false;
         this.powerUp = false;
         this.textAreas = List.of(nameP1, nameP2, nameP3, nameP4);
@@ -55,7 +54,7 @@ public class SettingsController {
      */
     @FXML
     public void backOnClick(ActionEvent event) {
-        scene.renderMainPage();
+        this.app.mainPage();
     }
 
     /**

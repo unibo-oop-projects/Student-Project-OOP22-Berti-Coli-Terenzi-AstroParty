@@ -5,6 +5,7 @@ import java.io.IOException;
 import it.unibo.AstroParty.core.api.GameApplication;
 import it.unibo.AstroParty.graphics.api.Controller;
 import it.unibo.AstroParty.graphics.impl.MainPageController;
+import it.unibo.AstroParty.graphics.impl.ScoreboardController;
 import it.unibo.AstroParty.graphics.impl.SettingsController;
 import it.unibo.AstroParty.graphics.impl.TutorialController;
 import javafx.application.Application;
@@ -104,8 +105,7 @@ public class GameApp extends Application implements GameApplication{
      */
     @Override
     public void scoreboard() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'scoreboard'");
+        this.loadFXML("layouts/Scoreboard.fxml", new ScoreboardController(this));  
     }
 
     /**

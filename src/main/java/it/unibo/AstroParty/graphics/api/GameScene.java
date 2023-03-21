@@ -1,8 +1,11 @@
 package it.unibo.AstroParty.graphics.api;
 
-import it.unibo.AstroParty.graphics.impl.GraphicEntityImpl;
+import java.util.Collection;
+
+import javafx.scene.shape.Rectangle;
 
 public interface GameScene {
-	
-    public void drawEntity( GraphicEntityImpl entity, matchScene view );
+    
+    public Collection<Rectangle> renderAll( Collection<GraphicEntity> world);
+    
 }

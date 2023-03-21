@@ -13,8 +13,12 @@ import javafx.scene.input.KeyEvent;
  */
 public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
 
-	private final InputControl control = null;	//TODO xhi dei due chiama l'altro?
-
+	private final InputControl control ;
+	
+	public KeyboardEventsHandler( InputControl control ){
+		this.control = control;
+	}
+	
 	@Override
 	public void handle(KeyEvent event) {
 		

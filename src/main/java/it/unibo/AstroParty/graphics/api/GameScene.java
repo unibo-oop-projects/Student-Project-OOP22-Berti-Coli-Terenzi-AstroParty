@@ -5,7 +5,7 @@ import java.util.Collection;
 import javafx.scene.shape.Rectangle;
 
 public interface GameScene {
-    
-    public Collection<Rectangle> renderAll( Collection<GraphicEntity> world);
+	
+    public void renderAll( Collection<GraphicEntity> world);
     
 }

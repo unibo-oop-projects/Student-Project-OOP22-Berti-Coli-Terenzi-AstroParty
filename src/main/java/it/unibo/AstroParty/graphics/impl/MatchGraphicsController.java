@@ -1,9 +1,11 @@
 package it.unibo.AstroParty.graphics.impl;
 
-import it.unibo.AstroParty.graphics.api.GameGraphics;
+
+import it.unibo.AstroParty.graphics.api.GameScene;
+import it.unibo.AstroParty.graphics.api.matchScene;
 import it.unibo.AstroParty.input.api.GameId;
 
-public class MatchGraphicsController implements GameGraphics{
+public class MatchGraphicsController implements GameScene{
 	// gli ostacoli sono un problema mio? (credo di si)
 	//TODO trova le immagini e metti i path
 	private static final String PathToP1 = null;
@@ -17,18 +19,11 @@ public class MatchGraphicsController implements GameGraphics{
 	private static final String PathToLaser = null;
 	private static final String PathToBasicObstacle = null;
 	
-	matchScene view =  new matchScene();
-	
 	@Override
-	public void drawEntity(GraphicEntityImpl entity) {
+	public void drawEntity(GraphicEntityImpl entity, matchScene view ) {
 		
-		this.view.addToScene( entity.getPosition(), entity.getSize(), entity.getAngle(), this.getImg( entity ) );
+		view.addToScene( entity.getPosition(), entity.getSize(), entity.getAngle(), this.getImg( entity ) );
 		
-	}
-	
-	public matchScene getScene() { //TODO cambia a scena generale di JAVAFX che viene imnplementata da matchScene
-		
-		return this.view;
 	}
 	
 	private String getImg( GraphicEntityImpl entity ) {

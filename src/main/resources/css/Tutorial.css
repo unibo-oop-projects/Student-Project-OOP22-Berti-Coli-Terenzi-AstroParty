@@ -1,4 +1,29 @@
 #anchor-pane {
-    -fx-background-image: url('../sprites/space_background.jpg');
+    -fx-background-color: #0d0e47;
+}
+
+#wall-preview {
+    -fx-background-image: url('../sprites/obstacle_wall.jpg');
     -fx-background-size: cover;
+}
+
+#laser-preview {
+    -fx-background-image: url('../sprites/obstacle_laser.jpg');
+    -fx-background-size: cover;
+}
+
+#double-projecitle-preview {
+    -fx-background-color: red;
+}
+
+#shield-preview {
+    -fx-background-color: red;
+}
+
+#speed-up-preview {
+    -fx-background-color: red;
+}
+
+#indestructibility-preview {
+    -fx-background-color: red;
 }

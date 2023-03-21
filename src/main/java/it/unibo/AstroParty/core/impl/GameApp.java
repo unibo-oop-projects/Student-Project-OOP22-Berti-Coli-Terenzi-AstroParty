@@ -16,13 +16,14 @@ import javafx.stage.Stage;
 
 public class GameApp extends Application implements GameApplication{
 
-    private static final int SCREEN_SIZE;
+    private static final int WINDOW_SIZE;
 
     private Stage primaryStage;
 
+    // gets the sizes of the current screen and takes the shorter as window size
     static {
         final Rectangle2D bounds = Screen.getPrimary().getBounds();
-        SCREEN_SIZE = (int) Math.min(bounds.getHeight(), bounds.getWidth());
+        WINDOW_SIZE = (int) Math.min(bounds.getHeight(), bounds.getWidth());
     }
 
     /**
@@ -33,8 +34,8 @@ public class GameApp extends Application implements GameApplication{
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("AstroParty");
         
-        this.primaryStage.setWidth(SCREEN_SIZE);
-        this.primaryStage.setHeight(SCREEN_SIZE);
+        this.primaryStage.setWidth(WINDOW_SIZE);
+        this.primaryStage.setHeight(WINDOW_SIZE);
         this.primaryStage.setResizable(false);
         this.primaryStage.setOnCloseRequest(s -> System.exit(0));
 

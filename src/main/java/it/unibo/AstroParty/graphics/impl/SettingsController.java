@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 
 public class SettingsController implements Controller {
 
-    private final static String STARTING_MESSAGE = "your name here";
+    private final static String STARTING_MESSAGE = "il tuo nome qui";
     private final static int MIN_PLAYERS = 2;
     private final static List<Integer> ROUND_CHOICES = List.of(1, 2, 3);
 

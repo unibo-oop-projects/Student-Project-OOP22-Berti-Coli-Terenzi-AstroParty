@@ -53,10 +53,6 @@ public class GameApp extends Application implements GameApplication{
         this.mainPage();
     }
 
-    public static void run(final String[] args) {
-        launch(args);
-    }
-
     private void switchScene(final Scene scene) {
         this.primaryStage.setScene(scene);
         this.primaryStage.show();

@@ -1,6 +1,5 @@
 #anchor-pane {
-    -fx-background-image: url('../sprites/space_background.jpg');
-    -fx-background-size: cover;
+    -fx-background-color: #0d0e47;
 }
 
 #p1-preview {

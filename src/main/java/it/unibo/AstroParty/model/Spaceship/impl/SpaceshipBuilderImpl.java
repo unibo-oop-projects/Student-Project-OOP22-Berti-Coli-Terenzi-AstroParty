@@ -10,6 +10,7 @@ import java.util.HashSet;
 import java.util.stream.Collectors;
 
 import it.unibo.AstroParty.core.impl.PlayerId;
+import it.unibo.AstroParty.input.api.GameId;
 import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
 import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.Spaceship;

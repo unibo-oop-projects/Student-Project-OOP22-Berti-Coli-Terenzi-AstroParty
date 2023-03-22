@@ -11,20 +11,23 @@ import it.unibo.AstroParty.graphics.impl.TutorialController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.transform.Scale;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 public class GameApp extends Application implements GameApplication{
 
     private static final int WINDOW_SIZE;
+    private static final double WINDOW_PERC = 0.75;
 
     private Stage primaryStage;
 
     // gets the sizes of the current screen and takes the shorter as window size
     static {
         final Rectangle2D bounds = Screen.getPrimary().getBounds();
-        WINDOW_SIZE = (int) Math.min(bounds.getHeight(), bounds.getWidth());
+        WINDOW_SIZE = (int) (Math.min(bounds.getHeight(), bounds.getWidth()) * WINDOW_PERC);
     }
 
     /**
@@ -56,12 +59,18 @@ public class GameApp extends Application implements GameApplication{
      * loads a new {@link Scene} from a fxml file
      * @param path to the fxml file
      * @param controller of the scene
+     * @throws IOException
      */
     private void loadFXML(final String path, final Controller controller) {
+        
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(path));
         loader.setController(controller);
+
         try {
-            switchScene(new Scene(loader.load()));
+        Parent root = loader.load();
+        double size = WINDOW_SIZE/root.prefHeight(0);
+        root.getTransforms().add(new Scale(size, size));
+        switchScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
         }

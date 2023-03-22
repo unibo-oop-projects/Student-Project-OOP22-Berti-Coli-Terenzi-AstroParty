@@ -17,8 +17,8 @@
       <TextField id="p3-name" fx:id="nameP4" layoutX="105.0" layoutY="337.0" prefHeight="27.0" prefWidth="174.0" />
       <Button fx:id="start" layoutX="326.0" layoutY="451.0" mnemonicParsing="false" onAction="#startOnClick" prefHeight="35.0" prefWidth="160.0" text="START" />
       <Button fx:id="back" layoutX="13.0" layoutY="451.0" mnemonicParsing="false" onAction="#backOnClick" prefHeight="35.0" prefWidth="160.0" text="BACK" />
-      <CheckBox fx:id="obstacleSelection" contentDisplay="CENTER" layoutX="335.0" layoutY="249.0" mnemonicParsing="false" onAction="#obstacleSelOnClick" text="ostacoli" textFill="WHITE" />
-      <CheckBox fx:id="powerUpSelection" contentDisplay="CENTER" layoutX="335.0" layoutY="220.0" mnemonicParsing="false" onAction="#obstacleSelOnClick" text="power-ups" textFill="WHITE" />
+      <CheckBox fx:id="obstacleSelection" contentDisplay="CENTER" layoutX="335.0" layoutY="249.0" mnemonicParsing="false" text="ostacoli" textFill="WHITE" />
+      <CheckBox fx:id="powerUpSelection" contentDisplay="CENTER" layoutX="335.0" layoutY="220.0" mnemonicParsing="false" text="power-ups" textFill="WHITE" />
       <ChoiceBox fx:id="roundSelection" layoutX="337.0" layoutY="174.0" prefHeight="27.0" prefWidth="122.0" />
       <Label alignment="CENTER" layoutX="37.0" layoutY="14.0" text="IMPOSTAZIONI" textAlignment="CENTER" textFill="WHITE">
          <font>

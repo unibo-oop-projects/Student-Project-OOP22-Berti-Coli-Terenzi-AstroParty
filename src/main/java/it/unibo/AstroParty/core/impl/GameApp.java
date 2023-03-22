@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.transform.Scale;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -21,6 +22,11 @@ public class GameApp extends Application implements GameApplication{
 
     private static final int WINDOW_SIZE;
     private static final double WINDOW_PERC = 0.75;
+    private static final String ICON_PATH = "sprites/icon.png";
+    private static final String MAINPAGE_PATH = "layouts/MainPage.fxml";
+    private static final String TUTORIAL_PATH = "layouts/Tutorial.fxml";
+    private static final String SETTINGS_PATH = "layouts/Settings.fxml";
+    private static final String SCOREBOARD_PATH = "layouts/Scoreboard.fxml";
 
     private Stage primaryStage;
 
@@ -37,6 +43,7 @@ public class GameApp extends Application implements GameApplication{
     public void start(Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("AstroParty");
+        this.primaryStage.getIcons().add(new Image(ClassLoader.getSystemResource(ICON_PATH).toString()));
         
         this.primaryStage.setWidth(WINDOW_SIZE);
         this.primaryStage.setHeight(WINDOW_SIZE);
@@ -59,7 +66,6 @@ public class GameApp extends Application implements GameApplication{
      * loads a new {@link Scene} from a fxml file
      * @param path to the fxml file
      * @param controller of the scene
-     * @throws IOException
      */
     private void loadFXML(final String path, final Controller controller) {
         
@@ -81,7 +87,7 @@ public class GameApp extends Application implements GameApplication{
      */
     @Override
     public void mainPage() {
-        this.loadFXML("layouts/MainPage.fxml", new MainPageController(this));  
+        this.loadFXML(MAINPAGE_PATH, new MainPageController(this));  
     }
 
     /**
@@ -89,7 +95,7 @@ public class GameApp extends Application implements GameApplication{
      */
     @Override
     public void tutorial() {
-        this.loadFXML("layouts/Tutorial.fxml", new TutorialController(this));  
+        this.loadFXML(TUTORIAL_PATH, new TutorialController(this));  
     }
 
     /**
@@ -97,7 +103,7 @@ public class GameApp extends Application implements GameApplication{
      */
     @Override
     public void settings() {
-        this.loadFXML("layouts/Settings.fxml", new SettingsController(this));  
+        this.loadFXML(SETTINGS_PATH, new SettingsController(this));  
     }
 
     /**
@@ -114,7 +120,7 @@ public class GameApp extends Application implements GameApplication{
      */
     @Override
     public void scoreboard() {
-        this.loadFXML("layouts/Scoreboard.fxml", new ScoreboardController(this));  
+        this.loadFXML(SCOREBOARD_PATH, new ScoreboardController(this));  
     }
 
     /**

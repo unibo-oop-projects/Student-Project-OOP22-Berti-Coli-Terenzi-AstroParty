@@ -1,7 +1,5 @@
 package it.unibo.AstroParty.model.api;
 
-import it.unibo.AstroParty.common.Position;
-
 /**
  * Rapresent the boundaries of an {@link Entity}
  */
@@ -12,11 +10,17 @@ public interface HitBox {
      * @param hBox the {@link HitBox} of the other {@link Entity}
      * @return true if the two entities have collied
      */
-    public boolean checkCircleCollision(CircleHitBox hBox);
+    public boolean checkCircleCollision(CircleHitBox hBox);     // at the moment we have to manage only collisions with circle-shaped hitbox
     
-    public Position getUpperLeftCorner();
-    
-    public double getSize();
+    /**
+     * @return the height
+     */
+    public double getHeight();
 
-    // at the moment we have to manage only collisions with circle-shaped hitbox
+    /**
+     * @return the width
+     */
+    public double getWidth();
+
+    
 }

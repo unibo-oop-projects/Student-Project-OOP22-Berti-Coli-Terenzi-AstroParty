@@ -29,7 +29,7 @@ public class GraphicEntityImpl implements GraphicEntity {
 	@Override
 	public Position getPosition() {
 		
-		return this.hitbox.getUpperLeftCorner() ;
+		return this.hitbox.getULCorner() ;
 	}
 
 	@Override

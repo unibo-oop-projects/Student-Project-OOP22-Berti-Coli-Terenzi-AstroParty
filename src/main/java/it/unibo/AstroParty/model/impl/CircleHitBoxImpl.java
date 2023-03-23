@@ -42,5 +42,21 @@ public class CircleHitBoxImpl implements CircleHitBox {
     public Position getCenter() {
         return center;
     }
-    
+
+    /**
+     * {@inheritDoc}}
+     */
+    @Override
+    public double getHeight() {
+        return 2*radius;
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    @Override
+    public double getWidth() {
+        return getHeight();
+    }
+
 }

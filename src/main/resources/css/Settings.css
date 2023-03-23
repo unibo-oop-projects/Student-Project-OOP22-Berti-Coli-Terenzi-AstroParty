@@ -1,7 +1,23 @@
 #anchor-pane {
-    -fx-background-color: #fe6198;
+    -fx-background-color: #0d0e47;
 }
 
-.p1_preview {
-    -fx-background-color: #fe6198;
+#p1-preview {
+    -fx-background-image: url('../sprites/player_red.gif');
+    -fx-background-size: cover;
+}
+
+#p2-preview {
+    -fx-background-image: url('../sprites/player_green.gif');
+    -fx-background-size: cover;
+}
+
+#p3-preview {
+    -fx-background-image: url('../sprites/player_purple.gif');
+    -fx-background-size: cover;
+}
+
+#p4-preview {
+    -fx-background-image: url('../sprites/player_yellow.gif');
+    -fx-background-size: cover;
 }

@@ -1,14 +1,32 @@
 package it.unibo.AstroParty.core.api;
 
-import java.util.Collection;
-
-import it.unibo.AstroParty.model.api.Entity;
-
 public interface GameApplication {
-    public void update(Collection<Entity> entities);
-    public void renderMainPage();
-    public void renderTutorial();
-    public void renderSettings();
-    public void renderScoreboard();
-    public void renderGameOver();
+
+    /**
+     * loads and set the main page
+     */
+    public void mainPage();
+
+    /**
+     * loads and set the tutorial page
+     */
+    public void tutorial();
+
+    /**
+     * loads and set the settings page
+     */
+    public void settings();
+
+    // TODO 
+    public void game();
+
+    /**
+     * loads and set the scoreboard page
+     */
+    public void scoreboard();
+
+    /**
+     * loads and set the game-over page
+     */
+    public void gameOver();
 }

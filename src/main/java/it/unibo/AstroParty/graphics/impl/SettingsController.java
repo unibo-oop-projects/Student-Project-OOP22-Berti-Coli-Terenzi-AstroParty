@@ -3,8 +3,8 @@ package it.unibo.AstroParty.graphics.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import it.unibo.AstroParty.graphics.api.GameScene;
-
+import it.unibo.AstroParty.core.api.GameApplication;
+import it.unibo.AstroParty.graphics.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,27 +12,29 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 
-public class SettingsController {
+public class SettingsController implements Controller {
 
-    private final static String BLANK = "";
-    private final static String STARTING_MESSAGE = "Write here your name";
+    private final static String STARTING_MESSAGE = "il tuo nome qui";
+    private final static int MIN_PLAYERS = 2;
     private final static List<Integer> ROUND_CHOICES = List.of(1, 2, 3);
 
-    private final List<TextField> textAreas;
-    private final GameScene scene;
+    private GameApplication app;
+    private List<TextField> nameFields;
 
-    private boolean obstacle, powerUp;
+    @FXML
+    private TextField nameP1, nameP2, nameP3, nameP4;
 
-    @FXML private TextField nameP1, nameP2, nameP3, nameP4;
-    @FXML private CheckBox obstacleSelection, powerUpSelection;
-    @FXML private ChoiceBox<Integer> roundSelection;
-    @FXML private Button start, back;
+    @FXML
+    private CheckBox obstacleSelection, powerUpSelection;
 
-    public SettingsController(GameScene scene) {
-        this.scene = scene;
-        this.obstacle = false;
-        this.powerUp = false;
-        this.textAreas = List.of(nameP1, nameP2, nameP3, nameP4);
+    @FXML
+    private ChoiceBox<Integer> roundSelection;
+
+    @FXML
+    private Button start, back;
+
+    public SettingsController(GameApplication app) {
+        this.app = app;
     }
 
     /**
@@ -41,11 +43,21 @@ public class SettingsController {
      */
     @FXML
     public void startOnClick(ActionEvent event) {
-        List<String> players = textAreas.stream()
+        List<String> players = nameFields.stream()
                 .map(t -> t.getText())
-                .filter(n -> n != BLANK && n != STARTING_MESSAGE)
+                .filter(n -> !n.isBlank())
                 .collect(Collectors.toList());
-        int round = roundSelection.getValue();
+        if (players.size() < MIN_PLAYERS) {
+            nameFields.stream().forEach(t -> t.setStyle("-fx-border-color: " + (t.getText().isBlank() ? "red" : "black")));
+        }
+        int rounds = roundSelection.getValue();
+        boolean obstacle = obstacleSelection.isSelected();
+        boolean powerUp = powerUpSelection.isSelected();
+        
+        System.out.println("Players: " + players.toString());
+        System.out.println("Rounds: " + rounds
+                + " Obstacle: " + (obstacle ? "yes" : "no")
+                + " PowerUp: " + (powerUp ? "yes" : "no"));
         // TODO: send the player list and all the other settings to the GameEngine
     }
 
@@ -55,30 +67,14 @@ public class SettingsController {
      */
     @FXML
     public void backOnClick(ActionEvent event) {
-        scene.renderMainPage();
-    }
-
-    /**
-     * event handler for the obstacle {@link CheckBox}
-     * @param event
-     */
-    @FXML
-    public void obstacleSelOnClick(ActionEvent event) {
-       obstacle = !obstacle;
-    }
-
-    /**
-     * event handler for the power-up {@link CheckBox}
-     * @param event
-     */
-    @FXML
-    public void powerUpSelOnClick(ActionEvent event) {
-       powerUp = !powerUp;
+        this.app.mainPage();
     }
 
     public void initialize() {
-        textAreas.forEach(t -> t.setText(STARTING_MESSAGE));
+        nameFields = List.of(nameP1, nameP2, nameP3, nameP4);
+        nameFields.stream().forEach(t -> t.setPromptText(STARTING_MESSAGE));
         roundSelection.getItems().addAll(ROUND_CHOICES);
+        roundSelection.setValue(ROUND_CHOICES.get(0));
     }
 
 }

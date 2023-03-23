@@ -1,13 +1,12 @@
 package it.unibo.AstroParty.graphics.impl;
 
-import it.unibo.AstroParty.graphics.api.GameScene;
+import it.unibo.AstroParty.core.api.GameApplication;
+import it.unibo.AstroParty.graphics.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class MainPageController {
-
-    private final GameScene scene;
+public class MainPageController implements Controller {
 
     @FXML
     private Button play;
@@ -15,8 +14,10 @@ public class MainPageController {
     @FXML
     private Button tutorial;
 
-    public MainPageController(GameScene scene) {
-        this.scene = scene;
+    private GameApplication app;
+
+    public MainPageController(GameApplication app) {
+        this.app = app;
     }
 
     /**
@@ -25,7 +26,7 @@ public class MainPageController {
      */
     @FXML
     public void playOnClick(ActionEvent event) {
-        scene.renderSettings();
+        this.app.settings();
     }
 
     /**
@@ -34,7 +35,7 @@ public class MainPageController {
      */
     @FXML
     public void tutorialOnClick(ActionEvent event) {
-        scene.renderTutorial();
+        this.app.tutorial();
     }
 }
 

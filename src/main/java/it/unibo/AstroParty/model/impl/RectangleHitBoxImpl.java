@@ -1,7 +1,10 @@
 package it.unibo.AstroParty.model.impl;
 
 import it.unibo.AstroParty.common.Position;
+import it.unibo.AstroParty.graphics.api.GraphicEntity;
+import it.unibo.AstroParty.graphics.impl.GraphicEntityImpl;
 import it.unibo.AstroParty.model.api.CircleHitBox;
+import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.RectangleHitBox;
 
 public class RectangleHitBoxImpl implements RectangleHitBox {
@@ -93,6 +96,12 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
     @Override
     public double getWidth() {
         return width;
+    }
+
+    @Override
+    public GraphicEntity getGraphicComponent(EntityType type) {
+
+        return new GraphicEntityImpl(DRCorner, height, height, type);
     }
     
 }

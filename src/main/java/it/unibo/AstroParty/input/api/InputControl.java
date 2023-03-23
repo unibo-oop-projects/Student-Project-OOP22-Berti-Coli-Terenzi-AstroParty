@@ -1,8 +1,5 @@
 package it.unibo.AstroParty.input.api;
 
-import it.unibo.AstroParty.common.Pair;
-import it.unibo.AstroParty.input.impl.InputCommand;
-
 /** 
  * @author Alessandro Coli
  *	

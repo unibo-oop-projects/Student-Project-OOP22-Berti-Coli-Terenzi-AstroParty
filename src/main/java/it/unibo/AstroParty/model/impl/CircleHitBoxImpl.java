@@ -1,7 +1,10 @@
 package it.unibo.AstroParty.model.impl;
 
 import it.unibo.AstroParty.common.Position;
+import it.unibo.AstroParty.graphics.api.GraphicEntity;
+import it.unibo.AstroParty.graphics.impl.GraphicEntityImpl;
 import it.unibo.AstroParty.model.api.CircleHitBox;
+import it.unibo.AstroParty.model.api.EntityType;
 
 public class CircleHitBoxImpl implements CircleHitBox {
 
@@ -57,6 +60,12 @@ public class CircleHitBoxImpl implements CircleHitBox {
     @Override
     public double getWidth() {
         return getHeight();
+    }
+
+    @Override
+    public GraphicEntity getGraphicComponent( EntityType type ) {
+
+        return new GraphicEntityImpl(center.add( new Position ( -radius, -radius) ), radius, radius, type);
     }
 
 }

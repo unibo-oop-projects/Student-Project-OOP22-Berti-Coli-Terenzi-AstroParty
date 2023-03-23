@@ -1,5 +1,7 @@
 package it.unibo.AstroParty.model.api;
 
+import it.unibo.AstroParty.graphics.api.GraphicEntity;
+
 /**
  * Rapresent the boundaries of an {@link Entity}
  */
@@ -21,6 +23,8 @@ public interface HitBox {
      * @return the width
      */
     public double getWidth();
+
+    public GraphicEntity getGraphicComponent(EntityType type);
 
     
 }

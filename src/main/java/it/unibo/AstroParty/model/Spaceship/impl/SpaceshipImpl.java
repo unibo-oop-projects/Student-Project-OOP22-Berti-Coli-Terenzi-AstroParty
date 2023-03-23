@@ -8,7 +8,6 @@ import it.unibo.AstroParty.common.Direction;
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.impl.PlayerId;
 import it.unibo.AstroParty.graphics.api.GraphicEntity;
-import it.unibo.AstroParty.graphics.impl.GraphicEntityImpl;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
 import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.EntityType;
@@ -92,8 +91,10 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	
 	@Override
 	public GraphicEntity getGraphicComponent() {
-		
-		return new GraphicEntityImpl( this.getHitBox(), 0, EntityType.SPACESHIP, this.playerId.getGameId() );
+		GraphicEntity view = this.getHitBox().getGraphicComponent( EntityType.SPACESHIP );
+		view.setAngle(angle);
+		view.setId( this.playerId.getGameId() );
+		return view;
 	}
 
 	public void update(double time) {

@@ -17,7 +17,7 @@ public class GameSceneImpl extends Scene implements GameScene{
     
     public GameSceneImpl( InputControl keyController ) {
     	
-    	super( new Pane() , 100,100);			// TODO: cambia i 100 nelle dim effettive + setta lo sfondo
+    	super( new Pane() , 100,100);			
     	this.pane = (Pane) this.getRoot();
     	 KeyboardEventsHandler keyHandler =new KeyboardEventsHandler( keyController );
     	 this.setOnKeyPressed( keyHandler );
@@ -35,7 +35,7 @@ public class GameSceneImpl extends Scene implements GameScene{
 
     private Rectangle paint(GraphicEntity  entity) {
 
-		Rectangle view = new Rectangle(entity.getPosition().getX(), entity.getPosition().getY(), entity.getSize(), entity.getSize() ); // size e' relativo, va quindi moltiplicato per la dim assoluta
+		Rectangle view = new Rectangle(entity.getPosition().getX(), entity.getPosition().getY(), entity.getLength() , entity.getHeight() ); // size e' relativo, va quindi moltiplicato per la dim assoluta
 		view.setRotate( entity.getAngle() );
 		// Image img = new Image( this.pathFinder.getImg( entity ) );
 		// view.setFill(new ImagePattern(img));

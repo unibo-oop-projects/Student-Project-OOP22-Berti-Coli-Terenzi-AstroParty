@@ -7,8 +7,11 @@ import java.util.List;
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.Entity;
+import it.unibo.AstroParty.model.api.Event;
 import it.unibo.AstroParty.model.api.EventFactory;
 import it.unibo.AstroParty.model.api.GameState;
+import it.unibo.AstroParty.model.api.Observable;
+import it.unibo.AstroParty.model.api.Observer;
 import it.unibo.AstroParty.model.api.Obstacle;
 import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Projectile;
@@ -17,22 +20,25 @@ import it.unibo.AstroParty.model.api.Spaceship;
 /**
  * implementation of {@link GameState}
  */
-public class GameStateImpl implements GameState {
+public class GameStateImpl implements GameState, Observable {
 
     private final List<Spaceship> spaceships;
     private final List<Obstacle> obstacles;
     private final List<Projectile> projectiles;
     private final List<PowerUp> powerUps;
+    private final List<Observer> observers;
     private final EventFactory eventFactory;
-    private final CollisionObserver observer;
+    private final CollisionObserver collisionObserver;
 
     public GameStateImpl() {
         spaceships = new ArrayList<>();
         obstacles = new ArrayList<>();
         projectiles = new ArrayList<>();
         powerUps = new ArrayList<>();
+        observers = new ArrayList<>();
         eventFactory = new EventFactoryImpl();
-        observer = new CollisionObserver();
+        collisionObserver = new CollisionObserver();
+        registerObserver(collisionObserver);
     }
 
     /**
@@ -59,12 +65,12 @@ public class GameStateImpl implements GameState {
 
         checkPlayerMovement();
         
-        observer.manageEvents(this);    // manage movement events
+        collisionObserver.manageEvents(this);    // manage movement events
         
         checkProjectileInteractions();
         checkSpaceshipInteractions();
         
-        observer.manageEvents(this);    // manage interaction events
+        collisionObserver.manageEvents(this);    // manage interaction events
     }
 
     private void checkPlayerMovement() {
@@ -75,7 +81,7 @@ public class GameStateImpl implements GameState {
                     || spaceships.stream()
                         .filter(targetSpaceship -> !targetSpaceship.equals(s))
                         .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))) {
-                observer.notify(eventFactory.SpaceshipColliedEvent(s));
+                notifyObservers(eventFactory.SpaceshipColliedEvent(s));
             }
         });
     }
@@ -90,20 +96,20 @@ public class GameStateImpl implements GameState {
 
             for (Spaceship s : spaceships) {
                 if (s.getHitBox().checkCircleCollision(p.getHitBox())) {
-                    observer.notify(eventFactory.spaceshipHittedEvent(s));
+                    notifyObservers(eventFactory.spaceshipHittedEvent(s));
                     hit = true;
                 }
             }
 
             for (Obstacle o : obstacles) {
                 if (o.getHitBox().checkCircleCollision(p.getHitBox())) {
-                    observer.notify(eventFactory.obstacleHittedEvent(o));
+                    notifyObservers(eventFactory.obstacleHittedEvent(o));
                     hit = true;
                 }
             }
 
             if (hit) {
-                observer.notify(eventFactory.projectileHitEvent(p));
+                notifyObservers(eventFactory.projectileHitEvent(p));
             }
         });
     }
@@ -197,6 +203,23 @@ public class GameStateImpl implements GameState {
     @Override
     public void removePowerUp(PowerUp powerUp) {
         powerUps.remove(powerUp);
+    }
+
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void unregisterObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(Event event) {
+        for (Observer o : observers) {
+            o.notify(event);
+        }
     }
     
 }

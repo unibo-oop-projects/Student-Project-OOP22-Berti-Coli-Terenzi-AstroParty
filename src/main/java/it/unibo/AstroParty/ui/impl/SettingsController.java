@@ -1,10 +1,10 @@
-package it.unibo.AstroParty.graphics.impl;
+package it.unibo.AstroParty.ui.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import it.unibo.AstroParty.core.api.GameApplication;
-import it.unibo.AstroParty.graphics.api.Controller;
+import it.unibo.AstroParty.core.api.View;
+import it.unibo.AstroParty.ui.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -18,7 +18,7 @@ public class SettingsController implements Controller {
     private final static int MIN_PLAYERS = 2;
     private final static List<Integer> ROUND_CHOICES = List.of(1, 2, 3);
 
-    private GameApplication app;
+    private View app;
     private List<TextField> nameFields;
 
     @FXML
@@ -33,7 +33,7 @@ public class SettingsController implements Controller {
     @FXML
     private Button start, back;
 
-    public SettingsController(GameApplication app) {
+    public SettingsController(View app) {
         this.app = app;
     }
 
@@ -67,7 +67,11 @@ public class SettingsController implements Controller {
      */
     @FXML
     public void backOnClick(ActionEvent event) {
-        this.app.mainPage();
+        try {
+            this.app.switchScene(app.getSceneFactory().createMain());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void initialize() {

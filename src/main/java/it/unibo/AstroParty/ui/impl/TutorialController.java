@@ -1,7 +1,7 @@
-package it.unibo.AstroParty.graphics.impl;
+package it.unibo.AstroParty.ui.impl;
 
-import it.unibo.AstroParty.core.api.GameApplication;
-import it.unibo.AstroParty.graphics.api.Controller;
+import it.unibo.AstroParty.core.api.View;
+import it.unibo.AstroParty.ui.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,9 +11,9 @@ public class TutorialController implements Controller {
     @FXML
     private Button back;
 
-    private GameApplication app;
+    private View app;
 
-    public TutorialController(GameApplication app) {
+    public TutorialController(View app) {
         this.app = app;
     }
 
@@ -23,7 +23,11 @@ public class TutorialController implements Controller {
      */
     @FXML
     public void backOnClick(ActionEvent event) {
-        this.app.mainPage();
+        try {
+            this.app.switchScene(app.getSceneFactory().createMain());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

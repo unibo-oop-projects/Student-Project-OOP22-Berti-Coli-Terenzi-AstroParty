@@ -1,7 +1,7 @@
-package it.unibo.AstroParty.graphics.impl;
+package it.unibo.AstroParty.ui.impl;
 
-import it.unibo.AstroParty.core.api.GameApplication;
-import it.unibo.AstroParty.graphics.api.Controller;
+import it.unibo.AstroParty.core.api.View;
+import it.unibo.AstroParty.ui.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,9 +15,9 @@ public class ScoreboardController implements Controller {
     @FXML
     private Button next;
 
-    private GameApplication app;
+    private View app;
 
-    public ScoreboardController(GameApplication app) {
+    public ScoreboardController(View app) {
         this.app = app;
     }
 
@@ -27,7 +27,11 @@ public class ScoreboardController implements Controller {
      */
     @FXML
     public void backOnClick(ActionEvent event) {
-        this.app.game();
+        try {
+            this.app.switchScene(app.getSceneFactory().createGame());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

@@ -22,11 +22,11 @@ public class ScoreboardController implements Controller {
     }
 
     /**
-     * event handler for "BACK" {@link Button}
+     * event handler for "NEXT" {@link Button}
      * @param event
      */
     @FXML
-    public void backOnClick(ActionEvent event) {
+    public void nextOnClick(ActionEvent event) {
         try {
             this.app.switchScene(app.getSceneFactory().createGame());
         } catch (Exception e) {

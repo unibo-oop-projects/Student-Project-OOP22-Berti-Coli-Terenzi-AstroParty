@@ -1,10 +1,13 @@
 package it.unibo.AstroParty.graphics.impl;
 
 import java.util.Collection;
+import java.util.HashSet;
+
 import it.unibo.AstroParty.graphics.api.GameScene;
 import it.unibo.AstroParty.graphics.api.GraphicEntity;
 import it.unibo.AstroParty.input.api.InputControl;
 import it.unibo.AstroParty.input.impl.KeyboardEventsHandler;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -25,13 +28,21 @@ public class GameSceneImpl extends Scene implements GameScene{
     }
 
     @Override
-    public void renderAll(Collection<GraphicEntity> world) {
-    	
-    	this.pane.getChildren().clear();
-    	
-        world.forEach( e ->  this.pane.getChildren().add( this.paint( e ) ) );
-        
-    }
+    public void renderAll(Collection<GraphicEntity> world) { 
+
+        Platform.runLater( new Runnable(){ 
+
+            public void run(){ 
+
+                Collection<Rectangle> set = new HashSet<>();;
+				world.forEach( e -> set.add( paint( e ) ) ); 
+
+                pane.getChildren().clear(); 
+                pane.getChildren().addAll(set);
+            } 
+        } );
+
+    } 
 
     private Rectangle paint(GraphicEntity  entity) {
 

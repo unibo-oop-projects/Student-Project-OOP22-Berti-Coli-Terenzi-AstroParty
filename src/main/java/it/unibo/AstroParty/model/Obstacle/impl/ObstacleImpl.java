@@ -107,8 +107,7 @@ public class ObstacleImpl implements Obstacle {
 
     @Override
     public GraphicEntity getGraphicComponent() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getGraphicComponent'");
+        return hBox.getGraphicComponent(type);
     }
     
 }

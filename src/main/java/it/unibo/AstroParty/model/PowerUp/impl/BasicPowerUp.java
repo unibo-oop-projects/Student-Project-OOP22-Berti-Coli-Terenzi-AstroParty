@@ -1,6 +1,7 @@
 package it.unibo.AstroParty.model.PowerUp.impl;
 
 import it.unibo.AstroParty.common.Position;
+import it.unibo.AstroParty.graphics.api.GraphicEntity;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
 import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.EntityType;
@@ -71,6 +72,11 @@ public abstract class BasicPowerUp implements PowerUp {
 	@Override
 	public EntityType getType() {
 		return this.type;
+	}
+
+	@Override
+	public GraphicEntity getGraphicComponent(){
+		return this.getHitBox().getGraphicComponent( this.type );
 	}
 	
 }

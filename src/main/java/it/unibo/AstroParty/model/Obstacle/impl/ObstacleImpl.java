@@ -3,6 +3,8 @@ package it.unibo.AstroParty.model.Obstacle.impl;
 import java.util.Optional;
 
 import it.unibo.AstroParty.common.Position;
+import it.unibo.AstroParty.graphics.api.GraphicEntity;
+import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.Obstacle;
 import it.unibo.AstroParty.model.api.RectangleHitBox;
 import it.unibo.AstroParty.model.impl.RectangleHitBoxImpl;
@@ -12,15 +14,17 @@ public class ObstacleImpl implements Obstacle {
     private final boolean destroyable, harm;
     private final Position position;
     private final RectangleHitBox hBox;
+    private final EntityType type;
     private final Optional<Timer> timer;
 
     private boolean active;
 
-    private ObstacleImpl(Position pos, boolean destroyable, boolean harm, Optional<Timer> timer) {
+    private ObstacleImpl(Position pos, boolean destroyable, boolean harm, EntityType type, Optional<Timer> timer) {
         this.hBox = new RectangleHitBoxImpl(pos, Obstacle.size, Obstacle.size);
         this.position = pos;
         this.destroyable = destroyable;
         this.harm = harm;
+        this.type = type;
         this.active = true;
         this.timer = timer;
     }
@@ -32,8 +36,8 @@ public class ObstacleImpl implements Obstacle {
      * @param harm true if the obstacle is harmful
      * @param timer a timer that manages the changing of {@code active}
      */
-    public ObstacleImpl(Position pos, boolean destroyable, boolean harm, Timer timer) {
-        this(pos, destroyable, harm, Optional.of(timer));
+    public ObstacleImpl(Position pos, boolean destroyable, boolean harm, EntityType type, Timer timer) {
+        this(pos, destroyable, harm, type, Optional.of(timer));
     }
 
     /**
@@ -42,8 +46,8 @@ public class ObstacleImpl implements Obstacle {
      * @param destroyable true if the obstacle can be destroyed
      * @param harm true if the obstacle is harmful
      */
-    public ObstacleImpl(Position pos, boolean destroyable, boolean harm) {
-        this(pos, destroyable, harm, Optional.empty());
+    public ObstacleImpl(Position pos, boolean destroyable, boolean harm, EntityType type) {
+        this(pos, destroyable, harm, type, Optional.empty());
     }
 
     /**
@@ -94,6 +98,16 @@ public class ObstacleImpl implements Obstacle {
     @Override
     public RectangleHitBox getHitBox() {
         return hBox;
+    }
+
+    @Override
+    public EntityType getType() {
+        return type;
+    }
+
+    @Override
+    public GraphicEntity getGraphicComponent() {
+        return hBox.getGraphicComponent(type);
     }
     
 }

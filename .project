@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>AstrOOParty</name>
-	<comment></comment>
+	<name>sample-javafx-project</name>
+	<comment>Project OOP22-AstroParty created by Buildship.</comment>
 	<projects>
 	</projects>
 	<buildSpec>

@@ -1,5 +1,8 @@
 package it.unibo.AstroParty.core.impl;
 
+import java.util.List;
+
+import it.unibo.AstroParty.core.api.GameEngine;
 import it.unibo.AstroParty.core.api.View;
 import it.unibo.AstroParty.ui.api.SceneFactory;
 import it.unibo.AstroParty.ui.impl.SceneFactoryImpl;
@@ -68,5 +71,19 @@ public class GameApp extends Application implements View {
      */
     public SceneFactory getSceneFactory() {
         return sceneFactory;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void start(List<String> players, boolean obstacle, boolean powerup, int rounds) {
+        GameEngine engine = new GameEngineImpl(this, players, obstacle, powerup, rounds);
+        new Thread((Runnable) engine).start();
+        try {
+            this.switchScene(sceneFactory.createGame());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

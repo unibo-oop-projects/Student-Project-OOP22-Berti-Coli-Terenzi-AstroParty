@@ -11,10 +11,10 @@ public class TutorialController implements Controller {
     @FXML
     private Button back;
 
-    private View app;
+    private View view;
 
-    public TutorialController(View app) {
-        this.app = app;
+    public TutorialController(View view) {
+        this.view = view;
     }
 
     /**
@@ -24,7 +24,7 @@ public class TutorialController implements Controller {
     @FXML
     public void backOnClick(ActionEvent event) {
         try {
-            this.app.switchScene(app.getSceneFactory().createMain());
+            this.view.switchScene(view.getSceneFactory().createMain());
         } catch (Exception e) {
             e.printStackTrace();
         }

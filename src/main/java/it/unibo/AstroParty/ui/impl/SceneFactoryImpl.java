@@ -1,5 +1,7 @@
 package it.unibo.AstroParty.ui.impl;
 
+import java.util.List;
+
 import it.unibo.AstroParty.core.api.View;
 import it.unibo.AstroParty.core.impl.GameApp;
 import it.unibo.AstroParty.ui.api.Controller;
@@ -58,8 +60,8 @@ public class SceneFactoryImpl implements SceneFactory {
      * {@inheritDoc}
      */
     @Override
-    public Scene createScoreboard() throws Exception {
-        return loadFXML("layouts/Scoreboard.fxml", new ScoreboardController(view));
+    public Scene createScoreboard(List<Integer> scores, int rounds) throws Exception {
+        return loadFXML("layouts/Scoreboard.fxml", new ScoreboardController(view, scores, rounds));
     }
 
     /**

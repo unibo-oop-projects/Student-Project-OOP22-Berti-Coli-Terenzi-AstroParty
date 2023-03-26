@@ -1,5 +1,7 @@
 package it.unibo.AstroParty.ui.api;
 
+import java.util.List;
+
 import javafx.scene.Scene;
 
 public interface SceneFactory {
@@ -29,10 +31,12 @@ public interface SceneFactory {
     public Scene createGame() throws Exception;
 
     /**
+     * @param scores a list with the number of victories of each player
+     * @param rounds the number of rounds that a player have to win for winning the game
      * @return a new scoreboard scene
      * @throws Exception
      */
-    public Scene createScoreboard() throws Exception;
+    public Scene createScoreboard(List<Integer> scores, int rounds) throws Exception;
 
     /**
      * @return a new game over scene

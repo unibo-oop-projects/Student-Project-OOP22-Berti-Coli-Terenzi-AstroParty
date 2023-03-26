@@ -14,10 +14,10 @@ public class MainPageController implements Controller {
     @FXML
     private Button tutorial;
 
-    private View app;
+    private View view;
 
-    public MainPageController(View app) {
-        this.app = app;
+    public MainPageController(View view) {
+        this.view = view;
     }
 
     /**
@@ -27,7 +27,7 @@ public class MainPageController implements Controller {
     @FXML
     public void playOnClick(ActionEvent event) {
         try {
-            this.app.switchScene(app.getSceneFactory().createSettings());
+            this.view.switchScene(view.getSceneFactory().createSettings());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -40,7 +40,7 @@ public class MainPageController implements Controller {
     @FXML
     public void tutorialOnClick(ActionEvent event) {
         try {
-            this.app.switchScene(app.getSceneFactory().createTutorial());
+            this.view.switchScene(view.getSceneFactory().createTutorial());
         } catch (Exception e) {
             e.printStackTrace();
         }

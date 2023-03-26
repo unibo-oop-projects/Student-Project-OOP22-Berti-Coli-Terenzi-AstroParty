@@ -18,7 +18,7 @@ public class SettingsController implements Controller {
     private final static int MIN_PLAYERS = 2;
     private final static List<Integer> ROUND_CHOICES = List.of(1, 2, 3);
 
-    private View app;
+    private View view;
     private List<TextField> nameFields;
 
     @FXML
@@ -33,8 +33,8 @@ public class SettingsController implements Controller {
     @FXML
     private Button start, back;
 
-    public SettingsController(View app) {
-        this.app = app;
+    public SettingsController(View view) {
+        this.view = view;
     }
 
     /**
@@ -49,16 +49,12 @@ public class SettingsController implements Controller {
                 .collect(Collectors.toList());
         if (players.size() < MIN_PLAYERS) {
             nameFields.stream().forEach(t -> t.setStyle("-fx-border-color: " + (t.getText().isBlank() ? "red" : "black")));
-        }
-        int rounds = roundSelection.getValue();
-        boolean obstacle = obstacleSelection.isSelected();
-        boolean powerUp = powerUpSelection.isSelected();
-        
-        System.out.println("Players: " + players.toString());
-        System.out.println("Rounds: " + rounds
-                + " Obstacle: " + (obstacle ? "yes" : "no")
-                + " PowerUp: " + (powerUp ? "yes" : "no"));
-        // TODO: send the player list and all the other settings to the GameEngine
+        } else {
+            view.start(players,
+                    obstacleSelection.isSelected(),
+                    powerUpSelection.isSelected(),
+                    roundSelection.getValue());
+        }        
     }
 
     /**
@@ -68,7 +64,7 @@ public class SettingsController implements Controller {
     @FXML
     public void backOnClick(ActionEvent event) {
         try {
-            this.app.switchScene(app.getSceneFactory().createMain());
+            this.view.switchScene(view.getSceneFactory().createMain());
         } catch (Exception e) {
             e.printStackTrace();
         }

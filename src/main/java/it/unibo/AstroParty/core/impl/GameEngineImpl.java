@@ -1,7 +1,10 @@
 package it.unibo.AstroParty.core.impl;
 
+import java.util.List;
+
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.api.GameEngine;
+import it.unibo.AstroParty.core.api.View;
 import it.unibo.AstroParty.graphics.impl.MainPageController;
 import it.unibo.AstroParty.model.Obstacle.api.ObstacleFactory;
 import it.unibo.AstroParty.model.Obstacle.impl.ObstacleFactoryImpl;
@@ -15,7 +18,7 @@ import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.PowerUpTypes;
 import it.unibo.AstroParty.model.impl.GameStateImpl;
 
-public class GameEngineImpl implements GameEngine {
+public class GameEngineImpl implements GameEngine, Runnable {
 	
 	private static final int FPS = 60;
 	private MainPageController view;
@@ -27,7 +30,7 @@ public class GameEngineImpl implements GameEngine {
 	private double x1 = 0,x2 = 0,y1 = 0,y2 = 0,lx = 0,ly = 0,a1 = 0,a2 = 0,b1 = 0,b2 = 0,c1 = 0,c2 = 0,d1 = 0,d2 = 0;
 	
 	//Constructor
-	public GameEngineImpl() {
+	public GameEngineImpl(View view, List<String> players, boolean obstacle, boolean powerup, int rounds) {
 	}
 	
 	public void init() {
@@ -100,6 +103,12 @@ public class GameEngineImpl implements GameEngine {
 	
 	protected void render() {
 		//TODO view.render(timePassedCycle)
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'run'");
 	}
 
 }

@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import it.unibo.AstroParty.common.Direction;
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.impl.PlayerId;
+import it.unibo.AstroParty.graphics.api.GraphicEntity;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
 import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.EntityType;
@@ -85,6 +86,15 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	
 	public PlayerId getId() {
 		return this.playerId;
+		
+	}
+	
+	@Override
+	public GraphicEntity getGraphicComponent() {
+		GraphicEntity view = this.getHitBox().getGraphicComponent( EntityType.SPACESHIP );
+		view.setAngle(angle);
+		view.setId( this.playerId.getGameId() );
+		return view;
 	}
 
 	public void update(double time) {
@@ -95,6 +105,8 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		
 		this.move(time);
 	}
+	
+	
 
 	public void shoot() {
 		
@@ -267,5 +279,4 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		
 		return EntityType.SPACESHIP;
 	}
-
 }

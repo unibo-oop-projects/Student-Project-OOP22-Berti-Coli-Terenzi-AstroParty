@@ -19,10 +19,15 @@ public interface GraphicEntity {
 	public double getAngle();
 	
 	/**
-	 * @return the size of the entity to be drawn
+	 * @return the height of the entity to be drawn
 	 */
-	public double getSize();
-	
+	public double getHeight();
+
+	/**
+	 * @return the length of the entity to be drawn
+	 */
+	public double getLength();
+
 	/**
 	 * @return the {@linkplain EntityType} of the entity to be drawn
 	 */
@@ -33,4 +38,14 @@ public interface GraphicEntity {
 	 * @return the id to recognize the spaceship
 	 */
 	public Optional<GameId> getId();
+
+	/**
+	 * @param set the gameId od the entity to id
+	 */
+	public void setId( GameId id );
+
+	/**
+	 * @param set the rotation angle to angle
+	 */
+	public void setAngle( double angle );
 }

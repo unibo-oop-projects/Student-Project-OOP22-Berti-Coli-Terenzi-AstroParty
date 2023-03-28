@@ -84,7 +84,7 @@ public class SceneFactoryImpl implements SceneFactory {
         Parent root = loader.load();
         double size = GameApp.WINDOW_SIZE/root.prefHeight(0);
         root.getTransforms().add(new Scale(size, size));
-        return new Scene(root);
+        return new Scene(root, GameApp.WINDOW_SIZE, GameApp.WINDOW_SIZE);
     }
 
 }

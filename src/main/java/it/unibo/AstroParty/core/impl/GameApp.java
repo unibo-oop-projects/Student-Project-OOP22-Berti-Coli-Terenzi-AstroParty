@@ -40,8 +40,6 @@ public class GameApp extends Application implements View {
         this.primaryStage.getIcons().add(new Image(ClassLoader.getSystemResource("sprites/icon.png").toString()));
         
         // stage settings
-        this.primaryStage.setWidth(WINDOW_SIZE);
-        this.primaryStage.setHeight(WINDOW_SIZE);
         this.primaryStage.setResizable(false);
         this.primaryStage.setOnCloseRequest(s -> System.exit(0));
 
@@ -49,6 +47,8 @@ public class GameApp extends Application implements View {
         sceneFactory = new SceneFactoryImpl(this);
 
         this.switchScene(sceneFactory.createMain());
+
+        this.primaryStage.sizeToScene();
     }
 
     /**

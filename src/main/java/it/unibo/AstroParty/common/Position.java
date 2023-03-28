@@ -40,7 +40,7 @@ public class Position {
 	public double getDistanceFrom(Position pos) {
 		final double deltaX = x - pos.getX();
 		final double deltaY = y - pos.getY();
-		return Math.sqrt((deltaX*deltaX) + (deltaY+deltaY));
+		return Math.sqrt((deltaX*deltaX) + (deltaY*deltaY));
 	}
 
 	public double getX() {

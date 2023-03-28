@@ -26,8 +26,7 @@ public class CircleHitBoxImpl implements CircleHitBox {
      */
     @Override
     public boolean checkCircleCollision(CircleHitBox hBox) {
-        return center.getDistanceFrom((hBox).getCenter())
-                <= (hBox).getRadius() + this.radius;
+        return center.getDistanceFrom(hBox.getCenter()) <= hBox.getRadius() + this.radius;
     }
 
     /**
@@ -62,10 +61,12 @@ public class CircleHitBoxImpl implements CircleHitBox {
         return getHeight();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public GraphicEntity getGraphicComponent( EntityType type ) {
-
-        return new GraphicEntityImpl(center.add( new Position ( -radius, -radius) ), radius, radius, type);
+    public GraphicEntity getGraphicComponent(EntityType type) {
+        return new GraphicEntityImpl(center.add(new Position(-radius, -radius)),
+                this.getHeight(), this.getWidth(), type);
     }
-
 }

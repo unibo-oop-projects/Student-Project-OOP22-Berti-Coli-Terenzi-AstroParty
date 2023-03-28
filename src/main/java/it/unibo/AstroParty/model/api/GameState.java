@@ -7,15 +7,15 @@ public interface GameState {
     /* the logic dimensions of the map are always the same, the effective sizes
      * are elaborated by the graphical part using the window sizes
     */
-	public static final double height = 20.0 ;
-	public static final double width = 20.0 ;
+	public static final double height = 100.0 ;
+	public static final double width = 100.0 ;
 
     /*
      * the coordinates of the sides of the world map
      */
-    public static final double lowerSide = 0;
+    public static final double upperSide = 0;
+    public static final double lowerSide = upperSide + height;
     public static final double leftSide = 0;
-    public static final double upperSide = lowerSide + height;
     public static final double rightSide = leftSide + width;
 
 

@@ -63,12 +63,12 @@ public class GameStateImpl implements GameState, Observable {
         this.getEntities().stream()     // update all the entities 
                 .forEach(e -> e.update(time));
 
-        checkPlayerMovement();
+        this.checkPlayerMovement();
         
         collisionObserver.manageEvents(this);    // manage movement events
         
-        checkProjectileInteractions();
-        checkSpaceshipInteractions();
+        this.checkProjectileInteractions();
+        this.checkSpaceshipInteractions();
         
         collisionObserver.manageEvents(this);    // manage interaction events
     }
@@ -77,11 +77,11 @@ public class GameStateImpl implements GameState, Observable {
         spaceships.stream().forEach(s -> {
             if (checkBoundariesCollisions(s.getHitBox())
                     || obstacles.stream()
-                        .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))
+                            .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))
                     || spaceships.stream()
-                        .filter(targetSpaceship -> !targetSpaceship.equals(s))
-                        .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))) {
-                notifyObservers(eventFactory.SpaceshipColliedEvent(s));
+                            .filter(targetSpaceship -> !targetSpaceship.equals(s))
+                            .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))) {
+                this.notifyObservers(eventFactory.SpaceshipColliedEvent(s));
             }
         });
     }
@@ -96,20 +96,20 @@ public class GameStateImpl implements GameState, Observable {
 
             for (Spaceship s : spaceships) {
                 if (s.getHitBox().checkCircleCollision(p.getHitBox())) {
-                    notifyObservers(eventFactory.spaceshipHittedEvent(s));
+                    this.notifyObservers(eventFactory.spaceshipHittedEvent(s));
                     hit = true;
                 }
             }
 
             for (Obstacle o : obstacles) {
                 if (o.getHitBox().checkCircleCollision(p.getHitBox())) {
-                    notifyObservers(eventFactory.obstacleHittedEvent(o));
+                    this.notifyObservers(eventFactory.obstacleHittedEvent(o));
                     hit = true;
                 }
             }
 
             if (hit) {
-                notifyObservers(eventFactory.projectileHitEvent(p));
+                this.notifyObservers(eventFactory.projectileHitEvent(p));
             }
         });
     }
@@ -119,7 +119,7 @@ public class GameStateImpl implements GameState, Observable {
 
             powerUps.stream()
                     .filter(p -> p.getHitBox().checkCircleCollision(s.getHitBox()))
-                    .forEach(p -> eventFactory.powerUpEquipEvent(p, s));
+                    .forEach(p -> this.notifyObservers(eventFactory.powerUpEquipEvent(p, s)));
         }
     }
 
@@ -129,8 +129,8 @@ public class GameStateImpl implements GameState, Observable {
 
         return pos.getX() + r > rightSide
                 || pos.getX() - r < leftSide
-                || pos.getY() + r > upperSide
-                || pos.getY() - r < lowerSide;
+                || pos.getY() + r > lowerSide
+                || pos.getY() - r < upperSide;
     }
 
     /**

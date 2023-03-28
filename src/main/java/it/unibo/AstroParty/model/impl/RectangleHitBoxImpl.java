@@ -25,7 +25,7 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
      * @param DRCorner the down-right corner {@link Position}
      */
     public RectangleHitBoxImpl(Position ULCorner, Position DRCorner) {
-        this(ULCorner, DRCorner, ULCorner.getY() - DRCorner.getY() ,ULCorner.getX() - DRCorner.getX());
+        this(ULCorner, DRCorner, DRCorner.getY() - ULCorner.getY() ,DRCorner.getX() - ULCorner.getX());
     }
 
     /**
@@ -35,7 +35,7 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
      * @param height the rectangle height
      */
     public RectangleHitBoxImpl(Position ULCorner, double width, double height) {
-        this(ULCorner, new Position(ULCorner.getX()+width, ULCorner.getY()+height), height, width);
+        this(ULCorner, new Position(ULCorner.getX() + width, ULCorner.getY() + height), height, width);
     }
 
     /**
@@ -98,10 +98,12 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
         return width;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GraphicEntity getGraphicComponent(EntityType type) {
-
-        return new GraphicEntityImpl(DRCorner, height, height, type);
+        return new GraphicEntityImpl(ULCorner, height, width, type);
     }
     
 }

@@ -4,13 +4,14 @@ import java.util.Collection;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Collectors;
-
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.PowerUp.api.PowerUpFactory;
+import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.GameState;
+import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.PowerUpSpawner;
+import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
 
 /**
  * 
@@ -23,10 +24,12 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	private final long SpawnDelay;
 	private GameState world;
 	private PowerUpFactory pUPfactory= new PowerUpFactoryImpl();
+
+	private Random random = new Random();
 	
 	private Timer timer = new Timer();
 	
-	PowerUpSpawnerImpl(Collection<EntityType> possiblePowerUpTypes, long spawnDelay){
+	public PowerUpSpawnerImpl(Collection<EntityType> possiblePowerUpTypes, long spawnDelay){
 		this.possiblePowerUpTypes = possiblePowerUpTypes;
 		this.SpawnDelay = spawnDelay;
 	}
@@ -60,7 +63,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	 */
 	private EntityType generateType() {
 		
-		int rand = new Random().nextInt( this.possiblePowerUpTypes.size() );
+		int rand = random.nextInt( this.possiblePowerUpTypes.size() );
 		var it = this.possiblePowerUpTypes.iterator();
 		
 		for ( int i = 0 ; i < rand ; i++) {
@@ -77,18 +80,21 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	private Position generatePos() {
 		
 		Position pos;
-		Random rand = new Random();
 		
 		do {
 			
-			pos = new Position( rand.nextDouble( GameState.width ) , rand.nextDouble( GameState.height ) );
+			pos = new Position( random.nextDouble( GameState.width ) , random.nextDouble( GameState.height ) );
 			
-		} while ( this.world.getEntities().stream()
-				.map( entity -> entity.getPosition() )
-				.collect(Collectors.toSet())
-				.contains(pos) );
+		} while ( canExist( pos ) );
 		
 		return pos;
+	}
+
+	private boolean canExist(Position position) {
+		CircleHitBox hbox = new CircleHitBoxImpl( position, PowerUp.relativaSize);
+		return  this.world.getEntities().stream()
+				.map( entity -> entity.getHitBox() )
+				.anyMatch( e -> e.checkCircleCollision(hbox ));
 	}
 
 	

@@ -4,13 +4,12 @@ import it.unibo.AstroParty.input.api.GameId;
 
 /**
  * 
- * @author Alessandro Coli
  * 
- * a class useful to recognise player in game and between different games of the same match or for a future leaderboard implementation
+ * a class used to recognise player in game and between different games of the same match or for a future leaderboard implementation
  */
 public class PlayerId {
-	String name;
-	GameId id;
+	private String name;
+	private GameId id;
 
 	/**
 	 * @param name : the scoreboard name
@@ -33,7 +32,7 @@ public class PlayerId {
 	/**
 	 * @return the string that represents the player in the view and in the game history and for the scoreboard
 	 */
-	public String getPalyerName() {
+	public String getPlayerName() {
 		return name == null ? id.toString() : name;
 	}
 	
@@ -45,19 +44,12 @@ public class PlayerId {
 	}
 	
 	@Override
-	public boolean equals( Object obj) {
+	public boolean equals( Object obj ) {
 		
-		if( obj.getClass().isInstance( this.getClass())) {
-
-			PlayerId ob = (PlayerId) obj;
-			if( ob.getGameId().equals( this.getGameId() ) || ob.getPalyerName().equals( this.getPalyerName() )) {
-
-				return true;
-				
-			}
-
-		}
-		
-		return false;
+		if (obj instanceof PlayerId) {
+            PlayerId other = (PlayerId) obj;
+            return id.equals(other.id) && getPlayerName().equals(other.getPlayerName());
+        }
+        return false;
 	}
 }

@@ -42,7 +42,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private boolean shield;								// defensive;
 	private boolean immortal;
 	
-	public SpaceshipImpl(Position pos, Direction dir, double angle, GameState world, double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
+	public SpaceshipImpl(Position posi, Direction dir, double angle, GameState world, double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
 		
 		this.world = world;
 		this.shield = startingShield;
@@ -50,12 +50,11 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		this.playerId = id;
 		this.speed = speed;
 		this.bulletRegenTime = bulletRegenTime;
-		this.shield = startingShield;
-		this.bullets = this.maxBullets;
-		this.position = pos;
+		this.bullets = maxBullets;
+		this.position = posi;
 		this.angle = angle;
 		this.direction = dir;
-		this.lastPos = this.position;
+		this.lastPos = posi;
 		
 	}
 	

@@ -51,9 +51,14 @@ public class Position {
 		return this.y;
 	}
 	
-	public boolean equals(Position pos) {					
-		return Math.abs( pos.getX() - this.getX() ) < epsilon 
-				&& Math.abs( pos.getX() - this.getX() ) < epsilon;
+	public boolean equals(Object obj) {
+	    
+	    if (obj instanceof Position) {
+	        return false;
+	    }
+	    Position pos = (Position) obj;
+	    return Math.abs(pos.getX() - this.getX()) < epsilon
+	            && Math.abs(pos.getY() - this.getY()) < epsilon;
 	}
 	
 	public String toString() {

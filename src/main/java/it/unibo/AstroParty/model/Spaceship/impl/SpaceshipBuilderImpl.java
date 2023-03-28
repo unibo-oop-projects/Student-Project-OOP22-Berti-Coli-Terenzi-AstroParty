@@ -9,6 +9,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.stream.Collectors;
 
+import it.unibo.AstroParty.common.Direction;
+import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.impl.PlayerId;
 import it.unibo.AstroParty.input.api.GameId;
 import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
@@ -22,6 +24,8 @@ import it.unibo.AstroParty.model.api.Spaceship;
  */
 public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	
+	private static double BorderDistance = 5.0;
+
 	// variabili usate per creare la Spaceship
 	private double baseSpeed;
 	private int maxBullets;
@@ -106,10 +110,76 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 		
 		return this.playerIds.stream()
 				.distinct() 	// controlla se ci sono due nomi o GameId uguali
-				.map( id -> new SpaceshipImpl(world,baseSpeed , maxBullets, startingShield, id, rechargeTime))
+				.map( id -> new SpaceshipImpl(  getPos(id),
+												getDir(id),
+												getAngle(id),
+												world,
+												baseSpeed,
+												maxBullets,
+												startingShield,
+												id,
+												rechargeTime))
 				.collect( Collectors.toSet());
 	}
 	
+	private double getAngle(PlayerId id) {
+		switch( id.getGameId() ){
+			case Player1:
+				return 45;
+
+			case Player2:
+				return 225;
+
+			case Player3:
+				return 135;
+
+			case Player4:
+				return 315;
+
+			default:
+				throw new UnsupportedOperationException();
+		}
+	}
+
+	private Direction getDir(PlayerId id) {
+		switch( id.getGameId() ){
+			case Player1:
+				return new Direction( 1 , -1 );
+
+			case Player2:
+				return new Direction( -1 , 1 );
+
+			case Player3:
+				return new Direction( -1 , -1 );
+
+			case Player4:
+				return new Direction( 1 , 1 );
+
+			default:
+				throw new UnsupportedOperationException();
+		}
+	}
+
+	private Position getPos(PlayerId id) {
+		
+		switch( id.getGameId() ){
+			case Player1:
+				return new Position(Spaceship.relativeSize + BorderDistance, Spaceship.relativeSize + BorderDistance);
+
+			case Player2:
+				return new Position( GameState.width - Spaceship.relativeSize - BorderDistance , GameState.height - Spaceship.relativeSize - BorderDistance);
+
+			case Player3:
+				return new Position(Spaceship.relativeSize + BorderDistance, GameState.height - Spaceship.relativeSize - BorderDistance);
+
+			case Player4:
+				return new Position(GameState.width - Spaceship.relativeSize - BorderDistance , Spaceship.relativeSize + BorderDistance);
+
+			default:
+				throw new UnsupportedOperationException();
+		}
+	}
+
 	private void uploadBasicConfig() {
 	String line ;
 	int ind;

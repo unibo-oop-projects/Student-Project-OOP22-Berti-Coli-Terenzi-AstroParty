@@ -10,8 +10,8 @@ import it.unibo.AstroParty.core.impl.PlayerId;
  */
 public interface Spaceship extends Entity {
 
-	static final double relativeSize = 3.0;
-	static final double rotationSpeed = 2.0;
+	static final double relativeSize = 2.0;
+	static final double rotationSpeed = .15;
 	
 	/**
 	 * 
@@ -42,7 +42,7 @@ public interface Spaceship extends Entity {
     public void startTurn();
     
     /**
-     * @return the rotation angle relative to the x axis
+     * @return the rotation angle 
      */
     public double getAngle();
     

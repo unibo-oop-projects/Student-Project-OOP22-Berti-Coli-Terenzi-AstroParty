@@ -27,8 +27,8 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private final PlayerId playerId;
 	private Position position;							// gestione movimento
 	private Position lastPos;
-	private Direction direction = new Direction(1,-0.5);
-	private double angle=0;
+	private Direction direction;
+	private double angle ;
 	boolean turning;
 	
 	private Optional<PowerUp> powerUp = Optional.empty();
@@ -42,7 +42,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private boolean shield;								// defensive;
 	private boolean immortal;
 	
-	public SpaceshipImpl(GameState world, double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
+	public SpaceshipImpl(Position pos, Direction dir, double angle, GameState world, double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
 		
 		this.world = world;
 		this.shield = startingShield;
@@ -52,7 +52,11 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		this.bulletRegenTime = bulletRegenTime;
 		this.shield = startingShield;
 		this.bullets = this.maxBullets;
+		this.position = pos;
+		this.angle = angle;
+		this.direction = dir;
 		this.lastPos = this.position;
+		
 	}
 	
 	// Usati dal gameLoop
@@ -216,9 +220,9 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		// uso le formule per trovare le coordinate di un punto dala la distanza dall'origine del piano e l'angolo rispetto all'asse x a velocita 1x
 		
 		this.angle = ( this.angle + turnTime * Spaceship.rotationSpeed ) % 360;
-		
-		double dirX = Math.cos( this.angle ) ;
-		double dirY = Math.sin( this.angle ) ;
+
+		double dirX = Math.cos( Math.toRadians(this.angle) ) ;
+		double dirY = Math.sin( Math.toRadians(this.angle) ) ;
 		
 		this.direction = new Direction( dirX , dirY) ;		
 	}
@@ -278,5 +282,19 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	public EntityType getType() {
 		
 		return EntityType.SPACESHIP;
+	}
+
+	@Override
+	public boolean equals( Object o){
+
+		if( o instanceof Spaceship ){
+
+			if( ( (Spaceship)o ).getId().equals( this.getId()) ){
+
+				return true;
+
+			}
+		}
+		return false;
 	}
 }

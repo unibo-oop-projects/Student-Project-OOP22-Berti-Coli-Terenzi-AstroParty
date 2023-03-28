@@ -34,19 +34,19 @@ public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
 				control.shoot( GameId.Player1 );
 				break;
 			
-			case X:
+			case P:
 				control.startTurn( GameId.Player2 );
 				break;
 				
-			case C:
+			case L:
 				control.shoot( GameId.Player2 );
 				break;
 			
-			case P:
+			case X:
 				control.startTurn( GameId.Player3 );
 				break;
 				
-			case L:
+			case C:
 				control.shoot( GameId.Player3 );
 				break;
 			
@@ -66,11 +66,11 @@ public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
 			control.stopTurn( GameId.Player1 );
 			break;
 			
-		case X:
+		case P:
 			control.stopTurn( GameId.Player2 );
 			break;
 		
-		case P:
+		case X:
 			control.stopTurn( GameId.Player3 );
 			break;
 		

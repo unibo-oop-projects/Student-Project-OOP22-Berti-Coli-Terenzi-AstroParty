@@ -1,0 +1,43 @@
+#pane{
+    -fx-background-image: url('../sprites/space_background.jpg');
+}
+#p1{
+    -fx-image: url('../sprites/player_red.gif');
+    -fx-background-size: cover;
+}
+#p2{
+    -fx-image: url('../sprites/player_green.gif');
+    -fx-background-size: cover;
+}
+#p3{
+    -fx-image: url('../sprites/player_purple.gif');
+    -fx-background-size: cover;
+}
+#p4{
+    -fx-image: url('../sprites/player_yellow.gif');
+    -fx-background-size: cover;
+}
+#Shield{
+    -fx-image: url('../sprites/icon.png');
+    -fx-background-size: cover;
+}
+#Immortality{
+    -fx-image: url('../sprites/icon.png');
+    -fx-background-size: cover;
+}
+#Doubleshot{
+    -fx-image: url('../sprites/icon.png');
+    -fx-background-size: cover;
+}
+#Laser{
+    -fx-image: url('../sprites/obstacle_laser.jpg');
+    -fx-background-size: cover;
+}
+#BasicObstacle{
+    -fx-image: url('../sprites/obstacle_wall.jpg');
+    -fx-background-size: cover;
+}
+#Projectile{
+    -fx-image: url('../sprites/projectile.gif');
+    -fx-background-size: cover;
+}

@@ -18,6 +18,12 @@ import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.PowerUpTypes;
 import it.unibo.AstroParty.model.impl.GameStateImpl;
 
+/**
+ * class for the core of the game: the gameLoop
+ * @author dario
+ *
+ */
+
 public class GameEngineImpl implements GameEngine, Runnable {
 	
 	private static final int FPS = 60;

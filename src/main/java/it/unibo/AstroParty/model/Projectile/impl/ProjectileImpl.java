@@ -15,11 +15,13 @@ public class ProjectileImpl implements Projectile {
 	private Direction direction;
 	private EntityType entityType;
 	private CircleHitBox projectileHitBox;
+	private double projectileSpeed;
 
-	public ProjectileImpl(Position pos, Direction dir, EntityType type) {
+	public ProjectileImpl(Position pos, Direction dir, EntityType type, double speed) {
 		this.position = pos;
 		this.direction = dir;
 		this.entityType = type;
+		this.projectileSpeed = speed;
 		this.projectileHitBox = new CircleHitBoxImpl(pos, Projectile.radius);
 	}
 
@@ -39,7 +41,7 @@ public class ProjectileImpl implements Projectile {
 	@Override
 	public void update(double time) {
 		// TODO Auto-generated method stub
-
+		this.position = this.position.move(this.direction.multiply( this.projectileSpeed * time));
 	}
 
 	@Override

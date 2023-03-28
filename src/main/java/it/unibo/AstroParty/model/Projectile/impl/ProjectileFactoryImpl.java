@@ -8,6 +8,6 @@ import it.unibo.AstroParty.model.api.Projectile;
 
 public class ProjectileFactoryImpl implements ProjectileFactory {
 	public Projectile createProjectile(Position pos, Direction dir) {
-		return new ProjectileImpl(pos, dir, EntityType.PROJECTILE);
+		return new ProjectileImpl(pos, dir, EntityType.PROJECTILE, 0.5);
 	}
 }

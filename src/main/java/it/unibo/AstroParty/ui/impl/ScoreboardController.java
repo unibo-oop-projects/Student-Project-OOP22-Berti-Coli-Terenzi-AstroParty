@@ -1,7 +1,6 @@
 package it.unibo.AstroParty.ui.impl;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 import it.unibo.AstroParty.core.api.View;
 import it.unibo.AstroParty.ui.api.Controller;
@@ -34,19 +33,22 @@ public class ScoreboardController implements Controller {
      */
     @FXML
     public void nextOnClick(ActionEvent event) {
-        /*try {
+        //TODO impl
+        /*
+        try {
             view.switchScene(view.getSceneFactory().createGame());
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
+        */
     }
 
     @FXML
     public void initialize() {
         List<ProgressBar> progress = List.of(progressP1, progressP2, progressP3, progressP4);
-        IntStream.range(0, 3)
-                .boxed()
-                .forEach(i -> progress.get(i).setProgress(scores.get(i)/rounds));
+        for (int i=0; i<4; i++) {
+            progress.get(i).setProgress(scores.get(i)/rounds);
+        }
     }
 }
 

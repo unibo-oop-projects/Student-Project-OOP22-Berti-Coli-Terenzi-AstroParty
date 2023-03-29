@@ -2,6 +2,7 @@ package it.unibo.AstroParty.ui.api;
 
 import java.util.List;
 
+import it.unibo.AstroParty.input.api.InputControl;
 import javafx.scene.Scene;
 
 public interface SceneFactory {
@@ -25,10 +26,11 @@ public interface SceneFactory {
     public Scene createSettings() throws Exception;
 
     /**
+     * @param inputControl 
      * @return a new game scene
      * @throws Exception
      */
-    public Scene createGame() throws Exception;
+    public Scene createGame(InputControl inputControl) throws Exception;
 
     /**
      * @param scores a list with the number of victories of each player

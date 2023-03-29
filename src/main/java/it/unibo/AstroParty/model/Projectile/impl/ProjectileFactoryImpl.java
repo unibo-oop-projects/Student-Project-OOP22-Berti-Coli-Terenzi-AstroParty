@@ -17,6 +17,6 @@ public class ProjectileFactoryImpl implements ProjectileFactory {
 	 * {@inheritDoc}
 	 */
 	public Projectile createProjectile(Position pos, Direction dir) {
-		return new ProjectileImpl(pos, dir, EntityType.PROJECTILE, 0.5);
+		return new ProjectileImpl(pos, dir, EntityType.PROJECTILE, 0.3);
 	}
 }

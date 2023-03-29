@@ -144,16 +144,16 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	private Direction getDir(PlayerId id) {
 		switch( id.getGameId() ){
 			case Player1:
-				return new Direction( 1 , -1 );
+				return new Direction( 1 , 1 );
 
 			case Player2:
-				return new Direction( -1 , 1 );
-
-			case Player3:
 				return new Direction( -1 , -1 );
 
+			case Player3:
+				return new Direction( -1 , 1 );
+
 			case Player4:
-				return new Direction( 1 , 1 );
+				return new Direction( 1 , -1 );
 
 			default:
 				throw new UnsupportedOperationException();

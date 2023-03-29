@@ -21,9 +21,9 @@ public class GameSceneImpl extends Scene implements GameScene{
     
     public GameSceneImpl( InputControl keyController ) {
     	
-    	super( new Pane() , 100 , 100);			
+    	super( new Pane() , GameApp.WINDOW_SIZE , GameApp.WINDOW_SIZE);			
     	this.pane = (Pane) this.getRoot();
-    	KeyboardEventsHandler keyHandler =new KeyboardEventsHandler( keyController );
+    	KeyboardEventsHandler keyHandler = new KeyboardEventsHandler( keyController );
     	this.setOnKeyPressed( keyHandler );
     	this.setOnKeyReleased( keyHandler );
         this.pane.setId("pane");

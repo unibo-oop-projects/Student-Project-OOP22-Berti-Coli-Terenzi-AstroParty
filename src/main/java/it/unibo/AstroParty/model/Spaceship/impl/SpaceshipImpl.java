@@ -8,11 +8,13 @@ import it.unibo.AstroParty.common.Direction;
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.impl.PlayerId;
 import it.unibo.AstroParty.graphics.api.GraphicEntity;
+import it.unibo.AstroParty.model.Projectile.impl.ProjectileFactoryImpl;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
 import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.GameState;
 import it.unibo.AstroParty.model.api.PowerUp;
+import it.unibo.AstroParty.model.api.Projectile;
 import it.unibo.AstroParty.model.api.Spaceship;
 import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
 
@@ -41,6 +43,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	
 	private boolean shield;								// defensive;
 	private boolean immortal;
+	private boolean recharging;
 	
 	public SpaceshipImpl(Position pos, Direction dir, double angle, GameState world, double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
 		
@@ -117,7 +120,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		if( this.bullets <= 0) {
 			return;
 		}
-
+		
 		if ( this.powerUp.isPresent() && this.powerUp.get().isOffensive() ) {
 			
 			switch ( this.powerUp.get().getType() ) {
@@ -201,6 +204,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 
 	public void startTurn() {
+
 		this.turning = true;
 	}
 
@@ -235,35 +239,42 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		
 		this.lastPos = this.position;
 		this.position = this.position.move( this.direction.multiply( this.speed * timeDiff ) );
+		//System.out.println(this.lastPos + " -> " + this.position);
 	}
 
 	/**
 	 * creates and adds to the world a new {@link Projectile}
 	 */
 	private void createProjectile() {
-		
-		//TODO creazione proiettili
+
+		this.world.addProjectile(new ProjectileFactoryImpl()
+				.createProjectile(position.move(direction.multiply(Projectile.radius*2)), direction));
 	}
 	
 	/**
 	 * start the timer to recharge a bullet
 	 */
 	private void startTimer() {
+		
+		if( !this.recharging ) {
+			this.recharging = true;
+			timer.schedule( new TimerTask() {
 
-		timer.schedule( new TimerTask() {
-
-			@Override
-			public void run() {
-				addBullet();
-			}
-			
-		}, this.bulletRegenTime);
+				@Override
+				public void run() {
+					addBullet();
+				}
+				
+			}, this.bulletRegenTime);
+		}
 	}
 	
 	/**
 	 * adds a new bullet to the spaceship
 	 */
 	private void addBullet() {
+		
+		this.recharging = false;
 		
 		this.bullets ++;
 		

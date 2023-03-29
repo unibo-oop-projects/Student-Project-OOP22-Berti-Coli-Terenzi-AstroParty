@@ -80,10 +80,6 @@ public class GameApp extends Application implements View {
     public void start(List<String> players, boolean obstacle, boolean powerup, int rounds) {
         GameEngine engine = new GameEngineImpl(this, players, obstacle, powerup, rounds);
         new Thread((Runnable) engine).start();
-        try {
-            this.switchScene(sceneFactory.createGame());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
+

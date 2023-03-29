@@ -10,8 +10,8 @@ import it.unibo.AstroParty.core.impl.PlayerId;
  */
 public interface Spaceship extends Entity {
 
-	static final double relativeSize = 2.0;
-	static final double rotationSpeed = .15;
+	static final double relativeSize = 3;
+	static final double rotationSpeed = .25;
 	
 	/**
 	 * 

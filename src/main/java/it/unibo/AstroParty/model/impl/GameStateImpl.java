@@ -78,9 +78,9 @@ public class GameStateImpl implements GameState, Observable {
             if (checkBoundariesCollisions(s.getHitBox())
                     || obstacles.stream()
                             .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))
-                    || spaceships.stream()
+                    /*|| spaceships.stream()
                             .filter(targetSpaceship -> !targetSpaceship.equals(s))
-                            .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))) {
+                            .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))*/) {
                 this.notifyObservers(eventFactory.SpaceshipColliedEvent(s));
             }
         });

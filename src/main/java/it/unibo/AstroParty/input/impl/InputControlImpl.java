@@ -33,7 +33,6 @@ public class InputControlImpl implements InputControl {
 
 	@Override
 	public void compute() {
-		
 		for( InputCommand event : commands) {
 			event.compute( this.spaceships.stream()
 						.filter( s -> s.getId().getGameId().equals( event.getID() ))
@@ -43,6 +42,7 @@ public class InputControlImpl implements InputControl {
 	}
 
 	private void addEvent(InputCommand action) {
+
 		if( this.read ) {
 			this.commands.add(action);
 		}
@@ -58,14 +58,14 @@ public class InputControlImpl implements InputControl {
 	 * @param player: the GameId of the spaceship that has to start turning
 	 */
 	public void startTurn(GameId player) {
-		this.addEvent(new InputCommand( player, s -> s.stopTurn()));
+		this.addEvent(new InputCommand( player, s -> s.startTurn()));
 	}
 	
 	/**
 	 * @param player: the GameId of the spaceship that has to stop turning
 	 */
 	public void stopTurn(GameId player) {
-		this.addEvent(new InputCommand( player, s -> s.startTurn()));
+		this.addEvent(new InputCommand( player, s -> s.stopTurn()));
 	}
 
 

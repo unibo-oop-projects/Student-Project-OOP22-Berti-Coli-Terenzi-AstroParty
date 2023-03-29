@@ -4,6 +4,8 @@ import java.util.List;
 
 import it.unibo.AstroParty.core.api.View;
 import it.unibo.AstroParty.core.impl.GameApp;
+import it.unibo.AstroParty.graphics.impl.GameSceneImpl;
+import it.unibo.AstroParty.input.api.InputControl;
 import it.unibo.AstroParty.ui.api.Controller;
 import it.unibo.AstroParty.ui.api.SceneFactory;
 import javafx.fxml.FXMLLoader;
@@ -51,9 +53,8 @@ public class SceneFactoryImpl implements SceneFactory {
      * {@inheritDoc}
      */
     @Override
-    public Scene createGame() throws Exception {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createGame'");
+    public Scene createGame(InputControl inputControl) throws Exception {
+    	return new GameSceneImpl(inputControl);
     }
 
     /**

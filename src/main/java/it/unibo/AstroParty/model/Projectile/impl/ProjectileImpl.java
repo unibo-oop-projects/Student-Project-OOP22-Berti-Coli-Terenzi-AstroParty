@@ -20,7 +20,6 @@ public class ProjectileImpl implements Projectile {
 	private Position position;
 	private Direction direction;
 	private EntityType entityType;
-	private CircleHitBox projectileHitBox;
 	private double projectileSpeed;
 	
 	/**
@@ -35,7 +34,6 @@ public class ProjectileImpl implements Projectile {
 		this.direction = dir;
 		this.entityType = type;
 		this.projectileSpeed = speed;
-		this.projectileHitBox = new CircleHitBoxImpl(pos, Projectile.radius);
 	}
 
 	/**
@@ -63,10 +61,10 @@ public class ProjectileImpl implements Projectile {
 	@Override
 	public void update(double time) {
 		// TODO Auto-generated method stub
-		this.position = this.position.move(this.direction.multiply( this.projectileSpeed * time));
+		this.position = this.position.move(this.direction.multiply( this.projectileSpeed * time ));
 	}
 
-	/**
+	/** 
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -80,7 +78,7 @@ public class ProjectileImpl implements Projectile {
 	@Override
 	public GraphicEntity getGraphicComponent() {
 		// TODO Auto-generated method stub
-		return projectileHitBox.getGraphicComponent(entityType);
+		return new CircleHitBoxImpl(position, Projectile.radius ).getGraphicComponent(entityType);
 	}
 
 	/**
@@ -89,7 +87,7 @@ public class ProjectileImpl implements Projectile {
 	@Override
 	public CircleHitBox getHitBox() {
 		// TODO Auto-generated method stub
-		return projectileHitBox;
+		return new CircleHitBoxImpl(position, Projectile.radius);
 	}
 
 }

@@ -34,11 +34,11 @@ public class ScoreboardController implements Controller {
      */
     @FXML
     public void nextOnClick(ActionEvent event) {
-        try {
+        /*try {
             view.switchScene(view.getSceneFactory().createGame());
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @FXML

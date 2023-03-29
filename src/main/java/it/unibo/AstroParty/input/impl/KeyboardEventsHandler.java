@@ -57,6 +57,8 @@ public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
 			case M:
 				control.shoot( GameId.Player4 );
 				break;
+			default:
+				break;
 		}
 	}else if( event.getEventType() == KeyEvent.KEY_RELEASED ) {
 			
@@ -76,6 +78,8 @@ public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
 		
 		case N:
 			control.stopTurn( GameId.Player4 );
+			break;
+		default:
 			break;
 		}
 		}

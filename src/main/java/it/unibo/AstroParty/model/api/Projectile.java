@@ -10,7 +10,7 @@ import it.unibo.AstroParty.common.Position;
  *
  */
 public interface Projectile extends Entity {
-	static final double radius = 1;
+	static final double radius = 1.3;
     
 	/**
 	 * {@inheritDoc}}

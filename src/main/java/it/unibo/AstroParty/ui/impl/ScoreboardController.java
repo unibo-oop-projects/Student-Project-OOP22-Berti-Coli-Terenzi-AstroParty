@@ -46,8 +46,8 @@ public class ScoreboardController implements Controller {
     @FXML
     public void initialize() {
         List<ProgressBar> progress = List.of(progressP1, progressP2, progressP3, progressP4);
-        for (int i=0; i<4; i++) {
-            progress.get(i).setProgress(scores.get(i)/rounds);
+        for (int i=0; i<scores.size(); i++) {
+            progress.get(i).setProgress((double) scores.get(i)/rounds);
         }
     }
 }

@@ -7,7 +7,7 @@ import it.unibo.AstroParty.model.api.Obstacle;
 
 public class ObstacleFactoryImpl implements ObstacleFactory {
 
-    private static final int LASER_INTERVAL = 2; // seconds requiered to make the variable "active" change status (in a laser)
+    private static final int LASER_INTERVAL = 6000; // milliseconds requiered to make the variable "active" change status (in a laser)
 
     /**
      * {@inheritDoc}}

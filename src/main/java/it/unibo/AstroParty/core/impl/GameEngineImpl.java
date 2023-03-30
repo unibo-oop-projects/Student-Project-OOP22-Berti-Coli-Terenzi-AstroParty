@@ -19,8 +19,10 @@ import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
 import it.unibo.AstroParty.model.Spaceship.impl.SpaceshipBuilderImpl;
 import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.GameState;
+import it.unibo.AstroParty.model.api.Obstacle;
 import it.unibo.AstroParty.model.api.Spaceship;
 import it.unibo.AstroParty.model.impl.GameStateImpl;
+import javafx.application.Platform;
 
 /**
  * class for the core of the game: the gameLoop
@@ -71,6 +73,9 @@ public class GameEngineImpl implements GameEngine, Runnable {
 		gameState.addObstacle(obstacleFactory.createSimpleObstacle(new Position(b1, b2)));
 		gameState.addObstacle(obstacleFactory.createSimpleObstacle(new Position(c1, c2)));
 		gameState.addObstacle(obstacleFactory.createSimpleObstacle(new Position(d1, d2))); */
+
+		obstacleFactory = new ObstacleFactoryImpl();
+		gameState.addObstacle(obstacleFactory.createLaser(new Position(0, 90)));
 		
 		//TODO set spaceship 
 		this.spaceships = spaceshipBuilder.create(gameState);
@@ -119,6 +124,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
 				e.printStackTrace();
 			}
 		}
+	
 	}
 	
 	public InputControl getController() {
@@ -134,7 +140,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
 	}
 	
 	protected void render() {
-		( (GameScene) this.view.getScene() ).renderAll(gameState.getEntities().stream().map(e -> e.getGraphicComponent()).toList());
+		( (GameScene) this.view.getScene() ).renderAll(gameState.getEntities().stream().filter(e -> !(e instanceof Obstacle) || ((Obstacle) e).isActive()).map(e -> e.getGraphicComponent()).toList());
 	}
 
 	@Override

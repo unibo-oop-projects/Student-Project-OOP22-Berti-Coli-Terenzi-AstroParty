@@ -48,7 +48,7 @@ public class PlayerId {
 		
 		if (obj instanceof PlayerId) {
             PlayerId other = (PlayerId) obj;
-            return id.equals(other.id) && getPlayerName().equals(other.getPlayerName());
+            return id.equals(other.id) || getPlayerName().equals(other.getPlayerName());
         }
         return false;
 	}

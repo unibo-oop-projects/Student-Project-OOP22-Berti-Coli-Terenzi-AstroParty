@@ -85,8 +85,9 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 
 	@Override
 	public void enableAll() {
-
-		possible = EnumSet.allOf( EntityType.class );
+		this.possible.addAll( EnumSet.allOf(EntityType.class) );
+		this.possible.removeIf( e -> ! (e.getGeneralType() == EntityType.POWERUP ) );
+		System.out.println("-- " + this.possible);
 	}
 
 	@Override

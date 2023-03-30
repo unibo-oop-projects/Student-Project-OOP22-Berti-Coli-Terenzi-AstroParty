@@ -53,7 +53,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	 * creates and adds a new powerUp to the world
 	 */
 	private void generate() {
-		
+		//System.out.println("spawn");
 		this.world.addPowerUp( this.pUPfactory.createPowerUp( this.generateType() , this.generatePos() ) );
 	}
 	

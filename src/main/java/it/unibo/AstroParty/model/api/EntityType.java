@@ -9,15 +9,27 @@ package it.unibo.AstroParty.model.api;
 public enum EntityType {
 	
 	SPACESHIP,
-	SHIELD,
-	IMMORTALITY,
-	DOUBLESHOT,
-	UPGRADEDSPEED, 
-	LASER, 
-	SIMPLEOBSTACLE,
+	POWERUP,
+	SHIELD(POWERUP),
+	IMMORTALITY(POWERUP),
+	DOUBLESHOT(POWERUP),
+	UPGRADEDSPEED(POWERUP), 
+	OBSTACLE,
+	LASER(OBSTACLE), 
+	SIMPLEOBSTACLE(OBSTACLE),
 	PROJECTILE;
-	/* future impl:
-		LASERSHOT,
-		LASERSWORD,
-	 */
+
+	EntityType generalType;
+
+	EntityType(){
+		this.generalType = null;
+	}
+
+	EntityType (EntityType generalType){
+		this.generalType = generalType;
+	}
+
+	public EntityType getGeneralType(){
+		return this.generalType;
+	}
 }

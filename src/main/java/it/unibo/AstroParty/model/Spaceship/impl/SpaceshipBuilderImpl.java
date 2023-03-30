@@ -83,23 +83,29 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 		this.playerIds = new HashSet<>();
 		
 		for ( String name : playerNames ) {
-			switch( this.playerIds.size() ) {
+
+			if( this.playerIds.stream()
+				.map(p -> p.getPlayerName())
+				.filter( e -> e.equals(name) ).findAny().isEmpty()	){
+
+				switch( this.playerIds.size() ) {
 			
-				case 0:
-					this.playerIds.add( new PlayerId( name, GameId.Player1 ));
-					break;
-					
-				case 1:
-					this.playerIds.add( new PlayerId( name, GameId.Player2 ));
-					break;
-					
-				case 2:
-					this.playerIds.add( new PlayerId( name, GameId.Player3 ));
-					break;
-					
-				case 3:
-					this.playerIds.add( new PlayerId( name, GameId.Player4 ));
-					break;
+					case 0:
+						this.playerIds.add( new PlayerId( name, GameId.Player1 ));
+						break;
+						
+					case 1:
+						this.playerIds.add( new PlayerId( name, GameId.Player2 ));
+						break;
+						
+					case 2:
+						this.playerIds.add( new PlayerId( name, GameId.Player3 ));
+						break;
+						
+					case 3:
+						this.playerIds.add( new PlayerId( name, GameId.Player4 ));
+						break;
+				}
 			}
 		}
 		
@@ -109,7 +115,6 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	public Collection<Spaceship> create(GameState world) {
 		
 		return this.playerIds.stream()
-				.distinct() 	// controlla se ci sono due nomi o GameId uguali
 				.map( id -> new SpaceshipImpl(  getPos(id),
 												getDir(id),
 												getAngle(id),

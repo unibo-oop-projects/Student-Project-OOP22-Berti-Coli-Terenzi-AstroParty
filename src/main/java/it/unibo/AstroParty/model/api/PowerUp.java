@@ -10,7 +10,7 @@ public interface PowerUp extends Entity {
 	
 	static final double relativaSize = 1.7;
 	static final double speedModifier = 1.5;
-	static final double Duration = 2;
+	static final double Duration = 1000;
 	
 	/**
 	 * use the powerUp on the spaceship that has {@link #pickUp(Spaceship)} this power up

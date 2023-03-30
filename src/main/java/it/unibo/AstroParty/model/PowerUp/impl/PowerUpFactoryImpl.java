@@ -62,7 +62,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 					this.use();
 				}
 				
-				if ( this.inUse && this.startingTime + PowerUp.Duration  <= time ) {
+				if ( this.inUse && this.startingTime + PowerUp.Duration  >= time ) {
 					super.owner.normalSpeed();
 					super.owner.removePowerUp( this );
 				}
@@ -76,13 +76,15 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 		return new BasicPowerUp( pos, true,  EntityType.DOUBLESHOT ) {
 
 			private boolean inUse;
-			private double useTime;
+			private double useTime = 0;
 
 			@Override
 			public void update(double time) {
+
 				if( this.inUse ) {
 					this.useTime +=time;
-					if(this.useTime <= PowerUp.Duration) {
+					System.out.println( this.useTime );
+					if(this.useTime >= PowerUp.Duration) {
 						super.owner.removePowerUp( this );
 					}
 				}
@@ -119,7 +121,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 					this.use();
 				}
 				
-				if ( this.inUse && this.startingTime + PowerUp.Duration  <= time ) {
+				if ( this.inUse && this.startingTime + PowerUp.Duration  >= time ) {
 					super.owner.makeMortal();
 					super.owner.removePowerUp( this );
 				}

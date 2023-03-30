@@ -44,6 +44,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private boolean shield;								// defensive;
 	private boolean immortal;
 	private boolean recharging;
+	private boolean dead;
 	
 	public SpaceshipImpl(Position posi, Direction dir, double angle, GameState world, double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
 		
@@ -108,7 +109,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		if(this.turning ) {
 			this.updateDirection(time);
 		}
-		
+		this.powerUp.ifPresent( p -> p.update(time) );
 		this.move(time);
 	}
 	
@@ -116,7 +117,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 
 	public void shoot() {
 		
-		if( this.bullets <= 0) {
+		if(  this.dead || this.bullets <= 0) {
 			return;
 		}
 		
@@ -127,7 +128,16 @@ public class SpaceshipImpl implements SimpleSpaceship {
 				case DOUBLESHOT:
 					this.createProjectile();
 					this.powerUp.get().use();
-					this.createProjectile();
+
+					timer.schedule(new TimerTask() {
+
+						@Override
+						public void run() {
+							createProjectile();
+						}
+						
+					}, 55);
+
 					break;
 					
 				default :
@@ -145,7 +155,6 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	
 	@Override
 	public void removePowerUp(PowerUp pUp) {
-
 		if( this.powerUp.isPresent() &&  this.powerUp.get().equals(pUp)) {
 			this.powerUp = Optional.empty();
 		}
@@ -189,17 +198,18 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	
 	@Override
 	public boolean hit() {			// basta dire che soso stato ucciso a gamestate, che lascia il mio riferimento e avvisa InputControl 
-		
 
 		if( this.immortal ) {
-			return false;
+			this.dead =  false;
 		}
 		
 		if( this.shield ) {
 			this.shield = false;
-			return false;
+			this.dead =  false;
 		}
-		return true;
+		this.dead =  true;
+
+		return this.dead;
 	}
 
 	public void startTurn() {
@@ -208,7 +218,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 
 	public void stopTurn() {
-		
+
 		this.turning = false;
 	}
 

@@ -36,7 +36,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
 	private PowerUpFactory powerUpFactory;
 	private SpaceshipBuilder spaceshipBuilder;
 	private ObstacleFactory obstacleFactory;
-	private double x1 = 0,x2 = 0,y1 = 0,y2 = 0,lx = 0,ly = 0,a1 = 0,a2 = 0,b1 = 0,b2 = 0,c1 = 0,c2 = 0,d1 = 0,d2 = 0;
+	private double x1 = 25,x2 = 0,y1 = 25,y2 = 0,lx = 0,ly = 0,a1 = 0,a2 = 0,b1 = 0,b2 = 0,c1 = 0,c2 = 0,d1 = 0,d2 = 0;
 	private View view;
 	private Collection<Spaceship> spaceships;
 	private InputControl inputControl;

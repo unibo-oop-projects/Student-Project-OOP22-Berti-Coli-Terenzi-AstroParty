@@ -131,10 +131,10 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 				return 225;
 
 			case Player3:
-				return 135;
+				return 315;
 
 			case Player4:
-				return 315;
+				return 135;
 
 			default:
 				throw new UnsupportedOperationException();
@@ -150,10 +150,10 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 				return new Direction( -1 , -1 );
 
 			case Player3:
-				return new Direction( -1 , 1 );
+				return new Direction( 1 , -1 );
 
 			case Player4:
-				return new Direction( 1 , -1 );
+				return new Direction( -1 , 1 );
 
 			default:
 				throw new UnsupportedOperationException();

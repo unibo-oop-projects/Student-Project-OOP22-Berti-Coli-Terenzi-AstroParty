@@ -21,6 +21,14 @@ public class ObstacleFactoryImpl implements ObstacleFactory {
      * {@inheritDoc}}
      */
     @Override
+    public Obstacle createUndestroyableObstacle(Position pos) {
+        return new ObstacleImpl(pos, false, false, EntityType.UNDESTROYABLEOBSTACLE);
+    }
+
+    /**
+     * {@inheritDoc}}
+     */
+    @Override
     public Obstacle createLaser(Position pos) {
         return new ObstacleImpl(pos, false, true, EntityType.LASER, new Timer(LASER_INTERVAL));
     }

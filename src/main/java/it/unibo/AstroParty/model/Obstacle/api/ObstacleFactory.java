@@ -11,6 +11,13 @@ public interface ObstacleFactory {
      * @return a destroyable obstacle
      */
     public Obstacle createSimpleObstacle(Position pos);
+
+    /**
+     * create an undestroyable obstacle
+     * @param pos the down-left corner of the obstacle
+     * @return an unbreakable obstacle
+     */
+    public Obstacle createUndestroyableObstacle(Position pos);
     
     /**
      * create a fatal and intermittent (not always active) obstacle 

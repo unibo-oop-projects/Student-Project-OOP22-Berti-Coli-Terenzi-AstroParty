@@ -5,15 +5,19 @@ import it.unibo.AstroParty.model.Obstacle.api.ObstacleFactory;
 import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.Obstacle;
 
+/**
+ * implementation of {@link ObstacleFactory}.
+ */
 public class ObstacleFactoryImpl implements ObstacleFactory {
 
-    private static final int LASER_INTERVAL = 6000; // milliseconds requiered to make the variable "active" change status (in a laser)
+    // milliseconds requiered to make the variable "active" change status (in a laser)
+    private static final int LASER_INTERVAL = 6000;
 
     /**
      * {@inheritDoc}}
      */
     @Override
-    public Obstacle createSimpleObstacle(Position pos) {
+    public Obstacle createSimpleObstacle(final Position pos) {
         return new ObstacleImpl(pos, true, false, EntityType.SIMPLEOBSTACLE);
     }
 
@@ -21,7 +25,7 @@ public class ObstacleFactoryImpl implements ObstacleFactory {
      * {@inheritDoc}}
      */
     @Override
-    public Obstacle createUndestroyableObstacle(Position pos) {
+    public Obstacle createUndestroyableObstacle(final Position pos) {
         return new ObstacleImpl(pos, false, false, EntityType.UNDESTROYABLEOBSTACLE);
     }
 
@@ -29,8 +33,7 @@ public class ObstacleFactoryImpl implements ObstacleFactory {
      * {@inheritDoc}}
      */
     @Override
-    public Obstacle createLaser(Position pos) {
+    public Obstacle createLaser(final Position pos) {
         return new ObstacleImpl(pos, false, true, EntityType.LASER, new Timer(LASER_INTERVAL));
     }
-
 }

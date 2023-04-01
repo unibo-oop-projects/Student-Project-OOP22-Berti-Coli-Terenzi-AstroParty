@@ -3,26 +3,29 @@ package it.unibo.AstroParty.model.Obstacle.api;
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.api.Obstacle;
 
+/**
+ * interface that model a Factory for creating the obstacles.
+ */
 public interface ObstacleFactory {
-    
+
     /**
-     * create a simple destroyable obstacle
+     * create a simple destroyable obstacle.
      * @param pos the down-left corner of the obstacle
      * @return a destroyable obstacle
      */
-    public Obstacle createSimpleObstacle(Position pos);
+    Obstacle createSimpleObstacle(Position pos);
 
     /**
-     * create an undestroyable obstacle
+     * create an undestroyable obstacle.
      * @param pos the down-left corner of the obstacle
      * @return an unbreakable obstacle
      */
-    public Obstacle createUndestroyableObstacle(Position pos);
-    
+    Obstacle createUndestroyableObstacle(Position pos);
+
     /**
-     * create a fatal and intermittent (not always active) obstacle 
+     * create a fatal and intermittent (not always active) obstacle.
      * @param pos the down-left corner of the obstacle
      * @return a laser 
      */
-    public Obstacle createLaser(Position pos);
+    Obstacle createLaser(Position pos);
 }

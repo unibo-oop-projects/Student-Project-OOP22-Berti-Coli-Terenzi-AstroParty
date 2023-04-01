@@ -1,22 +1,31 @@
 package it.unibo.AstroParty.model.api;
 
+/**
+ * interface that models the entity obstacle.
+ */
 public interface Obstacle extends Entity {
 
-    static final double size = 3;
+    /**
+     * the size of the Obstacle
+     */
+    double size = 3.0;
 
     /**
      * 
      * @return true if the obstacle is visible/hittable
      */
-    public boolean isActive();
+    boolean isActive();
 
     /**
      * 
      * @return true if the obstacle damages the spaceship
      */
-    public boolean isHarmful();
+    boolean isHarmful();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public RectangleHitBox getHitBox();
+    RectangleHitBox getHitBox();
 
 }

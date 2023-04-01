@@ -55,18 +55,17 @@ public class GameEngineImpl implements GameEngine, Runnable {
 	public void init() {
 		gameState = new GameStateImpl();
 		
-		/*
+		
 		//Set of the SpawnDelay and enumeration of PowerUpTypes
 		spawnerSettings = new SpawnerSettingsImpl();
 		spawnerSettings.enableAll();
-		spawnerSettings.setSpawnDelay(20);
 		
 		//Set of 2 PowerUps on the map on two different fixed positions
 		powerUpFactory = new PowerUpFactoryImpl();
-		gameState.addPowerUp(powerUpFactory.createPowerUp(EntityType.DOUBLESHOT, new Position(x1,y1)));
-		gameState.addPowerUp(powerUpFactory.createPowerUp(EntityType.SHIELD, new Position(x2,y2)));
+		gameState.addPowerUp(powerUpFactory.createPowerUp(EntityType.DOUBLESHOT, new Position(20,40)));
+		gameState.addPowerUp(powerUpFactory.createPowerUp(EntityType.SHIELD, new Position(40,20)));
 		
-		//Set Obstacles
+		/*/Set Obstacles
 		obstacleFactory = new ObstacleFactoryImpl();
 		gameState.addObstacle(obstacleFactory.createLaser(new Position(lx, ly)));
 		gameState.addObstacle(obstacleFactory.createSimpleObstacle(new Position(a1, a2)));
@@ -75,7 +74,8 @@ public class GameEngineImpl implements GameEngine, Runnable {
 		gameState.addObstacle(obstacleFactory.createSimpleObstacle(new Position(d1, d2))); */
 
 		obstacleFactory = new ObstacleFactoryImpl();
-		gameState.addObstacle(obstacleFactory.createLaser(new Position(0, 90)));
+		gameState.addObstacle(obstacleFactory.createUndestroyableObstacle(new Position(25, 25)));
+		gameState.addObstacle(obstacleFactory.createSimpleObstacle(new Position(75, 75)));
 		
 		//TODO set spaceship 
 		this.spaceships = spaceshipBuilder.create(gameState);
@@ -98,7 +98,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
 		double nextRefreshTime = viewRefreshInterval + System.currentTimeMillis();
 		
 		//start of Spawner of PowerUps
-		//spawnerSettings.startGame().start(gameState);
+		spawnerSettings.startGame().start(gameState);
 		this.inputControl.start();
 		while(!gameState.isOver()) {
 			currentTime= System.currentTimeMillis();

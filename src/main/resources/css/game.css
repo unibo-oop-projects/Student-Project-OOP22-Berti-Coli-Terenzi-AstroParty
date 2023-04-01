@@ -17,16 +17,20 @@
     -fx-image: url('../sprites/player_yellow.gif');
     -fx-background-size: cover;
 }
+#Speed{
+    -fx-image: url('../sprites/powerUp_speed.png');
+    -fx-background-size: cover;	
+}
 #Shield{
-    -fx-image: url('../sprites/icon.png');
+    -fx-image: url('../sprites/powerUp_shield.png');
     -fx-background-size: cover;
 }
 #Immortality{
-    -fx-image: url('../sprites/icon.png');
+    -fx-image: url('../sprites/powerUp_immortality.png');
     -fx-background-size: cover;
 }
 #Doubleshot{
-    -fx-image: url('../sprites/icon.png');
+    -fx-image: url('../sprites/powerUp_doubleShot.png');
     -fx-background-size: cover;
 }
 #Laser{
@@ -35,6 +39,10 @@
 }
 #BasicObstacle{
     -fx-image: url('../sprites/obstacle_wall.jpg');
+    -fx-background-size: cover;
+}
+#UndestroyableObstacle {
+	 -fx-image: url('../sprites/obstacle_undestroyable.png');
     -fx-background-size: cover;
 }
 #Projectile{

@@ -124,7 +124,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	public void enableAll() {
 		this.possible.addAll( EnumSet.allOf(EntityType.class) );
 		this.possible.removeIf( e -> ! (e.getGeneralType() == EntityType.POWERUP ) );
-		System.out.println("-- " + this.possible);
+		//System.out.println("-- " + this.possible);
 	}
 
 

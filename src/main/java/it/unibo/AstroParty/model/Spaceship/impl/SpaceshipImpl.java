@@ -269,13 +269,12 @@ public class SpaceshipImpl implements SimpleSpaceship {
 
 		if( this.immortal ) {
 			this.dead =  false;
-		}
-		
-		if( this.shield ) {
+		}else if( this.shield ) {
 			this.shield = false;
 			this.dead =  false;
+		}else {
+			this.dead =  true;
 		}
-		this.dead =  true;
 
 		return this.dead;
 	}

@@ -40,7 +40,7 @@ public abstract class BasicPowerUp implements PowerUp {
 	@Override
 	public CircleHitBox getHitBox() {
 
-		return new CircleHitBoxImpl( this.position, PowerUp.relativaSize);
+		return new CircleHitBoxImpl( this.position, PowerUp.relativeSize);
 	}
 
 	/**

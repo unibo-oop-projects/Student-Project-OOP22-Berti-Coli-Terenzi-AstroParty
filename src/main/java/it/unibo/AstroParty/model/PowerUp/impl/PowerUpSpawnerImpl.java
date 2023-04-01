@@ -104,7 +104,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	}
 
 	private boolean canExist(Position position) {
-		CircleHitBox hbox = new CircleHitBoxImpl( position, PowerUp.relativaSize);
+		CircleHitBox hbox = new CircleHitBoxImpl( position, PowerUp.relativeSize);
 		return  this.world.getEntities().stream()
 				.map( entity -> entity.getHitBox() )
 				.anyMatch( e -> e.checkCircleCollision(hbox ));

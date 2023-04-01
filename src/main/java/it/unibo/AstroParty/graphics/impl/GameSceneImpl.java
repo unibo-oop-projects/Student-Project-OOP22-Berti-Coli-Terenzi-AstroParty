@@ -70,7 +70,7 @@ public class GameSceneImpl extends Scene implements GameScene{
         view.setY(entity.getPosition().getY()* Scale);
         view.setFitWidth(entity.getLength() * Scale );
         view.setFitHeight(entity.getHeight() *Scale);
-        view.setRotate(entity.getAngle() + 90);
+        view.setRotate(entity.getAngle()+90);
 		return view;
 	}
 }

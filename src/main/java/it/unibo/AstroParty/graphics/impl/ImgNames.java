@@ -12,10 +12,10 @@ public class ImgNames {
     private static final String P2 = "p2";
     private static final String P3 = "p3";
     private static final String P4 = "p4";
-    private static final String Shield = "Shield";				//TODO trova e aggiungi
-    private static final String Immortality = "Immortality";		//TODO trova e aggiungi
-    private static final String Doubleshot = "Doubleshot";			//TODO trova e aggiungi
-    private static final String Speed = "Speed";				//TODO trova e aggiungi
+    private static final String Shield = "Shield";
+    private static final String Immortality = "Immortality";
+    private static final String Doubleshot = "Doubleshot";
+    private static final String Speed = "Speed";
     private static final String Laser = "Laser";
     private static final String BasicObstacle = "BasicObstacle";
     private static final String UndestroyableObstacle = "UndestroyableObstacle";

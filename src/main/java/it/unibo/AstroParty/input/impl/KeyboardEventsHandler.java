@@ -45,11 +45,11 @@ public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
 				control.shoot( GameId.Player2 );
 				break;
 			
-			case C:
+			case V:
 				control.startTurn( GameId.Player3 );
 				break;
 				
-			case V:
+			case C:
 				control.shoot( GameId.Player3 );
 				break;
 			
@@ -75,7 +75,7 @@ public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
 			control.stopTurn( GameId.Player2 );
 			break;
 		
-		case C:
+		case V:
 			control.stopTurn( GameId.Player3 );
 			break;
 		

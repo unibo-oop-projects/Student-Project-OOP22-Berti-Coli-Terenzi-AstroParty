@@ -53,26 +53,27 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 
 			private boolean inUse;
-			private double startingTime;
+			private double useTime = 0;
 
 			@Override
 			public void use() {
 				this.inUse=true;
-				super.owner.upgradeSpeed();
+				super.owner.upgradeSpeed();;
 			}
 
 			@Override
 			public void update(double time) {
 				
 				if( super.pickedUp && !this.inUse) {
-					
-					this.startingTime = time;
 					this.use();
 				}
 				
-				if ( this.inUse && this.startingTime + PowerUp.Duration  >= time ) {
-					super.owner.normalSpeed();
-					super.owner.removePowerUp( this );
+				if ( this.inUse ) {
+					this.useTime += time;
+					if ( this.useTime > PowerUp.Duration) {
+						super.owner.normalSpeed();
+						super.owner.removePowerUp( this );
+					}
 				}
 			}
 			
@@ -88,24 +89,13 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 		
 		return new BasicPowerUp( pos, true,  EntityType.DOUBLESHOT ) {
 
-			private boolean inUse;
-			private double useTime = 0;
-
 			@Override
 			public void update(double time) {
-
-				if( this.inUse ) {
-					this.useTime +=time;
-					System.out.println( this.useTime );
-					if(this.useTime >= PowerUp.Duration) {
-						super.owner.removePowerUp( this );
-					}
-				}
 			}
 
 			@Override
 			public void use() {
-				this.inUse=true;
+				super.owner.removePowerUp( this );
 			}
 			
 		};
@@ -122,7 +112,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 
 			private boolean inUse;
-			private double startingTime;
+			private double useTime = 0;
 
 			@Override
 			public void use() {
@@ -134,14 +124,15 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 			public void update(double time) {
 				
 				if( super.pickedUp && !this.inUse) {
-					
-					this.startingTime = time;
 					this.use();
 				}
 				
-				if ( this.inUse && this.startingTime + PowerUp.Duration  >= time ) {
-					super.owner.makeMortal();
-					super.owner.removePowerUp( this );
+				if ( this.inUse ) {
+					this.useTime += time;
+					if ( this.useTime > PowerUp.Duration) {
+						super.owner.makeMortal();
+						super.owner.removePowerUp( this );
+					}
 				}
 			}
 			

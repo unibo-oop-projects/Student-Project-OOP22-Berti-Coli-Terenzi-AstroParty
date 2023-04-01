@@ -21,7 +21,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	 * the basic setting is {@link #disableAll()}
 	 */
 	public SpawnerSettingsImpl(){
-		this.DisableAll();
+		this.disableAll();
 		this.spawnDelay = SpawnerSettings.basic_spawn_delay;
 	}
 

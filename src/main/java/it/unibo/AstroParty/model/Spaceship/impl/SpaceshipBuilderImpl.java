@@ -23,7 +23,28 @@ import it.unibo.AstroParty.model.api.Spaceship;
  */
 public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	
+	// costanti per le impostazione basi di pos e dir dei 4 player
+	
 	private static double BorderDistance = 5.0;
+	
+	private static double angleP1 = 45;
+	private static double angleP2 = 225;
+	private static double angleP3 = 315;
+	private static double angleP4 = 135;
+	
+	private static Position positionP1 = new Position(Spaceship.relativeSize + BorderDistance,
+														Spaceship.relativeSize + BorderDistance);
+	private static Position positionP2 = new Position( GameState.width - Spaceship.relativeSize - BorderDistance ,
+														GameState.height - Spaceship.relativeSize - BorderDistance);
+	private static Position positionP3 = new Position(Spaceship.relativeSize + BorderDistance,
+														GameState.height - Spaceship.relativeSize - BorderDistance);
+	private static Position positionP4 = new Position(GameState.width - Spaceship.relativeSize - BorderDistance ,
+														Spaceship.relativeSize + BorderDistance);;
+	
+	private static Direction directionP1 = new Direction( 1 , 1 );
+	private static Direction directionP2 = new Direction( -1 , -1 );
+	private static Direction directionP3 = new Direction( 1 , -1 );
+	private static Direction directionP4 = new Direction( -1 , 1 );
 
 	// variabili usate per creare la Spaceship
 	private double baseSpeed;
@@ -173,16 +194,16 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	private double getAngle(PlayerId id) {
 		switch( id.getGameId() ){
 			case Player1:
-				return 45;
+				return angleP1;
 
 			case Player2:
-				return 225;
+				return angleP2;
 
 			case Player3:
-				return 315;
+				return angleP3;
 
 			case Player4:
-				return 135;
+				return angleP4;
 
 			default:
 				throw new UnsupportedOperationException();
@@ -197,16 +218,16 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	private Direction getDir(PlayerId id) {
 		switch( id.getGameId() ){
 			case Player1:
-				return new Direction( 1 , 1 );
+				return directionP1;
 
 			case Player2:
-				return new Direction( -1 , -1 );
+				return directionP2;
 
 			case Player3:
-				return new Direction( 1 , -1 );
+				return directionP3;
 
 			case Player4:
-				return new Direction( -1 , 1 );
+				return directionP4;
 
 			default:
 				throw new UnsupportedOperationException();
@@ -222,17 +243,17 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 		
 		switch( id.getGameId() ){
 			case Player1:
-				return new Position(Spaceship.relativeSize + BorderDistance, Spaceship.relativeSize + BorderDistance);
+				return positionP1;
 
 			case Player2:
-				return new Position( GameState.width - Spaceship.relativeSize - BorderDistance , GameState.height - Spaceship.relativeSize - BorderDistance);
-
+				return positionP2;
+				
 			case Player3:
-				return new Position(Spaceship.relativeSize + BorderDistance, GameState.height - Spaceship.relativeSize - BorderDistance);
-
+				return positionP3;
+				
 			case Player4:
-				return new Position(GameState.width - Spaceship.relativeSize - BorderDistance , Spaceship.relativeSize + BorderDistance);
-
+				return positionP4;
+				
 			default:
 				throw new UnsupportedOperationException();
 		}

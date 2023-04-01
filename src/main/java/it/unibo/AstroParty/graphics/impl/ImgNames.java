@@ -1,11 +1,13 @@
 package it.unibo.AstroParty.graphics.impl;
 
-import java.io.File;
 import it.unibo.AstroParty.graphics.api.GraphicEntity;
 import it.unibo.AstroParty.input.api.GameId;
 
+/**
+ *  this class contains the name of the images for each {@link EntityType} so that they can all be saved in only one place and reused for multiple implementations
+ *
+ */
 public class ImgNames {
-	private static final String SEP = File.separator ;
     private static final String P1 =  "p1";
     private static final String P2 = "p2";
     private static final String P3 = "p3";
@@ -16,9 +18,14 @@ public class ImgNames {
     private static final String Speed = "Speed";				//TODO trova e aggiungi
     private static final String Laser = "Laser";
     private static final String BasicObstacle = "BasicObstacle";
+    private static final String UndestroyableObstacle = "UndestroyableObstacle";
     private static final String Projectile = "Projectile";
 
-
+    /**
+     * 
+     * @param entity
+     * @return the name of the file that has to be drawn for the specific {@link EntityType}
+     */
 	public String getName( GraphicEntity entity ) {
 		String s =null ;
 		switch( entity.getType() ) {
@@ -55,6 +62,10 @@ public class ImgNames {
 				s = Projectile;
 				break;
 				
+			case UNDESTROYABLEOBSTACLE:
+				s = UndestroyableObstacle;
+				break;
+				
 			default:
 				throw( new UnsupportedOperationException() );
 		}
@@ -62,6 +73,11 @@ public class ImgNames {
 		
 	}
 	
+	/**
+	 * 
+	 * @param Id of a spaceship
+	 * @return the name of the file that has to be drawn for the specific {@link Spaceship}
+	 */
 	private String getSpaceshipimg( GameId id) {
 
 		switch( id ) {

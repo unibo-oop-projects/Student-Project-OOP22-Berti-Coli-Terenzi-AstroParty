@@ -51,6 +51,9 @@ public interface Spaceship extends Entity {
      */
     public void stopTurn();
 
-    @Override
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
     public CircleHitBox getHitBox();
 }

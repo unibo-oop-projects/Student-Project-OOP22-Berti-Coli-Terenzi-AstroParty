@@ -15,6 +15,9 @@ public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
 
 	private final InputControl control ;
 	
+	/**
+	 * @param control the controller in witch the input has to be added
+	 */
 	public KeyboardEventsHandler( InputControl control ){
 		this.control = control;
 	}

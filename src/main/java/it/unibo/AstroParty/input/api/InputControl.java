@@ -1,15 +1,13 @@
 package it.unibo.AstroParty.input.api;
 
 /** 
- * @author Alessandro Coli
- *	
- *	a controller used to signal to the model the input signals
+ *a controller used to signal to the model the input signals.
  */
 public interface InputControl {
-	
-	/**
-	 * stop propagating input signals
-	 */
+
+/**
+ * stop propagating input signals
+ */
 	public void stop();
 	
 	/**
@@ -24,19 +22,19 @@ public interface InputControl {
 
 	/**
 	 * adds a startTurn command to the queue
-	 * @param player1: the id of the |player that executed the command
+	 * @param player1 the id of the player that executed the command
 	 */
 	public void startTurn(GameId player1);
 
 	/**
 	 * adds a shoot command to the queue
-	 * @param player1: the id of the |player that executed the command
+	 * @param player1 the id of the player that executed the command
 	 */
 	public void shoot(GameId player1);
 
-	/**
-	 * adds a stopTurn command to the queue
-	 * @param player1: the id of the |player that executed the command
-	 */
-	public void stopTurn(GameId player1);
+    /**
+     * adds a stopTurn command to the queue
+     * @param player1 : the id of the player that executed the command
+     */
+    public void stopTurn(GameId player1);
 }

@@ -6,6 +6,11 @@ import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.input.api.GameId;
 import it.unibo.AstroParty.model.api.EntityType;
 
+/**
+ * 
+ * an entity to be drawn on screen
+ *
+ */
 public interface GraphicEntity {
 	
 	/**
@@ -14,7 +19,7 @@ public interface GraphicEntity {
 	public Position getPosition();
 	
 	/**
-	 * @return the angle as double, usefull to rotate images
+	 * @return the angle as double, useful to rotate images
 	 */
 	public double getAngle();
 	

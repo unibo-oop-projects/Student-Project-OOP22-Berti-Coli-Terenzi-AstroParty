@@ -19,8 +19,7 @@ import it.unibo.AstroParty.model.api.Spaceship;
 
 /**
  * 
- * @author Alessandro Coli
- * a concrete implementation of {@link SpaceshipBuilder}
+ * a concrete implementation of {@link SpaceshipBuilder} that can be used to create the same Spaceships for multiple matches inside a game
  */
 public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	
@@ -41,42 +40,78 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	private final String FILE_NAME = System.getProperty ("user.dir") + SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "default_settings" + SEP + "SpaceshipBuilder_config.yml ";
 	private Collection<PlayerId> playerIds;
 	
+	/**
+	 * uploads a basic configuration using {@link #uploadBasicConfig()}
+	 */
 	public SpaceshipBuilderImpl(){
 		this.uploadBasicConfig();
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setSpeed(double speed) {
+		if ( this.stopInput() ) {
+			return ;
+		}
 		this.baseSpeed = speed;
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setMaxBullets(int maxBullets) {
+		if ( this.stopInput() ) {
+			return ;
+		}
 
 		this.maxBullets = maxBullets;
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setRechargeTime(long time) {
+		if ( this.stopInput() ) {
+			return ;
+		}
 
 		this.rechargeTime = time ;
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setStartingShield(boolean enable) {
+		if ( this.stopInput() ) {
+			return ;
+		}
 
 		this.startingShield = enable;
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setids(Collection<PlayerId> playerIds) {
+		if ( this.stopInput() ) {
+			return ;
+		}
 		this.playerIds = playerIds;
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setNames(Collection<String> playerNames) {
 		
-		if( ! ( this.playerIds == null || this.playerIds.isEmpty() ) ) {
+		if ( this.stopInput() ) {
 			return ;
 		}
 		
@@ -111,6 +146,9 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 		
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Collection<Spaceship> create(GameState world) {
 		
@@ -127,6 +165,11 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 				.collect( Collectors.toSet());
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return the Direction on spawn for the spaceship with the given Id
+	 */
 	private double getAngle(PlayerId id) {
 		switch( id.getGameId() ){
 			case Player1:
@@ -146,6 +189,11 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 		}
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return the Angle on spawn for the spaceship with the given Id
+	 */
 	private Direction getDir(PlayerId id) {
 		switch( id.getGameId() ){
 			case Player1:
@@ -165,6 +213,11 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 		}
 	}
 
+	/**
+	 * 
+	 * @param id
+	 * @return the Position on spawn for the spaceship with the given Id
+	 */
 	private Position getPos(PlayerId id) {
 		
 		switch( id.getGameId() ){
@@ -184,7 +237,20 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 				throw new UnsupportedOperationException();
 		}
 	}
+	
 
+	/**
+	 * if {@link #setids(Collection)} or {@link #setNames(Collection)} have been called the input has to stop being taken
+	 * only {@link #create(GameState)} can be used
+	 * @return
+	 */
+	private boolean stopInput() {
+		return  ! ( this.playerIds == null || this.playerIds.isEmpty() )  ;
+	}
+
+	/**
+	 * set all the parameters to the basic ones, taking them from the SpaceshipBuilder_config.yaml file
+	 */
 	private void uploadBasicConfig() {
 	String line ;
 	int ind;
@@ -223,4 +289,5 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 		e.printStackTrace();
 	}
 	}
+	
 }

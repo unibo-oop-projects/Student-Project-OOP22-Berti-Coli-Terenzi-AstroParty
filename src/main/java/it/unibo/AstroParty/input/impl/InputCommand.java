@@ -15,6 +15,11 @@ public class InputCommand {
 	private final GameId gameID;
 	private final Consumer<Spaceship> action;
 
+	/**
+	 * 
+	 * @param gameID of the spaceship on wich to compute the action
+	 * @param action the action to be performed on the spaceship
+	 */
 	InputCommand(GameId gameID, Consumer<Spaceship> action){
 		this.gameID = gameID;
 		this.action = action;		

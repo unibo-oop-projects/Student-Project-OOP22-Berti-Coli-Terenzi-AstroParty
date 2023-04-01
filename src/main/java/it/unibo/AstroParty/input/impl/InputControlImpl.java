@@ -19,18 +19,32 @@ public class InputControlImpl implements InputControl {
 	private final List<InputCommand> commands = new LinkedList<>();
 	private boolean read;
 	
+	/**
+	 * @param spaceships : the spaceships of the current match
+	 */
 	public InputControlImpl(Collection<Spaceship> spaceships){
 		this.spaceships = spaceships;
 	}
+	
+	/**
+	 *  {@inheritDoc}
+	 */
 	@Override
 	public void stop() {
 		this.read = false;
 	}
 	
+	/**
+	 *  {@inheritDoc}
+	 */
+	@Override
 	public void start() {
 		this.read = true;
 	}
-
+	
+	/**
+	 *  {@inheritDoc}
+	 */
 	@Override
 	public void compute() {
 		for( InputCommand event : commands) {
@@ -41,29 +55,36 @@ public class InputControlImpl implements InputControl {
 		this.commands.clear();
 	}
 
+	/**
+	 *  adds an event to the queue of events
+	 */
 	private void addEvent(InputCommand action) {
 
 		if( this.read ) {
 			this.commands.add(action);
 		}
 	}
+	
 	/**
-	 * @param player: the GameId of the spaceship that has to shoot
+	 *  {@inheritDoc}
 	 */
+	@Override
 	public void shoot(GameId player) {
 		this.addEvent(new InputCommand( player, s -> s.shoot()));
 	}
-	
+
 	/**
-	 * @param player: the GameId of the spaceship that has to start turning
+	 *  {@inheritDoc}
 	 */
+	@Override
 	public void startTurn(GameId player) {
 		this.addEvent(new InputCommand( player, s -> s.startTurn()));
 	}
-	
+
 	/**
-	 * @param player: the GameId of the spaceship that has to stop turning
+	 *  {@inheritDoc}
 	 */
+	@Override
 	public void stopTurn(GameId player) {
 		this.addEvent(new InputCommand( player, s -> s.stopTurn()));
 	}

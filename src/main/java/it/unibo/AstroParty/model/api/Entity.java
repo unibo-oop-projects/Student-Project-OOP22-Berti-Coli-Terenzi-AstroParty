@@ -31,9 +31,13 @@ public interface Entity {
     public void update(double time);
     
     /**
-     * @return the {@link PowerUpTypes} of this power up
+     * @return the {@link PowerUpTypes} of this Entity
      */
     public EntityType getType();
     
+    /**
+     * 
+     * @return the {@link GraphicEntity} of this Entity
+     */
     public GraphicEntity getGraphicComponent() ;
 }

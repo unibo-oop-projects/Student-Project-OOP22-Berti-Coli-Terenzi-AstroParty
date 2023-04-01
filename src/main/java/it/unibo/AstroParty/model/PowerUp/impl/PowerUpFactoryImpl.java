@@ -11,7 +11,10 @@ import it.unibo.AstroParty.model.api.PowerUp;
  * a class that implements {@link PowerUpFactory}
  */
 public class PowerUpFactoryImpl implements PowerUpFactory {
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PowerUp createPowerUp(EntityType type, Position pos) {
 		PowerUp pUp = null;
@@ -39,6 +42,11 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 		return pUp;
 	}
 
+	/**
+	 * 
+	 * @param pos of the PowerUp
+	 * @return a UPGRADEDSPEED powerUP
+	 */
 	private PowerUp createSpeed(Position pos) {
 		
 		return new BasicPowerUp( pos, true,  EntityType.UPGRADEDSPEED ) {
@@ -71,6 +79,11 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 		};
 	}
 
+	/**
+	 * 
+	 * @param pos of the PowerUp
+	 * @return a DOUBLESHOT powerUP
+	 */
 	private PowerUp createDoubleShot(Position pos) {
 		
 		return new BasicPowerUp( pos, true,  EntityType.DOUBLESHOT ) {
@@ -98,6 +111,11 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 		};
 	}
 
+	/**
+	 * 
+	 * @param pos of the PowerUp
+	 * @return a IMMORTALITY powerUP
+	 */
 	private PowerUp createImmortality(Position pos) {
 		
 		return new BasicPowerUp( pos, true,  EntityType.IMMORTALITY ) {
@@ -130,6 +148,11 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 		};
 	}
 
+	/**
+	 * 
+	 * @param pos of the PowerUp
+	 * @return a SHIELD powerUP
+	 */
 	private PowerUp createShield(Position pos) {
 		
 		return new BasicPowerUp( pos, false, EntityType.SHIELD) {

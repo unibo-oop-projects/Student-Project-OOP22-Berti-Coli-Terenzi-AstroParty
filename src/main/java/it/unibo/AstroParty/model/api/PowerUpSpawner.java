@@ -9,7 +9,7 @@ package it.unibo.AstroParty.model.api;
 public interface PowerUpSpawner {
 	
 	/**
-	 * tha game has ended so stop spawning
+	 * the game has ended so stop spawning
 	 */
     public void stop();
     

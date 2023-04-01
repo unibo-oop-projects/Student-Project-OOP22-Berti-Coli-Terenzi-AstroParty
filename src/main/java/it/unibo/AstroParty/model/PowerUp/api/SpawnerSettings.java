@@ -4,7 +4,6 @@ import it.unibo.AstroParty.model.api.PowerUpSpawner;
 
 /**
  * 
- * @author Alessandro Coli
  * a builder for {@link PowerUpSpawner }
  */
 public interface SpawnerSettings {
@@ -40,12 +39,6 @@ public interface SpawnerSettings {
 	 */
 	public void enableUpgradedSpeed(boolean enable);
 	
-	/*
-	for future implementations: 
-	public void enableLaserShot(boolean enable);
-	public void enableLaserSword(boolean enable); 
-	*/
-	
 	/**
 	 * enable the shield PowerUp
 	 * @param enable: true for enable, false for disable
@@ -60,6 +53,6 @@ public interface SpawnerSettings {
 	/**
 	 * disable all the power ups
 	 */
-	public void DisableAll();
+	public void disableAll();
 	
 }

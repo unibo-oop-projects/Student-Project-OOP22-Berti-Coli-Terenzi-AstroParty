@@ -1,7 +1,6 @@
 package it.unibo.AstroParty.input.api;
 
 /**
- * @author Alessandro Coli
  *
  * an enum that rapresents the possible players in game, helpfull for connecting the right input
  */

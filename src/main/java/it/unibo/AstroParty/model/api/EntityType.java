@@ -22,14 +22,24 @@ public enum EntityType {
 
 	EntityType generalType;
 
+	/**
+	 * used for already macrotypes
+	 */
 	EntityType(){
 		this.generalType = null;
 	}
-
+	
+	/**
+	 * 
+	 * @param generalType the macrotype of the entity
+	 */
 	EntityType (EntityType generalType){
 		this.generalType = generalType;
 	}
 
+	/**
+	 * @return the general Type of Entity or null if it already is a General Type
+	 */
 	public EntityType getGeneralType(){
 		return this.generalType;
 	}

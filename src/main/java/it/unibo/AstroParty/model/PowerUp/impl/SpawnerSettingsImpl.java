@@ -8,7 +8,7 @@ import it.unibo.AstroParty.model.api.EntityType;
 
 /** 
  * 
- * @author Alessandro Coli
+
  * 
  * a concrete implementation of {@link SpawnerSettings }
  */
@@ -17,32 +17,53 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	EnumSet<EntityType> possible = EnumSet.noneOf( EntityType.class );
 	long spawnDelay;
 	
+	/**
+	 * the basic setting is {@link #disableAll()}
+	 */
 	public SpawnerSettingsImpl(){
 		this.DisableAll();
 		this.spawnDelay = SpawnerSettings.basic_spawn_delay;
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public PowerUpSpawner startGame() {
 		
 		return new PowerUpSpawnerImpl( this.possible , this.spawnDelay );
 	}
 	
+	/**
+	 * @param the type of PowerUp to be enabled
+	 */
 	private void enable( EntityType type ) {
 		
 		this.possible.add(type);
 	}
 	
+	/**
+	 * @param the type of PowerUp to be disabled
+	 */
 	private void disable( EntityType type ) {
 		
 		this.possible.remove(type);
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setSpawnDelay(long timeInterval) {
 
 		this.spawnDelay = timeInterval;
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void enableDoubleShot(boolean enable) {
 		
@@ -53,6 +74,10 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 		}
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void enableTemporaryImmortality(boolean enable) {
 		
@@ -63,6 +88,10 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 		}
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void enableUpgradedSpeed(boolean enable) {
 		
@@ -73,6 +102,10 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 		}
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void enableShield(boolean enable) {
 		
@@ -83,6 +116,10 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 		}
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void enableAll() {
 		this.possible.addAll( EnumSet.allOf(EntityType.class) );
@@ -90,8 +127,12 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 		System.out.println("-- " + this.possible);
 	}
 
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void DisableAll() {
+	public void disableAll() {
 
 		this.possible = EnumSet.noneOf( EntityType.class );
 	}

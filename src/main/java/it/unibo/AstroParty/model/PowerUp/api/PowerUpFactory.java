@@ -6,7 +6,6 @@ import it.unibo.AstroParty.model.api.PowerUp;
 
 /**
  * 
- * @author Alessandro Coli
  * a factory for {@link PowerUp}
  */
 public interface PowerUpFactory {

@@ -46,7 +46,19 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private boolean recharging;
 	private boolean dead;
 	
-	public SpaceshipImpl(Position posi, Direction dir, double angle, GameState world, double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
+	/**
+	 * takes all the parameters needed for the game
+	 * @param startPosition
+	 * @param startDirection
+	 * @param angle
+	 * @param world
+	 * @param speed
+	 * @param maxBullets
+	 * @param startingShield
+	 * @param id
+	 * @param bulletRegenTime
+	 */
+	public SpaceshipImpl(Position startPosition, Direction startDirection, double angle, GameState world, double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
 		
 		this.world = world;
 		this.shield = startingShield;
@@ -55,24 +67,32 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		this.speed = speed;
 		this.bulletRegenTime = bulletRegenTime;
 		this.bullets = maxBullets;
-		this.position = posi;
+		this.position = startPosition;
 		this.angle = angle;
-		this.direction = dir;
-		this.lastPos = posi;
+		this.direction = startDirection;
+		this.lastPos = startPosition;
 		
 	}
 	
-	// Usati dal gameLoop
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void resetPosition() {
 		this.position = this.lastPos ;
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Position getPosition() {
 		return this.position.copy();
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equipPowerUp(PowerUp pUp) {
 		
@@ -85,6 +105,9 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		return false;
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public CircleHitBox getHitBox() {
 		
@@ -96,6 +119,9 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		
 	}
 	
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public GraphicEntity getGraphicComponent() {
 		GraphicEntity view = this.getHitBox().getGraphicComponent( EntityType.SPACESHIP );
@@ -103,7 +129,30 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		view.setId( this.playerId.getGameId() );
 		return view;
 	}
+	
 
+	/** 
+	 * {@inheritDoc}
+	 */
+	@Override
+	public double getAngle() {
+		
+		return this.angle;
+	}
+
+	/** 
+	 * {@inheritDoc}
+	 */
+	@Override
+	public EntityType getType() {
+		
+		return EntityType.SPACESHIP;
+	}
+
+	/** 
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void update(double time) {
 		
 		if(this.turning ) {
@@ -112,9 +161,11 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		this.powerUp.ifPresent( p -> p.update(time) );
 		this.move(time);
 	}
-	
-	
 
+	/** 
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void shoot() {
 		
 		if(  this.dead || this.bullets <= 0) {
@@ -150,9 +201,10 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		this.bullets -- ;
 		this.startTimer(); 					// non e' contenuto in createProjectile in quanto in caso di DuobleShot deve toglierne uno solo al counter
 	}
-
-	//usati dai PowerUp
 	
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void removePowerUp(PowerUp pUp) {
 		if( this.powerUp.isPresent() &&  this.powerUp.get().equals(pUp)) {
@@ -160,6 +212,9 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		}
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void makeImmortal() {
 
@@ -167,6 +222,9 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 	
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void makeMortal() {
 		
@@ -174,6 +232,9 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 	
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void newShield() {
 
@@ -181,6 +242,9 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 	
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void upgradeSpeed() {
 		
@@ -188,14 +252,18 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	}
 	
 
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void normalSpeed() {
 
 		this.speed = this.speed / PowerUp.speedModifier;
 	}
 	
-	//usati per input 
-	
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean hit() {			// basta dire che soso stato ucciso a gamestate, che lascia il mio riferimento e avvisa InputControl 
 
@@ -212,17 +280,23 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		return this.dead;
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void startTurn() {
 
 		this.turning = true;
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void stopTurn() {
 
 		this.turning = false;
 	}
-
-	// metodi ad Uso interno
 
 	/** 
 	 * updtaes the direction of the spaceship based on how much time it has been turning
@@ -292,24 +366,15 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		}
 	}
 
-	@Override
-	public double getAngle() {
-		
-		return this.angle;
-	}
-
-	@Override
-	public EntityType getType() {
-		
-		return EntityType.SPACESHIP;
-	}
-
+	/** 
+	 * {@inheritDoc}
+	 */
 	@Override
 	public boolean equals( Object o){
 
 		if( o instanceof Spaceship ){
 
-			if( ( (Spaceship)o ).getId().equals( this.getId()) ){
+			if( ( (Spaceship)o ).getId() == this.getId() ){
 
 				return true;
 

@@ -7,6 +7,9 @@ import it.unibo.AstroParty.graphics.api.GraphicEntity;
 import it.unibo.AstroParty.input.api.GameId;
 import it.unibo.AstroParty.model.api.EntityType;
 
+/**
+ * {@inheritDoc}
+ */
 public class GraphicEntityImpl implements GraphicEntity {
 	
 	private double angle = 0;
@@ -16,6 +19,14 @@ public class GraphicEntityImpl implements GraphicEntity {
 	private final double length ;
 	private final Position corner;
 	
+	/**
+	 * all the basic parameters for drqwing an entity
+	 * 
+	 * @param topLetfCorner
+	 * @param height
+	 * @param length
+	 * @param type
+	 */
 	public GraphicEntityImpl(Position topLetfCorner, double height, double length, EntityType type){
 		this.corner = topLetfCorner;
 		this.height = height;
@@ -23,40 +34,68 @@ public class GraphicEntityImpl implements GraphicEntity {
 		this.type = type;
 	}
 
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public EntityType getType() {
 		
 		return this.type;
 	}
-	@Override
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public Optional<GameId> getId() {
 		
 		return Optional.ofNullable( this.id );
 	}
 
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public void setId(GameId id) {
 		this.id = id;
 	}
 
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public void setAngle(double angle) {
 		this.angle = angle;
 	}
-	@Override
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public Position getPosition() {
 		return this.corner.copy();
 	}
-	@Override
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public double getAngle() {
 		return this.angle;
 	}
-	@Override
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public double getHeight() {
 		return this.height;
 	}
 
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public double getLength() {
 		return this.length;
 	}

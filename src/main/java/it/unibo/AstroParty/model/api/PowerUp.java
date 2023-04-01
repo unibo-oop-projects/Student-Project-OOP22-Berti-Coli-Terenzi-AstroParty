@@ -29,6 +29,10 @@ public interface PowerUp extends Entity {
      */
     public boolean isOffensive();
 
-    @Override
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
     public CircleHitBox getHitBox();
 }

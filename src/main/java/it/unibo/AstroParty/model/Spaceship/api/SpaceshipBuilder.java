@@ -37,8 +37,16 @@ public interface SpaceshipBuilder {
 	 */
 	public void setStartingShield(boolean enable);
 	
+	/**
+	 * set the Players for the game, after this is been called, only {@link #create(GameState)} can be used
+	 * @param playerIds : the {@link PlayerId} of all the Players
+	 */
 	public void setids( Collection<PlayerId> playerIds);
-		
+	
+	/**
+	 * set the Players for the game, after this is been called, only {@link #create(GameState)} can be used
+	 * @param playerNames : the names of all the Players
+	 */
 	public void setNames( Collection<String> playerNames);
 	/**
 	 * creates the spaceships needed for the game

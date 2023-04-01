@@ -29,11 +29,20 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	
 	private Timer timer = new Timer();
 	
+	/**
+	 * 
+	 * @param a collection of the possible types of PowerUPs
+	 * @param the delay between spawns
+	 */
 	public PowerUpSpawnerImpl(Collection<EntityType> possiblePowerUpTypes, long spawnDelay){
 		this.possiblePowerUpTypes = possiblePowerUpTypes;
 		this.SpawnDelay = spawnDelay;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public void start(GameState world) {
 		
 		this.world=world;
@@ -44,6 +53,10 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 			}
 		}, 2*SpawnDelay, SpawnDelay);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void stop() {
 		timer.cancel();

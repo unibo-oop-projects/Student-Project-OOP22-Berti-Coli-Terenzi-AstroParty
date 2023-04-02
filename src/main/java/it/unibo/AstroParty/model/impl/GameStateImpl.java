@@ -18,7 +18,7 @@ import it.unibo.AstroParty.model.api.Projectile;
 import it.unibo.AstroParty.model.api.Spaceship;
 
 /**
- * implementation of {@link GameState}
+ * GameState implementation.
  */
 public class GameStateImpl implements GameState, Observable {
 
@@ -28,8 +28,10 @@ public class GameStateImpl implements GameState, Observable {
     private final List<PowerUp> powerUps;
     private final List<Observer> observers;
     private final EventFactory eventFactory;
-    private final CollisionObserver collisionObserver;
 
+    /**
+     * Constructor for GameStateImpl.
+     */
     public GameStateImpl() {
         spaceships = new ArrayList<>();
         obstacles = new ArrayList<>();
@@ -37,8 +39,6 @@ public class GameStateImpl implements GameState, Observable {
         powerUps = new ArrayList<>();
         observers = new ArrayList<>();
         eventFactory = new EventFactoryImpl();
-        collisionObserver = new CollisionObserver();
-        registerObserver(collisionObserver);
     }
 
     /**
@@ -58,19 +58,14 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
-    public void update(double time) {
+    public void update(final double time) {
 
         this.getEntities().stream()     // update all the entities 
                 .forEach(e -> e.update(time));
 
         this.checkPlayerMovement();
-        
-        collisionObserver.manageEvents(this);    // manage movement events
-        
         this.checkProjectileInteractions();
         this.checkSpaceshipInteractions();
-        
-        collisionObserver.manageEvents(this);    // manage interaction events
     }
 
     private void checkPlayerMovement() {
@@ -81,11 +76,11 @@ public class GameStateImpl implements GameState, Observable {
                     || spaceships.stream()
                             .filter(targetSpaceship -> !targetSpaceship.equals(s))
                             .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))) {
-                this.notifyObservers(eventFactory.SpaceshipColliedEvent(s));
+                this.notifyObservers(eventFactory.spaceshipColliedEvent(s));
             }
         });
     }
-    
+
     private void checkProjectileInteractions() {
         projectiles.stream().forEach(p -> {
             boolean hit = false;
@@ -94,14 +89,14 @@ public class GameStateImpl implements GameState, Observable {
                 hit = true;
             }
 
-            for (Spaceship s : spaceships) {
+            for (final Spaceship s : spaceships) {
                 if (s.getHitBox().checkCircleCollision(p.getHitBox())) {
                     this.notifyObservers(eventFactory.spaceshipHittedEvent(s));
                     hit = true;
                 }
             }
 
-            for (Obstacle o : obstacles) {
+            for (final Obstacle o : obstacles) {
                 if (o.getHitBox().checkCircleCollision(p.getHitBox())) {
                     this.notifyObservers(eventFactory.obstacleHittedEvent(o));
                     hit = true;
@@ -115,7 +110,7 @@ public class GameStateImpl implements GameState, Observable {
     }
 
     private void checkSpaceshipInteractions() {
-        for (Spaceship s : spaceships) {
+        for (final Spaceship s : spaceships) {
 
             powerUps.stream()
                     .filter(p -> p.getHitBox().checkCircleCollision(s.getHitBox()))
@@ -123,14 +118,14 @@ public class GameStateImpl implements GameState, Observable {
         }
     }
 
-    private boolean checkBoundariesCollisions(CircleHitBox hb) {
-        Position pos = hb.getCenter();
-        double r = hb.getRadius();
+    private boolean checkBoundariesCollisions(final CircleHitBox hb) {
+        final Position pos = hb.getCenter();
+        final double r = hb.getRadius();
 
-        return pos.getX() + r > rightSide
-                || pos.getX() - r < leftSide
-                || pos.getY() + r > lowerSide
-                || pos.getY() - r < upperSide;
+        return pos.getX() + r > RIGHT_SIDE
+                || pos.getX() - r < LEFT_SIDE
+                || pos.getY() + r > LOWER_SIDE
+                || pos.getY() - r < UPPER_SIDE;
     }
 
     /**
@@ -145,7 +140,7 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
-    public void addSpaceship(Spaceship spaceship) {
+    public void addSpaceship(final Spaceship spaceship) {
         spaceships.add(spaceship);
     }
 
@@ -153,7 +148,7 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
-    public void addObstacle(Obstacle obstacle) {
+    public void addObstacle(final Obstacle obstacle) {
         obstacles.add(obstacle);
     }
 
@@ -161,7 +156,7 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
-    public void addProjectile(Projectile projectile) {
+    public void addProjectile(final Projectile projectile) {
         projectiles.add(projectile);
     }
 
@@ -169,7 +164,7 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
-    public void addPowerUp(PowerUp powerUp) {
+    public void addPowerUp(final PowerUp powerUp) {
         powerUps.add(powerUp);
     }
 
@@ -177,7 +172,7 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
-    public void removeSpaceship(Spaceship spaceship) {
+    public void removeSpaceship(final Spaceship spaceship) {
         spaceships.remove(spaceship);
     }
 
@@ -185,7 +180,7 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
-    public void removeObstacle(Obstacle obstacle) {
+    public void removeObstacle(final Obstacle obstacle) {
         obstacles.remove(obstacle);
     }
 
@@ -193,7 +188,7 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
-    public void removeProjectile(Projectile projectile) {
+    public void removeProjectile(final Projectile projectile) {
         projectiles.remove(projectile);
     }
 
@@ -201,25 +196,33 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
-    public void removePowerUp(PowerUp powerUp) {
+    public void removePowerUp(final PowerUp powerUp) {
         powerUps.remove(powerUp);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void registerObserver(Observer observer) {
+    public void registerObserver(final Observer observer) {
         observers.add(observer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void unregisterObserver(Observer observer) {
+    public void unregisterObserver(final Observer observer) {
         observers.remove(observer);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void notifyObservers(Event event) {
-        for (Observer o : observers) {
+    public void notifyObservers(final Event event) {
+        for (final Observer o : observers) {
             o.notify(event);
         }
     }
-    
 }

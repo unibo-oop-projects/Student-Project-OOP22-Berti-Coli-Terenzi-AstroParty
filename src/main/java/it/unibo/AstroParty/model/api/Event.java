@@ -1,13 +1,14 @@
 package it.unibo.AstroParty.model.api;
 
 /**
- * simple event interface
+ * Interface that models a game event.
  */
 public interface Event {
-    
+
     /**
-     * this method's called for manage the event occurred
-     * @param state the GameState
+     * Called for manage the event occurred.
+     * @param state
      */
-    public void manage(GameState state);
+    void manage(GameState state);
+
 }

@@ -13,10 +13,14 @@ import javafx.scene.image.Image;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+/**
+ * View implementation and extension of Application (from JavaFX).
+ */
 public class GameApp extends Application implements View {
 
-    public static final int WINDOW_SIZE;
+    // the percentage of the screen that the window should cover.
     private static final double WINDOW_PERC = 0.75;
+    public static final int WINDOW_SIZE;
 
 
     private Stage primaryStage;
@@ -32,13 +36,13 @@ public class GameApp extends Application implements View {
      * {@inheritDoc}
      */
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
 
         // set title and icon
         this.primaryStage.setTitle("AstroParty");
         this.primaryStage.getIcons().add(new Image(ClassLoader.getSystemResource("sprites/icon.png").toString()));
-        
+ 
         // stage settings
         this.primaryStage.setResizable(false);
         this.primaryStage.setOnCloseRequest(s -> System.exit(0));
@@ -47,13 +51,13 @@ public class GameApp extends Application implements View {
         sceneFactory = new SceneFactoryImpl(this);
 
         this.switchScene(sceneFactory.createMain());
-
         this.primaryStage.sizeToScene();
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public void switchScene(final Scene scene) {
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -62,6 +66,7 @@ public class GameApp extends Application implements View {
     /**
      * {@inheritDoc}
      */
+    @Override
     public Scene getScene() {
         return primaryStage.getScene();
     }
@@ -69,6 +74,7 @@ public class GameApp extends Application implements View {
     /**
      * {@inheritDoc}
      */
+    @Override
     public SceneFactory getSceneFactory() {
         return sceneFactory;
     }
@@ -77,9 +83,17 @@ public class GameApp extends Application implements View {
      * {@inheritDoc}
      */
     @Override
-    public void start(List<String> players, boolean obstacle, boolean powerup, int rounds) {
-        GameEngine engine = new GameEngineImpl(this, players, obstacle, powerup, rounds);
+    public void start(final List<String> players, final boolean obstacle, final boolean powerup, final int rounds) {
+        final GameEngine engine = new GameEngineImpl(this, players, obstacle, powerup, rounds);
         new Thread((Runnable) engine).start();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void nextRound() {
+        //TODO
     }
 }
 

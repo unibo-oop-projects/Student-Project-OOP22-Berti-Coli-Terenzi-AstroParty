@@ -7,12 +7,15 @@ import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.RectangleHitBox;
 
+/**
+ * RectangleHitBox implementation.
+ */
 public class RectangleHitBoxImpl implements RectangleHitBox {
 
-    private Position ULCorner, DRCorner;
-    private double height, width;
+    private final Position ULCorner, DRCorner;
+    private final double height, width;
 
-    private RectangleHitBoxImpl(Position ULCorner, Position DRCorner, double height, double width) {
+    private RectangleHitBoxImpl(final Position ULCorner, final Position DRCorner, final double height, final double width) {
         this.ULCorner = ULCorner;
         this.DRCorner = DRCorner;
         this.height = height;
@@ -24,8 +27,8 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
      * @param ULCorner the up-left corner {@link Position}
      * @param DRCorner the down-right corner {@link Position}
      */
-    public RectangleHitBoxImpl(Position ULCorner, Position DRCorner) {
-        this(ULCorner, DRCorner, DRCorner.getY() - ULCorner.getY() ,DRCorner.getX() - ULCorner.getX());
+    public RectangleHitBoxImpl(final Position ULCorner, final Position DRCorner) {
+        this(ULCorner, DRCorner, DRCorner.getY() - ULCorner.getY(), DRCorner.getX() - ULCorner.getX());
     }
 
     /**
@@ -34,7 +37,7 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
      * @param width the rectangle width
      * @param height the rectangle height
      */
-    public RectangleHitBoxImpl(Position ULCorner, double width, double height) {
+    public RectangleHitBoxImpl(final Position ULCorner, final double width, final double height) {
         this(ULCorner, new Position(ULCorner.getX() + width, ULCorner.getY() + height), height, width);
     }
 
@@ -42,21 +45,21 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
      * {@inheritDoc}}
      */
     @Override
-    public boolean checkCircleCollision(CircleHitBox hBox) {
-        Position center = hBox.getCenter();
+    public boolean checkCircleCollision(final CircleHitBox hBox) {
+        final Position center = hBox.getCenter();
         return center.getDistanceFrom(clampOnRectangle(center)) < hBox.getRadius();
     }
 
     // method found in "2D Game Collision Detection" by Thomas Schwarzl
-    private Position clampOnRectangle(Position pos) {
-        double x,y;
+    private Position clampOnRectangle(final Position pos) {
+        double x, y;
         x = clampOnRange(pos.getX(), ULCorner.getX(), DRCorner.getX());
         y = clampOnRange(pos.getY(), ULCorner.getY(), DRCorner.getY());
-        return new Position(x,y);
+        return new Position(x, y);
     }
 
     // method found in "2D Game Collision Detection" by Thomas Schwarzl
-    private double clampOnRange(double x, double min, double max) {
+    private double clampOnRange(final double x, final double min, final double max) {
         if (x < min) {
             return min;
         } else if (x > max) {
@@ -73,7 +76,7 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
     public Position getULCorner() {
         return ULCorner;
     }
-    
+
     /**
      * {@inheritDoc}}
      */
@@ -102,8 +105,8 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
      * {@inheritDoc}
      */
     @Override
-    public GraphicEntity getGraphicComponent(EntityType type) {
+    public GraphicEntity getGraphicComponent(final EntityType type) {
         return new GraphicEntityImpl(ULCorner, height, width, type);
     }
-    
+
 }

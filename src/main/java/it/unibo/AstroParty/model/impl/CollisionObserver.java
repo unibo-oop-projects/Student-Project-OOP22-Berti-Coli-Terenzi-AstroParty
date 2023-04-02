@@ -8,12 +8,15 @@ import it.unibo.AstroParty.model.api.Observer;
 import it.unibo.AstroParty.model.api.GameState;
 
 /**
- * simple implementation of {@EventOberserver} 
+ * EventObserver implementation for the game collisions.
  */
 public class CollisionObserver implements Observer {
 
     private final List<Event> eventQueue;
 
+    /**
+     * Constructor for CollisionObserver.
+     */
     public CollisionObserver() {
         eventQueue = new LinkedList<>();
     }
@@ -22,7 +25,7 @@ public class CollisionObserver implements Observer {
      * {@inheritDoc}
      */
     @Override
-    public void notify(Event event) {
+    public void notify(final Event event) {
         eventQueue.add(event);
     }
 
@@ -30,11 +33,10 @@ public class CollisionObserver implements Observer {
      * 
      * @param state of the game world
      */
-    public void manageEvents(GameState state) {
-        for (Event event : eventQueue) {
+    public void manageEvents(final GameState state) {
+        for (final Event event : eventQueue) {
             event.manage(state);
         }
         eventQueue.clear();
     }
-    
 }

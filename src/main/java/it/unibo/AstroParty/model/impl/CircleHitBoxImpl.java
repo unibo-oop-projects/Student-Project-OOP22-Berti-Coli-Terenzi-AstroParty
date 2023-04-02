@@ -6,17 +6,20 @@ import it.unibo.AstroParty.graphics.impl.GraphicEntityImpl;
 import it.unibo.AstroParty.model.api.CircleHitBox;
 import it.unibo.AstroParty.model.api.EntityType;
 
+/**
+ * CircleHitBox implementation.
+ */
 public class CircleHitBoxImpl implements CircleHitBox {
 
-    private Position center;
-    private double radius;
+    private final Position center;
+    private final double radius;
 
     /**
      * 
      * @param center the {@link Position} of the center
      * @param radius the radius
      */
-    public CircleHitBoxImpl(Position center, double radius) {
+    public CircleHitBoxImpl(final Position center, final double radius) {
         this.center = center;
         this.radius = radius;
     }
@@ -25,7 +28,7 @@ public class CircleHitBoxImpl implements CircleHitBox {
      * {@inheritDoc}}
      */
     @Override
-    public boolean checkCircleCollision(CircleHitBox hBox) {
+    public boolean checkCircleCollision(final CircleHitBox hBox) {
         return center.getDistanceFrom(hBox.getCenter()) <= hBox.getRadius() + this.radius;
     }
 
@@ -50,7 +53,7 @@ public class CircleHitBoxImpl implements CircleHitBox {
      */
     @Override
     public double getHeight() {
-        return 2*radius;
+        return 2 * radius;
     }
 
     /**
@@ -65,7 +68,7 @@ public class CircleHitBoxImpl implements CircleHitBox {
      * {@inheritDoc}
      */
     @Override
-    public GraphicEntity getGraphicComponent(EntityType type) {
+    public GraphicEntity getGraphicComponent(final EntityType type) {
         return new GraphicEntityImpl(center.add(new Position(-radius, -radius)),
                 this.getHeight(), this.getWidth(), type);
     }

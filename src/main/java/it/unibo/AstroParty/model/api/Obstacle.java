@@ -6,9 +6,9 @@ package it.unibo.AstroParty.model.api;
 public interface Obstacle extends Entity {
 
     /**
-     * the size of the Obstacle
+     * the size of the Obstacle.
      */
-    double size = 3.0;
+    double SIZE = 3.0;
 
     /**
      * 

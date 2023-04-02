@@ -34,11 +34,11 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	
 	private static Position positionP1 = new Position(Spaceship.relativeSize + BorderDistance,
 														Spaceship.relativeSize + BorderDistance);
-	private static Position positionP2 = new Position( GameState.width - Spaceship.relativeSize - BorderDistance ,
-														GameState.height - Spaceship.relativeSize - BorderDistance);
+	private static Position positionP2 = new Position( GameState.WIDTH - Spaceship.relativeSize - BorderDistance ,
+														GameState.HEIGHT - Spaceship.relativeSize - BorderDistance);
 	private static Position positionP3 = new Position(Spaceship.relativeSize + BorderDistance,
-														GameState.height - Spaceship.relativeSize - BorderDistance);
-	private static Position positionP4 = new Position(GameState.width - Spaceship.relativeSize - BorderDistance ,
+														GameState.HEIGHT - Spaceship.relativeSize - BorderDistance);
+	private static Position positionP4 = new Position(GameState.WIDTH - Spaceship.relativeSize - BorderDistance ,
 														Spaceship.relativeSize + BorderDistance);;
 	
 	private static Direction directionP1 = new Direction( 1 , 1 );

@@ -3,28 +3,32 @@ package it.unibo.AstroParty.model.api;
 import it.unibo.AstroParty.graphics.api.GraphicEntity;
 
 /**
- * Rapresent the boundaries of an {@link Entity}
+ * Interface that shapes the boundaries of an {@link Entity} and its collisions.
  */
 public interface HitBox {
 
     /**
-     * used to get to know if the {@link Entity} modelled by this hitbox and another (circle-shaped) have collied
+     * Used to get to know if the {@link Entity} modelled by this hitbox and another (circle-shaped) have collied.
      * @param hBox the {@link HitBox} of the other {@link Entity}
      * @return true if the two entities have collied
      */
-    public boolean checkCircleCollision(CircleHitBox hBox);     // at the moment we have to manage only collisions with circle-shaped hitbox
-    
+    boolean checkCircleCollision(CircleHitBox hBox);    // at the moment we have to manage
+                                                        // only collisions with circle-shaped hitbox
+
     /**
      * @return the height
      */
-    public double getHeight();
+    double getHeight();
 
     /**
      * @return the width
      */
-    public double getWidth();
+    double getWidth();
 
-    public GraphicEntity getGraphicComponent(EntityType type);
+    /**
+     * @param type of the entity from {@link EntityType} enum
+     * @return the GraphicEntity corresponding to the entity modelled by this HitBox
+     */
+    GraphicEntity getGraphicComponent(EntityType type);
 
-    
 }

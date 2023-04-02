@@ -19,8 +19,10 @@ import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
 import it.unibo.AstroParty.model.Spaceship.impl.SpaceshipBuilderImpl;
 import it.unibo.AstroParty.model.api.EntityType;
 import it.unibo.AstroParty.model.api.GameState;
+import it.unibo.AstroParty.model.api.Observer;
 import it.unibo.AstroParty.model.api.Obstacle;
 import it.unibo.AstroParty.model.api.Spaceship;
+import it.unibo.AstroParty.model.impl.CollisionObserver;
 import it.unibo.AstroParty.model.impl.GameStateImpl;
 import javafx.application.Platform;
 
@@ -33,7 +35,7 @@ import javafx.application.Platform;
 public class GameEngineImpl implements GameEngine, Runnable {
 	
 	private static final int FPS = 60;
-	private GameState gameState;
+	private GameStateImpl gameState;
 	private SpawnerSettings spawnerSettings;
 	private PowerUpFactory powerUpFactory;
 	private SpaceshipBuilder spaceshipBuilder;
@@ -43,6 +45,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
 	private Collection<Spaceship> spaceships;
 	private InputControl inputControl;
 	private GameScene gameScene;
+	private CollisionObserver collisionObserver;
 	
 	//Constructor
 	public GameEngineImpl(View view, List<String> players, boolean obstacle, boolean powerup, int rounds) {
@@ -54,6 +57,9 @@ public class GameEngineImpl implements GameEngine, Runnable {
 	
 	public void init() {
 		gameState = new GameStateImpl();
+		collisionObserver = new CollisionObserver();
+		gameState.registerObserver(collisionObserver);
+		
 		
 		
 		//Set of the SpawnDelay and enumeration of PowerUpTypes
@@ -108,6 +114,8 @@ public class GameEngineImpl implements GameEngine, Runnable {
 			processInput();
 			
 			updateGame(viewRefreshInterval);
+
+			collisionObserver.manageEvents(gameState);
 			
 			render();
 			

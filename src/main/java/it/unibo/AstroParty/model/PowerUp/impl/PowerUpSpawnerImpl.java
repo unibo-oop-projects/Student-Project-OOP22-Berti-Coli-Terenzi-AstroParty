@@ -96,7 +96,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 		
 		do {
 			
-			pos = new Position( random.nextDouble( GameState.width ) , random.nextDouble( GameState.height ) );
+			pos = new Position( random.nextDouble( GameState.WIDTH ) , random.nextDouble( GameState.HEIGHT ) );
 			
 		} while ( canExist( pos ) );
 		

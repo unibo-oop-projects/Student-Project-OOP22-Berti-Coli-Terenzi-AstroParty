@@ -8,22 +8,31 @@ import it.unibo.AstroParty.model.api.Projectile;
 import it.unibo.AstroParty.model.api.Spaceship;
 
 /**
- * implementation of {@link EventFactory}
+ * EventFactory implementation.
  */
 public class EventFactoryImpl implements EventFactory {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Event SpaceshipColliedEvent(Spaceship spaceship) {
+    public Event spaceshipColliedEvent(final Spaceship spaceship) {
         return state -> spaceship.resetPosition();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Event projectileHitEvent(Projectile projectile) {
+    public Event projectileHitEvent(final Projectile projectile) {
         return state -> state.removeProjectile(projectile);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Event obstacleHittedEvent(Obstacle obstacle) {
+    public Event obstacleHittedEvent(final Obstacle obstacle) {
         return state -> {
             if (obstacle.hit()) {
                 state.removeObstacle(obstacle);
@@ -31,8 +40,11 @@ public class EventFactoryImpl implements EventFactory {
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Event spaceshipHittedEvent(Spaceship spaceship) {
+    public Event spaceshipHittedEvent(final Spaceship spaceship) {
         return state -> {
             if (spaceship.hit()) {
                 state.removeSpaceship(spaceship);
@@ -40,12 +52,15 @@ public class EventFactoryImpl implements EventFactory {
         };
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Event powerUpEquipEvent(PowerUp powerUp, Spaceship spaceship) {
+    public Event powerUpEquipEvent(final PowerUp powerUp, final Spaceship spaceship) {
         return state -> {
             if (spaceship.equipPowerUp(powerUp)) {
                 state.removePowerUp(powerUp);
-            };
+            }
         };
-    }    
+    } 
 }

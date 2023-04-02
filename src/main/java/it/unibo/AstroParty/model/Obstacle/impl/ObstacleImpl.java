@@ -10,7 +10,7 @@ import it.unibo.AstroParty.model.api.RectangleHitBox;
 import it.unibo.AstroParty.model.impl.RectangleHitBoxImpl;
 
 /**
- * implementation of {@link Obstacle} interface
+ * Implementation of Obstacle interface.
  */
 public class ObstacleImpl implements Obstacle {
 
@@ -24,7 +24,7 @@ public class ObstacleImpl implements Obstacle {
 
     private ObstacleImpl(final Position pos, final boolean destroyable, final boolean harm, final EntityType type,
             final Optional<Timer> timer) {
-        this.hBox = new RectangleHitBoxImpl(pos, Obstacle.size, Obstacle.size);
+        this.hBox = new RectangleHitBoxImpl(pos, Obstacle.SIZE, Obstacle.SIZE);
         this.position = pos;
         this.destroyable = destroyable;
         this.harm = harm;

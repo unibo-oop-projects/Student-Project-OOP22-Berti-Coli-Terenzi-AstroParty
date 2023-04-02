@@ -1,8 +1,8 @@
 package it.unibo.AstroParty.ui.api;
 
 /**
- * Scene controller interface
+ * Scene controller interface.
  */
 public interface Controller {
-    
+
 }

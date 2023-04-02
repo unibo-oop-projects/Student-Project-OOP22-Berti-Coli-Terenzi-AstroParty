@@ -1,48 +1,52 @@
 package it.unibo.AstroParty.ui.api;
 
+import java.io.IOException;
 import java.util.List;
 
 import it.unibo.AstroParty.input.api.InputControl;
 import javafx.scene.Scene;
 
+/**
+ * Factory interface from simple factory pattern that handles scene creation.
+ */
 public interface SceneFactory {
-    
+
     /**
      * @return a new main-page scene
-     * @throws Exception
+     * @throws IOException
      */
-    public Scene createMain() throws Exception;
+    Scene createMain() throws IOException;
 
     /**
      * @return a new tutorial scene
-     * @throws Exception
+     * @throws IOException
      */
-    public Scene createTutorial() throws Exception;
+    Scene createTutorial() throws IOException;
 
     /**
      * @return a new settings scene
-     * @throws Exception
+     * @throws IOException
      */
-    public Scene createSettings() throws Exception;
+    Scene createSettings() throws IOException;
 
     /**
      * @param inputControl 
      * @return a new game scene
-     * @throws Exception
+     * @throws IOException
      */
-    public Scene createGame(InputControl inputControl) throws Exception;
+    Scene createGame(InputControl inputControl) throws IOException;
 
     /**
      * @param scores a list with the number of victories of each player
      * @param rounds the number of rounds that a player have to win for winning the game
      * @return a new scoreboard scene
-     * @throws Exception
+     * @throws IOException
      */
-    public Scene createScoreboard(List<Integer> scores, int rounds) throws Exception;
+    Scene createScoreboard(List<Integer> scores, int rounds) throws IOException;
 
     /**
      * @return a new game over scene
-     * @throws Exception
+     * @throws IOException
      */
-    public Scene createOver() throws Exception;
+    Scene createOver() throws IOException;
 }

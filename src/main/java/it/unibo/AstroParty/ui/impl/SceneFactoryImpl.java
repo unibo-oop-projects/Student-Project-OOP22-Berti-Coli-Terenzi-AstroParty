@@ -1,5 +1,6 @@
 package it.unibo.AstroParty.ui.impl;
 
+import java.io.IOException;
 import java.util.List;
 
 import it.unibo.AstroParty.core.api.View;
@@ -13,15 +14,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.transform.Scale;
 
+/**
+ * Implementation of SceneFactory.
+ */
 public class SceneFactoryImpl implements SceneFactory {
 
     private final View view;
 
     /**
-     * constructor
+     * Constructor for SceneFatctoryImpl.
      * @param view of the app, used by all the scene controllers to make changes
      */
-    public SceneFactoryImpl(View view) {
+    public SceneFactoryImpl(final View view) {
         this.view = view;
     }
 
@@ -29,7 +33,7 @@ public class SceneFactoryImpl implements SceneFactory {
      * {@inheritDoc}
      */
     @Override
-    public Scene createMain() throws Exception {
+    public Scene createMain() throws IOException {
         return loadFXML("layouts/MainPage.fxml", new MainPageController(view));
     }
 
@@ -37,7 +41,7 @@ public class SceneFactoryImpl implements SceneFactory {
      * {@inheritDoc}
      */
     @Override
-    public Scene createTutorial() throws Exception {
+    public Scene createTutorial() throws IOException {
         return loadFXML("layouts/Tutorial.fxml", new TutorialController(view));
     }
 
@@ -45,7 +49,7 @@ public class SceneFactoryImpl implements SceneFactory {
      * {@inheritDoc}
      */
     @Override
-    public Scene createSettings() throws Exception {
+    public Scene createSettings() throws IOException {
         return loadFXML("layouts/Settings.fxml", new SettingsController(view));
     }
 
@@ -53,15 +57,15 @@ public class SceneFactoryImpl implements SceneFactory {
      * {@inheritDoc}
      */
     @Override
-    public Scene createGame(InputControl inputControl) throws Exception {
-    	return new GameSceneImpl(inputControl);
+    public Scene createGame(final InputControl inputControl) throws IOException {
+        return new GameSceneImpl(inputControl);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Scene createScoreboard(List<Integer> scores, int rounds) throws Exception {
+    public Scene createScoreboard(final List<Integer> scores, final int rounds) throws IOException {
         return loadFXML("layouts/Scoreboard.fxml", new ScoreboardController(view, scores, rounds));
     }
 
@@ -69,21 +73,23 @@ public class SceneFactoryImpl implements SceneFactory {
      * {@inheritDoc}
      */
     @Override
-    public Scene createOver() throws Exception {
+    public Scene createOver() throws IOException {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'createOver'");
     }
 
     /**
-     * loads a new {@link Scene} from a fxml file
+     * Loads a new {@link Scene} from a fxml file.
      * @param path to the fxml file
      * @param controller of the scene
+     * @return a new scene loaded from the path given in input
+     * @throws IOException
      */
-    private Scene loadFXML(final String path, final Controller controller) throws Exception {
+    private Scene loadFXML(final String path, final Controller controller) throws IOException {
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(path));
         loader.setController(controller);
-        Parent root = loader.load();
-        double size = GameApp.WINDOW_SIZE/root.prefHeight(0);
+        final Parent root = loader.load();
+        final double size = GameApp.WINDOW_SIZE / root.prefHeight(0);     // get the multiplier for the scene size
         root.getTransforms().add(new Scale(size, size));
         return new Scene(root, GameApp.WINDOW_SIZE, GameApp.WINDOW_SIZE);
     }

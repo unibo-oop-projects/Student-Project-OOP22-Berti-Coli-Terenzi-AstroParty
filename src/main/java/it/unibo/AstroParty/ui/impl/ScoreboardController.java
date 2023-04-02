@@ -9,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 
+/**
+ * Controller for the Scoreboard scene.
+ */
 public class ScoreboardController implements Controller {
 
     @FXML
@@ -21,33 +24,35 @@ public class ScoreboardController implements Controller {
     private final List<Integer> scores;
     private final int rounds;
 
-    public ScoreboardController(View view, List<Integer> scores, int rounds) {
+    /**
+     * Constructor for the class ScoreboardController.
+     * @param view
+     * @param scores a list of the score (integer) of each player
+     * @param rounds the number of rounds won required to win the game
+     */
+    public ScoreboardController(final View view, final List<Integer> scores, final int rounds) {
         this.view = view;
         this.scores = scores;
         this.rounds = rounds;
     }
 
     /**
-     * event handler for "NEXT" {@link Button}
+     * event handler for "NEXT" {@link Button}.
      * @param event
      */
     @FXML
-    public void nextOnClick(ActionEvent event) {
-        //TODO impl
-        /*
-        try {
-            view.switchScene(view.getSceneFactory().createGame());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        */
+    public void nextOnClick(final ActionEvent event) {
+        view.nextRound();
     }
 
+    /**
+     * Called to initialize a controller after its root element has been completely processed.
+     */
     @FXML
     public void initialize() {
-        List<ProgressBar> progress = List.of(progressP1, progressP2, progressP3, progressP4);
-        for (int i=0; i<scores.size(); i++) {
-            progress.get(i).setProgress((double) scores.get(i)/rounds);
+        final List<ProgressBar> progress = List.of(progressP1, progressP2, progressP3, progressP4);
+        for (int i = 0; i < scores.size(); i++) {
+            progress.get(i).setProgress((double) scores.get(i) / rounds);
         }
     }
 }

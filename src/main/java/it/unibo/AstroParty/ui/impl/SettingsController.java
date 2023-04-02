@@ -1,5 +1,6 @@
 package it.unibo.AstroParty.ui.impl;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -14,14 +15,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * Controller of the Settings scene.
+ */
 public class SettingsController implements Controller {
 
-    private final static String STARTING_MESSAGE = "il tuo nome qui";
-    private final static int MIN_PLAYERS = 2;
-    private final static List<Integer> ROUND_CHOICES = List.of(1, 2, 3);
-
-    private View view;
-    private List<TextField> nameFields;
+    private static final String STARTING_MESSAGE = "il tuo nome qui";
+    private static final int MIN_PLAYERS = 2;
+    private static final List<Integer> ROUND_CHOICES = List.of(1, 2, 3);
 
     @FXML
     private TextField nameP1, nameP2, nameP3, nameP4;
@@ -35,17 +36,24 @@ public class SettingsController implements Controller {
     @FXML
     private Button start, back;
 
-    public SettingsController(View view) {
+    private final View view;
+    private final List<TextField> nameFields = List.of(nameP1, nameP2, nameP3, nameP4);;
+
+    /**
+     * Constructor for SettingsController.
+     * @param view
+     */
+    public SettingsController(final View view) {
         this.view = view;
     }
 
     /**
-     * event handler for "START" {@link Button}
+     * event handler for "START" {@link Button}.
      * @param event
      */
     @FXML
-    public void startOnClick(ActionEvent event) {
-        List<String> players = nameFields.stream()
+    public void startOnClick(final ActionEvent event) {
+        final List<String> players = nameFields.stream()
                 .map(t -> t.getText())
                 .filter(n -> !n.isBlank())
                 .toList();
@@ -63,7 +71,7 @@ public class SettingsController implements Controller {
         }
     }
 
-    private void showAlert(String message) {
+    private void showAlert(final String message) {
         final Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("AstroParty: errore");
         alert.setHeaderText("Errore nell'inserimento dei players");
@@ -72,20 +80,22 @@ public class SettingsController implements Controller {
     }
 
     /**
-     * event handler for "BACK" {@link Button}
+     * event handler for "BACK" {@link Button}.
      * @param event
      */
     @FXML
-    public void backOnClick(ActionEvent event) {
+    public void backOnClick(final ActionEvent event) {
         try {
             this.view.switchScene(view.getSceneFactory().createMain());
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Called to initialize a controller after its root element has been completely processed.
+     */
     public void initialize() {
-        nameFields = List.of(nameP1, nameP2, nameP3, nameP4);
         nameFields.stream().forEach(t -> t.setPromptText(STARTING_MESSAGE));
         roundSelection.getItems().addAll(ROUND_CHOICES);
         roundSelection.setValue(ROUND_CHOICES.get(0));

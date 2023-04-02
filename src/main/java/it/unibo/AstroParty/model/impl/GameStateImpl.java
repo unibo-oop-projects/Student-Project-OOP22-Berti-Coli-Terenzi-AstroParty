@@ -72,6 +72,7 @@ public class GameStateImpl implements GameState, Observable {
         spaceships.stream().forEach(s -> {
             if (checkBoundariesCollisions(s.getHitBox())
                     || obstacles.stream()
+                            .filter(o -> !o.isHarmful())
                             .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))
                     || spaceships.stream()
                             .filter(targetSpaceship -> !targetSpaceship.equals(s))
@@ -115,6 +116,10 @@ public class GameStateImpl implements GameState, Observable {
             powerUps.stream()
                     .filter(p -> p.getHitBox().checkCircleCollision(s.getHitBox()))
                     .forEach(p -> this.notifyObservers(eventFactory.powerUpEquipEvent(p, s)));
+
+            obstacles.stream()
+                    .filter(o -> o.isHarmful() && o.getHitBox().checkCircleCollision(s.getHitBox()))
+                    .forEach(o -> this.notifyObservers(eventFactory.spaceshipHittedEvent(s)));
         }
     }
 

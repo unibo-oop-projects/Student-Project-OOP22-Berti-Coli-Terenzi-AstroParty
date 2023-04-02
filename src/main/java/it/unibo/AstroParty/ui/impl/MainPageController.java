@@ -1,6 +1,8 @@
 package it.unibo.AstroParty.ui.impl;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.unibo.AstroParty.core.api.View;
 import it.unibo.AstroParty.ui.api.Controller;
@@ -19,6 +21,7 @@ public class MainPageController implements Controller {
     @FXML
     private Button tutorial;
 
+    private static final Logger LOGGER = Logger.getLogger("MainPageController");
     private final View view;
 
     /**
@@ -38,7 +41,7 @@ public class MainPageController implements Controller {
         try {
             this.view.switchScene(view.getSceneFactory().createSettings());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error during loading of Settings scene");
         }
     }
 
@@ -51,7 +54,7 @@ public class MainPageController implements Controller {
         try {
             this.view.switchScene(view.getSceneFactory().createTutorial());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error during loading of Tutorial scene");
         }
     }
 }

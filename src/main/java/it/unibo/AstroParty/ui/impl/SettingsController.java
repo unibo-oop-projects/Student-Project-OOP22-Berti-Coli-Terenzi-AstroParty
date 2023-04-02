@@ -2,6 +2,8 @@ package it.unibo.AstroParty.ui.impl;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
 import it.unibo.AstroParty.core.api.View;
@@ -20,6 +22,7 @@ import javafx.scene.control.Alert.AlertType;
  */
 public class SettingsController implements Controller {
 
+    private static final Logger LOGGER = Logger.getLogger("SettingsController");
     private static final String STARTING_MESSAGE = "il tuo nome qui";
     private static final int MIN_PLAYERS = 2;
     private static final List<Integer> ROUND_CHOICES = List.of(1, 2, 3);
@@ -37,7 +40,7 @@ public class SettingsController implements Controller {
     private Button start, back;
 
     private final View view;
-    private final List<TextField> nameFields = List.of(nameP1, nameP2, nameP3, nameP4);;
+    private final List<TextField> nameFields = List.of(nameP1, nameP2, nameP3, nameP4);
 
     /**
      * Constructor for SettingsController.
@@ -88,7 +91,7 @@ public class SettingsController implements Controller {
         try {
             this.view.switchScene(view.getSceneFactory().createMain());
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Error during loading of MainPage scene");
         }
     }
 

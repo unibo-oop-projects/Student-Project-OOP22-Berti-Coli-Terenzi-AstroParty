@@ -88,7 +88,7 @@ class HitBoxCollisionTest {
         return new RectangleHitBoxImpl(this.getRectPosition(x, y), SIDE, SIDE);
     }
 
-    // get the ULCorner position (for the RectangleHitBox constructor) from a central position
+    // get the up-left Corner position (for the RectangleHitBox constructor) from a central position
     private Position getRectPosition(final double x, final double y) {
         return new Position(x - HALF_SIDE, y - HALF_SIDE);
     }

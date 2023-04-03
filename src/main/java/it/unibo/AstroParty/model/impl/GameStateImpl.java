@@ -202,9 +202,7 @@ public class GameStateImpl implements GameState, Observable {
      */
     @Override
     public void addPowerUp(final PowerUp powerUp) {
-        if (powerUps.size() < MAX_POWER_UP) {       //TODO: controllare se va (soluzione così così dai)
-            powerUps.add(powerUp);
-        }
+        powerUps.add(powerUp);
     }
 
     /**

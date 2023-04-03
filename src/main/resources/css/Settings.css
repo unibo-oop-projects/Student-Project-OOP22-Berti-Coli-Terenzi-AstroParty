@@ -32,23 +32,32 @@
     -fx-background-size: cover;
 }
 
+#undestroyable-wall-preview {
+    -fx-background-image: url('../sprites/obstacle_undestroyable.png');
+    -fx-background-size: cover;
+}
+
 #laser-preview {
     -fx-background-image: url('../sprites/obstacle_laser.jpg');
     -fx-background-size: cover;
 }
 
 #double-projecitle-preview {
-    -fx-background-color: red;
+    -fx-background-image: url('../sprites/powerUp_doubleShot.png');
+    -fx-background-size: cover;
 }
 
 #shield-preview {
-    -fx-background-color: red;
+    -fx-background-image: url('../sprites/powerUp_shield.png');
+    -fx-background-size: cover;
 }
 
 #speed-up-preview {
-    -fx-background-color: red;
+    -fx-background-image: url('../sprites/powerUp_speed.png');
+    -fx-background-size: cover;
 }
 
-#indestructibility-preview {
-    -fx-background-color: red;
+#immortality-preview {
+    -fx-background-image: url('../sprites/powerUp_immortality.png');
+    -fx-background-size: cover;
 }

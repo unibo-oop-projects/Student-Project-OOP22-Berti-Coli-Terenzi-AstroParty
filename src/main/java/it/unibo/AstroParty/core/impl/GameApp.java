@@ -20,12 +20,15 @@ public class GameApp extends Application implements View {
 
     // the percentage of the screen that the window should cover.
     private static final double WINDOW_PERC = 0.75;
+
+    /**
+     * the window size that have to be used for the current screen
+     */
     public static final int WINDOW_SIZE;
 
-
+    private GameEngine engine;
     private Stage primaryStage;
     private SceneFactory sceneFactory;
-    private GameEngine engine;
 
     // gets the sizes of the current screen and takes the shorter as window size
     static {
@@ -39,16 +42,12 @@ public class GameApp extends Application implements View {
     @Override
     public void start(final Stage primaryStage) throws Exception {
         this.primaryStage = primaryStage;
+        this.sceneFactory = new SceneFactoryImpl(this);
 
-        // set title and icon
+        // stage settings
         this.primaryStage.setTitle("AstroParty");
         this.primaryStage.getIcons().add(new Image(ClassLoader.getSystemResource("sprites/icon.png").toString()));
- 
-        // stage settings
         this.primaryStage.setResizable(false);
-
-        // create SceneFactory
-        this.sceneFactory = new SceneFactoryImpl(this);
 
         this.switchScene(sceneFactory.createMain());
         this.primaryStage.sizeToScene();

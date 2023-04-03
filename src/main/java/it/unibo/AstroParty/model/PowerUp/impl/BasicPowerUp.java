@@ -21,26 +21,26 @@ public abstract class BasicPowerUp implements PowerUp {
 	protected boolean pickedUp;
 	private final boolean offensive;
 	private final EntityType type;
-	
+
 	/**
-	 * takes the basic parameters of the PowerUP
+	 * takes the basic parameters of the PowerUP.
 	 * @param position
 	 * @param offensive 
 	 * @param type
 	 */
-	public BasicPowerUp(Position position, boolean offensive, EntityType type) {
+	public BasicPowerUp(final Position position, final boolean offensive, final EntityType type) {
 		this.position = position;
 		this.offensive = offensive;
 		this.type = type;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public CircleHitBox getHitBox() {
 
-		return new CircleHitBoxImpl( this.position, PowerUp.relativeSize);
+		return new CircleHitBoxImpl(this.position, PowerUp.RELATIVE_SIZE);
 	}
 
 	/**
@@ -76,18 +76,19 @@ public abstract class BasicPowerUp implements PowerUp {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean pickUp(Spaceship owner) {
-		
+	public boolean pickUp(final Spaceship owner) {
+
 		if(this.pickedUp) {
 			return false;
 		}
-		
+
 		this.pickedUp=true;
-		
-		this.owner = (SimpleSpaceship) owner;			//cast forzato in quanto tutte le spaceShip sono simpleSpaceship, ma per le classi oltre ai power up non serve saperlo
+
+		//cast forzato in quanto tutte le spaceShip sono simpleSpaceship, ma alle altre classi non serve saperlo
+		this.owner = (SimpleSpaceship) owner;
 		return true;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -95,7 +96,7 @@ public abstract class BasicPowerUp implements PowerUp {
 	public boolean isOffensive() {
 		return this.offensive;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -108,8 +109,7 @@ public abstract class BasicPowerUp implements PowerUp {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public GraphicEntity getGraphicComponent(){
-		return this.getHitBox().getGraphicComponent( this.type );
+	public GraphicEntity getGraphicComponent() {
+		return this.getHitBox().getGraphicComponent(this.type);
 	}
-	
 }

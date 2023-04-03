@@ -7,49 +7,47 @@ import it.unibo.AstroParty.model.api.PowerUp;
 
 /**
  * 
- * @author alessandro.coli2
- * a class that implements {@link PowerUpFactory}
+ * a class that implements {@link PowerUpFactory}.
  */
 public class PowerUpFactoryImpl implements PowerUpFactory {
-	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public PowerUp createPowerUp(EntityType type, Position pos) {
+	public PowerUp createPowerUp(final EntityType type, final Position pos) {
 		PowerUp pUp = null;
-		
 		switch (type) {
-		
+
 				case SHIELD:
 					pUp = this.createShield(pos);
 					break;
-					
+
 				case IMMORTALITY:
 					pUp = this.createImmortality(pos);
 					break;
-					
+
 				case DOUBLESHOT:
 					pUp = this.createDoubleShot(pos);
 					break;
+
 				case UPGRADEDSPEED:
 					pUp = this.createSpeed(pos);
 					break;
+
 				default:
-					throw( new UnsupportedOperationException() );			
+					throw(new UnsupportedOperationException());			
 		}
-		
 		return pUp;
 	}
 
 	/**
 	 * 
-	 * @param pos of the PowerUp
-	 * @return a UPGRADEDSPEED powerUP
+	 * @param pos of the PowerUp.
+	 * @return a UPGRADEDSPEED powerUP.
 	 */
-	private PowerUp createSpeed(Position pos) {
+	private PowerUp createSpeed(final Position pos) {
 		
-		return new BasicPowerUp( pos, true,  EntityType.UPGRADEDSPEED ) {
+		return new BasicPowerUp(pos, true,  EntityType.UPGRADEDSPEED) {
 
 
 			private boolean inUse;
@@ -58,21 +56,21 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 			@Override
 			public void use() {
 				this.inUse=true;
-				super.owner.upgradeSpeed();;
+				super.owner.upgradeSpeed();
 			}
 
 			@Override
-			public void update(double time) {
+			public void update(final double time) {
 				
-				if( super.pickedUp && !this.inUse) {
+				if(super.pickedUp && !this.inUse) {
 					this.use();
 				}
 				
-				if ( this.inUse ) {
+				if (this.inUse) {
 					this.useTime += time;
-					if ( this.useTime > PowerUp.Duration) {
+					if (this.useTime > PowerUp.DURATION) {
 						super.owner.normalSpeed();
-						super.owner.removePowerUp( this );
+						super.owner.removePowerUp(this);
 					}
 				}
 			}
@@ -82,20 +80,20 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 	/**
 	 * 
-	 * @param pos of the PowerUp
-	 * @return a DOUBLESHOT powerUP
+	 * @param pos of the PowerUp.
+	 * @return a DOUBLESHOT powerUP.
 	 */
-	private PowerUp createDoubleShot(Position pos) {
-		
-		return new BasicPowerUp( pos, true,  EntityType.DOUBLESHOT ) {
+	private PowerUp createDoubleShot(final Position pos) {
+
+		return new BasicPowerUp(pos, true,  EntityType.DOUBLESHOT) {
 
 			@Override
-			public void update(double time) {
+			public void update(final double time) {
 			}
 
 			@Override
 			public void use() {
-				super.owner.removePowerUp( this );
+				super.owner.removePowerUp(this);
 			}
 			
 		};
@@ -103,12 +101,12 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 	/**
 	 * 
-	 * @param pos of the PowerUp
-	 * @return a IMMORTALITY powerUP
+	 * @param pos of the PowerUp.
+	 * @return a IMMORTALITY powerUP.
 	 */
-	private PowerUp createImmortality(Position pos) {
+	private PowerUp createImmortality(final Position pos) {
 		
-		return new BasicPowerUp( pos, true,  EntityType.IMMORTALITY ) {
+		return new BasicPowerUp(pos, true,  EntityType.IMMORTALITY) {
 
 
 			private boolean inUse;
@@ -116,41 +114,41 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 			@Override
 			public void use() {
-				this.inUse=true;
-				super.owner.makeImmortal();;
+				this.inUse = true;
+				super.owner.makeImmortal();
 			}
 
 			@Override
-			public void update(double time) {
+			public void update(final double time) {
 				
-				if( super.pickedUp && !this.inUse) {
+				if (super.pickedUp && !this.inUse) {
 					this.use();
 				}
 				
-				if ( this.inUse ) {
+				if (this.inUse) {
 					this.useTime += time;
-					if ( this.useTime > PowerUp.Duration) {
+					if (this.useTime > PowerUp.DURATION) {
 						super.owner.makeMortal();
-						super.owner.removePowerUp( this );
+						super.owner.removePowerUp(this);
 					}
 				}
 			}
-			
+
 		};
 	}
 
 	/**
 	 * 
-	 * @param pos of the PowerUp
-	 * @return a SHIELD powerUP
+	 * @param pos of the PowerUp.
+	 * @return a SHIELD powerUP.
 	 */
-	private PowerUp createShield(Position pos) {
+	private PowerUp createShield(final Position pos) {
 		
-		return new BasicPowerUp( pos, false, EntityType.SHIELD) {
+		return new BasicPowerUp(pos, false, EntityType.SHIELD) {
 
 			@Override
 			public void update(double time) {
-				if( super.pickedUp ) {
+				if (super.pickedUp) {
 					this.use();
 				}
 			}
@@ -158,10 +156,8 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 			@Override
 			public void use() {
 				super.owner.newShield();
-				super.owner.removePowerUp( this );
+				super.owner.removePowerUp(this);
 			}
-			
 		};
 	}
-
 }

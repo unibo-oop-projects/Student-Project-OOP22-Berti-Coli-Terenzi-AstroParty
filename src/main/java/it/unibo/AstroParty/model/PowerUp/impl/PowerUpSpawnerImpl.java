@@ -14,46 +14,42 @@ import it.unibo.AstroParty.model.api.PowerUpSpawner;
 import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
 
 /**
- * 
- * @author Alessandro Coli
- * concrete implementation of {@link PowerUpSpawner}
+ * concrete implementation of {@link PowerUpSpawner}.
  */
 public class PowerUpSpawnerImpl implements PowerUpSpawner {
-	
+
 	private final Collection<EntityType> possiblePowerUpTypes;
-	private final long SpawnDelay;
+	private final long spawnDelay;
 	private GameState world;
 	private PowerUpFactory pUPfactory= new PowerUpFactoryImpl();
 
 	private Random random = new Random();
-	
+
 	private Timer timer = new Timer();
-	
 	/**
 	 * 
-	 * @param a collection of the possible types of PowerUPs
-	 * @param the delay between spawns
+	 * @param possiblePowerUpTypes a collection of the possible types of PowerUPs.
+	 * @param spawnDelay the delay between spawns.
 	 */
-	public PowerUpSpawnerImpl(Collection<EntityType> possiblePowerUpTypes, long spawnDelay){
+	public PowerUpSpawnerImpl(final Collection<EntityType> possiblePowerUpTypes, final long spawnDelay){
 		this.possiblePowerUpTypes = possiblePowerUpTypes;
-		this.SpawnDelay = spawnDelay;
+		this.spawnDelay = spawnDelay;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void start(GameState world) {
-		
+	public void start(final GameState world) {
 		this.world=world;
-		this.timer.scheduleAtFixedRate( new TimerTask() {
+		this.timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
 				generate();
 			}
-		}, 2*SpawnDelay, SpawnDelay);
+		}, 2 * spawnDelay, spawnDelay);
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -61,28 +57,28 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	public void stop() {
 		timer.cancel();
 	}
-	
+
 	/**
 	 * creates and adds a new powerUp to the world
 	 */
 	private void generate() {
 		//System.out.println("spawn");
-		this.world.addPowerUp( this.pUPfactory.createPowerUp( this.generateType() , this.generatePos() ) );
+		this.world.addPowerUp(this.pUPfactory.createPowerUp(this.generateType() , this.generatePos()));
 	}
-	
+
 	/**
 	 * generate the type of the new Power Up between the active ones in the world
 	 * @return the {@link PowerUpTypes}
 	 */
 	private EntityType generateType() {
-		
-		int rand = random.nextInt( this.possiblePowerUpTypes.size() );
+
+		int rand = random.nextInt(this.possiblePowerUpTypes.size());
 		var it = this.possiblePowerUpTypes.iterator();
 		
-		for ( int i = 0 ; i < rand ; i++) {
+		for (int i = 0 ; i < rand ; i++) {
 			it.next();							//non controllo perche' ho preso un num minore di size quindi deve esserci qualcosa;
 		}
-		
+
 		return it.next();
 	}
 
@@ -91,25 +87,22 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	 * @return the position
 	 */
 	private Position generatePos() {
-		
+
 		Position pos;
-		
+
 		do {
-			
-			pos = new Position( random.nextDouble( GameState.WIDTH ) , random.nextDouble( GameState.HEIGHT ) );
-			
-		} while ( canExist( pos ) );
-		
+
+			pos = new Position(random.nextDouble(GameState.WIDTH) , random.nextDouble(GameState.HEIGHT));
+
+		} while (canExist(pos));
+
 		return pos;
 	}
 
 	private boolean canExist(Position position) {
-		CircleHitBox hbox = new CircleHitBoxImpl( position, PowerUp.relativeSize);
+		CircleHitBox hbox = new CircleHitBoxImpl(position, PowerUp.RELATIVE_SIZE);
 		return  this.world.getEntities().stream()
-				.map( entity -> entity.getHitBox() )
-				.anyMatch( e -> e.checkCircleCollision(hbox ));
+				.map(entity -> entity.getHitBox())
+				.anyMatch(e -> e.checkCircleCollision(hbox));
 	}
-
-	
-
 }

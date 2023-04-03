@@ -4,7 +4,8 @@ import it.unibo.AstroParty.graphics.api.GraphicEntity;
 import it.unibo.AstroParty.input.api.GameId;
 
 /**
- *  this class contains the name of the images for each {@link EntityType} so that they can all be saved in only one place and reused for multiple implementations
+ *  this class contains the name of the images for each {@link EntityType}
+ * so that they can all be saved in only one place and reused for multiple implementations.
  *
  */
 public class ImgNames {
@@ -12,90 +13,88 @@ public class ImgNames {
     private static final String P2 = "p2";
     private static final String P3 = "p3";
     private static final String P4 = "p4";
-    private static final String Shield = "Shield";
-    private static final String Immortality = "Immortality";
-    private static final String Doubleshot = "Doubleshot";
-    private static final String Speed = "Speed";
-    private static final String Laser = "Laser";
-    private static final String BasicObstacle = "BasicObstacle";
-    private static final String UndestroyableObstacle = "UndestroyableObstacle";
-    private static final String Projectile = "Projectile";
+    private static final String SHIELD = "Shield";
+    private static final String IMMORTALITY = "Immortality";
+    private static final String DOUBLESHOT = "Doubleshot";
+    private static final String SPEED = "Speed";
+    private static final String LASER_OBSTACLE = "Laser";
+    private static final String BASIC_OBSTACLE = "BasicObstacle";
+    private static final String UNDESTROYABLE_OBSTACLE = "UndestroyableObstacle";
+    private static final String PROJECTILE = "Projectile";
 
     /**
      * 
-     * @param entity
-     * @return the name of the file that has to be drawn for the specific {@link EntityType}
+     * @param entity 
+     * @return the name of the file that has to be drawn for the specific {@link EntityType}.
      */
-	public String getName( GraphicEntity entity ) {
+	public String getName(final GraphicEntity entity) {
 		String s =null ;
-		switch( entity.getType() ) {
-		
+		switch(entity.getType()) {
+
 			case SPACESHIP:
-				s = this.getSpaceshipimg( entity.getId().get() );
+				s = this.getSpaceshipimg(entity.getId().get());
 				break;
 
 			case SHIELD:
-				s = Shield;
+				s = SHIELD;
 				break;
 
 			case IMMORTALITY:
-				s = Immortality;
+				s = IMMORTALITY;
 				break;
 
 			case DOUBLESHOT:
-				s = Doubleshot;
+				s = DOUBLESHOT;
 				break;
 
 			case UPGRADEDSPEED:
-				s = Speed;
+				s = SPEED;
 				break;
 
 			case LASER:
-				s = Laser;
+				s = LASER_OBSTACLE;
 				break;
 
 			case SIMPLEOBSTACLE:
-				s = BasicObstacle;
+				s = BASIC_OBSTACLE;
 				break;
 
 			case PROJECTILE:
-				s = Projectile;
+				s = PROJECTILE;
 				break;
-				
+
 			case UNDESTROYABLEOBSTACLE:
-				s = UndestroyableObstacle;
+				s = UNDESTROYABLE_OBSTACLE;
 				break;
-				
+
 			default:
-				throw( new UnsupportedOperationException() );
+				throw(new UnsupportedOperationException());
 		}
 		return s;           
-		
 	}
 	
 	/**
 	 * 
-	 * @param Id of a spaceship
-	 * @return the name of the file that has to be drawn for the specific {@link Spaceship}
+	 * @param Id of a spaceship.
+	 * @return the name of the file that has to be drawn for the specific {@link Spaceship}.
 	 */
-	private String getSpaceshipimg( GameId id) {
+	private String getSpaceshipimg(final GameId id) {
 
-		switch( id ) {
+		switch(id) {
 			case Player1:
 				return P1;
-				
+
 			case Player2:
 				return P2;
-				
+
 			case Player3:
 				return P3;
-				
+
 			case Player4:
 				return P4;
-				
-			default:
-				throw( new UnsupportedOperationException() );	
+
+				default:
+				throw(new UnsupportedOperationException());	
 		}
 	}
-
 }

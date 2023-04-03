@@ -12,22 +12,22 @@ import it.unibo.AstroParty.model.api.Spaceship;
  * test for the movemnt of a spaceship
  */
 public class MovementTest {
-    private static final double startAngle = 45;
-    private static final Position startPos = new Position(10, 10);
-    private static final Direction startDir = new Direction(1, 1);
-    private static final double time = 10;
-    private static final double speed = 1;
-    private final Spaceship spaceship =  new SpaceshipImpl(startPos, startDir, startAngle, null, speed, 0, false, null, 0);
-
+    private static final double START_ANGLE = 45;
+    private static final Position STAR_POSITION = new Position(10, 10);
+    private static final Direction START_DIRECTION = new Direction(1, 1);
+    private static final double TIME = 10;
+    private static final double SPEED = 1;
+    private final Spaceship spaceship =  new SpaceshipImpl(STAR_POSITION, START_DIRECTION, START_ANGLE, null, 
+                                        SPEED, 0, false, null, 0);
     /**
      * test the update when going straight
      */
     @Test
     void testMovementForward() {      
         this.spaceship.resetPosition();
-        Position expectedPosition = (startPos.move( startDir.multiply( speed * time )));
-        this.spaceship.update( time ); 
-        assertEquals( expectedPosition , this.spaceship.getPosition() );
+        Position expectedPosition = (STAR_POSITION.move(START_DIRECTION.multiply(SPEED * TIME)));
+        this.spaceship.update(TIME); 
+        assertEquals(expectedPosition, this.spaceship.getPosition());
     }
 
     /**
@@ -37,16 +37,16 @@ public class MovementTest {
     void testTurn() {      
         this.spaceship.resetPosition();
 
-        double expectedAngle =( startAngle + time * Spaceship.rotationSpeed ) % 360;
-        double dirX = Math.cos( Math.toRadians( expectedAngle ) ) ;
-		double dirY = Math.sin( Math.toRadians( expectedAngle ) ) ;
+        double expectedAngle = (START_ANGLE + TIME * Spaceship.ROTATION_SPEED) % 360;
+        double dirX = Math.cos(Math.toRadians(expectedAngle)) ;
+		double dirY = Math.sin(Math.toRadians(expectedAngle)) ;
         Direction expDirection =  new Direction(dirX, dirY);
-        Position expectedPosition = (startPos.move( expDirection.multiply( speed * time )));
+        Position expectedPosition = (STAR_POSITION.move(expDirection.multiply(SPEED * TIME)));
 
         this.spaceship.startTurn();
-        this.spaceship.update(time);
-        
-        assertEquals( expectedAngle, this.spaceship.getAngle() );
-        assertEquals(expectedPosition , spaceship.getPosition() );
+        this.spaceship.update(TIME);
+
+        assertEquals(expectedAngle, this.spaceship.getAngle());
+        assertEquals(expectedPosition , spaceship.getPosition());
     }
 }

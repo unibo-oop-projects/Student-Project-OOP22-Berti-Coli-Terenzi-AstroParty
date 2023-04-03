@@ -15,62 +15,58 @@ import javafx.scene.layout.Pane;
 
 /**
  * 
- * a javaFx implementation of {@link GameScene}
+ * a javaFx implementation of {@link GameScene}.
  */
-public class GameSceneImpl extends Scene implements GameScene{
+public class GameSceneImpl extends Scene implements GameScene {
 
     private ImgNames namefinder = new ImgNames();
     private Pane pane;
-    private double Scale =  GameApp.WINDOW_SIZE/100;
-    
+    private double scale = GameApp.WINDOW_SIZE / 100;
+
     /**
-     * @param keyController the controller for the input to be added to the scene
+     * @param keyController the controller for the input to be added to the scene.
      */
-    public GameSceneImpl( InputControl keyController ) {
-    	
-    	super( new Pane() , GameApp.WINDOW_SIZE , GameApp.WINDOW_SIZE);			
+    public GameSceneImpl(final InputControl keyController) {
+    	super(new Pane(), GameApp.WINDOW_SIZE, GameApp.WINDOW_SIZE);
     	this.pane = (Pane) this.getRoot();
-    	KeyboardEventsHandler keyHandler = new KeyboardEventsHandler( keyController );
-    	this.setOnKeyPressed( keyHandler );
-    	this.setOnKeyReleased( keyHandler );
+    	KeyboardEventsHandler keyHandler = new KeyboardEventsHandler(keyController);
+    	this.setOnKeyPressed(keyHandler);
+    	this.setOnKeyReleased(keyHandler);
         this.pane.setId("pane");
-        this.getStylesheets().addAll( ClassLoader.getSystemResource("css/game.css").toExternalForm());
+        this.getStylesheets().addAll(ClassLoader.getSystemResource("css/game.css").toExternalForm());
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void renderAll(Collection<GraphicEntity> world) { 
-        Platform.runLater( new Runnable(){ 
+    public void renderAll(final Collection<GraphicEntity> world) { 
+        Platform.runLater(new Runnable() { 
 
-            public void run(){ 
+            public void run() {
 
                 Collection<ImageView> set = new HashSet<>();;
-				world.forEach( e -> set.add( paint( e ) ) ); 
-
+				world.forEach(e -> set.add(paint(e))); 
                 pane.getChildren().clear(); 
                 pane.getChildren().addAll(set);
-            } 
-            
-        } );
+            }
+        });
 
     } 
 
     /**
      * 
-     * @param entity 
-     * @return the graphic rappresentation of the entity passed as parameter
+     * @param entity that has to bre drwan
+     * @return the graphic rappresentation of the entity passed as parameter.
      */
-    private ImageView paint(GraphicEntity  entity) {
-        
-        ImageView view = new ImageView(  );
+    private ImageView paint(final GraphicEntity  entity) {
+        ImageView view = new ImageView();
         view.setId(this.namefinder.getName(entity));
-        view.setX(entity.getPosition().getX()* Scale);
-        view.setY(entity.getPosition().getY()* Scale);
-        view.setFitWidth(entity.getLength() * Scale );
-        view.setFitHeight(entity.getHeight() *Scale);
-        view.setRotate(entity.getAngle()+90);
+        view.setX(entity.getPosition().getX() * scale);
+        view.setY(entity.getPosition().getY() * scale);
+        view.setFitWidth(entity.getLength() * scale);
+        view.setFitHeight(entity.getHeight() * scale);
+        view.setRotate(entity.getAngle() + 90);
 		return view;
 	}
 }

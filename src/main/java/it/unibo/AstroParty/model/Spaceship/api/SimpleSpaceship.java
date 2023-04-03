@@ -4,41 +4,39 @@ import it.unibo.AstroParty.model.api.PowerUp;
 import it.unibo.AstroParty.model.api.Spaceship;
 
 /**
- * 
- * @author Alessandro Coli
  *
- * an extension of {@link Spaceship} used by the {@link PowerUp}
+ * an extension of {@link Spaceship} used by the {@link PowerUp}.
  */
 public interface SimpleSpaceship extends Spaceship {
 
 	/**
-	 * makes the ship immortal
+	 * makes the ship immortal.
 	 */
-	public void makeImmortal() ;
+	void makeImmortal() ;
 	
 	/**
-	 * makes the ship mortal
+	 * makes the ship mortal.
 	 */
-	public void makeMortal() ;
+	void makeMortal() ;
 	
 	/**
-	 * gives the ship a shield that blocks one damage instance
+	 * gives the ship a shield that blocks one damage instance.
 	 */
-	public void newShield() ;
+	void newShield() ;
 	
 	/**
 	 * set the speed to max
 	 */
-	public void upgradeSpeed() ;
+	void upgradeSpeed() ;
 	
 	/**
-	 * set the speed to normal
+	 * set the speed to normal.
 	 */
-	public void normalSpeed() ;
+	void normalSpeed() ;
 	
 	/**
-	 * remove the power up after it's been used
-	 * @param upgradedSpeed the powerUp to be removed
+	 * remove the power up after it's been used.
+	 * @param upgradedSpeed the powerUp to be removed.
 	 */
-	public void removePowerUp(PowerUp upgradedSpeed);
+	void removePowerUp(PowerUp upgradedSpeed);
 }

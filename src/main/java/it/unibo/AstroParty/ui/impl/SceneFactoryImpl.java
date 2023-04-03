@@ -42,7 +42,7 @@ public class SceneFactoryImpl implements SceneFactory {
      */
     @Override
     public Scene createTutorial() throws IOException {
-        return loadFXML("layouts/Tutorial.fxml", new TutorialController(view));
+        return loadFXML("layouts    utorial.fxml", new TutorialController(view));
     }
 
     /**

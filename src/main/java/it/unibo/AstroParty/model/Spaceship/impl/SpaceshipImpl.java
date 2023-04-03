@@ -24,362 +24,353 @@ import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
  */
 public class SpaceshipImpl implements SimpleSpaceship {
 
-	private double speed;								//impostazioni prese dal builder
-	private final PlayerId playerId;
-	private Position position;							// gestione movimento
-	private Position lastPos;
-	private Direction direction;
-	private double angle ;
-	boolean turning;
+    //impostazioni prese dal builder
+    private double speed;
+    private final PlayerId playerId;
+    // gestione movimento
+    private Position position;
+    private Position lastPos;
+    private Direction direction;
+    private double angle;
+    private boolean turning;
 
-	private Optional<PowerUp> powerUp = Optional.empty();
+    private Optional<PowerUp> powerUp = Optional.empty();
 
-	private int bullets;								//proiettili
-	private final int maxBullets;
-	private final long bulletRegenTime;
-	private final Timer timer = new Timer();
-	private final GameState world;
+    //proiettili
+    private int bullets;
+    private final int maxBullets;
+    private final long bulletRegenTime;
+    private final Timer timer = new Timer();
+    private final GameState world;
 
-	private boolean shield;								// defensive;
-	private boolean immortal;
-	private boolean recharging;
-	private boolean dead;
+    // defensive;
+    private boolean shield;
+    private boolean immortal;
+    private boolean recharging;
+    private boolean dead;
 
-	/**
-	 * takes all the parameters needed for the game.
-	 * @param startPosition
-	 * @param startDirection
-	 * @param angle
-	 * @param world
-	 * @param speed
-	 * @param maxBullets
-	 * @param startingShield
-	 * @param id
-	 * @param bulletRegenTime
-	 */
-	public SpaceshipImpl(final Position startPosition, final Direction startDirection,
-						final double angle, final GameState world, final double speed,
-						final int maxBullets, final boolean startingShield,
-						final PlayerId id, final long bulletRegenTime){
-		
-		this.world = world;
-		this.shield = startingShield;
-		this.maxBullets = maxBullets;
-		this.playerId = id;
-		this.speed = speed;
-		this.bulletRegenTime = bulletRegenTime;
-		this.bullets = maxBullets;
-		this.position = startPosition;
-		this.angle = angle;
-		this.direction = startDirection;
-		this.lastPos = startPosition;
-		
-	}
+    /**
+     * takes all the parameters needed for the game.
+     * @param startPosition
+     * @param startDirection
+     * @param angle
+     * @param world
+     * @param speed
+     * @param maxBullets
+     * @param startingShield
+     * @param id
+     * @param bulletRegenTime
+     */
+    public SpaceshipImpl(final Position startPosition, final Direction startDirection,
+                        final double angle, final GameState world, final double speed,
+                        final int maxBullets, final boolean startingShield,
+                        final PlayerId id, final long bulletRegenTime) {
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void resetPosition() {
-		this.position = this.lastPos ;
-	}
+        this.world = world;
+        this.shield = startingShield;
+        this.maxBullets = maxBullets;
+        this.playerId = id;
+        this.speed = speed;
+        this.bulletRegenTime = bulletRegenTime;
+        this.bullets = maxBullets;
+        this.position = startPosition;
+        this.angle = angle;
+        this.direction = startDirection;
+        this.lastPos = startPosition;
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Position getPosition() {
-		return this.position.copy();
-	}
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean equipPowerUp(final PowerUp pUp) {
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void resetPosition() {
+        this.position = this.lastPos;
+    }
 
-		if(powerUp.isEmpty()) {
-			powerUp = Optional.ofNullable(pUp);
-			pUp.pickUp(this);
-			return true;
-		}
-		return false;
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public Position getPosition() {
+        return this.position.copy();
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public CircleHitBox getHitBox() {
-		
-		return new CircleHitBoxImpl(this.position , Spaceship.RELATIVE_SIZE);
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equipPowerUp(final PowerUp pUp) {
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public PlayerId getId() {
-		return this.playerId;
-		
-	}
+        if (powerUp.isEmpty()) {
+            powerUp = Optional.ofNullable(pUp);
+            pUp.pickUp(this);
+            return true;
+        }
+        return false;
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public GraphicEntity getGraphicComponent() {
-		final GraphicEntity view = this.getHitBox().getGraphicComponent( EntityType.SPACESHIP);
-		view.setAngle(angle);
-		view.setId( this.playerId.getGameId());
-		return view;
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public CircleHitBox getHitBox() {
+        return new CircleHitBoxImpl(this.position, Spaceship.RELATIVE_SIZE);
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public double getAngle() {
-		return this.angle;
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public PlayerId getId() {
+        return this.playerId;
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public EntityType getType() {
-		return EntityType.SPACESHIP;
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public GraphicEntity getGraphicComponent() {
+        final GraphicEntity view = this.getHitBox().getGraphicComponent(EntityType.SPACESHIP);
+        view.setAngle(angle);
+        view.setId(this.playerId.getGameId());
+        return view;
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void update(final double time) {
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public double getAngle() {
+        return this.angle;
+    }
 
-		if(this.turning) {
-			this.updateDirection(time);
-		}
-		this.powerUp.ifPresent( p -> p.update(time));
-		this.move(time);
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public EntityType getType() {
+        return EntityType.SPACESHIP;
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void shoot() {
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void update(final double time) {
 
-		if(this.dead || this.bullets <= 0) {
-			return;
-		}
+        if (this.turning) {
+            this.updateDirection(time);
+        }
+        this.powerUp.ifPresent(p -> p.update(time));
+        this.move(time);
+    }
 
-		if(this.powerUp.isPresent() && this.powerUp.get().isOffensive()) {
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void shoot() {
 
-			switch(this.powerUp.get().getType()) {
+        if (this.dead || this.bullets <= 0) {
+            return;
+        }
 
-				case DOUBLESHOT:
-					this.createProjectile();
-					this.powerUp.get().use();
+        if (this.powerUp.isPresent() && this.powerUp.get().isOffensive()) {
 
-					timer.schedule(new TimerTask() {
+            switch (this.powerUp.get().getType()) {
 
-						@Override
-						public void run() {
-							createProjectile();
-						}
+                case DOUBLESHOT:
+                    this.createProjectile();
+                    this.powerUp.get().use();
 
-					}, PowerUp.DOUBLESHOT_DELAY);
-					break;
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+                            createProjectile();
+                        }
+                    }
+                    , PowerUp.DOUBLESHOT_DELAY);
+                    break;
 
-				default :
-					this.createProjectile();
-			}
-		}else {
-			this.createProjectile();
-		}
-		this.bullets -- ;
-		this.startTimer(); 					
-		// non e' contenuto in createProjectile in quanto in caso di DuobleShot deve toglierne uno solo al counter
-	}
+                default :
+                    this.createProjectile();
+            }
+        } else {
+            this.createProjectile();
+        }
+        this.bullets--;
+        this.startTimer();                     
+        // non e' contenuto in createProjectile in quanto in caso di DuobleShot deve toglierne uno solo al counter
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void removePowerUp(final PowerUp pUp) {
-		if( this.powerUp.isPresent() &&  this.powerUp.get().equals(pUp)) {
-			this.powerUp = Optional.empty();
-		}
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void removePowerUp(final PowerUp pUp) {
+        if (this.powerUp.isPresent() &&  this.powerUp.get().equals(pUp)) {
+            this.powerUp = Optional.empty();
+        }
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void makeImmortal() {
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void makeImmortal() {
+        this.immortal = true;
+    }
+    
 
-		this.immortal = true;
-	}
-	
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void makeMortal() {
+        this.immortal = false;
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void makeMortal() {
-		
-		this.immortal = false;
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void newShield() {
+        this.shield = true;
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void newShield() {
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void upgradeSpeed() {
+        this.speed = this.speed * PowerUp.SPEED_MODIFIER;
+    }
 
-		this.shield = true;
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void normalSpeed() {
+        this.speed = this.speed / PowerUp.SPEED_MODIFIER;
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void upgradeSpeed() {
-		
-		this.speed = this.speed * PowerUp.SPEED_MODIFIER;
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hit() { 
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void normalSpeed() {
+        if (this.immortal) {
+            this.dead =  false;
+        } else if (this.shield) {
+            this.shield = false;
+            this.dead =  false;
+        } else {
+            this.dead =  true;
+        }
 
-		this.speed = this.speed / PowerUp.SPEED_MODIFIER;
-	}
+        return this.dead;
+    }
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean hit() { 
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void startTurn() {
+        this.turning = true;
+    }
 
-		if( this.immortal) {
-			this.dead =  false;
-		}else if( this.shield) {
-			this.shield = false;
-			this.dead =  false;
-		}else {
-			this.dead =  true;
-		}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public void stopTurn() {
+        this.turning = false;
+    }
 
-		return this.dead;
-	}
+    /** 
+     * updtaes the direction of the spaceship based on how much time it has been turning.
+     * @param turnTime in milliseconds.
+     */
+    private void updateDirection(final double turnTime) {
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void startTurn() {
+        this.angle = (this.angle + turnTime * Spaceship.ROTATION_SPEED) % 360;
 
-		this.turning = true;
-	}
+        final double dirX = Math.cos(Math.toRadians(this.angle));
+        final double dirY = Math.sin(Math.toRadians(this.angle));
 
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void stopTurn() {
+        this.direction = new Direction(dirX , dirY);        
+    }
 
-		this.turning = false;
-	}
+    /**
+     * updates the position based on the current direction and time between updates.
+     * @param timeDiff in milliseconds.
+     */
+    private void move(final double timeDiff) {
 
-	/** 
-	 * updtaes the direction of the spaceship based on how much time it has been turning
-	 * @param turnTime in milliseconds
-	 */
-	private void updateDirection(final double turnTime) {
+        this.lastPos = this.position;
+        this.position = this.position.move(this.direction.multiply(this.speed * timeDiff));
+        //System.out.println(this.lastPos + " -> " + this.position);
+    }
 
-		// uso le formule per trovare le coordinate di un punto dala la distanza dall'origine del piano e l'angolo rispetto all'asse x a velocita 1x
+    /**
+     * creates and adds to the world a new {@link Projectile}.
+     */
+    private void createProjectile() {
 
-		this.angle =(this.angle + turnTime * Spaceship.ROTATION_SPEED) % 360;
+        this.world.addProjectile(new ProjectileFactoryImpl()
+                .createProjectile(position.move(direction.multiply(Projectile.radius)), direction));
+    }
 
-		final double dirX = Math.cos( Math.toRadians(this.angle)) ;
-		final double dirY = Math.sin( Math.toRadians(this.angle)) ;
-		
-		this.direction = new Direction( dirX , dirY) ;		
-	}
+    /**
+     * start the timer to recharge a bullet.
+     */
+    private void startTimer() {
 
-	/**
-	 * updates the position based on the current direction and time between updates
-	 * @param timeDiff in milliseconds
-	 */
-	private void move(final double timeDiff) {
+        if (!this.recharging) {
+            this.recharging = true;
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    addBullet();
+                }
+            }
+            , this.bulletRegenTime);
+        }
+    }
 
-		this.lastPos = this.position;
-		this.position = this.position.move( this.direction.multiply( this.speed * timeDiff));
-		//System.out.println(this.lastPos + " -> " + this.position);
-	}
+    /**
+     * adds a new bullet to the spaceship.
+     */
+    private void addBullet() {
 
-	/**
-	 * creates and adds to the world a new {@link Projectile}
-	 */
-	private void createProjectile() {
+        this.recharging = false;
 
-		this.world.addProjectile(new ProjectileFactoryImpl()
-				.createProjectile(position.move(direction.multiply(Projectile.radius)), direction));
-	}
+        this.bullets++;
 
-	/**
-	 * start the timer to recharge a bullet.
-	 */
-	private void startTimer() {
+        if (this.bullets < this.maxBullets) {
+            this.startTimer();
+        }
+    }
 
-		if( !this.recharging) {
-			this.recharging = true;
-			timer.schedule( new TimerTask() {
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object o) {
 
-				@Override
-				public void run() {
-					addBullet();
-				}
+        return o instanceof Spaceship && ((Spaceship) o).getId().equals(this.getId());
+    }
 
-			}, this.bulletRegenTime);
-		}
-	}
-
-	/**
-	 * adds a new bullet to the spaceship.
-	 */
-	private void addBullet() {
-		
-		this.recharging = false;
-		
-		this.bullets ++;
-		
-		if(this.bullets < this.maxBullets) {
-			this.startTimer();
-		}
-	}
-
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean equals(final Object o){
-
-		return  o instanceof Spaceship && ((Spaceship)o).getId().equals(this.getId());		
-	}
-
-	/** 
-	 * {@inheritDoc}
-	 */
-	@Override
-	public int hashCode(){
-		final int prime = 17;
-		int result = 1;
-		result = prime * result + this.playerId.hashCode();
-		return result;
-	}
+    /** 
+     * {@inheritDoc}
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 17;
+        int result = 1;
+        result = prime * result + this.playerId.hashCode();
+        return result;
+    }
 }

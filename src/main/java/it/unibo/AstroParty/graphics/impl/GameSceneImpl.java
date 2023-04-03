@@ -27,11 +27,11 @@ public class GameSceneImpl extends Scene implements GameScene {
      * @param keyController the controller for the input to be added to the scene.
      */
     public GameSceneImpl(final InputControl keyController) {
-    	super(new Pane(), GameApp.WINDOW_SIZE, GameApp.WINDOW_SIZE);
-    	this.pane = (Pane) this.getRoot();
-    	final KeyboardEventsHandler keyHandler = new KeyboardEventsHandler(keyController);
-    	this.setOnKeyPressed(keyHandler);
-    	this.setOnKeyReleased(keyHandler);
+        super(new Pane(), GameApp.WINDOW_SIZE, GameApp.WINDOW_SIZE);
+        this.pane = (Pane) this.getRoot();
+        final KeyboardEventsHandler keyHandler = new KeyboardEventsHandler(keyController);
+        this.setOnKeyPressed(keyHandler);
+        this.setOnKeyReleased(keyHandler);
         this.pane.setId("pane");
         this.getStylesheets().addAll(ClassLoader.getSystemResource("css/game.css").toExternalForm());
     }
@@ -47,7 +47,7 @@ public class GameSceneImpl extends Scene implements GameScene {
             public void run() {
 
                 final Collection<ImageView> set = new HashSet<>();
-				world.forEach(e -> set.add(paint(e))); 
+                world.forEach(e -> set.add(paint(e))); 
                 pane.getChildren().clear(); 
                 pane.getChildren().addAll(set);
             }
@@ -68,6 +68,6 @@ public class GameSceneImpl extends Scene implements GameScene {
         view.setFitWidth(entity.getLength() * scale);
         view.setFitHeight(entity.getHeight() * scale);
         view.setRotate(entity.getAngle());
-		return view;
-	}
+        return view;
+    }
 }

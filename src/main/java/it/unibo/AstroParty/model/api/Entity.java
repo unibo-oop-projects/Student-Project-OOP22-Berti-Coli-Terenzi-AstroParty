@@ -9,19 +9,19 @@ import it.unibo.AstroParty.graphics.api.GraphicEntity;
  *
  */
 public interface Entity {
-	/**
-	 * @return the {@link HitBox} of the entity
-	 */
+    /**
+     * @return the {@link HitBox} of the entity
+     */
     public HitBox getHitBox();
     
     /**
-	 * @return the {@link Position} of the entity
-	 */
+     * @return the {@link Position} of the entity
+     */
     public Position getPosition();
     
     /**
-	 * @return true if is killed/destroyed
-	 */
+     * @return true if is killed/destroyed
+     */
     public boolean hit();
     
     /**

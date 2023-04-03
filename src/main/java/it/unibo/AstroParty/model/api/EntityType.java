@@ -8,39 +8,60 @@ package it.unibo.AstroParty.model.api;
  */
 public enum EntityType {
 
-	SPACESHIP,
-	POWERUP,
-	SHIELD(POWERUP),
-	IMMORTALITY(POWERUP),
-	DOUBLESHOT(POWERUP),
-	UPGRADEDSPEED(POWERUP), 
-	OBSTACLE,
-	LASER(OBSTACLE), 
-	SIMPLEOBSTACLE(OBSTACLE),
-	UNDESTROYABLEOBSTACLE(OBSTACLE),
-	PROJECTILE;
+    /** a spaceship. */
+    SPACESHIP,
 
-	private final EntityType generalType;
+    /** a generalType of powerUP. */
+    POWERUP,
 
-	/**
-	 * used for already macrotypes.
-	 */
-	EntityType() {
-		this.generalType = null;
-	}
+    /** the shield powerUP. */
+    SHIELD(POWERUP),
 
-	/**
-	 * 
-	 * @param generalType the macrotype of the entity.
-	 */
-	EntityType(final EntityType generalType) {
-		this.generalType = generalType;
-	}
+    /** the immortality powerUP. */
+    IMMORTALITY(POWERUP),
 
-	/**
-	 * @return the general Type of Entity or null if it already is a General Type.
-	 */
-	public EntityType getGeneralType() {
-		return this.generalType;
-	}
+    /** the doubleshot powerUP. */
+    DOUBLESHOT(POWERUP),
+
+    /**  the UpgradedSpeed powerUP. */
+    UPGRADEDSPEED(POWERUP), 
+
+    /** a general obstacle. */
+    OBSTACLE,
+
+    /** a laser Obstacle. */
+    LASER(OBSTACLE), 
+
+    /** a simple Obstacle. */
+    SIMPLEOBSTACLE(OBSTACLE),
+
+    /** a undestroyable Obstacle. */
+    UNDESTROYABLEOBSTACLE(OBSTACLE),
+
+    /** a projectile. */
+    PROJECTILE;
+
+    private final EntityType generalType;
+
+    /**
+     * used for already macrotypes.
+     */
+    EntityType() {
+        this.generalType = null;
+    }
+
+    /**
+     * 
+     * @param generalType the macrotype of the entity.
+     */
+    EntityType(final EntityType generalType) {
+        this.generalType = generalType;
+    }
+
+    /**
+     * @return the general Type of Entity or null if it already is a General Type.
+     */
+    public EntityType getGeneralType() {
+        return this.generalType;
+    }
 }

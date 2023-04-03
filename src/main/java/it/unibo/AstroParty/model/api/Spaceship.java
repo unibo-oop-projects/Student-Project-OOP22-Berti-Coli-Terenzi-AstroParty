@@ -4,29 +4,30 @@ import it.unibo.AstroParty.core.impl.PlayerId;
 
 /**
  * 
- * @author Alessandro Coli
- *	
  * a basic spaceship in AstroParty
  */
 public interface Spaceship extends Entity {
 
-	double RELATIVE_SIZE = 3;
-	double ROTATION_SPEED = 0.25;
+    /** size of a PowerUp relative to the map. */
+    double RELATIVE_SIZE = 3;
 
-	/**
-	 * 
-	 * @return the {@link PlayerId} of this spaceship.
-	 */
-	PlayerId getId();
+    /** the speed at which a SpaceShip rotates. */
+    double ROTATION_SPEED = 0.25;
 
-	/**
-	 * reset the position of the spaceship before of the update.
-	 */
+    /**
+    * 
+    * @return the {@link PlayerId} of this spaceship.
+    */
+    PlayerId getId();
+
+    /**
+     * reset the position of the spaceship before of the update.
+     */
     void resetPosition();
 
     /**
      * equips a power up to the spaceship.
-     * @param pUp: the  {@link PowerUp} to be equipped.
+     * @param pUp the  {@link PowerUp} to be equipped.
      * @return true if it can be picked up.
      */
     boolean equipPowerUp(PowerUp pUp);
@@ -51,9 +52,9 @@ public interface Spaceship extends Entity {
      */
     void stopTurn();
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
+    /**
+    * {@inheritDoc}
+    */
+    @Override
     CircleHitBox getHitBox();
 }

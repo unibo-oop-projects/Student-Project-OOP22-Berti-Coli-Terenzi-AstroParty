@@ -10,11 +10,11 @@ import it.unibo.AstroParty.model.api.PowerUp;
  */
 public interface PowerUpFactory {
 
-	/**
-	 * create a new {@link PowerUp}
-	 * @param type the type of the new power up
-	 * @param pos the position inside the map
-	 * @return the powerup
-	 */
-	PowerUp createPowerUp(EntityType type, Position pos);
+    /**
+     * create a new {@link PowerUp}.
+     * @param type the type of the new power up.
+     * @param pos the position inside the map.
+     * @return the powerup.
+    */
+    PowerUp createPowerUp(EntityType type, Position pos);
 }

@@ -12,32 +12,32 @@ import it.unibo.AstroParty.model.api.Spaceship;
  */
 public class InputCommand {
 
-	private final GameId gameID;
-	private final Consumer<Spaceship> action;
-	/**
-	 * 
-	 * @param gameID of the spaceship on wich to compute the action.
-	 * @param action the action to be performed on the spaceship.
-	 */
-	InputCommand(final GameId gameID, final Consumer<Spaceship> action) {
-		this.gameID = gameID;
-		this.action = action;		
-	}
+    private final GameId gameID;
+    private final Consumer<Spaceship> action;
+    /**
+     * 
+     * @param gameID of the spaceship on wich to compute the action.
+     * @param action the action to be performed on the spaceship.
+     */
+    InputCommand(final GameId gameID, final Consumer<Spaceship> action) {
+        this.gameID = gameID;
+        this.action = action;
+    }
 
-	/**
-	 * execute the command on the spaceship given, after checking it's the correct one.
-	 * @param spaceship the spaceship on wich to compute the action.
-	 */
-	public void compute(final Optional<Spaceship> spaceship) {
-		if(spaceship.isPresent() && spaceship.get().getId().getGameId().equals(this.gameID)) {
-			action.accept(spaceship.get());
-		}
-	}
+    /**
+     * execute the command on the spaceship given, after checking it's the correct one.
+     * @param spaceship the spaceship on wich to compute the action.
+     */
+    public void compute(final Optional<Spaceship> spaceship) {
+        if (spaceship.isPresent() && spaceship.get().getId().getGameId().equals(this.gameID)) {
+            action.accept(spaceship.get());
+        }
+    }
 
-	/**
-	 * @return the gameId of the spaceship that this action has to be performed on.
-	 */
-	public GameId getID() {
-		return this.gameID;
-	}
+    /**
+     * @return the gameId of the spaceship that this action has to be performed on.
+     */
+    public GameId getID() {
+        return this.gameID;
+    }
 }

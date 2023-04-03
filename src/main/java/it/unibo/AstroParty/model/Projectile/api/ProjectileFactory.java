@@ -11,12 +11,12 @@ import it.unibo.AstroParty.model.api.Projectile;
  *
  */
 public interface ProjectileFactory {
-	/**
-	 * creates the Projectile given the position and direction of the Spaceship
-	 * 
-	 * @param pos the {@link Position} of the Spaceship
-	 * @param dir the {@link Direction} of the SpaceShip
-	 * @return
-	 */
-	public Projectile createProjectile(Position pos, Direction dir);
+    /**
+     * creates the Projectile given the position and direction of the Spaceship
+     * 
+     * @param pos the {@link Position} of the Spaceship
+     * @param dir the {@link Direction} of the SpaceShip
+     * @return
+     */
+    public Projectile createProjectile(Position pos, Direction dir);
 }

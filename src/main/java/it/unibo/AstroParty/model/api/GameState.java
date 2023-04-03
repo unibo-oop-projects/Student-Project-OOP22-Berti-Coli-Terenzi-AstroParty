@@ -20,7 +20,7 @@ public interface GameState {
     /**
      * the width of the map.
      */
-	double WIDTH = 100.0;
+    double WIDTH = 100.0;
 
     /**
      * y coordinates of the top of the game world.

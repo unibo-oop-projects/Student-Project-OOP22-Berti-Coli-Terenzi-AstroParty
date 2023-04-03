@@ -5,19 +5,26 @@ package it.unibo.AstroParty.input.api;
  * an enum that rapresents the possible players in game, helpfull for connecting the right input.
  */
 public enum GameId {
-	PLAYER1("Player1"),
-	PLAYER2("Player2"),
-	PLAYER3("Player3"),
-	PLAYER4("Player4");
+    /** the first player. */
+    PLAYER1("Player1"),
 
-	private final String stringRep;
+    /** the second player. */
+    PLAYER2("Player2"),
 
-	GameId(final String name) {
-		this.stringRep = name;
-	}
+    /** the third player. */
+    PLAYER3("Player3"),
 
-	@Override
-	public String toString() {
-		return this.stringRep;
-	}
+    /** the fourth player. */
+    PLAYER4("Player4");
+
+    private final String stringRep;
+
+    GameId(final String name) {
+        this.stringRep = name;
+    }
+
+    @Override
+    public String toString() {
+        return this.stringRep;
+    }
 }

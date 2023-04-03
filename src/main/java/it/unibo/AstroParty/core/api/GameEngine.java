@@ -6,9 +6,9 @@ package it.unibo.AstroParty.core.api;
  *
  */
 public interface GameEngine {
-	/**
-	 * setups the whole game
-	 */
+    /**
+     * setups the whole game
+     */
     public void init();
     
     /**

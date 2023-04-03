@@ -19,7 +19,7 @@
 }
 #Speed{
     -fx-image: url('../sprites/powerUp_speed.png');
-    -fx-background-size: cover;	
+    -fx-background-size: cover;    
 }
 #Shield{
     -fx-image: url('../sprites/powerUp_shield.png');
@@ -42,7 +42,7 @@
     -fx-background-size: cover;
 }
 #UndestroyableObstacle {
-	 -fx-image: url('../sprites/obstacle_undestroyable.png');
+     -fx-image: url('../sprites/obstacle_undestroyable.png');
     -fx-background-size: cover;
 }
 #Projectile{

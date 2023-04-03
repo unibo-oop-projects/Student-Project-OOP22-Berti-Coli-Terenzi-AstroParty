@@ -1,8 +1,5 @@
 package it.unibo.AstroParty.model.api;
 
-import it.unibo.AstroParty.common.Direction;
-import it.unibo.AstroParty.common.Position;
-
 /**
  * interface for projectiles with the following methods
  * 
@@ -10,11 +7,11 @@ import it.unibo.AstroParty.common.Position;
  *
  */
 public interface Projectile extends Entity {
-	static final double radius = 1.3;
+    static final double radius = 1.3;
     
-	/**
-	 * {@inheritDoc}}
-	 */
+    /**
+     * {@inheritDoc}}
+     */
     @Override
     public CircleHitBox getHitBox();
     

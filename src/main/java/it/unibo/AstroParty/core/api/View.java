@@ -11,12 +11,13 @@ import javafx.scene.Scene;
 public interface View {
 
     /**
+     * Called to set a new scene visible.
      * @param scene to set on stage
      */
     void switchScene(Scene scene);
 
     /**
-     * @return the currente scene
+     * @return the current scene
      */
     Scene getScene();
 
@@ -26,7 +27,7 @@ public interface View {
     SceneFactory getSceneFactory();
 
     /**
-     * Starts the GameEngine.
+     * Initialize the engine and starts the game.
      * @param players a list of the players name
      * @param obstacle true if obstacles will be in the game
      * @param powerup true if power-ups will be in the game

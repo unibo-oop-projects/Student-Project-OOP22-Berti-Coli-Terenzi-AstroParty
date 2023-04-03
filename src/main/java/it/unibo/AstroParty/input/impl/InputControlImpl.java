@@ -10,22 +10,21 @@ import it.unibo.AstroParty.model.api.Spaceship;
 
 /**
  * 
- * @author Alessandro Coli
- * a concrete {@link InputControl} to signal the right spaceship the input commands at the right time
+ * a concrete {@link InputControl} to signal the right spaceship the input commands at the right time.
  */
 public class InputControlImpl implements InputControl {
-	
+
 	private final Collection<Spaceship> spaceships;
 	private final List<InputCommand> commands = new LinkedList<>();
 	private boolean read;
-	
+
 	/**
-	 * @param spaceships : the spaceships of the current match
+	 * @param spaceships : the spaceships of the current match.
 	 */
-	public InputControlImpl(Collection<Spaceship> spaceships){
+	public InputControlImpl(Collection<Spaceship> spaceships) {
 		this.spaceships = spaceships;
 	}
-	
+
 	/**
 	 *  {@inheritDoc}
 	 */
@@ -33,7 +32,7 @@ public class InputControlImpl implements InputControl {
 	public void stop() {
 		this.read = false;
 	}
-	
+
 	/**
 	 *  {@inheritDoc}
 	 */
@@ -41,53 +40,52 @@ public class InputControlImpl implements InputControl {
 	public void start() {
 		this.read = true;
 	}
-	
+
 	/**
 	 *  {@inheritDoc}
 	 */
 	@Override
 	public void compute() {
-		for( InputCommand event : commands) {
-			event.compute( this.spaceships.stream()
-						.filter( s -> s.getId().getGameId().equals( event.getID() ))
-						.findAny() );
+		for (InputCommand event : commands) {
+			event.compute(this.spaceships.stream()
+						.filter(s -> s.getId().getGameId().equals(event.getID()))
+						.findAny());
 		}
 		this.commands.clear();
 	}
 
 	/**
-	 *  adds an event to the queue of events
+	 *  adds an event to the queue of events.
+	 * @param action the action to be added.
 	 */
-	private void addEvent(InputCommand action) {
+	private void addEvent(final InputCommand action) {
 
-		if( this.read ) {
+		if (this.read) {
 			this.commands.add(action);
 		}
 	}
-	
+
 	/**
 	 *  {@inheritDoc}
 	 */
 	@Override
-	public void shoot(GameId player) {
-		this.addEvent(new InputCommand( player, s -> s.shoot()));
+	public void shoot(final GameId player) {
+		this.addEvent(new InputCommand(player, s -> s.shoot()));
 	}
 
 	/**
 	 *  {@inheritDoc}
 	 */
 	@Override
-	public void startTurn(GameId player) {
-		this.addEvent(new InputCommand( player, s -> s.startTurn()));
+	public void startTurn(final GameId player) {
+		this.addEvent(new InputCommand(player, s -> s.startTurn()));
 	}
 
 	/**
 	 *  {@inheritDoc}
 	 */
 	@Override
-	public void stopTurn(GameId player) {
-		this.addEvent(new InputCommand( player, s -> s.stopTurn()));
+	public void stopTurn(final GameId player) {
+		this.addEvent(new InputCommand(player, s -> s.stopTurn()));
 	}
-
-
 }

@@ -20,8 +20,7 @@ import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
 
 /**
  * 
- * @author Alessandro Coli
- * a {@link Spaceship} inside an AstroParty game
+ * a {@link Spaceship} inside an AstroParty game.
  */
 public class SpaceshipImpl implements SimpleSpaceship {
 
@@ -32,22 +31,22 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private Direction direction;
 	private double angle ;
 	boolean turning;
-	
+
 	private Optional<PowerUp> powerUp = Optional.empty();
-	
+
 	private int bullets;								//proiettili
 	private final int maxBullets;
 	private final long bulletRegenTime;
 	private Timer timer = new Timer();
 	private final GameState world;
-	
+
 	private boolean shield;								// defensive;
 	private boolean immortal;
 	private boolean recharging;
 	private boolean dead;
-	
+
 	/**
-	 * takes all the parameters needed for the game
+	 * takes all the parameters needed for the game.
 	 * @param startPosition
 	 * @param startDirection
 	 * @param angle
@@ -58,7 +57,10 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 * @param id
 	 * @param bulletRegenTime
 	 */
-	public SpaceshipImpl(Position startPosition, Direction startDirection, double angle, GameState world, double speed, int maxBullets, boolean startingShield, PlayerId id, long bulletRegenTime){
+	public SpaceshipImpl(final Position startPosition, final Direction startDirection,
+						final double angle, final GameState world, final double speed,
+						final int maxBullets, final boolean startingShield,
+						final PlayerId id, final long bulletRegenTime){
 		
 		this.world = world;
 		this.shield = startingShield;
@@ -73,7 +75,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		this.lastPos = startPosition;
 		
 	}
-	
+
 	/** 
 	 * {@inheritDoc}
 	 */
@@ -95,13 +97,12 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 */
 	@Override
 	public boolean equipPowerUp(PowerUp pUp) {
-		
-		if ( powerUp.isEmpty()) {
+
+		if(powerUp.isEmpty()) {
 			powerUp = Optional.ofNullable(pUp);
 			pUp.pickUp(this);
 			return true;
 		}
-		
 		return false;
 	}
 
@@ -111,32 +112,30 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	@Override
 	public CircleHitBox getHitBox() {
 		
-		return new CircleHitBoxImpl(this.position , Spaceship.relativeSize);
+		return new CircleHitBoxImpl(this.position , Spaceship.RELATIVE_SIZE);
 	}
-	
+
 	public PlayerId getId() {
 		return this.playerId;
 		
 	}
-	
+
 	/** 
 	 * {@inheritDoc}
 	 */
 	@Override
 	public GraphicEntity getGraphicComponent() {
-		GraphicEntity view = this.getHitBox().getGraphicComponent( EntityType.SPACESHIP );
+		GraphicEntity view = this.getHitBox().getGraphicComponent( EntityType.SPACESHIP);
 		view.setAngle(angle);
-		view.setId( this.playerId.getGameId() );
+		view.setId( this.playerId.getGameId());
 		return view;
 	}
-	
 
 	/** 
 	 * {@inheritDoc}
 	 */
 	@Override
 	public double getAngle() {
-		
 		return this.angle;
 	}
 
@@ -145,7 +144,6 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 */
 	@Override
 	public EntityType getType() {
-		
 		return EntityType.SPACESHIP;
 	}
 
@@ -154,11 +152,11 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 */
 	@Override
 	public void update(double time) {
-		
-		if(this.turning ) {
+
+		if(this.turning) {
 			this.updateDirection(time);
 		}
-		this.powerUp.ifPresent( p -> p.update(time) );
+		this.powerUp.ifPresent( p -> p.update(time));
 		this.move(time);
 	}
 
@@ -167,15 +165,15 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 */
 	@Override
 	public void shoot() {
-		
-		if(  this.dead || this.bullets <= 0) {
+
+		if(this.dead || this.bullets <= 0) {
 			return;
 		}
-		
-		if ( this.powerUp.isPresent() && this.powerUp.get().isOffensive() ) {
-			
-			switch ( this.powerUp.get().getType() ) {
-				
+
+		if(this.powerUp.isPresent() && this.powerUp.get().isOffensive()) {
+
+			switch(this.powerUp.get().getType()) {
+
 				case DOUBLESHOT:
 					this.createProjectile();
 					this.powerUp.get().use();
@@ -186,22 +184,21 @@ public class SpaceshipImpl implements SimpleSpaceship {
 						public void run() {
 							createProjectile();
 						}
-						
-					}, 55);
 
+					}, PowerUp.DOUBLESHOT_DELAY);
 					break;
-					
+
 				default :
 					this.createProjectile();
 			}
-			
 		}else {
 			this.createProjectile();
 		}
 		this.bullets -- ;
-		this.startTimer(); 					// non e' contenuto in createProjectile in quanto in caso di DuobleShot deve toglierne uno solo al counter
+		this.startTimer(); 					
+		// non e' contenuto in createProjectile in quanto in caso di DuobleShot deve toglierne uno solo al counter
 	}
-	
+
 	/** 
 	 * {@inheritDoc}
 	 */
@@ -230,7 +227,6 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		
 		this.immortal = false;
 	}
-	
 
 	/** 
 	 * {@inheritDoc}
@@ -240,7 +236,6 @@ public class SpaceshipImpl implements SimpleSpaceship {
 
 		this.shield = true;
 	}
-	
 
 	/** 
 	 * {@inheritDoc}
@@ -248,9 +243,8 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	@Override
 	public void upgradeSpeed() {
 		
-		this.speed = this.speed * PowerUp.speedModifier;
+		this.speed = this.speed * PowerUp.SPEED_MODIFIER;
 	}
-	
 
 	/** 
 	 * {@inheritDoc}
@@ -258,18 +252,18 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	@Override
 	public void normalSpeed() {
 
-		this.speed = this.speed / PowerUp.speedModifier;
+		this.speed = this.speed / PowerUp.SPEED_MODIFIER;
 	}
-	
+
 	/** 
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean hit() {			// basta dire che soso stato ucciso a gamestate, che lascia il mio riferimento e avvisa InputControl 
+	public boolean hit() { 
 
-		if( this.immortal ) {
+		if( this.immortal) {
 			this.dead =  false;
-		}else if( this.shield ) {
+		}else if( this.shield) {
 			this.shield = false;
 			this.dead =  false;
 		}else {
@@ -302,13 +296,13 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 * @param turnTime in milliseconds
 	 */
 	private void updateDirection(double turnTime) {
-		
-		// uso le formule per trovare le coordinate di un punto dala la distanza dall'origine del piano e l'angolo rispetto all'asse x a velocita 1x
-		
-		this.angle = ( this.angle + turnTime * Spaceship.rotationSpeed ) % 360;
 
-		double dirX = Math.cos( Math.toRadians(this.angle) ) ;
-		double dirY = Math.sin( Math.toRadians(this.angle) ) ;
+		// uso le formule per trovare le coordinate di un punto dala la distanza dall'origine del piano e l'angolo rispetto all'asse x a velocita 1x
+
+		this.angle =(this.angle + turnTime * Spaceship.ROTATION_SPEED) % 360;
+
+		double dirX = Math.cos( Math.toRadians(this.angle)) ;
+		double dirY = Math.sin( Math.toRadians(this.angle)) ;
 		
 		this.direction = new Direction( dirX , dirY) ;		
 	}
@@ -318,9 +312,9 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 * @param timeDiff in milliseconds
 	 */
 	private void move(double timeDiff) {
-		
+
 		this.lastPos = this.position;
-		this.position = this.position.move( this.direction.multiply( this.speed * timeDiff ) );
+		this.position = this.position.move( this.direction.multiply( this.speed * timeDiff));
 		//System.out.println(this.lastPos + " -> " + this.position);
 	}
 
@@ -332,13 +326,13 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		this.world.addProjectile(new ProjectileFactoryImpl()
 				.createProjectile(position.move(direction.multiply(Projectile.radius)), direction));
 	}
-	
+
 	/**
-	 * start the timer to recharge a bullet
+	 * start the timer to recharge a bullet.
 	 */
 	private void startTimer() {
-		
-		if( !this.recharging ) {
+
+		if( !this.recharging) {
 			this.recharging = true;
 			timer.schedule( new TimerTask() {
 
@@ -346,13 +340,13 @@ public class SpaceshipImpl implements SimpleSpaceship {
 				public void run() {
 					addBullet();
 				}
-				
+
 			}, this.bulletRegenTime);
 		}
 	}
-	
+
 	/**
-	 * adds a new bullet to the spaceship
+	 * adds a new bullet to the spaceship.
 	 */
 	private void addBullet() {
 		
@@ -371,9 +365,9 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	@Override
 	public boolean equals( Object o){
 
-		if( o instanceof Spaceship ){
+		if( o instanceof Spaceship){
 
-			if( ( (Spaceship)o ).getId() == this.getId() ){
+			if(((Spaceship)o).getId() == this.getId()){
 
 				return true;
 

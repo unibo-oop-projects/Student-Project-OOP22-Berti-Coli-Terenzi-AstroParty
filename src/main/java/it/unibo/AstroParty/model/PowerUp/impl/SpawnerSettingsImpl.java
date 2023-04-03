@@ -7,22 +7,19 @@ import it.unibo.AstroParty.model.api.PowerUpSpawner;
 import it.unibo.AstroParty.model.api.EntityType;
 
 /** 
- * 
-
- * 
- * a concrete implementation of {@link SpawnerSettings }
+ * a concrete implementation of {@link SpawnerSettings }.
  */
 public class SpawnerSettingsImpl implements SpawnerSettings {
 	
-	EnumSet<EntityType> possible = EnumSet.noneOf( EntityType.class );
+	EnumSet<EntityType> possible = EnumSet.noneOf(EntityType.class);
 	long spawnDelay;
 	
 	/**
-	 * the basic setting is {@link #disableAll()}
+	 * the basic setting is {@link #disableAll()}.
 	 */
 	public SpawnerSettingsImpl(){
 		this.disableAll();
-		this.spawnDelay = SpawnerSettings.basic_spawn_delay;
+		this.spawnDelay = SpawnerSettings.BASIC_SPAWN_DELAY;
 	}
 
 	/**
@@ -31,22 +28,21 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	@Override
 	public PowerUpSpawner startGame() {
 		
-		return new PowerUpSpawnerImpl( this.possible , this.spawnDelay );
+		return new PowerUpSpawnerImpl(this.possible , this.spawnDelay);
 	}
 	
 	/**
-	 * @param the type of PowerUp to be enabled
+	 * @param the type of PowerUp to be enabled.
 	 */
-	private void enable( EntityType type ) {
+	private void enable(final EntityType type) {
 		
 		this.possible.add(type);
 	}
 	
 	/**
-	 * @param the type of PowerUp to be disabled
+	 * @param the type of PowerUp to be disabled.
 	 */
-	private void disable( EntityType type ) {
-		
+	private void disable(final EntityType type) {
 		this.possible.remove(type);
 	}
 
@@ -67,10 +63,10 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	@Override
 	public void enableDoubleShot(boolean enable) {
 		
-		if( enable ) {
-			this.enable(  EntityType.DOUBLESHOT );
+		if(enable) {
+			this.enable( EntityType.DOUBLESHOT);
 		}else {
-			this.disable(  EntityType.DOUBLESHOT );
+			this.disable( EntityType.DOUBLESHOT);
 		}
 	}
 
@@ -81,10 +77,10 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	@Override
 	public void enableTemporaryImmortality(boolean enable) {
 		
-		if( enable ) {
-			this.enable(  EntityType.IMMORTALITY );
+		if(enable) {
+			this.enable( EntityType.IMMORTALITY);
 		}else {
-			this.disable(  EntityType.IMMORTALITY );
+			this.disable( EntityType.IMMORTALITY);
 		}
 	}
 
@@ -95,10 +91,10 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	@Override
 	public void enableUpgradedSpeed(boolean enable) {
 		
-		if( enable ) {
-			this.enable(  EntityType.UPGRADEDSPEED );
+		if(enable) {
+			this.enable( EntityType.UPGRADEDSPEED);
 		}else {
-			this.disable(  EntityType.UPGRADEDSPEED );
+			this.disable( EntityType.UPGRADEDSPEED);
 		}
 	}
 
@@ -109,10 +105,10 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	@Override
 	public void enableShield(boolean enable) {
 		
-		if( enable ) {
-			this.enable( EntityType.SHIELD );
+		if(enable) {
+			this.enable(EntityType.SHIELD);
 		}else {
-			this.disable(  EntityType.SHIELD );
+			this.disable( EntityType.SHIELD);
 		}
 	}
 
@@ -122,8 +118,8 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	 */
 	@Override
 	public void enableAll() {
-		this.possible.addAll( EnumSet.allOf(EntityType.class) );
-		this.possible.removeIf( e -> ! (e.getGeneralType() == EntityType.POWERUP ) );
+		this.possible.addAll(EnumSet.allOf(EntityType.class));
+		this.possible.removeIf(e -> ! (e.getGeneralType() == EntityType.POWERUP));
 		//System.out.println("-- " + this.possible);
 	}
 
@@ -134,7 +130,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	@Override
 	public void disableAll() {
 
-		this.possible = EnumSet.noneOf( EntityType.class );
+		this.possible = EnumSet.noneOf(EntityType.class);
 	}
 
 }

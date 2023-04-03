@@ -8,7 +8,7 @@ import it.unibo.AstroParty.input.api.GameId;
 import it.unibo.AstroParty.model.api.EntityType;
 
 /**
- * {@inheritDoc}
+ * {@inheritDoc}.
  */
 public class GraphicEntityImpl implements GraphicEntity {
 	
@@ -16,19 +16,19 @@ public class GraphicEntityImpl implements GraphicEntity {
 	private final EntityType type;
 	private GameId id;
 	private final double height;
-	private final double length ;
+	private final double length;
 	private final Position corner;
 	
 	/**
-	 * all the basic parameters for drqwing an entity
+	 * all the basic parameters for drqwing an entity.
 	 * 
 	 * @param topLetfCorner
 	 * @param height
 	 * @param length
 	 * @param type
 	 */
-	public GraphicEntityImpl(Position topLetfCorner, double height, double length, EntityType type){
-		this.corner = topLetfCorner;
+	public GraphicEntityImpl(final Position topLeftCorner, final double height, final double length, final EntityType type) {
+		this.corner = topLeftCorner;
 		this.height = height;
 		this.length = length;
 		this.type = type;
@@ -39,24 +39,24 @@ public class GraphicEntityImpl implements GraphicEntity {
      */
     @Override
 	public EntityType getType() {
-		
+
 		return this.type;
-	}
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-	public Optional<GameId> getId() {
-		
-		return Optional.ofNullable( this.id );
 	}
 
     /**
      * {@inheritDoc}
      */
     @Override
-	public void setId(GameId id) {
+	public Optional<GameId> getId() {
+
+		return Optional.ofNullable(this.id);
+	}
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+	public void setId(final GameId id) {
 		this.id = id;
 	}
 
@@ -64,10 +64,10 @@ public class GraphicEntityImpl implements GraphicEntity {
      * {@inheritDoc}
      */
     @Override
-	public void setAngle(double angle) {
+	public void setAngle(final double angle) {
 		this.angle = angle;
 	}
-    
+
     /**
      * {@inheritDoc}
      */
@@ -75,7 +75,7 @@ public class GraphicEntityImpl implements GraphicEntity {
 	public Position getPosition() {
 		return this.corner.copy();
 	}
-    
+
     /**
      * {@inheritDoc}
      */
@@ -83,7 +83,7 @@ public class GraphicEntityImpl implements GraphicEntity {
 	public double getAngle() {
 		return this.angle;
 	}
-    
+
     /**
      * {@inheritDoc}
      */
@@ -99,5 +99,4 @@ public class GraphicEntityImpl implements GraphicEntity {
 	public double getLength() {
 		return this.length;
 	}
-
 }

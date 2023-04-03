@@ -1,5 +1,7 @@
 package it.unibo.AstroParty.model.api;
 
+import java.util.Date;
+
 /**
  * 
  * @author Alessandro Coli
@@ -7,34 +9,32 @@ package it.unibo.AstroParty.model.api;
  * a PowerUp inside AstroParty
  */
 public interface PowerUp extends Entity {
-	
 
-	
-	static final double relativeSize = 1.5;
-	static final double speedModifier = 1.5;
-	static final double Duration = 5000;
-	
+	static final double RELATIVE_SIZE = 1.5;
+	static final double SPEED_MODIFIER = 1.3;
+	static final double DURATION = 5000;
+    static final long DOUBLESHOT_DELAY = 55;
+
 	/**
-	 * use the powerUp on the spaceship that has {@link #pickUp(Spaceship)} this power up
+	 * use the powerUp on the spaceship that has {@link #pickUp(Spaceship)} this power up.
 	 */
-    public void use();
-    
+    void use();
+
     /**
-     * inform this power up that is been picked up
-     * @param owner: the spaceship that picked it up
+     * inform this power up that is been picked up.
+     * @param owner: the spaceship that picked it up.
      * @return 
      */
-    public boolean pickUp( Spaceship owner );
-    
+    boolean pickUp(Spaceship owner);
+
     /**
      * @return true if it is an offensive power up
      */
-    public boolean isOffensive();
-
+    boolean isOffensive();
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-    public CircleHitBox getHitBox();
+    CircleHitBox getHitBox();
 }

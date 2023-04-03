@@ -118,7 +118,7 @@ public class GameStateImpl implements GameState, Observable {
                     .forEach(p -> this.notifyObservers(eventFactory.powerUpEquipEvent(p, s)));
 
             obstacles.stream()
-                    .filter(o -> o.isHarmful() && o.getHitBox().checkCircleCollision(s.getHitBox()))
+                    .filter(o -> o.isActive() && o.isHarmful() && o.getHitBox().checkCircleCollision(s.getHitBox()))
                     .forEach(o -> this.notifyObservers(eventFactory.spaceshipHittedEvent(s)));
         }
     }

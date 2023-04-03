@@ -8,7 +8,7 @@ public interface Obstacle extends Entity {
     /**
      * the size of the Obstacle.
      */
-    double SIZE = 3.0;
+    double SIZE = 6.0;
 
     /**
      * 

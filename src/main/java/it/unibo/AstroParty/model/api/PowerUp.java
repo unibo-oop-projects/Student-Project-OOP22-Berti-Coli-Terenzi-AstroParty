@@ -8,7 +8,7 @@ package it.unibo.AstroParty.model.api;
  */
 public interface PowerUp extends Entity {
 
-	double RELATIVE_SIZE = 1.5;
+	double RELATIVE_SIZE = 2.5;
 	double SPEED_MODIFIER = 1.3;
 	double DURATION = 5000;
     long DOUBLESHOT_DELAY = 55;

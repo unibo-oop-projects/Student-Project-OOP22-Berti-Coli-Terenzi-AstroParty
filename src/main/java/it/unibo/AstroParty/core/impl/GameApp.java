@@ -46,10 +46,9 @@ public class GameApp extends Application implements View {
  
         // stage settings
         this.primaryStage.setResizable(false);
-        this.primaryStage.setOnCloseRequest(s -> System.exit(0));
 
         // create SceneFactory
-        sceneFactory = new SceneFactoryImpl(this);
+        this.sceneFactory = new SceneFactoryImpl(this);
 
         this.switchScene(sceneFactory.createMain());
         this.primaryStage.sizeToScene();
@@ -60,8 +59,8 @@ public class GameApp extends Application implements View {
      */
     @Override
     public void switchScene(final Scene scene) {
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        this.primaryStage.setScene(scene);
+        this.primaryStage.show();
     }
 
     /**

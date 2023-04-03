@@ -25,6 +25,7 @@ public class GameApp extends Application implements View {
 
     private Stage primaryStage;
     private SceneFactory sceneFactory;
+    private GameEngine engine;
 
     // gets the sizes of the current screen and takes the shorter as window size
     static {
@@ -84,8 +85,8 @@ public class GameApp extends Application implements View {
      */
     @Override
     public void start(final List<String> players, final boolean obstacle, final boolean powerup, final int rounds) {
-        final GameEngine engine = new GameEngineImpl(this, players, obstacle, powerup, rounds);
-        new Thread((Runnable) engine).start();
+        this.engine = new GameEngineImpl(this, players, obstacle, powerup, rounds);
+        this.nextRound();
     }
 
     /**
@@ -93,7 +94,8 @@ public class GameApp extends Application implements View {
      */
     @Override
     public void nextRound() {
-        //TODO
+        this.engine.init();
+        this.engine.mainLoop();
     }
 }
 

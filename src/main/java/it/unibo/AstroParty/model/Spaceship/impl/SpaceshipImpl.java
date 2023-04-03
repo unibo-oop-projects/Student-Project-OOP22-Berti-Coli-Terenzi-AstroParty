@@ -37,7 +37,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	private int bullets;								//proiettili
 	private final int maxBullets;
 	private final long bulletRegenTime;
-	private Timer timer = new Timer();
+	private final Timer timer = new Timer();
 	private final GameState world;
 
 	private boolean shield;								// defensive;
@@ -96,7 +96,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equipPowerUp(PowerUp pUp) {
+	public boolean equipPowerUp(final PowerUp pUp) {
 
 		if(powerUp.isEmpty()) {
 			powerUp = Optional.ofNullable(pUp);
@@ -115,6 +115,10 @@ public class SpaceshipImpl implements SimpleSpaceship {
 		return new CircleHitBoxImpl(this.position , Spaceship.RELATIVE_SIZE);
 	}
 
+	/** 
+	 * {@inheritDoc}
+	 */
+	@Override
 	public PlayerId getId() {
 		return this.playerId;
 		
@@ -125,7 +129,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 */
 	@Override
 	public GraphicEntity getGraphicComponent() {
-		GraphicEntity view = this.getHitBox().getGraphicComponent( EntityType.SPACESHIP);
+		final GraphicEntity view = this.getHitBox().getGraphicComponent( EntityType.SPACESHIP);
 		view.setAngle(angle);
 		view.setId( this.playerId.getGameId());
 		return view;
@@ -151,7 +155,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void update(double time) {
+	public void update(final double time) {
 
 		if(this.turning) {
 			this.updateDirection(time);
@@ -203,7 +207,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void removePowerUp(PowerUp pUp) {
+	public void removePowerUp(final PowerUp pUp) {
 		if( this.powerUp.isPresent() &&  this.powerUp.get().equals(pUp)) {
 			this.powerUp = Optional.empty();
 		}
@@ -295,14 +299,14 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 * updtaes the direction of the spaceship based on how much time it has been turning
 	 * @param turnTime in milliseconds
 	 */
-	private void updateDirection(double turnTime) {
+	private void updateDirection(final double turnTime) {
 
 		// uso le formule per trovare le coordinate di un punto dala la distanza dall'origine del piano e l'angolo rispetto all'asse x a velocita 1x
 
 		this.angle =(this.angle + turnTime * Spaceship.ROTATION_SPEED) % 360;
 
-		double dirX = Math.cos( Math.toRadians(this.angle)) ;
-		double dirY = Math.sin( Math.toRadians(this.angle)) ;
+		final double dirX = Math.cos( Math.toRadians(this.angle)) ;
+		final double dirY = Math.sin( Math.toRadians(this.angle)) ;
 		
 		this.direction = new Direction( dirX , dirY) ;		
 	}
@@ -311,7 +315,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 * updates the position based on the current direction and time between updates
 	 * @param timeDiff in milliseconds
 	 */
-	private void move(double timeDiff) {
+	private void move(final double timeDiff) {
 
 		this.lastPos = this.position;
 		this.position = this.position.move( this.direction.multiply( this.speed * timeDiff));
@@ -363,16 +367,19 @@ public class SpaceshipImpl implements SimpleSpaceship {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public boolean equals( Object o){
+	public boolean equals(final Object o){
 
-		if( o instanceof Spaceship){
+		return  o instanceof Spaceship && ((Spaceship)o).getId().equals(this.getId());		
+	}
 
-			if(((Spaceship)o).getId() == this.getId()){
-
-				return true;
-
-			}
-		}
-		return false;
+	/** 
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode(){
+		final int prime = 17;
+		int result = 1;
+		result = prime * result + this.playerId.hashCode();
+		return result;
 	}
 }

@@ -1,19 +1,21 @@
 package it.unibo.AstroParty.common;
 
+
 /**
  * 
  * a simple class that represents a point in a two dimensional space
  * 
  */
 public class Position {
-	final static double epsilon = 0.000001;
-	private double x,y;
+	final static double EPSILON = 0.000_001;
+	private final double x;
+	private final double y;
 
 	/**
 	 * @param x =  the X of the Position
 	 * @param y =  the Y of the Position
 	 */
-	public Position(double x, double y) {
+	public Position(final double x, final double y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -23,8 +25,8 @@ public class Position {
 	 * @param v: the {@link Direction} of the movemnt to be done
 	 * @return the arriving position
 	 */
-	public Position move(Direction v) {
-		return new Position( this.x+v.getX() , this.y+v.getY() );
+	public Position move(final Direction v) {
+		return new Position(this.x+v.getX(), this.y+v.getY());
 	}
 	
 	/**
@@ -32,8 +34,8 @@ public class Position {
 	 * @param p: the position to be added to this
 	 * @return the new position
 	 */
-	public Position add(Position p) {
-		return new Position( this.x+p.getX() , this.y+p.getY() );
+	public Position add(final Position p) {
+		return new Position(this.x+p.getX(), this.y+p.getY());
 	}
 	
 	/**
@@ -41,10 +43,10 @@ public class Position {
 	 * @param pos : the position which the distance is to be calculated from
 	 * @return the distance ad double using pitagora
 	 */
-	public double getDistanceFrom(Position pos) {
+	public double getDistanceFrom(final Position pos) {
 		final double deltaX = x - pos.getX();
 		final double deltaY = y - pos.getY();
-		return Math.sqrt((deltaX*deltaX) + (deltaY*deltaY));
+		return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 	}
 
 	/**
@@ -64,19 +66,33 @@ public class Position {
 	/**
 	 * {@inheritDoc}
 	 */
-	public boolean equals(Object obj) {
+	@Override
+	public boolean equals(final Object obj) {
 	    
-	    if ( !(obj instanceof Position) ) {
+	    if (!(obj instanceof Position)) {
 	        return false;
 	    }
-		Position pos = (Position)obj;
-	    return Math.abs(pos.getX() - this.getX()) < epsilon
-		&& Math.abs(pos.getY() - this.getY()) < epsilon;
+		final Position pos = (Position)obj;
+	    return Math.abs(pos.getX() - this.getX()) < EPSILON
+		&& Math.abs(pos.getY() - this.getY()) < EPSILON;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode(){
+		final int prime = 7;
+		int result = (int) (x + y);
+		result = prime * result ;
+		result = prime * result ;
+		return result;
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public String toString() {
 		return Double.toString(x) + ":" + Double.toString(y);
 	}
@@ -86,6 +102,6 @@ public class Position {
 	 */
 	public Position copy() {
 		
-		return new Position( this.x , this.y );
+		return new Position(this.x, this.y);
 	}
 }

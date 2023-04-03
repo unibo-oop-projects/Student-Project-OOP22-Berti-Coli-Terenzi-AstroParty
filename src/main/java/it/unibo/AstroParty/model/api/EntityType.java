@@ -33,7 +33,7 @@ public enum EntityType {
 	 * 
 	 * @param generalType the macrotype of the entity.
 	 */
-	EntityType(EntityType generalType) {
+	EntityType(final EntityType generalType) {
 		this.generalType = generalType;
 	}
 

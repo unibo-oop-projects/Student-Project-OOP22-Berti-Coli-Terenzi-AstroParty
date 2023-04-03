@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import it.unibo.AstroParty.common.Direction;
@@ -25,27 +27,28 @@ import it.unibo.AstroParty.model.api.Spaceship;
 public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 
 	// costanti per le impostazione basi di pos e dir dei 4 player
+	private static final Logger LOGGER = Logger.getLogger("SpaceshipBuilderController");
+    
+	private final static double BORDER_DISTANCE = 5.0;
 
-	private static double BorderDistance = 5.0;
+	private final static double ANGLE_P1 = 45;
+	private final static double ANGLE_P2 = 225;
+	private final static double ANGLE_P3 = 315;
+	private final static double ANGLE_P4 = 135;
 
-	private static double angleP1 = 45;
-	private static double angleP2 = 225;
-	private static double angleP3 = 315;
-	private static double angleP4 = 135;
-
-	private static Position positionP1 = new Position(Spaceship.RELATIVE_SIZE + BorderDistance,
-														Spaceship.RELATIVE_SIZE + BorderDistance);
-	private static Position positionP2 = new Position(GameState.WIDTH - Spaceship.RELATIVE_SIZE - BorderDistance ,
-														GameState.HEIGHT - Spaceship.RELATIVE_SIZE - BorderDistance);
-	private static Position positionP3 = new Position(Spaceship.RELATIVE_SIZE + BorderDistance,
-														GameState.HEIGHT - Spaceship.RELATIVE_SIZE - BorderDistance);
-	private static Position positionP4 = new Position(GameState.WIDTH - Spaceship.RELATIVE_SIZE - BorderDistance ,
-														Spaceship.RELATIVE_SIZE + BorderDistance);;
+	private final static Position POSITION_P1 = new Position(Spaceship.RELATIVE_SIZE + BORDER_DISTANCE,
+														Spaceship.RELATIVE_SIZE + BORDER_DISTANCE);
+	private final static Position POSITION_P2 = new Position(GameState.WIDTH - Spaceship.RELATIVE_SIZE - BORDER_DISTANCE ,
+														GameState.HEIGHT - Spaceship.RELATIVE_SIZE - BORDER_DISTANCE);
+	private final static Position POSITION_P3 = new Position(Spaceship.RELATIVE_SIZE + BORDER_DISTANCE,
+														GameState.HEIGHT - Spaceship.RELATIVE_SIZE - BORDER_DISTANCE);
+	private final static Position POSITION_P4 = new Position(GameState.WIDTH - Spaceship.RELATIVE_SIZE - BORDER_DISTANCE ,
+														Spaceship.RELATIVE_SIZE + BORDER_DISTANCE);
 	
-	private static Direction directionP1 = new Direction(1 , 1);
-	private static Direction directionP2 = new Direction(-1 , -1);
-	private static Direction directionP3 = new Direction(1 , -1);
-	private static Direction directionP4 = new Direction(-1 , 1);
+	private final static Direction DIRECTION_P1 = new Direction(1 , 1);
+	private final static Direction DIRECTION_P2 = new Direction(-1 , -1);
+	private final static Direction DIRECTION_P3 = new Direction(1 , -1);
+	private final static Direction DIRECTION_P4 = new Direction(-1 , 1);
 
 	// variabili usate per creare la Spaceship
 	private double baseSpeed;
@@ -59,7 +62,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	private static final String BULLETS = "maxBullets: ";
 	private static final String SHIELD = "startingShield: ";
 	private static final String TIME = "time: ";
-	private final String FILE_NAME = System.getProperty ("user.dir") + SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "default_settings" + SEP + "SpaceshipBuilder_config.yml ";
+	private static final String FILE_NAME = System.getProperty ("user.dir") + SEP + "src" + SEP + "main" + SEP + "resources" + SEP + "default_settings" + SEP + "SpaceshipBuilder_config.yml ";
 	private Collection<PlayerId> playerIds;
 
 	/**
@@ -73,7 +76,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setSpeed(double speed) {
+	public void setSpeed(final double speed) {
 		if (this.stopInput()) {
 			return;
 		}
@@ -84,7 +87,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setMaxBullets(int maxBullets) {
+	public void setMaxBullets(final int maxBullets) {
 		if (this.stopInput()) {
 			return;
 		}
@@ -96,7 +99,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setRechargeTime(long time) {
+	public void setRechargeTime(final long time) {
 		if (this.stopInput()) {
 			return;
 		}
@@ -108,7 +111,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setStartingShield(boolean enable) {
+	public void setStartingShield(final boolean enable) {
 		if (this.stopInput()) {
 			return;
 		}
@@ -120,7 +123,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setids(Collection<PlayerId> playerIds) {
+	public void setids(final Collection<PlayerId> playerIds) {
 		if (this.stopInput()) {
 			return;
 		}
@@ -131,7 +134,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setNames(Collection<String> playerNames) {
+	public void setNames(final Collection<String> playerNames) {
 
 		if (this.stopInput()) {
 			return;
@@ -139,7 +142,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 
 		this.playerIds = new HashSet<>();
 
-		for (String name : playerNames) {
+		for (final String name : playerNames) {
 
 			if(this.playerIds.stream()
 				.map(p -> p.getPlayerName())
@@ -148,20 +151,23 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 				switch(this.playerIds.size()) {
 
 					case 0:
-						this.playerIds.add(new PlayerId(name, GameId.Player1));
+						this.playerIds.add(new PlayerId(name, GameId.PLAYER1));
 						break;
 
 					case 1:
-						this.playerIds.add(new PlayerId(name, GameId.Player2));
+						this.playerIds.add(new PlayerId(name, GameId.PLAYER2));
 						break;
 
 					case 2:
-						this.playerIds.add(new PlayerId(name, GameId.Player3));
+						this.playerIds.add(new PlayerId(name, GameId.PLAYER3));
 						break;
 
 					case 3:
-						this.playerIds.add(new PlayerId(name, GameId.Player4));
+						this.playerIds.add(new PlayerId(name, GameId.PLAYER4));
 						break;
+
+						default:
+						throw new UnsupportedOperationException();
 				}
 			}
 		}
@@ -171,7 +177,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Collection<Spaceship> create(GameState world) {
+	public Collection<Spaceship> create(final GameState world) {
 		
 		return this.playerIds.stream()
 				.map(id -> new SpaceshipImpl(getPos(id),
@@ -193,17 +199,17 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	 */
 	private double getAngle(final PlayerId id) {
 		switch(id.getGameId()){
-			case Player1:
-				return angleP1;
+			case PLAYER1:
+				return ANGLE_P1;
 
-			case Player2:
-				return angleP2;
+			case PLAYER2:
+				return ANGLE_P2;
 
-			case Player3:
-				return angleP3;
+			case PLAYER3:
+				return ANGLE_P3;
 
-			case Player4:
-				return angleP4;
+			case PLAYER4:
+				return ANGLE_P4;
 
 			default:
 				throw new UnsupportedOperationException();
@@ -217,17 +223,17 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	 */
 	private Direction getDir(final PlayerId id) {
 		switch(id.getGameId()){
-			case Player1:
-				return directionP1;
+			case PLAYER1:
+				return DIRECTION_P1;
 
-			case Player2:
-				return directionP2;
+			case PLAYER2:
+				return DIRECTION_P2;
 
-			case Player3:
-				return directionP3;
+			case PLAYER3:
+				return DIRECTION_P3;
 
-			case Player4:
-				return directionP4;
+			case PLAYER4:
+				return DIRECTION_P4;
 
 			default:
 				throw new UnsupportedOperationException();
@@ -239,20 +245,20 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	 * @param id
 	 * @return the Position on spawn for the spaceship with the given Id.
 	 */
-	private Position getPos(PlayerId id) {
+	private Position getPos(final PlayerId id) {
 
 		switch(id.getGameId()){
-			case Player1:
-				return positionP1;
+			case PLAYER1:
+				return POSITION_P1;
 
-			case Player2:
-				return positionP2;
+			case PLAYER2:
+				return POSITION_P2;
 
-			case Player3:
-				return positionP3;
+			case PLAYER3:
+				return POSITION_P3;
 
-			case Player4:
-				return positionP4;
+			case PLAYER4:
+				return POSITION_P4;
 
 			default:
 				throw new UnsupportedOperationException();
@@ -271,14 +277,14 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 	/**
 	 * set all the parameters to the basic ones, taking them from the SpaceshipBuilder_config.yaml file.
 	 */
+	@SuppressWarnings("PMD.AssignmentInOperand") 
 	private void uploadBasicConfig() {
 	String line ;
 	int ind;
 
 	try (
-			final BufferedReader r = new BufferedReader (new FileReader (FILE_NAME))
+			BufferedReader r = new BufferedReader (new FileReader (FILE_NAME))
 	) {
-		//TODO rendi sta cosa carina
 		while ((line = r. readLine()) != null) {
 
 			if(line.contains(SPEED)) {
@@ -299,11 +305,9 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 			}
 		}
 	} catch (FileNotFoundException e) {
-		System.out.println(" file " + this.FILE_NAME + " non trovato ");
-		e.printStackTrace();
+		LOGGER.log(Level.SEVERE, " file " + this.FILE_NAME + " non trovato");
 	} catch (IOException e) {
-		System.out.println(" errore nella lettura di " + this.FILE_NAME);
-		e.printStackTrace();
+		LOGGER.log(Level.SEVERE, " errore nella lettura di " + this.FILE_NAME);
 	}
 	}
 }

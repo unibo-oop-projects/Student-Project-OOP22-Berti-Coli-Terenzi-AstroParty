@@ -12,7 +12,7 @@ import it.unibo.AstroParty.model.api.EntityType;
  */
 public class GraphicEntityImpl implements GraphicEntity {
 	
-	private double angle = 0;
+	private double angle;
 	private final EntityType type;
 	private GameId id;
 	private final double height;

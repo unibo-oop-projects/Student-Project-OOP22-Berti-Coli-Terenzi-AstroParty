@@ -21,17 +21,17 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	private final Collection<EntityType> possiblePowerUpTypes;
 	private final long spawnDelay;
 	private GameState world;
-	private PowerUpFactory pUPfactory= new PowerUpFactoryImpl();
+	private final PowerUpFactory pUPfactory= new PowerUpFactoryImpl();
 
-	private Random random = new Random();
+	private final Random random = new Random();
 
-	private Timer timer = new Timer();
+	private final Timer timer = new Timer();
 	/**
 	 * 
 	 * @param possiblePowerUpTypes a collection of the possible types of PowerUPs.
 	 * @param spawnDelay the delay between spawns.
 	 */
-	public PowerUpSpawnerImpl(final Collection<EntityType> possiblePowerUpTypes, final long spawnDelay){
+	public PowerUpSpawnerImpl(final Collection<EntityType> possiblePowerUpTypes, final long spawnDelay) {
 		this.possiblePowerUpTypes = possiblePowerUpTypes;
 		this.spawnDelay = spawnDelay;
 	}
@@ -41,7 +41,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	 */
 	@Override
 	public void start(final GameState world) {
-		this.world=world;
+		this.world = world;
 		this.timer.scheduleAtFixedRate(new TimerTask() {
 			@Override
 			public void run() {
@@ -72,11 +72,11 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 	 */
 	private EntityType generateType() {
 
-		int rand = random.nextInt(this.possiblePowerUpTypes.size());
-		var it = this.possiblePowerUpTypes.iterator();
+		final int rand = random.nextInt(this.possiblePowerUpTypes.size());
+		final var it = this.possiblePowerUpTypes.iterator();
 		
 		for (int i = 0 ; i < rand ; i++) {
-			it.next();							//non controllo perche' ho preso un num minore di size quindi deve esserci qualcosa;
+			it.next();	//non controllo perche' ho preso un num minore di size quindi deve esserci qualcosa;
 		}
 
 		return it.next();
@@ -99,8 +99,8 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
 		return pos;
 	}
 
-	private boolean canExist(Position position) {
-		CircleHitBox hbox = new CircleHitBoxImpl(position, PowerUp.RELATIVE_SIZE);
+	private boolean canExist(final Position position) {
+		final CircleHitBox hbox = new CircleHitBoxImpl(position, PowerUp.RELATIVE_SIZE);
 		return  this.world.getEntities().stream()
 				.map(entity -> entity.getHitBox())
 				.anyMatch(e -> e.checkCircleCollision(hbox));

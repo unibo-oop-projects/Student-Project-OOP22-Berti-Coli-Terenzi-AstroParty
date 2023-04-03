@@ -21,7 +21,7 @@ public class InputControlImpl implements InputControl {
 	/**
 	 * @param spaceships : the spaceships of the current match.
 	 */
-	public InputControlImpl(Collection<Spaceship> spaceships) {
+	public InputControlImpl(final Collection<Spaceship> spaceships) {
 		this.spaceships = spaceships;
 	}
 
@@ -46,7 +46,7 @@ public class InputControlImpl implements InputControl {
 	 */
 	@Override
 	public void compute() {
-		for (InputCommand event : commands) {
+		for (final InputCommand event : commands) {
 			event.compute(this.spaceships.stream()
 						.filter(s -> s.getId().getGameId().equals(event.getID()))
 						.findAny());

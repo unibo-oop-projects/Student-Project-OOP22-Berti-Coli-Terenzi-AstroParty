@@ -35,7 +35,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 					break;
 
 				default:
-					throw(new UnsupportedOperationException());			
+					throw new UnsupportedOperationException();			
 		}
 		return pUp;
 	}
@@ -51,7 +51,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 
 			private boolean inUse;
-			private double useTime = 0;
+			private double useTime;
 
 			@Override
 			public void use() {
@@ -110,7 +110,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 
 
 			private boolean inUse;
-			private double useTime = 0;
+			private double useTime;
 
 			@Override
 			public void use() {
@@ -147,7 +147,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
 		return new BasicPowerUp(pos, false, EntityType.SHIELD) {
 
 			@Override
-			public void update(double time) {
+			public void update(final double time) {
 				if (super.pickedUp) {
 					this.use();
 				}

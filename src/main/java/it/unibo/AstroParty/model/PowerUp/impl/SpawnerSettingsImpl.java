@@ -18,7 +18,6 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	 * the basic setting is {@link #disableAll()}.
 	 */
 	public SpawnerSettingsImpl(){
-		this.disableAll();
 		this.spawnDelay = SpawnerSettings.BASIC_SPAWN_DELAY;
 	}
 
@@ -51,7 +50,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void setSpawnDelay(long timeInterval) {
+	public void setSpawnDelay(final long timeInterval) {
 
 		this.spawnDelay = timeInterval;
 	}
@@ -61,7 +60,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void enableDoubleShot(boolean enable) {
+	public void enableDoubleShot(final boolean enable) {
 		
 		if(enable) {
 			this.enable( EntityType.DOUBLESHOT);
@@ -75,7 +74,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void enableTemporaryImmortality(boolean enable) {
+	public void enableTemporaryImmortality(final boolean enable) {
 		
 		if(enable) {
 			this.enable( EntityType.IMMORTALITY);
@@ -89,7 +88,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void enableUpgradedSpeed(boolean enable) {
+	public void enableUpgradedSpeed(final boolean enable) {
 		
 		if(enable) {
 			this.enable( EntityType.UPGRADEDSPEED);
@@ -103,7 +102,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void enableShield(boolean enable) {
+	public void enableShield(final boolean enable) {
 		
 		if(enable) {
 			this.enable(EntityType.SHIELD);
@@ -119,7 +118,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
 	@Override
 	public void enableAll() {
 		this.possible.addAll(EnumSet.allOf(EntityType.class));
-		this.possible.removeIf(e -> ! (e.getGeneralType() == EntityType.POWERUP));
+		this.possible.removeIf(e -> e.getGeneralType() != EntityType.POWERUP);
 		//System.out.println("-- " + this.possible);
 	}
 

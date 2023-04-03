@@ -19,9 +19,9 @@ import javafx.scene.layout.Pane;
  */
 public class GameSceneImpl extends Scene implements GameScene {
 
-    private ImgNames namefinder = new ImgNames();
-    private Pane pane;
-    private double scale = GameApp.WINDOW_SIZE / 100;
+    private final ImgNames namefinder = new ImgNames();
+    private final Pane pane;
+    private final double scale = GameApp.WINDOW_SIZE / 100;
 
     /**
      * @param keyController the controller for the input to be added to the scene.
@@ -29,7 +29,7 @@ public class GameSceneImpl extends Scene implements GameScene {
     public GameSceneImpl(final InputControl keyController) {
     	super(new Pane(), GameApp.WINDOW_SIZE, GameApp.WINDOW_SIZE);
     	this.pane = (Pane) this.getRoot();
-    	KeyboardEventsHandler keyHandler = new KeyboardEventsHandler(keyController);
+    	final KeyboardEventsHandler keyHandler = new KeyboardEventsHandler(keyController);
     	this.setOnKeyPressed(keyHandler);
     	this.setOnKeyReleased(keyHandler);
         this.pane.setId("pane");
@@ -43,9 +43,10 @@ public class GameSceneImpl extends Scene implements GameScene {
     public void renderAll(final Collection<GraphicEntity> world) { 
         Platform.runLater(new Runnable() { 
 
+            @Override
             public void run() {
 
-                Collection<ImageView> set = new HashSet<>();;
+                final Collection<ImageView> set = new HashSet<>();
 				world.forEach(e -> set.add(paint(e))); 
                 pane.getChildren().clear(); 
                 pane.getChildren().addAll(set);
@@ -60,7 +61,7 @@ public class GameSceneImpl extends Scene implements GameScene {
      * @return the graphic rappresentation of the entity passed as parameter.
      */
     private ImageView paint(final GraphicEntity  entity) {
-        ImageView view = new ImageView();
+        final ImageView view = new ImageView();
         view.setId(this.namefinder.getName(entity));
         view.setX(entity.getPosition().getX() * scale);
         view.setY(entity.getPosition().getY() * scale);

@@ -49,9 +49,20 @@ public class PlayerId {
 	@Override
 	public boolean equals(final Object obj) {
 		if (obj instanceof PlayerId) {
-            PlayerId other = (PlayerId)obj;
+            final PlayerId other = (PlayerId)obj;
             return id.equals(other.id) || getPlayerName().equals(other.getPlayerName());
         }
         return false;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode(){
+		final int prime = 13;
+		int result = 1;
+		result = prime * result + name.hashCode();
+		return result;
 	}
 }

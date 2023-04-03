@@ -26,63 +26,63 @@ public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
 	@Override
 	public void handle(final KeyEvent event) {
 
-		if(event.getEventType() == KeyEvent.KEY_PRESSED) {
+		if(event.getEventType().equals(KeyEvent.KEY_PRESSED)) {
 
 			switch( event.getCode() ) {
 
 			case Q:
-				control.startTurn(GameId.Player1);
+				control.startTurn(GameId.PLAYER1);
 				break;
 
 			case A:
-				control.shoot(GameId.Player1);
+				control.shoot(GameId.PLAYER1);
 				break;
 
 			case P:
-				control.startTurn(GameId.Player2);
+				control.startTurn(GameId.PLAYER2);
 				break;
 
 			case L:
-				control.shoot(GameId.Player2);
+				control.shoot(GameId.PLAYER2);
 				break;
 
 			case V:
-				control.startTurn(GameId.Player3);
+				control.startTurn(GameId.PLAYER3);
 				break;
 
 			case C:
-				control.shoot(GameId.Player3);
+				control.shoot(GameId.PLAYER3);
 				break;
 
-			case UP:
-				control.startTurn(GameId.Player4);
+			case DOWN:
+				control.startTurn(GameId.PLAYER4);
 				break;
 
-			case LEFT:
-				control.shoot(GameId.Player4);
+			case RIGHT:
+				control.shoot(GameId.PLAYER4);
 				break;
 
 			default:
 				break;
 		}
-	}else if (event.getEventType() == KeyEvent.KEY_RELEASED) {
+	}else if (event.getEventType().equals(KeyEvent.KEY_RELEASED)) {
 
 		switch(event.getCode()) {
 
 		case Q:
-			control.stopTurn(GameId.Player1);
+			control.stopTurn(GameId.PLAYER1);
 			break;
 
 		case P:
-			control.stopTurn(GameId.Player2);
+			control.stopTurn(GameId.PLAYER2);
 			break;
 
 		case V:
-			control.stopTurn(GameId.Player3);
+			control.stopTurn(GameId.PLAYER3);
 			break;
 
-		case UP:
-			control.stopTurn(GameId.Player4);
+		case DOWN:
+			control.stopTurn(GameId.PLAYER4);
 			break;
 
 		default:

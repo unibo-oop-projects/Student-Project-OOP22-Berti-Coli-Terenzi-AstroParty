@@ -68,7 +68,7 @@ public class ImgNames {
 				break;
 
 			default:
-				throw(new UnsupportedOperationException());
+				throw new UnsupportedOperationException();
 		}
 		return s;           
 	}
@@ -81,20 +81,20 @@ public class ImgNames {
 	private String getSpaceshipimg(final GameId id) {
 
 		switch(id) {
-			case Player1:
+			case PLAYER1:
 				return P1;
 
-			case Player2:
+			case PLAYER2:
 				return P2;
 
-			case Player3:
+			case PLAYER3:
 				return P3;
 
-			case Player4:
+			case PLAYER4:
 				return P4;
 
 				default:
-				throw(new UnsupportedOperationException());	
+				throw new UnsupportedOperationException();	
 		}
 	}
 }

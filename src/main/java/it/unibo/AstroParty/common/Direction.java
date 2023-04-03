@@ -7,15 +7,25 @@ package it.unibo.AstroParty.common;
 public class Direction {
 	private double x,y;
 	
+	/**
+	 * @param x =  the X of the Position
+	 * @param y =  the Y of the Position
+	 */
 	public Direction( double x, double y ) {
 		this.x = x;
 		this.y = y;
 	}
 
+	/**
+	 * @return the X of the Position
+	 */
 	public double getX() {
 		return this.x;
 	}
 
+	/**
+	 * @return the Y of the Position
+	 */
 	public double getY() {
 		return this.y;
 	}
@@ -38,6 +48,9 @@ public class Direction {
 		return new Direction( this.x * alpha , this.y * alpha );
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String toString() {
 		return Double.toString(x) + ":" + Double.toString(y);
 	}

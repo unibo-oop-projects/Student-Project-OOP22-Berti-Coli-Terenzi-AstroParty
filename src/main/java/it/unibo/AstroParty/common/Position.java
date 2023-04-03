@@ -9,6 +9,10 @@ public class Position {
 	final static double epsilon = 0.000001;
 	private double x,y;
 
+	/**
+	 * @param x =  the X of the Position
+	 * @param y =  the Y of the Position
+	 */
 	public Position(double x, double y) {
 		this.x = x;
 		this.y = y;
@@ -43,24 +47,36 @@ public class Position {
 		return Math.sqrt((deltaX*deltaX) + (deltaY*deltaY));
 	}
 
+	/**
+	 * @return the X of the Position
+	 */
 	public double getX() {
 		return this.x;
 	}
 
+	/**
+	 * @return the Y of the Position
+	 */
 	public double getY() {
 		return this.y;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public boolean equals(Object obj) {
 	    
-	    if (obj instanceof Position) {
+	    if ( !(obj instanceof Position) ) {
 	        return false;
 	    }
-	    Position pos = (Position) obj;
+		Position pos = (Position)obj;
 	    return Math.abs(pos.getX() - this.getX()) < epsilon
-	            && Math.abs(pos.getY() - this.getY()) < epsilon;
+		&& Math.abs(pos.getY() - this.getY()) < epsilon;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String toString() {
 		return Double.toString(x) + ":" + Double.toString(y);
 	}

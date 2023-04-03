@@ -49,6 +49,26 @@ public interface GameState {
     Collection<Entity> getEntities();
 
     /**
+     * @return a collection of all the spaceships currently in the game
+     */
+    Collection<Spaceship> getSpaceships();
+
+    /**
+     * @return a collection of all the obstacles currently in the game
+     */
+    Collection<Obstacle> getObstacles();
+
+    /**
+     * @return a collection of all the projectiles currently in the game
+     */
+    Collection<Projectile> getProjectiles();
+
+    /**
+     * @return a collection of all the power-ups currently in the game
+     */
+    Collection<PowerUp> getPowerUps();
+
+    /**
      * Called to update the position and status of all the entities in the map and manage their interactions.
      * @param time the time elapsed from the last update
      */

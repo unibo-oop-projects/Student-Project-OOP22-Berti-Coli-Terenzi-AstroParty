@@ -58,6 +58,38 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
+    public Collection<Spaceship> getSpaceships() {
+        return this.spaceships;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<Obstacle> getObstacles() {
+        return this.obstacles;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<Projectile> getProjectiles() {
+        return this.projectiles;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<PowerUp> getPowerUps() {
+        return this.powerUps;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void update(final double time) {
 
         this.getEntities().stream()     // update all the entities 
@@ -170,7 +202,9 @@ public class GameStateImpl implements GameState, Observable {
      */
     @Override
     public void addPowerUp(final PowerUp powerUp) {
-        powerUps.add(powerUp);
+        if (powerUps.size() < MAX_POWER_UP) {       //TODO: controllare se va (soluzione così così dai)
+            powerUps.add(powerUp);
+        }
     }
 
     /**

@@ -40,7 +40,7 @@ public class SettingsController implements Controller {
     private Button start, back;
 
     private final View view;
-    private final List<TextField> nameFields = List.of(nameP1, nameP2, nameP3, nameP4);
+    private List<TextField> nameFields;
 
     /**
      * Constructor for SettingsController.
@@ -99,6 +99,7 @@ public class SettingsController implements Controller {
      * Called to initialize a controller after its root element has been completely processed.
      */
     public void initialize() {
+        nameFields = List.of(nameP1, nameP2, nameP3, nameP4);
         nameFields.stream().forEach(t -> t.setPromptText(STARTING_MESSAGE));
         roundSelection.getItems().addAll(ROUND_CHOICES);
         roundSelection.setValue(ROUND_CHOICES.get(0));

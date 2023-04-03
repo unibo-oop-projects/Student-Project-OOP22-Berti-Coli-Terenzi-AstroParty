@@ -12,33 +12,33 @@ import it.unibo.AstroParty.model.api.RectangleHitBox;
  */
 public class RectangleHitBoxImpl implements RectangleHitBox {
 
-    private final Position ULCorner, DRCorner;
+    private final Position cornerUL, cornerDR;
     private final double height, width;
 
-    private RectangleHitBoxImpl(final Position ULCorner, final Position DRCorner, final double height, final double width) {
-        this.ULCorner = ULCorner;
-        this.DRCorner = DRCorner;
+    private RectangleHitBoxImpl(final Position cornerUL, final Position cornerDR, final double height, final double width) {
+        this.cornerUL = cornerUL;
+        this.cornerDR = cornerDR;
         this.height = height;
         this.width = width;
     }
 
     /**
      * 
-     * @param ULCorner the up-left corner {@link Position}
-     * @param DRCorner the down-right corner {@link Position}
+     * @param cornerUL the up-left corner {@link Position}
+     * @param cornerDR the down-right corner {@link Position}
      */
-    public RectangleHitBoxImpl(final Position ULCorner, final Position DRCorner) {
-        this(ULCorner, DRCorner, DRCorner.getY() - ULCorner.getY(), DRCorner.getX() - ULCorner.getX());
+    public RectangleHitBoxImpl(final Position cornerUL, final Position cornerDR) {
+        this(cornerUL, cornerDR, cornerDR.getY() - cornerUL.getY(), cornerDR.getX() - cornerUL.getX());
     }
 
     /**
      * 
-     * @param ULCorner the up-left corner {@link Position}
+     * @param cornerUL the up-left corner {@link Position}
      * @param width the rectangle width
      * @param height the rectangle height
      */
-    public RectangleHitBoxImpl(final Position ULCorner, final double width, final double height) {
-        this(ULCorner, new Position(ULCorner.getX() + width, ULCorner.getY() + height), height, width);
+    public RectangleHitBoxImpl(final Position cornerUL, final double width, final double height) {
+        this(cornerUL, new Position(cornerUL.getX() + width, cornerUL.getY() + height), height, width);
     }
 
     /**
@@ -53,8 +53,8 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
     // method found in "2D Game Collision Detection" by Thomas Schwarzl
     private Position clampOnRectangle(final Position pos) {
         double x, y;
-        x = clampOnRange(pos.getX(), ULCorner.getX(), DRCorner.getX());
-        y = clampOnRange(pos.getY(), ULCorner.getY(), DRCorner.getY());
+        x = clampOnRange(pos.getX(), cornerUL.getX(), cornerDR.getX());
+        y = clampOnRange(pos.getY(), cornerUL.getY(), cornerDR.getY());
         return new Position(x, y);
     }
 
@@ -73,16 +73,16 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
      * {@inheritDoc}}
      */
     @Override
-    public Position getULCorner() {
-        return ULCorner;
+    public Position getcornerUL() {
+        return cornerUL;
     }
 
     /**
      * {@inheritDoc}}
      */
     @Override
-    public Position getDRCorner() {
-        return DRCorner;
+    public Position getcornerDR() {
+        return cornerDR;
     }
 
     /**
@@ -106,7 +106,7 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
      */
     @Override
     public GraphicEntity getGraphicComponent(final EntityType type) {
-        return new GraphicEntityImpl(ULCorner, height, width, type);
+        return new GraphicEntityImpl(cornerUL, height, width, type);
     }
 
 }

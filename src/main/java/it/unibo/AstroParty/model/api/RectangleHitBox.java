@@ -10,10 +10,10 @@ public interface RectangleHitBox extends HitBox {
     /**
      * @return the up-left corner {@link Position}
      */
-    Position getULCorner();
+    Position getcornerUL();
 
     /**
      * @return the down-right corner {@link Position}
      */
-    Position getDRCorner();
+    Position getcornerDR();
 }

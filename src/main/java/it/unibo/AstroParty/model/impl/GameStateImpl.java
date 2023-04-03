@@ -58,6 +58,38 @@ public class GameStateImpl implements GameState, Observable {
      * {@inheritDoc}
      */
     @Override
+    public Collection<Spaceship> getSpaceships() {
+        return this.spaceships;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<Obstacle> getObstacles() {
+        return this.obstacles;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<Projectile> getProjectiles() {
+        return this.projectiles;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Collection<PowerUp> getPowerUps() {
+        return this.powerUps;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void update(final double time) {
 
         this.getEntities().stream()     // update all the entities 

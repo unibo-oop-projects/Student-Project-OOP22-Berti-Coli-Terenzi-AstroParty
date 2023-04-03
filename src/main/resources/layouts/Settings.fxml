@@ -28,7 +28,7 @@
       <Label id="p1-commands" layoutX="104.0" layoutY="187.0" prefHeight="17.0" prefWidth="174.0" text="per ruotare: Q per sparare: A" textFill="WHITE" />
       <Label id="p2-commands" layoutX="104.0" layoutY="249.0" prefHeight="17.0" prefWidth="174.0" text="per ruotare: P per sparare: L" textFill="WHITE" />
       <Label id="p3-commands" layoutX="104.0" layoutY="310.0" prefHeight="17.0" prefWidth="174.0" text="per ruotare: V per sparare: C" textFill="WHITE" />
-      <Label id="p4-commands" layoutX="104.0" layoutY="372.0" prefHeight="17.0" prefWidth="174.0" text="per ruotare: DOWN per sparare: RIGHT" textFill="WHITE" />
+      <Label id="p4-commands" layoutX="104.0" layoutY="372.0" prefHeight="17.0" prefWidth="219.0" text="per ruotare: DOWN per sparare: RIGHT" textFill="WHITE" />
       <Label alignment="CENTER" layoutX="37.0" layoutY="93.0" prefHeight="18.0" prefWidth="427.0" text="inserisci il nome dei giocatori e decidi le impostazioni di gioco" textFill="WHITE">
          <font>
             <Font size="14.0" />

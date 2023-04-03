@@ -6,35 +6,37 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="anchor-pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" styleClass="simple-background" stylesheets="@../css/settings.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="anchor-pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" styleClass="simple-background" stylesheets="@../css/Settings.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="45.0" layoutY="14.0" text="HOW TO PLAY" textFill="WHITE">
          <font>
             <Font size="64.0" />
          </font>
       </Label>
-      <Label layoutX="206.0" layoutY="93.0" text="OSTACOLI:" textFill="WHITE">
+      <Label layoutX="207.0" layoutY="93.0" text="OSTACOLI:" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Region id="wall-preview" layoutX="52.0" layoutY="116.0" prefHeight="70.0" prefWidth="70.0" />
-      <Region id="laser-preview" layoutX="52.0" layoutY="194.0" prefHeight="70.0" prefWidth="70.0" />
+      <Region id="wall-preview" layoutX="77.0" layoutY="121.0" prefHeight="60.0" prefWidth="60.0" />
+      <Region id="laser-preview" layoutX="381.0" layoutY="121.0" prefHeight="60.0" prefWidth="60.0" />
       <Label layoutX="204.0" layoutY="271.0" text="POWER UP:" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Region id="double-projecitle-preview" layoutX="37.0" layoutY="300.0" prefHeight="60.0" prefWidth="60.0" />
-      <Region id="shield-preview" layoutX="261.0" layoutY="300.0" prefHeight="60.0" prefWidth="60.0" />
-      <Region id="speed-up-preview" layoutX="38.0" layoutY="373.0" prefHeight="60.0" prefWidth="60.0" />
-      <Region id="indestructibility-preview" layoutX="262.0" layoutY="373.0" prefHeight="60.0" prefWidth="60.0" />
+      <Region id="double-projecitle-preview" layoutX="37.0" layoutY="300.0" prefHeight="60.0" prefWidth="60.0" rotate="90.0" />
+      <Region id="shield-preview" layoutX="261.0" layoutY="300.0" prefHeight="60.0" prefWidth="60.0" rotate="90.0" />
+      <Region id="speed-up-preview" layoutX="38.0" layoutY="373.0" prefHeight="60.0" prefWidth="60.0" rotate="90.0" />
+      <Region id="immortality-preview" layoutX="262.0" layoutY="373.0" prefHeight="60.0" prefWidth="60.0" />
       <Button fx:id="back" layoutX="171.0" layoutY="451.0" mnemonicParsing="false" onAction="#backOnClick" prefHeight="35.0" prefWidth="160.0" text="BACK" />
-      <Label layoutX="139.0" layoutY="194.0" prefHeight="70.0" prefWidth="311.0" text="sono laser, non sono costantemente attivi ma una collisione provoca l'uccisione del player" textFill="WHITE" wrapText="true" />
-      <Label layoutX="137.0" layoutY="116.0" prefHeight="70.0" prefWidth="311.0" text="sono blocchi fisici che bloccano il movimento delle astronavi, sono distruggibili sparandogli un proiettile" textFill="WHITE" wrapText="true" />
-      <Label layoutX="107.0" layoutY="300.0" prefHeight="60.0" prefWidth="133.0" text="una volta equipaggiato raddoppia i colpi sparati" textFill="WHITE" wrapText="true" />
-      <Label layoutX="107.0" layoutY="373.0" prefHeight="60.0" prefWidth="133.0" text="aumenta la velocità della navicella" textFill="WHITE" wrapText="true" />
-      <Label layoutX="331.0" layoutY="300.0" prefHeight="60.0" prefWidth="133.0" text="genera uno scudo a chi lo quipaggia" textFill="WHITE" wrapText="true" />
-      <Label layoutX="331.0" layoutY="373.0" prefHeight="60.0" prefWidth="133.0" text="rende la navicella indistruttibile per un tempo limitato" textFill="WHITE" wrapText="true" />
+      <Label alignment="TOP_LEFT" layoutX="331.0" layoutY="197.0" prefHeight="70.0" prefWidth="148.0" text="laser intermittenti, quando sono attivi in caso di collisione uccidono il player" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+      <Label alignment="TOP_CENTER" layoutX="38.0" layoutY="197.0" prefHeight="70.0" prefWidth="140.0" text="blocchi fisici distruggibili con i proiettili, bloccano il movimento del player" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+      <Label layoutX="107.0" layoutY="300.0" prefHeight="60.0" prefWidth="133.0" text="doppio colpo: il player spara due proiettili per volta" textFill="WHITE" wrapText="true" />
+      <Label layoutX="107.0" layoutY="373.0" prefHeight="60.0" prefWidth="133.0" text="velocità aumentata" textFill="WHITE" wrapText="true" />
+      <Label layoutX="331.0" layoutY="300.0" prefHeight="60.0" prefWidth="133.0" text="scudo: blocca il prossimo colpo fatale" textFill="WHITE" wrapText="true" />
+      <Label layoutX="331.0" layoutY="373.0" prefHeight="60.0" prefWidth="133.0" text="immortalità: per un breve periodo il player non può morire" textFill="WHITE" wrapText="true" />
+      <Region id="undestroyable-wall-preview" layoutX="220.0" layoutY="121.0" prefHeight="60.0" prefWidth="60.0" />
+      <Label alignment="TOP_LEFT" layoutX="181.0" layoutY="197.0" prefHeight="70.0" prefWidth="140.0" text="blocchi fisici che non possono essere distrutti, bloccano il movimento del player" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
    </children>
 </AnchorPane>

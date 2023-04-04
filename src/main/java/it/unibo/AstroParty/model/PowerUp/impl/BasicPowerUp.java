@@ -84,6 +84,7 @@ public abstract class BasicPowerUp implements PowerUp {
         this.pickedUp = true;
 
         //cast forzato in quanto tutte le spaceShip sono simpleSpaceship, ma alle altre classi non serve saperlo
+        // TODO suppresswarnin di spotbugs: salvo un oggetto esterno mutabile
         this.owner = (SimpleSpaceship) owner;
         return true;
     }

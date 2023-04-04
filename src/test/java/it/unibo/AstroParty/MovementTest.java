@@ -9,7 +9,7 @@ import it.unibo.AstroParty.model.Spaceship.impl.SpaceshipImpl;
 import it.unibo.AstroParty.model.api.Spaceship;
 
 /**
- * test for the movemnt of a spaceship
+ * test for the movemnt of a spaceship.
  */
 class MovementTest {
     private static final double START_ANGLE = 45;
@@ -20,10 +20,10 @@ class MovementTest {
     private final Spaceship spaceship =  new SpaceshipImpl(STAR_POSITION, START_DIRECTION, START_ANGLE, null, 
                                         SPEED, 0, false, null, 0);
     /**
-     * test the update when going straight
+     * test the update when going straight.
      */
     @Test
-    void testMovementForward() {      
+    void testMovementForward() {
         this.spaceship.resetPosition();
         final Position expectedPosition = STAR_POSITION.move(START_DIRECTION.multiply(SPEED * TIME));
         this.spaceship.update(TIME); 
@@ -31,15 +31,15 @@ class MovementTest {
     }
 
     /**
-     * test update when turning
+     * test update when turning.
      */
     @Test
-    void testTurn() {      
+    void testTurn() {
         this.spaceship.resetPosition();
 
         final double expectedAngle = (START_ANGLE + TIME * Spaceship.ROTATION_SPEED) % 360;
-        final double dirX = Math.cos(Math.toRadians(expectedAngle)) ;
-		final double dirY = Math.sin(Math.toRadians(expectedAngle)) ;
+        final double dirX = Math.cos(Math.toRadians(expectedAngle));
+        final double dirY = Math.sin(Math.toRadians(expectedAngle));
         final Direction expDirection =  new Direction(dirX, dirY);
         final Position expectedPosition = STAR_POSITION.move(expDirection.multiply(SPEED * TIME));
 
@@ -47,6 +47,6 @@ class MovementTest {
         this.spaceship.update(TIME);
 
         assertEquals(expectedAngle, this.spaceship.getAngle());
-        assertEquals(expectedPosition , spaceship.getPosition());
+        assertEquals(expectedPosition, spaceship.getPosition());
     }
 }

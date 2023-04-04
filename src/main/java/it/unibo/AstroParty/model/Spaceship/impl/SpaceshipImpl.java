@@ -61,6 +61,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
      * @param id
      * @param bulletRegenTime
      */
+    //TODO suppressWarning di spotbugs: world è esterno e mutabile
     public SpaceshipImpl(final Position startPosition, final Direction startDirection,
                         final double angle, final GameState world, final double speed,
                         final int maxBullets, final boolean startingShield,
@@ -189,8 +190,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
                         public void run() {
                             createProjectile();
                         }
-                    }
-                    , PowerUp.DOUBLESHOT_DELAY);
+                    }, PowerUp.DOUBLESHOT_DELAY);
                     break;
 
                 default :
@@ -200,7 +200,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
             this.createProjectile();
         }
         this.bullets--;
-        this.startTimer();                     
+        this.startTimer();
         // non e' contenuto in createProjectile in quanto in caso di DuobleShot deve toglierne uno solo al counter
     }
 
@@ -221,7 +221,6 @@ public class SpaceshipImpl implements SimpleSpaceship {
     public void makeImmortal() {
         this.immortal = true;
     }
-    
 
     /** 
      * {@inheritDoc}
@@ -300,7 +299,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
         final double dirX = Math.cos(Math.toRadians(this.angle));
         final double dirY = Math.sin(Math.toRadians(this.angle));
 
-        this.direction = new Direction(dirX , dirY);        
+        this.direction = new Direction(dirX, dirY);
     }
 
     /**
@@ -335,8 +334,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
                 public void run() {
                     addBullet();
                 }
-            }
-            , this.bulletRegenTime);
+            }, this.bulletRegenTime);
         }
     }
 

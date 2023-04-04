@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.logging.Level;
@@ -38,16 +39,16 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 
     private final Position positionP1 =
             new Position(Spaceship.RELATIVE_SIZE + borderDistance,
-            		Spaceship.RELATIVE_SIZE + borderDistance);
+                Spaceship.RELATIVE_SIZE + borderDistance);
     private final Position positionP2 =
             new Position(GameState.WIDTH - Spaceship.RELATIVE_SIZE - borderDistance,
-            		GameState.HEIGHT - Spaceship.RELATIVE_SIZE - borderDistance);
+                GameState.HEIGHT - Spaceship.RELATIVE_SIZE - borderDistance);
     private final Position positionP3 =
             new Position(Spaceship.RELATIVE_SIZE + borderDistance,
-            		GameState.HEIGHT - Spaceship.RELATIVE_SIZE - borderDistance);
+                    GameState.HEIGHT - Spaceship.RELATIVE_SIZE - borderDistance);
     private final Position positionP4 =
             new Position(GameState.WIDTH - Spaceship.RELATIVE_SIZE - borderDistance,
-            		Spaceship.RELATIVE_SIZE + borderDistance);
+                    Spaceship.RELATIVE_SIZE + borderDistance);
 
     private final Direction directionP1 = new Direction(1, 1);
     private final Direction directionP2 = new Direction(-1, -1);
@@ -68,7 +69,8 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
     private final String time = "time: ";
     private final String fileName = System.getProperty("user.dir") + sep
             + "src" + sep + "main" + sep + "resources" + sep + "default_settings" + sep + "SpaceshipBuilder_config.yml ";
-    private Collection<PlayerId> playerIds;
+
+    private Collection<PlayerId> playerIds= new HashSet<>();
 
     /**
      * uploads a basic configuration using {@link #uploadBasicConfig()}.
@@ -128,11 +130,11 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
      * {@inheritDoc}
      */
     @Override
-    public void setids(final Collection<PlayerId> playerIds) {
+    public void setids(final Collection<PlayerId> playersId) {
         if (this.stopInput()) {
             return;
         }
-        this.playerIds = playerIds;
+        this.playerIds.addAll(playersId);
     }
 
     /** 
@@ -144,8 +146,6 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
         if (this.stopInput()) {
             return;
         }
-
-        this.playerIds = new HashSet<>();
 
         for (final String name : playerNames) {
 
@@ -288,7 +288,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
         int ind;
 
         try (
-                BufferedReader r = new BufferedReader(new FileReader(fileName))
+                BufferedReader r = new BufferedReader(new FileReader(fileName, StandardCharsets.UTF_8))
        ) {
             while ((line = r.readLine()) != null) {
 

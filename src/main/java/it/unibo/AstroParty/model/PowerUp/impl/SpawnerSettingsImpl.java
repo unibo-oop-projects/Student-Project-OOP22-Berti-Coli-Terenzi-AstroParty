@@ -17,7 +17,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
     /**
      * the basic setting is {@link #disableAll()}.
      */
-    public SpawnerSettingsImpl(){
+    public SpawnerSettingsImpl() {
         this.spawnDelay = SpawnerSettings.BASIC_SPAWN_DELAY;
     }
 
@@ -26,7 +26,7 @@ public class SpawnerSettingsImpl implements SpawnerSettings {
      */
     @Override
     public PowerUpSpawner startGame() {
-        return new PowerUpSpawnerImpl(this.possible , this.spawnDelay);
+        return new PowerUpSpawnerImpl(this.possible, this.spawnDelay);
     }
 
     /**

@@ -25,7 +25,7 @@ public interface SimpleSpaceship extends Spaceship {
     void newShield();
 
     /**
-     * set the speed to max
+     * set the speed to max.
      */
     void upgradeSpeed();
 

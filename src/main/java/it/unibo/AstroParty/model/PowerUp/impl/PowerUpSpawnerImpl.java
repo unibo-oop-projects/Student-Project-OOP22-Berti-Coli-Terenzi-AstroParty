@@ -1,6 +1,7 @@
 package it.unibo.AstroParty.model.PowerUp.impl;
 
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,7 +19,7 @@ import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
  */
 public class PowerUpSpawnerImpl implements PowerUpSpawner {
 
-    private final Collection<EntityType> possiblePowerUpTypes;
+    private final Collection<EntityType> possiblePowerUpTypes = EnumSet.noneOf(EntityType.class);
     private final long spawnDelay;
     private GameState world;
     private final PowerUpFactory pUPfactory = new PowerUpFactoryImpl();
@@ -32,7 +33,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
      * @param spawnDelay the delay between spawns.
      */
     public PowerUpSpawnerImpl(final Collection<EntityType> possiblePowerUpTypes, final long spawnDelay) {
-        this.possiblePowerUpTypes = possiblePowerUpTypes;
+        this.possiblePowerUpTypes.addAll(possiblePowerUpTypes);
         this.spawnDelay = spawnDelay;
     }
 
@@ -63,7 +64,7 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
      */
     private void generate() {
         //System.out.println("spawn");
-        if (this.world.getPowerUps().size() < PowerUp.MAX_ON_SCREEN) {
+        if (this.world != null && this.world.getPowerUps().size() < PowerUp.MAX_ON_SCREEN) {
             this.world.addPowerUp(this.pUPfactory.createPowerUp(this.generateType(), this.generatePos()));
         }
     }

@@ -4,7 +4,7 @@ import it.unibo.AstroParty.core.impl.PlayerId;
 
 /**
  * 
- * a basic spaceship in AstroParty
+ * a basic spaceship in AstroParty.
  */
 public interface Spaceship extends Entity {
 

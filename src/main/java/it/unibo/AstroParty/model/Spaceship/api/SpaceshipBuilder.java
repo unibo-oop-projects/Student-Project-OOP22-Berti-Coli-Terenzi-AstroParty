@@ -48,7 +48,7 @@ public interface SpaceshipBuilder {
      */
     void setNames(Collection<String> playerNames);
     /**
-     * creates the spaceships needed for the game
+     * creates the spaceships needed for the game.
      * 
      * @param world the {@link GameState} of the current game
      * @return a collection with one spaceship for each PlayerId given.

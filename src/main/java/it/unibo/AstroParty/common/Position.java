@@ -8,7 +8,7 @@ package it.unibo.AstroParty.common;
  */
 public class Position {
 /** the margin of error for 2 positions to be the same. */
-    public final static double EPSILON = 0.000_001;
+    public static final double EPSILON = 0.000_001;
     private final double x;
     private final double y;
 

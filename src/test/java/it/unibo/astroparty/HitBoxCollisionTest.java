@@ -1,4 +1,4 @@
-package it.unibo.AstroParty;
+package it.unibo.astroparty;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;

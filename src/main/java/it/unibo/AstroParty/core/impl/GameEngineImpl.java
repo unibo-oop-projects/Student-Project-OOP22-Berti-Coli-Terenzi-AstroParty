@@ -54,6 +54,8 @@ public class GameEngineImpl implements GameEngine, Runnable {
     private CollisionObserver collisionObserver;
     private Map<Pair<Integer, Integer>, Pair<Integer, Integer>> mapObstacles = new HashMap<>();
     private int roundsGame;
+	private boolean obstaclesBool;
+	private boolean powerupsBool;
     
     //Constructor
     public GameEngineImpl(GameView view, List<String> players, boolean obstacle, boolean powerup, int rounds) {
@@ -62,29 +64,55 @@ public class GameEngineImpl implements GameEngine, Runnable {
         spaceshipBuilder.setNames(players);
         this.init();
         this.roundsGame = rounds;
+        this.obstaclesBool = obstacle;
+        this.powerupsBool = powerup;
     }
     
     public void init() {
-        Set<Pair<Integer, Integer>> keySetObstacles = new HashSet<>();
+        gameState = new GameStateImpl();
+        collisionObserver = new CollisionObserver();
+        gameState.registerObserver(collisionObserver);
+         
+        
+        if(this.obstaclesBool) {
+        	createObstacles();
+        }
+        
+        if(this.powerupsBool) {
+        	createPowerups();
+        }
+
+
+        spaceshipBuilder.create(gameState).forEach(s -> gameState.addSpaceship(s));
+        this.inputControl = new InputControlImpl();
+        
+        try {
+            view.switchScene(view.getSceneFactory().createGame(inputControl));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        gameScene = (GameScene) this.view.getScene();
+    }
+
+    private void createPowerups() {
+    	 //Set of the SpawnDelay and enumeration of PowerUpTypes
+        spawnerSettings = new SpawnerSettingsImpl();
+        spawnerSettings.enableAll();
+	}
+
+	private void createObstacles() {
+    	Set<Pair<Integer, Integer>> keySetObstacles = new HashSet<>();
         Object[] arrayObstacles;
         Random rand = new Random();
         Object a;
         int b, cont = 0;
         Pair<Integer, Integer> c;
         Set<Pair<Integer, Integer>> addedObstacles = new HashSet<>();
-        
-        gameState = new GameStateImpl();
-        collisionObserver = new CollisionObserver();
-        gameState.registerObserver(collisionObserver);
-        
-        
-        //Set of the SpawnDelay and enumeration of PowerUpTypes
-        spawnerSettings = new SpawnerSettingsImpl();
-        spawnerSettings.enableAll();
-        
-        
         obstacleFactory = new ObstacleFactoryImpl();
-        //Ostacolo fisso
+    	
+    	
+    	//Ostacolo fisso
         gameState.addObstacle(obstacleFactory.createUndestroyableObstacle(new Position(47, 47)));
         
         this.mapObstacles.put(new Pair<>(47, 27), new Pair<>(47, 67));
@@ -96,7 +124,6 @@ public class GameEngineImpl implements GameEngine, Runnable {
         arrayObstacles = keySetObstacles.toArray();
         b = arrayObstacles.length;
 
-        
 
         while(cont < b/2) {
             a = arrayObstacles[rand.nextInt(arrayObstacles.length)];
@@ -112,21 +139,9 @@ public class GameEngineImpl implements GameEngine, Runnable {
                 cont = cont + 1;
             }
         }
-        
-        
-        spaceshipBuilder.create(gameState).forEach(s -> gameState.addSpaceship(s));
-        this.inputControl = new InputControlImpl();
-        
-        try {
-            view.switchScene(view.getSceneFactory().createGame(inputControl));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        gameScene = (GameScene) this.view.getScene();
-    }
+	}
 
-    public void mainLoop() {
+	public void mainLoop() {
         Round round = new Round();
         round.start();
     }
@@ -137,8 +152,11 @@ public class GameEngineImpl implements GameEngine, Runnable {
             //long currentTime=0;
             double nextRefreshTime = viewRefreshInterval + System.currentTimeMillis();
             
-            //start of Spawner of PowerUps
-            spawnerSettings.startGame().start(gameState);
+            if(powerupsBool) {
+            	//start of Spawner of PowerUps
+                spawnerSettings.startGame().start(gameState);
+            }
+            
             
             inputControl.start();
             while(!gameState.isOver()) {

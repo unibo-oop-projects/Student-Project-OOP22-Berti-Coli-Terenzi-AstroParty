@@ -87,10 +87,10 @@ public class GameEngineImpl implements GameEngine, Runnable {
         //Ostacolo fisso
         gameState.addObstacle(obstacleFactory.createUndestroyableObstacle(new Position(47, 47)));
         
-        this.mapObstacles.put(new Pair<>(50, 30), new Pair<>(50, 70));
-        this.mapObstacles.put(new Pair<>(50, 10), new Pair<>(50, 90));
-        this.mapObstacles.put(new Pair<>(10, 50), new Pair<>(90, 50));
-        this.mapObstacles.put(new Pair<>(30, 50), new Pair<>(70, 50));
+        this.mapObstacles.put(new Pair<>(47, 27), new Pair<>(47, 67));
+        this.mapObstacles.put(new Pair<>(47, 7), new Pair<>(47, 87));
+        this.mapObstacles.put(new Pair<>(7, 47), new Pair<>(87, 47));
+        this.mapObstacles.put(new Pair<>(27, 47), new Pair<>(67, 47));
 
         keySetObstacles = this.mapObstacles.keySet();
         arrayObstacles = keySetObstacles.toArray();
@@ -113,8 +113,8 @@ public class GameEngineImpl implements GameEngine, Runnable {
             }
         }
         
-        this.spaceships = spaceshipBuilder.create(gameState);
-        this.spaceships.forEach(s -> gameState.addSpaceship(s));
+        
+        spaceshipBuilder.create(gameState).forEach(s -> gameState.addSpaceship(s));
         this.inputControl = new InputControlImpl();
         
         try {

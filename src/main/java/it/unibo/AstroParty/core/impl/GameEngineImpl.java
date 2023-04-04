@@ -85,7 +85,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
         
         obstacleFactory = new ObstacleFactoryImpl();
         //Ostacolo fisso
-        gameState.addObstacle(obstacleFactory.createUndestroyableObstacle(new Position(50, 50)));
+        gameState.addObstacle(obstacleFactory.createUndestroyableObstacle(new Position(47, 47)));
         
         this.mapObstacles.put(new Pair<>(50, 30), new Pair<>(50, 70));
         this.mapObstacles.put(new Pair<>(50, 10), new Pair<>(50, 90));
@@ -115,7 +115,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
         
         this.spaceships = spaceshipBuilder.create(gameState);
         this.spaceships.forEach(s -> gameState.addSpaceship(s));
-        this.inputControl = new InputControlImpl( this.spaceships);
+        this.inputControl = new InputControlImpl();
         
         try {
             view.switchScene(view.getSceneFactory().createGame(inputControl));
@@ -173,7 +173,6 @@ public class GameEngineImpl implements GameEngine, Runnable {
                     try {
                         view.switchScene(view.getSceneFactory().createScoreboard(List.of(1,2,3,4), roundsGame));
                     } catch (IOException e) {
-                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
@@ -187,7 +186,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
     }
     
     protected void processInput() {
-        inputControl.compute();
+        inputControl.compute(this.gameState.getSpaceships());
     }
     
     protected void updateGame(double timePassedCycle) {

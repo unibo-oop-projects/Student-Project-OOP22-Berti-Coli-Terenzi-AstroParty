@@ -1,7 +1,7 @@
 package it.unibo.AstroParty.model.impl;
 
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Queue;
 
 import it.unibo.AstroParty.model.api.Event;
 import it.unibo.AstroParty.model.api.Observer;
@@ -12,7 +12,7 @@ import it.unibo.AstroParty.model.api.GameState;
  */
 public class CollisionObserver implements Observer {
 
-    private final List<Event> eventQueue;
+    private final Queue<Event> eventQueue;
 
     /**
      * Constructor for CollisionObserver.
@@ -30,13 +30,12 @@ public class CollisionObserver implements Observer {
     }
 
     /**
-     * 
+     * Manages all the events in the queue.
      * @param state of the game world
      */
     public void manageEvents(final GameState state) {
-        for (final Event event : eventQueue) {
-            event.manage(state);
+        while (!eventQueue.isEmpty()) {
+            eventQueue.poll().manage(state);
         }
-        eventQueue.clear();
     }
 }

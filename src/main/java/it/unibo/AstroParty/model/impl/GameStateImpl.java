@@ -59,7 +59,7 @@ public class GameStateImpl implements GameState, Observable {
      */
     @Override
     public Collection<Spaceship> getSpaceships() {
-        return this.spaceships;
+        return List.copyOf(this.spaceships);
     }
 
     /**
@@ -67,7 +67,7 @@ public class GameStateImpl implements GameState, Observable {
      */
     @Override
     public Collection<Obstacle> getObstacles() {
-        return this.obstacles;
+        return List.copyOf(this.obstacles);
     }
 
     /**
@@ -75,7 +75,7 @@ public class GameStateImpl implements GameState, Observable {
      */
     @Override
     public Collection<Projectile> getProjectiles() {
-        return this.projectiles;
+        return List.copyOf(this.projectiles);
     }
 
     /**
@@ -83,7 +83,7 @@ public class GameStateImpl implements GameState, Observable {
      */
     @Override
     public Collection<PowerUp> getPowerUps() {
-        return this.powerUps;
+        return List.copyOf(this.powerUps);
     }
 
     /**

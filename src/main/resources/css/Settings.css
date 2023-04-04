@@ -28,7 +28,7 @@
 }
 
 #wall-preview {
-    -fx-background-image: url('../sprites/obstacle_wall.jpg');
+    -fx-background-image: url('../sprites/obstacle_wall.png');
     -fx-background-size: cover;
 }
 
@@ -38,7 +38,7 @@
 }
 
 #laser-preview {
-    -fx-background-image: url('../sprites/obstacle_laser.jpg');
+    -fx-background-image: url('../sprites/obstacle_laser.png');
     -fx-background-size: cover;
 }
 

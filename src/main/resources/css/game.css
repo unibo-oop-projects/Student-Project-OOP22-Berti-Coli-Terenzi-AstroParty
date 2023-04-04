@@ -34,11 +34,11 @@
     -fx-background-size: cover;
 }
 #Laser{
-    -fx-image: url('../sprites/obstacle_laser.jpg');
+    -fx-image: url('../sprites/obstacle_laser.png');
     -fx-background-size: cover;
 }
 #BasicObstacle{
-    -fx-image: url('../sprites/obstacle_wall.jpg');
+    -fx-image: url('../sprites/obstacle_wall.png');
     -fx-background-size: cover;
 }
 #UndestroyableObstacle {

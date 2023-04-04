@@ -28,32 +28,32 @@ import it.unibo.AstroParty.model.api.Spaceship;
 public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 
 // costanti per le impostazione basi di pos e dir dei 4 player
-    private final Logger logger = Logger.getLogger("SpaceshipBuilderController");
+    private static final Logger LOGGER = Logger.getLogger("SpaceshipBuilderController");
 
-    private final double borderDistance = 5.0;
+    private static final double BORDER_DISTANCE = 5.0;
 
-    private final double angleP1 = 45;
-    private final double angleP2 = 225;
-    private final double angleP3 = 315;
-    private final double angleP4 = 135;
+    private static final double ANGLE_P1 = 45;
+    private static final double ANGLE_P2 = 225;
+    private static final double ANGLE_P3 = 315;
+    private static final double ANGLE_P4 = 135;
 
-    private final Position positionP1 =
-            new Position(Spaceship.RELATIVE_SIZE + borderDistance,
-                Spaceship.RELATIVE_SIZE + borderDistance);
-    private final Position positionP2 =
-            new Position(GameState.WIDTH - Spaceship.RELATIVE_SIZE - borderDistance,
-                GameState.HEIGHT - Spaceship.RELATIVE_SIZE - borderDistance);
-    private final Position positionP3 =
-            new Position(Spaceship.RELATIVE_SIZE + borderDistance,
-                    GameState.HEIGHT - Spaceship.RELATIVE_SIZE - borderDistance);
-    private final Position positionP4 =
-            new Position(GameState.WIDTH - Spaceship.RELATIVE_SIZE - borderDistance,
-                    Spaceship.RELATIVE_SIZE + borderDistance);
+    private static final Position POSITION_P1 =
+            new Position(Spaceship.RELATIVE_SIZE + BORDER_DISTANCE,
+                Spaceship.RELATIVE_SIZE + BORDER_DISTANCE);
+    private static final Position POSITION_P2 =
+            new Position(GameState.WIDTH - Spaceship.RELATIVE_SIZE - BORDER_DISTANCE,
+                GameState.HEIGHT - Spaceship.RELATIVE_SIZE - BORDER_DISTANCE);
+    private static final Position POSITION_P3 =
+            new Position(Spaceship.RELATIVE_SIZE + BORDER_DISTANCE,
+                    GameState.HEIGHT - Spaceship.RELATIVE_SIZE - BORDER_DISTANCE);
+    private static final Position POSITION_P4 =
+            new Position(GameState.WIDTH - Spaceship.RELATIVE_SIZE - BORDER_DISTANCE,
+                    Spaceship.RELATIVE_SIZE + BORDER_DISTANCE);
 
-    private final Direction directionP1 = new Direction(1, 1);
-    private final Direction directionP2 = new Direction(-1, -1);
-    private final Direction directionP3 = new Direction(1, -1);
-    private final Direction directionP4 = new Direction(-1, 1);
+    private static final Direction DIRECTION_P1 = new Direction(1, 1);
+    private static final Direction DIRECTION_P2 = new Direction(-1, -1);
+    private static final Direction DIRECTION_P3 = new Direction(1, -1);
+    private static final Direction DIRECTION_P4 = new Direction(-1, 1);
 
     // variabili usate per creare la Spaceship
     private double baseSpeed;
@@ -62,15 +62,15 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
     private boolean startingShield;
 
     //variabli usate per caricare i parametri dal file di config
-    private final String sep = File.separator;
-    private final String speed = "speed: ";
-    private final String bullets = "maxBullets: ";
-    private final String shield = "startingShield: ";
-    private final String time = "time: ";
-    private final String fileName = System.getProperty("user.dir") + sep
-            + "src" + sep + "main" + sep + "resources" + sep + "default_settings" + sep + "SpaceshipBuilder_config.yml ";
+    private static final String SEP = File.separator;
+    private static final String SPEED = "speed: ";
+    private static final String BULLETS = "maxBullets: ";
+    private static final String SHIELD = "startingShield: ";
+    private static final String TIME = "time: ";
+    private static final String FILE_NAME = System.getProperty("user.dir") + SEP
+            + "src" + SEP + "main" + SEP + "resources" + SEP + "default_settings" + SEP + "SpaceshipBuilder_config.yml ";
 
-    private Collection<PlayerId> playerIds= new HashSet<>();
+    private final Collection<PlayerId> playerIds = new HashSet<>();
 
     /**
      * uploads a basic configuration using {@link #uploadBasicConfig()}.
@@ -205,16 +205,16 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
     private double getAngle(final PlayerId id) {
         switch (id.getGameId()) {
             case PLAYER1:
-                return angleP1;
+                return ANGLE_P1;
 
             case PLAYER2:
-                return angleP2;
+                return ANGLE_P2;
 
             case PLAYER3:
-                return angleP3;
+                return ANGLE_P3;
 
             case PLAYER4:
-                return angleP4;
+                return ANGLE_P4;
 
             default:
                 throw new UnsupportedOperationException();
@@ -229,16 +229,16 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
     private Direction getDir(final PlayerId id) {
         switch (id.getGameId()) {
             case PLAYER1:
-                return directionP1;
+                return DIRECTION_P1;
 
             case PLAYER2:
-                return directionP2;
+                return DIRECTION_P2;
 
             case PLAYER3:
-                return directionP3;
+                return DIRECTION_P3;
 
             case PLAYER4:
-                return directionP4;
+                return DIRECTION_P4;
 
             default:
                 throw new UnsupportedOperationException();
@@ -254,16 +254,16 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
 
         switch (id.getGameId()) {
             case PLAYER1:
-                return positionP1;
+                return POSITION_P1;
 
             case PLAYER2:
-                return positionP2;
+                return POSITION_P2;
 
             case PLAYER3:
-                return positionP3;
+                return POSITION_P3;
 
             case PLAYER4:
-                return positionP4;
+                return POSITION_P4;
 
             default:
                 throw new UnsupportedOperationException();
@@ -288,31 +288,31 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
         int ind;
 
         try (
-                BufferedReader r = new BufferedReader(new FileReader(fileName, StandardCharsets.UTF_8))
+                BufferedReader r = new BufferedReader(new FileReader(FILE_NAME, StandardCharsets.UTF_8))
        ) {
             while ((line = r.readLine()) != null) {
 
-                if (line.contains(speed)) {
-                    ind = line.indexOf(speed);
-                    this.baseSpeed = Double.parseDouble(line.substring(ind + speed.length()));
+                if (line.contains(SPEED)) {
+                    ind = line.indexOf(SPEED);
+                    this.baseSpeed = Double.parseDouble(line.substring(ind + SPEED.length()));
 
-                } else if (line.contains(bullets)) {
-                    ind = line.indexOf(bullets);
-                    this.maxBullets  = Integer.parseInt(line.substring(ind + bullets.length()));
+                } else if (line.contains(BULLETS)) {
+                    ind = line.indexOf(BULLETS);
+                    this.maxBullets  = Integer.parseInt(line.substring(ind + BULLETS.length()));
 
-                } else if (line.contains(time)) {
-                    ind = line.indexOf(time);
-                    this.rechargeTime = Long.parseLong(line.substring(ind + time.length()));
+                } else if (line.contains(TIME)) {
+                    ind = line.indexOf(TIME);
+                    this.rechargeTime = Long.parseLong(line.substring(ind + TIME.length()));
 
-                } else if (line.contains(shield)) {
-                    ind = line.indexOf(shield);
-                    this.startingShield = Boolean.parseBoolean(line.substring(ind + shield.length()));
+                } else if (line.contains(SHIELD)) {
+                    ind = line.indexOf(SHIELD);
+                    this.startingShield = Boolean.parseBoolean(line.substring(ind + SHIELD.length()));
                 }
             }
         } catch (FileNotFoundException e) {
-            logger.log(Level.SEVERE, " file " + this.fileName + " non trovato");
+            LOGGER.log(Level.SEVERE, " file " + this.FILE_NAME + " non trovato");
         } catch (IOException e) {
-            logger.log(Level.SEVERE, " errore nella lettura di " + this.fileName);
+            LOGGER.log(Level.SEVERE, " errore nella lettura di " + this.FILE_NAME);
         }
     }
 }

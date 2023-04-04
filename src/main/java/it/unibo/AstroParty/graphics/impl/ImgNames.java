@@ -9,18 +9,18 @@ import it.unibo.AstroParty.input.api.GameId;
  *
  */
 public class ImgNames {
-    private final String p1 =  "p1";
-    private final String p2 = "p2";
-    private final String p3 = "p3";
-    private final String P4 = "p4";
-    private final String shield = "Shield";
-    private final String immortality = "Immortality";
-    private final String doubleshot = "Doubleshot";
-    private final String speed = "Speed";
-    private final String laserObstacle = "Laser";
-    private final String basicObstacle = "BasicObstacle";
-    private final String undestroyableObstacle = "UndestroyableObstacle";
-    private final String projectile = "Projectile";
+    private static final String P1 =  "p1";
+    private static final String P2 = "p2";
+    private static final String P3 = "p3";
+    private static final String P4 = "p4";
+    private static final String SHIELD = "Shield";
+    private static final String IMMORTALITY = "Immortality";
+    private static final String DOUBLESHOT = "Doubleshot";
+    private static final String SPEED = "Speed";
+    private static final String LASER_OBSTACLE = "Laser";
+    private static final String BASIC_OBSTACLE = "BasicObstacle";
+    private static final String UNDESTROYABLE_OBSTACLE = "UndestroyableObstacle";
+    private static final String PROJECTILE = "Projectile";
 
     /**
      * 
@@ -36,35 +36,35 @@ public class ImgNames {
                 break;
 
             case SHIELD:
-                s = shield;
+                s = SHIELD;
                 break;
 
             case IMMORTALITY:
-                s = immortality;
+                s = IMMORTALITY;
                 break;
 
             case DOUBLESHOT:
-                s = doubleshot;
+                s = DOUBLESHOT;
                 break;
 
             case UPGRADEDSPEED:
-                s = speed;
+                s = SPEED;
                 break;
 
             case LASER:
-                s = laserObstacle;
+                s = LASER_OBSTACLE;
                 break;
 
             case SIMPLEOBSTACLE:
-                s = basicObstacle;
+                s = BASIC_OBSTACLE;
                 break;
 
             case PROJECTILE:
-                s = projectile;
+                s = PROJECTILE;
                 break;
 
             case UNDESTROYABLEOBSTACLE:
-                s = undestroyableObstacle;
+                s = UNDESTROYABLE_OBSTACLE;
                 break;
 
             default:
@@ -82,13 +82,13 @@ public class ImgNames {
 
         switch (id) {
             case PLAYER1:
-                return p1;
+                return P1;
 
             case PLAYER2:
-                return p2;
+                return P2;
 
             case PLAYER3:
-                return p3;
+                return P3;
 
             case PLAYER4:
                 return P4;

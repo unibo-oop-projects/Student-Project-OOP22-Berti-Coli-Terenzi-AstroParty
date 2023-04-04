@@ -21,6 +21,7 @@ public class InputControlImpl implements InputControl {
     /**
      * @param spaceships : the spaceships of the current match.
      */
+    //TODO prendile ad ogni giro se riesci
     public InputControlImpl(final Collection<Spaceship> spaceships) {
         this.spaceships = spaceships;
     }

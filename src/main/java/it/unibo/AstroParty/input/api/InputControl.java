@@ -1,5 +1,9 @@
 package it.unibo.AstroParty.input.api;
 
+import java.util.Collection;
+
+import it.unibo.AstroParty.model.api.Spaceship;
+
 /**
  * a controller used to signal to the model the input signals.
  */
@@ -17,8 +21,9 @@ public interface InputControl {
 
     /**
      * compute all the input events in queue.
+     * @param spaceships all the {@link Spaceship} alive
      */
-    void compute();
+    void compute(Collection<Spaceship> spaceships);
 
     /**
      * adds a startTurn command to the queue.

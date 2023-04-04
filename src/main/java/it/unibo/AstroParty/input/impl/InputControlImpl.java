@@ -14,17 +14,8 @@ import it.unibo.AstroParty.model.api.Spaceship;
  */
 public class InputControlImpl implements InputControl {
 
-    private final Collection<Spaceship> spaceships;
     private final List<InputCommand> commands = new LinkedList<>();
     private boolean read;
-
-    /**
-     * @param spaceships : the spaceships of the current match.
-     */
-    //TODO prendile ad ogni giro se riesci
-    public InputControlImpl(final Collection<Spaceship> spaceships) {
-        this.spaceships = spaceships;
-    }
 
     /**
      *  {@inheritDoc}
@@ -46,9 +37,9 @@ public class InputControlImpl implements InputControl {
      *  {@inheritDoc}
      */
     @Override
-    public void compute() {
+    public void compute(final Collection<Spaceship> spaceships) {
         for (final InputCommand event : commands) {
-            event.compute(this.spaceships.stream()
+            event.compute(spaceships.stream()
                         .filter(s -> s.getId().getGameId().equals(event.getID()))
                         .findAny());
         }

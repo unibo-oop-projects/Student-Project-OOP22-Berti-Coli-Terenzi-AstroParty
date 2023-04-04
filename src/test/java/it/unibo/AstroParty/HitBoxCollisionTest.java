@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.AstroParty.common.Position;
-import it.unibo.AstroParty.model.api.CircleHitBox;
-import it.unibo.AstroParty.model.api.HitBox;
-import it.unibo.AstroParty.model.impl.CircleHitBoxImpl;
-import it.unibo.AstroParty.model.impl.RectangleHitBoxImpl;
+import it.unibo.astroparty.common.Position;
+import it.unibo.astroparty.game.hitbox.api.CircleHitBox;
+import it.unibo.astroparty.game.hitbox.api.HitBox;
+import it.unibo.astroparty.game.hitbox.impl.CircleHitBoxImpl;
+import it.unibo.astroparty.game.hitbox.impl.RectangleHitBoxImpl;
 
 /**
  * a test for the collisions detection.

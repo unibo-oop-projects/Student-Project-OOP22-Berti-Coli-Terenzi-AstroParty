@@ -1,4 +1,4 @@
-package it.unibo.AstroParty.input.api;
+package it.unibo.astroparty.input.api;
 
 /**
  *

@@ -1,6 +1,6 @@
-package it.unibo.AstroParty.core.impl;
+package it.unibo.astroparty.core.impl;
 
-import it.unibo.AstroParty.input.api.GameId;
+import it.unibo.astroparty.input.api.GameId;
 
 /**
  * 

@@ -1,11 +1,11 @@
-package it.unibo.AstroParty.core.impl;
+package it.unibo.astroparty.core.impl;
 
 import java.util.List;
 
-import it.unibo.AstroParty.core.api.GameEngine;
-import it.unibo.AstroParty.core.api.GameView;
-import it.unibo.AstroParty.ui.api.SceneFactory;
-import it.unibo.AstroParty.ui.impl.SceneFactoryImpl;
+import it.unibo.astroparty.core.api.GameEngine;
+import it.unibo.astroparty.core.api.GameView;
+import it.unibo.astroparty.ui.api.SceneFactory;
+import it.unibo.astroparty.ui.impl.SceneFactoryImpl;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 

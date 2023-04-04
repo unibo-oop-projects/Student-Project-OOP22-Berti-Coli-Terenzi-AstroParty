@@ -1,6 +1,6 @@
-package it.unibo.AstroParty.core.impl;
+package it.unibo.astroparty.core.impl;
 
-import it.unibo.AstroParty.core.api.GameView;
+import it.unibo.astroparty.core.api.GameView;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;

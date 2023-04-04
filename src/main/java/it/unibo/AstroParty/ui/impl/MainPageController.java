@@ -1,11 +1,11 @@
-package it.unibo.AstroParty.ui.impl;
+package it.unibo.astroparty.ui.impl;
 
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.unibo.AstroParty.core.api.GameView;
-import it.unibo.AstroParty.ui.api.Controller;
+import it.unibo.astroparty.core.api.GameView;
+import it.unibo.astroparty.ui.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

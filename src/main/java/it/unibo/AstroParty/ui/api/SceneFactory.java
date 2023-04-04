@@ -1,9 +1,9 @@
-package it.unibo.AstroParty.ui.api;
+package it.unibo.astroparty.ui.api;
 
 import java.io.IOException;
 import java.util.List;
 
-import it.unibo.AstroParty.input.api.InputControl;
+import it.unibo.astroparty.input.api.InputControl;
 import javafx.scene.Scene;
 
 /**

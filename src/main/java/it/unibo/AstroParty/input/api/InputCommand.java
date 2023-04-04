@@ -1,8 +1,8 @@
-package it.unibo.AstroParty.input.api;
+package it.unibo.astroparty.input.api;
 
 import java.util.Optional;
 
-import it.unibo.AstroParty.model.api.Spaceship;
+import it.unibo.astroparty.game.spaceship.api.Spaceship;
 /**
  * 
  * rappresents any command that can be given as input to the spaceship,

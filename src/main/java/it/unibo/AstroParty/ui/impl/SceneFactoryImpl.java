@@ -1,14 +1,14 @@
-package it.unibo.AstroParty.ui.impl;
+package it.unibo.astroparty.ui.impl;
 
 import java.io.IOException;
 import java.util.List;
 
-import it.unibo.AstroParty.core.api.GameView;
-import it.unibo.AstroParty.core.impl.GameApp;
-import it.unibo.AstroParty.graphics.impl.GameSceneImpl;
-import it.unibo.AstroParty.input.api.InputControl;
-import it.unibo.AstroParty.ui.api.Controller;
-import it.unibo.AstroParty.ui.api.SceneFactory;
+import it.unibo.astroparty.core.api.GameView;
+import it.unibo.astroparty.core.impl.GameApp;
+import it.unibo.astroparty.graphics.impl.GameSceneImpl;
+import it.unibo.astroparty.input.api.InputControl;
+import it.unibo.astroparty.ui.api.Controller;
+import it.unibo.astroparty.ui.api.SceneFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

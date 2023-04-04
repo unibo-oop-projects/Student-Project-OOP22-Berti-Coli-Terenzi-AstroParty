@@ -3,10 +3,10 @@ package it.unibo.AstroParty;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import it.unibo.AstroParty.common.Direction;
-import it.unibo.AstroParty.common.Position;
-import it.unibo.AstroParty.model.Spaceship.impl.SpaceshipImpl;
-import it.unibo.AstroParty.model.api.Spaceship;
+import it.unibo.astroparty.common.Direction;
+import it.unibo.astroparty.common.Position;
+import it.unibo.astroparty.game.spaceship.api.Spaceship;
+import it.unibo.astroparty.game.spaceship.impl.SpaceshipImpl;
 
 /**
  * test for the movemnt of a spaceship.

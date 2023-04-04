@@ -1,10 +1,10 @@
-package it.unibo.AstroParty.graphics.api;
+package it.unibo.astroparty.graphics.api;
 
 import java.util.Optional;
 
-import it.unibo.AstroParty.common.Position;
-import it.unibo.AstroParty.input.api.GameId;
-import it.unibo.AstroParty.model.api.EntityType;
+import it.unibo.astroparty.common.Position;
+import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.input.api.GameId;
 
 /**
  * an entity to be drawn on screen.

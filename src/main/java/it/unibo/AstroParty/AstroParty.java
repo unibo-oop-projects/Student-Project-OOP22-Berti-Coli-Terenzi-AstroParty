@@ -1,6 +1,6 @@
-package it.unibo.AstroParty;
+package it.unibo.astroparty;
 
-import it.unibo.AstroParty.core.impl.GameApp;
+import it.unibo.astroparty.core.impl.GameApp;
 import javafx.application.Application;
 
 /**

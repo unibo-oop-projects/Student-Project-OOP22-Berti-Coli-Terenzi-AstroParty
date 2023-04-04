@@ -1,7 +1,7 @@
-package it.unibo.AstroParty.input.impl;
+package it.unibo.astroparty.input.impl;
 
-import it.unibo.AstroParty.input.api.GameId;
-import it.unibo.AstroParty.input.api.InputControl;
+import it.unibo.astroparty.input.api.GameId;
+import it.unibo.astroparty.input.api.InputControl;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
 

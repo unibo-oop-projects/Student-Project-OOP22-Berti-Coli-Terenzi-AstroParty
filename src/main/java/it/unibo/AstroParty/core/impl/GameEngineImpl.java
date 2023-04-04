@@ -1,4 +1,4 @@
-package it.unibo.AstroParty.core.impl;
+package it.unibo.astroparty.core.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,28 +9,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-import it.unibo.AstroParty.common.Pair;
-import it.unibo.AstroParty.common.Position;
-import it.unibo.AstroParty.core.api.GameEngine;
-import it.unibo.AstroParty.core.api.GameView;
-import it.unibo.AstroParty.graphics.api.GameScene;
-import it.unibo.AstroParty.input.api.InputControl;
-import it.unibo.AstroParty.input.impl.InputControlImpl;
-import it.unibo.AstroParty.model.Obstacle.api.ObstacleFactory;
-import it.unibo.AstroParty.model.Obstacle.impl.ObstacleFactoryImpl;
-import it.unibo.AstroParty.model.PowerUp.api.PowerUpFactory;
-import it.unibo.AstroParty.model.PowerUp.api.SpawnerSettings;
-import it.unibo.AstroParty.model.PowerUp.impl.PowerUpFactoryImpl;
-import it.unibo.AstroParty.model.PowerUp.impl.SpawnerSettingsImpl;
-import it.unibo.AstroParty.model.Spaceship.api.SpaceshipBuilder;
-import it.unibo.AstroParty.model.Spaceship.impl.SpaceshipBuilderImpl;
-import it.unibo.AstroParty.model.api.EntityType;
-import it.unibo.AstroParty.model.api.GameState;
-import it.unibo.AstroParty.model.api.Observer;
-import it.unibo.AstroParty.model.api.Obstacle;
-import it.unibo.AstroParty.model.api.Spaceship;
-import it.unibo.AstroParty.model.impl.CollisionObserver;
-import it.unibo.AstroParty.model.impl.GameStateImpl;
+
+import it.unibo.astroparty.common.Pair;
+import it.unibo.astroparty.common.Position;
+import it.unibo.astroparty.core.api.GameEngine;
+import it.unibo.astroparty.core.api.GameView;
+import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.game.api.GameState;
+import it.unibo.astroparty.game.api.Observer;
+import it.unibo.astroparty.game.impl.CollisionObserver;
+import it.unibo.astroparty.game.impl.GameStateImpl;
+import it.unibo.astroparty.game.obstacle.api.Obstacle;
+import it.unibo.astroparty.game.obstacle.api.ObstacleFactory;
+import it.unibo.astroparty.game.obstacle.impl.ObstacleFactoryImpl;
+import it.unibo.astroparty.game.powerUp.api.PowerUpFactory;
+import it.unibo.astroparty.game.powerUp.api.SpawnerSettings;
+import it.unibo.astroparty.game.powerUp.impl.PowerUpFactoryImpl;
+import it.unibo.astroparty.game.powerUp.impl.SpawnerSettingsImpl;
+import it.unibo.astroparty.game.spaceship.api.Spaceship;
+import it.unibo.astroparty.game.spaceship.api.SpaceshipBuilder;
+import it.unibo.astroparty.game.spaceship.impl.SpaceshipBuilderImpl;
+import it.unibo.astroparty.graphics.api.GameScene;
+import it.unibo.astroparty.input.api.InputControl;
+import it.unibo.astroparty.input.impl.InputControlImpl;
 import javafx.application.Platform;
 
 /**

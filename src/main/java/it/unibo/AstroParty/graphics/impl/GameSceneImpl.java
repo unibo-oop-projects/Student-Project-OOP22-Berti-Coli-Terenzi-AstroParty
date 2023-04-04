@@ -1,13 +1,13 @@
-package it.unibo.AstroParty.graphics.impl;
+package it.unibo.astroparty.graphics.impl;
 
 import java.util.Collection;
 import java.util.HashSet;
 
-import it.unibo.AstroParty.core.impl.GameApp;
-import it.unibo.AstroParty.graphics.api.GameScene;
-import it.unibo.AstroParty.graphics.api.GraphicEntity;
-import it.unibo.AstroParty.input.api.InputControl;
-import it.unibo.AstroParty.input.impl.KeyboardEventsHandler;
+import it.unibo.astroparty.core.impl.GameApp;
+import it.unibo.astroparty.graphics.api.GameScene;
+import it.unibo.astroparty.graphics.api.GraphicEntity;
+import it.unibo.astroparty.input.api.InputControl;
+import it.unibo.astroparty.input.impl.KeyboardEventsHandler;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;

@@ -1,13 +1,13 @@
-package it.unibo.AstroParty.input.impl;
+package it.unibo.astroparty.input.impl;
 
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import it.unibo.AstroParty.input.api.GameId;
-import it.unibo.AstroParty.input.api.InputCommand;
-import it.unibo.AstroParty.input.api.InputControl;
-import it.unibo.AstroParty.model.api.Spaceship;
+import it.unibo.astroparty.game.spaceship.api.Spaceship;
+import it.unibo.astroparty.input.api.GameId;
+import it.unibo.astroparty.input.api.InputCommand;
+import it.unibo.astroparty.input.api.InputControl;
 
 /**
  * 

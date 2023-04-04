@@ -1,4 +1,4 @@
-package it.unibo.AstroParty.core.api;
+package it.unibo.astroparty.core.api;
 
 /**
  * interface of GameEngine that has the following methods

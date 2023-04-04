@@ -1,4 +1,4 @@
-package it.unibo.AstroParty.common;
+package it.unibo.astroparty.common;
 
 /*
  * presa dagli Esami del Professore M.Viroli

@@ -1,9 +1,9 @@
-package it.unibo.AstroParty.ui.impl;
+package it.unibo.astroparty.ui.impl;
 
 import java.util.List;
 
-import it.unibo.AstroParty.core.api.GameView;
-import it.unibo.AstroParty.ui.api.Controller;
+import it.unibo.astroparty.core.api.GameView;
+import it.unibo.astroparty.ui.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;

@@ -1,7 +1,7 @@
-package it.unibo.AstroParty.graphics.impl;
+package it.unibo.astroparty.graphics.impl;
 
-import it.unibo.AstroParty.graphics.api.GraphicEntity;
-import it.unibo.AstroParty.input.api.GameId;
+import it.unibo.astroparty.graphics.api.GraphicEntity;
+import it.unibo.astroparty.input.api.GameId;
 
 /**
  *  this class contains the name of the images for each {@link EntityType}

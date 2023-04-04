@@ -1,4 +1,4 @@
-package it.unibo.AstroParty.ui.api;
+package it.unibo.astroparty.ui.api;
 
 /**
  * Scene controller interface.

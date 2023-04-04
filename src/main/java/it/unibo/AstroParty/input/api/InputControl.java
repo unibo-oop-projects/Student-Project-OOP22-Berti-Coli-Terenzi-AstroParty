@@ -1,8 +1,8 @@
-package it.unibo.AstroParty.input.api;
+package it.unibo.astroparty.input.api;
 
 import java.util.Collection;
 
-import it.unibo.AstroParty.model.api.Spaceship;
+import it.unibo.astroparty.game.spaceship.api.Spaceship;
 
 /**
  * a controller used to signal to the model the input signals.

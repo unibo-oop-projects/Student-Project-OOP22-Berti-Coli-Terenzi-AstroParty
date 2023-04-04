@@ -1,4 +1,4 @@
-package it.unibo.AstroParty.graphics.api;
+package it.unibo.astroparty.graphics.api;
 
 import java.util.Collection;
 

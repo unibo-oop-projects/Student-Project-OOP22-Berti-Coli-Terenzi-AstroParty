@@ -1,8 +1,8 @@
-package it.unibo.AstroParty.core.api;
+package it.unibo.astroparty.core.api;
 
 import java.util.List;
 
-import it.unibo.AstroParty.ui.api.SceneFactory;
+import it.unibo.astroparty.ui.api.SceneFactory;
 import javafx.scene.Scene;
 
 /**

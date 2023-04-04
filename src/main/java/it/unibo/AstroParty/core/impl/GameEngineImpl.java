@@ -186,7 +186,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
     }
     
     protected void processInput() {
-        inputControl.compute(this.gameState.getSpaceships());
+        inputControl.computeAll(this.gameState.getSpaceships());
     }
     
     protected void updateGame(double timePassedCycle) {

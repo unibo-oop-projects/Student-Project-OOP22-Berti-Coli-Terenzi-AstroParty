@@ -23,7 +23,7 @@ public interface InputControl {
      * compute all the input events in queue.
      * @param spaceships all the {@link Spaceship} alive
      */
-    void compute(Collection<Spaceship> spaceships);
+    void computeAll(Collection<Spaceship> spaceships);
 
     /**
      * adds a startTurn command to the queue.

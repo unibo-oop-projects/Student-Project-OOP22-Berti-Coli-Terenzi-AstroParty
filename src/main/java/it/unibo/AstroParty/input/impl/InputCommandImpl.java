@@ -3,6 +3,7 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 import it.unibo.AstroParty.input.api.GameId;
+import it.unibo.AstroParty.input.api.InputCommand;
 import it.unibo.AstroParty.model.api.Spaceship;
 
 /**
@@ -10,7 +11,7 @@ import it.unibo.AstroParty.model.api.Spaceship;
  * this class rappresents any command that can be given as input to the spaceship,
  * inside contains the action to be performed and the gameId of the spaceship.
  */
-public class InputCommand {
+public class InputCommandImpl implements InputCommand {
 
     private final GameId gameID;
     private final Consumer<Spaceship> action;
@@ -19,15 +20,15 @@ public class InputCommand {
      * @param gameID of the spaceship on wich to compute the action.
      * @param action the action to be performed on the spaceship.
      */
-    InputCommand(final GameId gameID, final Consumer<Spaceship> action) {
+    InputCommandImpl(final GameId gameID, final Consumer<Spaceship> action) {
         this.gameID = gameID;
         this.action = action;
     }
 
     /**
-     * execute the command on the spaceship given, after checking it's the correct one.
-     * @param spaceship the spaceship on wich to compute the action.
+     * {@inheritDoc}
      */
+    @Override
     public void compute(final Optional<Spaceship> spaceship) {
         if (spaceship.isPresent() && spaceship.get().getId().getGameId().equals(this.gameID)) {
             action.accept(spaceship.get());
@@ -35,8 +36,9 @@ public class InputCommand {
     }
 
     /**
-     * @return the gameId of the spaceship that this action has to be performed on.
+     * {@inheritDoc}
      */
+    @Override
     public GameId getID() {
         return this.gameID;
     }

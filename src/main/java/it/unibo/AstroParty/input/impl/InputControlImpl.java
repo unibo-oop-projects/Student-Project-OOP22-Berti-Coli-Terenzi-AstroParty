@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import it.unibo.AstroParty.input.api.GameId;
+import it.unibo.AstroParty.input.api.InputCommand;
 import it.unibo.AstroParty.input.api.InputControl;
 import it.unibo.AstroParty.model.api.Spaceship;
 
@@ -37,7 +38,7 @@ public class InputControlImpl implements InputControl {
      *  {@inheritDoc}
      */
     @Override
-    public void compute(final Collection<Spaceship> spaceships) {
+    public void computeAll(final Collection<Spaceship> spaceships) {
         for (final InputCommand event : commands) {
             event.compute(spaceships.stream()
                         .filter(s -> s.getId().getGameId().equals(event.getID()))
@@ -62,7 +63,7 @@ public class InputControlImpl implements InputControl {
      */
     @Override
     public void shoot(final GameId player) {
-        this.addEvent(new InputCommand(player, s -> s.shoot()));
+        this.addEvent(new InputCommandImpl(player, s -> s.shoot()));
     }
 
     /**
@@ -70,7 +71,7 @@ public class InputControlImpl implements InputControl {
      */
     @Override
     public void startTurn(final GameId player) {
-        this.addEvent(new InputCommand(player, s -> s.startTurn()));
+        this.addEvent(new InputCommandImpl(player, s -> s.startTurn()));
     }
 
     /**
@@ -78,6 +79,6 @@ public class InputControlImpl implements InputControl {
      */
     @Override
     public void stopTurn(final GameId player) {
-        this.addEvent(new InputCommand(player, s -> s.stopTurn()));
+        this.addEvent(new InputCommandImpl(player, s -> s.stopTurn()));
     }
 }

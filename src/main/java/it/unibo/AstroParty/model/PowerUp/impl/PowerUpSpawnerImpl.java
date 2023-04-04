@@ -63,7 +63,9 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
      */
     private void generate() {
         //System.out.println("spawn");
-        this.world.addPowerUp(this.pUPfactory.createPowerUp(this.generateType(), this.generatePos()));
+        if (this.world.getPowerUps().size() < PowerUp.MAX_ON_SCREEN) {
+            this.world.addPowerUp(this.pUPfactory.createPowerUp(this.generateType(), this.generatePos()));
+        }
     }
 
     /**

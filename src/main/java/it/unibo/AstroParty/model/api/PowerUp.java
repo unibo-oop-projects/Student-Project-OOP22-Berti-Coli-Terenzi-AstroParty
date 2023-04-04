@@ -19,6 +19,9 @@ public interface PowerUp extends Entity {
     /** the delay between the first and the second shot. */
     long DOUBLESHOT_DELAY = 55;
 
+    /** the maximun number of powerUps to be on the screen at the same time. */
+    int MAX_ON_SCREEN = 5;
+
     /**
     * use the powerUp on the spaceship that has {@link #pickUp(Spaceship)} this power up.
     */

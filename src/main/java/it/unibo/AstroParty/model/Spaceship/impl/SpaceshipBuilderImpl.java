@@ -282,7 +282,6 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
     /**
      * set all the parameters to the basic ones, taking them from the SpaceshipBuilder_config.yaml file.
      */
-    @SuppressWarnings("PMD.AssignmentInOperand") 
     private void uploadBasicConfig() {
         String line;
         int ind;
@@ -290,7 +289,8 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
         try (
                 BufferedReader r = new BufferedReader(new FileReader(FILE_NAME, StandardCharsets.UTF_8))
        ) {
-            while ((line = r.readLine()) != null) {
+            while ((line = r.readLine()) != null) { // NOPMD
+                //suppressed as it is a false positive
 
                 if (line.contains(SPEED)) {
                     ind = line.indexOf(SPEED);
@@ -310,9 +310,9 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
                 }
             }
         } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, " file " + this.FILE_NAME + " non trovato");
+            LOGGER.log(Level.SEVERE, " file " + FILE_NAME + " non trovato");
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, " errore nella lettura di " + this.FILE_NAME);
+            LOGGER.log(Level.SEVERE, " errore nella lettura di " + FILE_NAME);
         }
     }
 }

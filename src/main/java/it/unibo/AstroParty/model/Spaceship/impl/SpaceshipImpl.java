@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.AstroParty.common.Direction;
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.impl.PlayerId;
@@ -61,7 +62,12 @@ public class SpaceshipImpl implements SimpleSpaceship {
      * @param id
      * @param bulletRegenTime
      */
-    //TODO suppressWarning di spotbugs: world è esterno e mutabile
+    @SuppressFBWarnings(
+        value = { 
+            "EI_EXPOSE_REP2"
+        },
+        justification = "GameState is needed to add projectiles when shooting"
+    )
     public SpaceshipImpl(final Position startPosition, final Direction startDirection,
                         final double angle, final GameState world, final double speed,
                         final int maxBullets, final boolean startingShield,

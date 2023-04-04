@@ -1,5 +1,6 @@
 package it.unibo.AstroParty.model.PowerUp.impl;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.graphics.api.GraphicEntity;
 import it.unibo.AstroParty.model.Spaceship.api.SimpleSpaceship;
@@ -75,6 +76,12 @@ public abstract class BasicPowerUp implements PowerUp {
      * {@inheritDoc}
      */
     @Override
+    @SuppressFBWarnings(
+        value = { 
+            "EI_EXPOSE_REP2"
+        },
+        justification = "the powerUp needs to work on the real spaceship not on a copy"
+    )
     public boolean pickUp(final Spaceship owner) {
 
         if (this.pickedUp) {
@@ -84,7 +91,6 @@ public abstract class BasicPowerUp implements PowerUp {
         this.pickedUp = true;
 
         //cast forzato in quanto tutte le spaceShip sono simpleSpaceship, ma alle altre classi non serve saperlo
-        // TODO suppresswarnin di spotbugs: salvo un oggetto esterno mutabile
         this.owner = (SimpleSpaceship) owner;
         return true;
     }

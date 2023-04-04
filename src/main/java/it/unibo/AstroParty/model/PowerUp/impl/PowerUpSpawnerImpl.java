@@ -5,6 +5,8 @@ import java.util.EnumSet;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.model.PowerUp.api.PowerUpFactory;
 import it.unibo.AstroParty.model.api.CircleHitBox;
@@ -40,7 +42,13 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
     /**
      * {@inheritDoc}
      */
-    //TODO aggiungi suppressWanring perche mi serve sia quello e mutable
+    @SuppressFBWarnings(
+        value = { 
+            "EI_EXPOSE_REP2"
+        },
+        justification = "the powerUp needs to be added to the gamestate"
+        + "and there is always a check before generating the powerUp"
+    )
     @Override
     public void start(final GameState world) {
         this.world = world;

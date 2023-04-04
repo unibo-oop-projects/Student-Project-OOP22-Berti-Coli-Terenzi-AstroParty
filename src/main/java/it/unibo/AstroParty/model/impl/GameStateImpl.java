@@ -170,7 +170,7 @@ public class GameStateImpl implements GameState, Observable {
      */
     @Override
     public boolean isOver() {
-        return spaceships.size() == 1;  /    he game ends when there's only one player left
+        return spaceships.size() == 1;  // the game ends when there's only one player left
     }
 
     /**

@@ -45,7 +45,7 @@ public class ProjectileImpl implements Projectile {
         return position;
     }
 
-    /    ODO TOGLIERLO IN ENTITY COME METODO
+    //TODO TOGLIERLO IN ENTITY COME METODO
     /**
      * {@inheritDoc}
      */

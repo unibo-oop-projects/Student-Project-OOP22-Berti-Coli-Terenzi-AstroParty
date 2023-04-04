@@ -3,7 +3,7 @@ package it.unibo.AstroParty.ui.impl;
 import java.io.IOException;
 import java.util.List;
 
-import it.unibo.AstroParty.core.api.View;
+import it.unibo.AstroParty.core.api.GameView;
 import it.unibo.AstroParty.core.impl.GameApp;
 import it.unibo.AstroParty.graphics.impl.GameSceneImpl;
 import it.unibo.AstroParty.input.api.InputControl;
@@ -19,13 +19,13 @@ import javafx.scene.transform.Scale;
  */
 public class SceneFactoryImpl implements SceneFactory {
 
-    private final View view;
+    private final GameView view;
 
     /**
      * Constructor for SceneFatctoryImpl.
      * @param view of the app, used by all the scene controllers to make changes
      */
-    public SceneFactoryImpl(final View view) {
+    public SceneFactoryImpl(final GameView view) {
         this.view = view;
     }
 

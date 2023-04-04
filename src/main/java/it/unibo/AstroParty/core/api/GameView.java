@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 /**
  * Interface that models the view of the game.
  */
-public interface View {
+public interface GameView {
 
     /**
      * Called to set a new scene visible.

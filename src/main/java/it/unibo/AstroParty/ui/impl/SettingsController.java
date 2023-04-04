@@ -6,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.IntStream;
 
-import it.unibo.AstroParty.core.api.View;
+import it.unibo.AstroParty.core.api.GameView;
 import it.unibo.AstroParty.ui.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,14 +39,14 @@ public class SettingsController implements Controller {
     @FXML
     private Button start, back;
 
-    private final View view;
+    private final GameView view;
     private List<TextField> nameFields;
 
     /**
      * Constructor for SettingsController.
      * @param view
      */
-    public SettingsController(final View view) {
+    public SettingsController(final GameView view) {
         this.view = view;
     }
 

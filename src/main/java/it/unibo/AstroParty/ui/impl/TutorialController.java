@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import it.unibo.AstroParty.core.api.View;
+import it.unibo.AstroParty.core.api.GameView;
 import it.unibo.AstroParty.ui.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +16,7 @@ import javafx.scene.control.Button;
 public class TutorialController implements Controller {
 
     private static final Logger LOGGER = Logger.getLogger("TutorialController");
-    private final View view;
+    private final GameView view;
 
     @FXML
     private Button back;
@@ -25,7 +25,7 @@ public class TutorialController implements Controller {
      * Constructor for TutorialController.
      * @param view
      */
-    public TutorialController(final View view) {
+    public TutorialController(final GameView view) {
         this.view = view;
     }
 

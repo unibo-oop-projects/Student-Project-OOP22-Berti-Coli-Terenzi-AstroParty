@@ -2,7 +2,7 @@ package it.unibo.AstroParty.ui.impl;
 
 import java.util.List;
 
-import it.unibo.AstroParty.core.api.View;
+import it.unibo.AstroParty.core.api.GameView;
 import it.unibo.AstroParty.ui.api.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,7 +20,7 @@ public class ScoreboardController implements Controller {
     @FXML
     private Button next;
 
-    private final View view;
+    private final GameView view;
     private final List<Integer> scores;
     private final int rounds;
 
@@ -30,7 +30,7 @@ public class ScoreboardController implements Controller {
      * @param scores a list of the score (integer) of each player
      * @param rounds the number of rounds won required to win the game
      */
-    public ScoreboardController(final View view, final List<Integer> scores, final int rounds) {
+    public ScoreboardController(final GameView view, final List<Integer> scores, final int rounds) {
         this.view = view;
         this.scores = scores;
         this.rounds = rounds;

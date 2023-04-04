@@ -12,7 +12,7 @@ import java.util.Set;
 import it.unibo.AstroParty.common.Pair;
 import it.unibo.AstroParty.common.Position;
 import it.unibo.AstroParty.core.api.GameEngine;
-import it.unibo.AstroParty.core.api.View;
+import it.unibo.AstroParty.core.api.GameView;
 import it.unibo.AstroParty.graphics.api.GameScene;
 import it.unibo.AstroParty.input.api.InputControl;
 import it.unibo.AstroParty.input.impl.InputControlImpl;
@@ -47,7 +47,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
     private PowerUpFactory powerUpFactory;
     private SpaceshipBuilder spaceshipBuilder;
     private ObstacleFactory obstacleFactory;
-    private View view;
+    private GameView view;
     private Collection<Spaceship> spaceships;
     private InputControl inputControl;
     private GameScene gameScene;
@@ -56,7 +56,7 @@ public class GameEngineImpl implements GameEngine, Runnable {
     private int roundsGame;
     
     //Constructor
-    public GameEngineImpl(View view, List<String> players, boolean obstacle, boolean powerup, int rounds) {
+    public GameEngineImpl(GameView view, List<String> players, boolean obstacle, boolean powerup, int rounds) {
         this.view = view;
         spaceshipBuilder = new SpaceshipBuilderImpl();
         spaceshipBuilder.setNames(players);

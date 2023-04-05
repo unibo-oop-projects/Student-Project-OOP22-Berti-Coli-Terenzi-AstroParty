@@ -30,64 +30,78 @@ public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
 
             switch (event.getCode()) {
 
-            case Q:
-                control.startTurn(GameId.PLAYER1);
-                break;
+                case Q:
+                    startTurn(GameId.PLAYER1);
+                    break;
 
-            case A:
-                control.shoot(GameId.PLAYER1);
-                break;
+                case P:
+                    startTurn(GameId.PLAYER2);
+                    break;
 
-            case P:
-                control.startTurn(GameId.PLAYER2);
-                break;
+                case V:
+                    startTurn(GameId.PLAYER3);
+                    break;
 
-            case L:
-                control.shoot(GameId.PLAYER2);
-                break;
+                case DOWN:
+                    startTurn(GameId.PLAYER4);
+                    break;
 
-            case V:
-                control.startTurn(GameId.PLAYER3);
-                break;
-
-            case C:
-                control.shoot(GameId.PLAYER3);
-                break;
-
-            case DOWN:
-                control.startTurn(GameId.PLAYER4);
-                break;
-
-            case RIGHT:
-                control.shoot(GameId.PLAYER4);
-                break;
-
-            default:
-                break;
-        }
+                default:
+            }
     } else if (event.getEventType().equals(KeyEvent.KEY_RELEASED)) {
 
         switch (event.getCode()) {
 
-        case Q:
-            control.stopTurn(GameId.PLAYER1);
-            break;
+            case Q:
+                stopTurn(GameId.PLAYER1);
+                break;
 
-        case P:
-            control.stopTurn(GameId.PLAYER2);
-            break;
+            case P:
+                stopTurn(GameId.PLAYER2);
+                break;
 
-        case V:
-            control.stopTurn(GameId.PLAYER3);
-            break;
+            case V:
+                stopTurn(GameId.PLAYER3);
+                break;
 
-        case DOWN:
-            control.stopTurn(GameId.PLAYER4);
-            break;
+            case DOWN:
+                stopTurn(GameId.PLAYER4);
+                break;
 
-        default:
-            break;
+            default:
+            }
         }
+        switch (event.getCode()) {
+
+            case W:
+                shoot(GameId.PLAYER1);
+                break;
+
+            case L:
+                shoot(GameId.PLAYER2);
+                break;
+
+            case C:
+                shoot(GameId.PLAYER3);
+                break;
+
+            case RIGHT:
+                shoot(GameId.PLAYER4);
+                break;
+
+            default:
         }
+    }
+
+    private void shoot(GameId id){
+        control.shoot(id);
+    }
+
+    private void stopTurn(GameId id){
+        control.stopTurn(id);
+    }
+
+    private void startTurn(GameId id){
+        control.startTurn(id);
     }
 }

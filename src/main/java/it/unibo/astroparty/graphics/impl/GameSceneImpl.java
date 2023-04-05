@@ -11,6 +11,7 @@ import it.unibo.astroparty.input.impl.KeyboardEventsHandler;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 /**
@@ -29,9 +30,11 @@ public class GameSceneImpl extends Scene implements GameScene {
     public GameSceneImpl(final InputControl keyController) {
         super(new Pane(), GameApp.WINDOW_SIZE, GameApp.WINDOW_SIZE);
         this.pane = (Pane) this.getRoot();
+
         final KeyboardEventsHandler keyHandler = new KeyboardEventsHandler(keyController);
-        this.setOnKeyPressed(keyHandler);
-        this.setOnKeyReleased(keyHandler);
+        this.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler);
+        this.addEventHandler(KeyEvent.KEY_RELEASED, keyHandler);
+
         this.pane.setId("pane");
         this.getStylesheets().addAll(ClassLoader.getSystemResource("css/game.css").toExternalForm());
     }

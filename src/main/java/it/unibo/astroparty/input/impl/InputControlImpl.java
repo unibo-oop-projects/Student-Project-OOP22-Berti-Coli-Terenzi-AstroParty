@@ -40,12 +40,13 @@ public class InputControlImpl implements InputControl {
      */
     @Override
     public void computeAll(final Collection<Spaceship> spaceships) {
-        for (final InputCommand event : commands) {
+        final List<InputCommand> execute = List.copyOf(this.commands);
+        this.commands.clear();
+        for (final InputCommand event : execute) {
             event.compute(spaceships.stream()
                         .filter(s -> s.getId().getGameId().equals(event.getID()))
                         .findAny());
         }
-        this.commands.clear();
     }
 
     /**

@@ -185,6 +185,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
 
         if (this.powerUp.isPresent() && this.powerUp.get().isOffensive()) {
 
+            //tengo uno switch anche se per un caso solo, per favorire future implementazioni di altri powerUp
             switch (this.powerUp.get().getType()) {
 
                 case DOUBLESHOT:

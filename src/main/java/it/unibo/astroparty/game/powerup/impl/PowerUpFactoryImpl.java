@@ -47,7 +47,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
      */
     private PowerUp createSpeed(final Position pos) {
 
-        return new BasicPowerUp(pos, true,  EntityType.UPGRADEDSPEED) {
+        return new BasicPowerUp(pos, false,  EntityType.UPGRADEDSPEED) {
 
             private boolean inUse;
             private double useTime;
@@ -103,7 +103,7 @@ public class PowerUpFactoryImpl implements PowerUpFactory {
      */
     private PowerUp createImmortality(final Position pos) {
 
-        return new BasicPowerUp(pos, true,  EntityType.IMMORTALITY) {
+        return new BasicPowerUp(pos, false,  EntityType.IMMORTALITY) {
 
             private boolean inUse;
             private double useTime;

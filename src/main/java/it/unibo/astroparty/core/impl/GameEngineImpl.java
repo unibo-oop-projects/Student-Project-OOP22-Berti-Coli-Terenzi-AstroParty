@@ -45,11 +45,9 @@ public class GameEngineImpl implements GameEngine, Runnable {
     private static final int FPS = 60;
     private GameStateImpl gameState;
     private SpawnerSettings spawnerSettings;
-    private PowerUpFactory powerUpFactory;
     private SpaceshipBuilder spaceshipBuilder;
     private ObstacleFactory obstacleFactory;
     private GameView view;
-    private Collection<Spaceship> spaceships;
     private InputControl inputControl;
     private GameScene gameScene;
     private CollisionObserver collisionObserver;

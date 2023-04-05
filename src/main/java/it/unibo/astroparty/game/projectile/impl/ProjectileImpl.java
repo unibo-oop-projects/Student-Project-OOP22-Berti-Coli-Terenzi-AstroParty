@@ -44,14 +44,12 @@ public class ProjectileImpl implements Projectile {
         return position;
     }
 
-    //TODO TOGLIERLO IN ENTITY COME METODO
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean hit() {
-        // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     /**

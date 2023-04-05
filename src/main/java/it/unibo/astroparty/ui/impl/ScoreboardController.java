@@ -32,7 +32,7 @@ public class ScoreboardController implements Controller {
      */
     public ScoreboardController(final GameView view, final List<Integer> scores, final int rounds) {
         this.view = view;
-        this.scores = scores;
+        this.scores = List.copyOf(scores);
         this.rounds = rounds;
     }
 

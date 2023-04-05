@@ -8,7 +8,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 /**
- * View implementation and extension of Application (from JavaFX).
+ * Extension of Application (from JavaFX), initialize the view.
  */
 public class GameApp extends Application {
 

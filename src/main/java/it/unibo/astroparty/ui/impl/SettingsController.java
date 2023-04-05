@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.IntStream;
 
 import it.unibo.astroparty.core.api.GameView;
 import it.unibo.astroparty.ui.api.Controller;
@@ -62,9 +61,9 @@ public class SettingsController implements Controller {
                 .toList();
         if (players.size() < MIN_PLAYERS) {
             showAlert("Non ci sono abbastanza giocatori per iniziare il gioco");
-        } else if (IntStream.range(0, players.size()).anyMatch(i -> nameFields.get(i).getText().isBlank())) {
-            showAlert("Inserisci i nomi dei giocatori in fila (es: non può esserci un player 3 senza prima il player 2)");
-        } else if (players.size() != players.stream().distinct().count()) {
+        } else if (nameFields.stream().limit(players.size()).anyMatch(t -> t.getText().isBlank())) {
+            showAlert("Inserisci i nomi dei giocatori in fila (ad esempio non può esserci un player 3 senza il player 2)");
+        } else if (players.size() > players.stream().distinct().count()) {
             showAlert("Sono presenti due player con lo stesso nome");
         } else {
             view.start(players,
@@ -102,7 +101,11 @@ public class SettingsController implements Controller {
         nameFields = List.of(nameP1, nameP2, nameP3, nameP4);
         nameFields.stream().forEach(t -> t.setPromptText(STARTING_MESSAGE));
         roundSelection.getItems().addAll(ROUND_CHOICES);
+
+        // set the default choices
         roundSelection.setValue(ROUND_CHOICES.get(0));
+        obstacleSelection.setSelected(true);
+        powerUpSelection.setSelected(true);
     }
 
 }

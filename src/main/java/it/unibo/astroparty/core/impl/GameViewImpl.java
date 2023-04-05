@@ -2,6 +2,7 @@ package it.unibo.astroparty.core.impl;
 
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.astroparty.core.api.GameEngine;
 import it.unibo.astroparty.core.api.GameView;
 import it.unibo.astroparty.ui.api.SceneFactory;
@@ -22,6 +23,12 @@ public class GameViewImpl implements GameView {
      * GameViewImpl constructor.
      * @param stage
      */
+    @SuppressFBWarnings(
+        value = {
+            "EI_EXPOSE_REP2"
+        },
+        justification = "The view must store the stage in order to set the new scenes on it."
+    )
     public GameViewImpl(final Stage stage) {
         this.stage = stage;
         this.sceneFactory = new SceneFactoryImpl(this);
@@ -58,7 +65,7 @@ public class GameViewImpl implements GameView {
      */
     @Override
     public void start(final List<String> players, final boolean obstacle, final boolean powerup, final int rounds) {
-        this.engine = new GameEngineImpl(this, players, obstacle, powerup, rounds);
+        this.engine = new GameEngineImpl(this, players, obstacle, powerup, rounds); //TODO modificare gestione ingresso dati in engine in modo da inizializzarlo nel costruttore
         this.nextRound();
     }
 

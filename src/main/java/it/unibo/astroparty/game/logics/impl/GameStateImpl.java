@@ -13,7 +13,7 @@ import it.unibo.astroparty.game.logics.api.GameState;
 import it.unibo.astroparty.game.logics.api.Observable;
 import it.unibo.astroparty.game.logics.api.Observer;
 import it.unibo.astroparty.game.obstacle.api.Obstacle;
-import it.unibo.astroparty.game.powerup.api.PowerUp;
+import it.unibo.astroparty.game.powerups.api.PowerUp;
 import it.unibo.astroparty.game.projectile.api.Projectile;
 import it.unibo.astroparty.game.spaceship.api.Spaceship;
 

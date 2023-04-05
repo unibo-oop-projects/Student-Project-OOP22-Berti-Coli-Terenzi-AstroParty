@@ -1,4 +1,4 @@
-package it.unibo.astroparty.game.powerUp.impl;
+package it.unibo.astroparty.game.powerup.impl;
 
 import java.util.Collection;
 import java.util.EnumSet;
@@ -12,9 +12,9 @@ import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.game.hitbox.api.CircleHitBox;
 import it.unibo.astroparty.game.hitbox.impl.CircleHitBoxImpl;
 import it.unibo.astroparty.game.logics.api.GameState;
-import it.unibo.astroparty.game.powerUp.api.PowerUp;
-import it.unibo.astroparty.game.powerUp.api.PowerUpFactory;
-import it.unibo.astroparty.game.powerUp.api.PowerUpSpawner;
+import it.unibo.astroparty.game.powerup.api.PowerUp;
+import it.unibo.astroparty.game.powerup.api.PowerUpFactory;
+import it.unibo.astroparty.game.powerup.api.PowerUpSpawner;
 
 /**
  * concrete implementation of {@link PowerUpSpawner}.

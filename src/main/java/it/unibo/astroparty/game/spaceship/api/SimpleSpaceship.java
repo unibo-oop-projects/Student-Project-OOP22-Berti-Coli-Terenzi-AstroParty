@@ -1,6 +1,6 @@
 package it.unibo.astroparty.game.spaceship.api;
 
-import it.unibo.astroparty.game.powerUp.api.PowerUp;
+import it.unibo.astroparty.game.powerup.api.PowerUp;
 
 /**
  *

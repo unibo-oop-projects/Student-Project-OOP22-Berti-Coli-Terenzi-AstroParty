@@ -1,7 +1,7 @@
 package it.unibo.astroparty.game.logics.api;
 
 import it.unibo.astroparty.game.obstacle.api.Obstacle;
-import it.unibo.astroparty.game.powerUp.api.PowerUp;
+import it.unibo.astroparty.game.powerup.api.PowerUp;
 import it.unibo.astroparty.game.projectile.api.Projectile;
 import it.unibo.astroparty.game.spaceship.api.Spaceship;
 

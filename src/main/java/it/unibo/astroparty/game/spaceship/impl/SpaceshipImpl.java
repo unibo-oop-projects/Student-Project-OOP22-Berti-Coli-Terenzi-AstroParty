@@ -12,7 +12,7 @@ import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.game.hitbox.api.CircleHitBox;
 import it.unibo.astroparty.game.hitbox.impl.CircleHitBoxImpl;
 import it.unibo.astroparty.game.logics.api.GameState;
-import it.unibo.astroparty.game.powerUp.api.PowerUp;
+import it.unibo.astroparty.game.powerup.api.PowerUp;
 import it.unibo.astroparty.game.projectile.api.Projectile;
 import it.unibo.astroparty.game.projectile.impl.ProjectileFactoryImpl;
 import it.unibo.astroparty.game.spaceship.api.SimpleSpaceship;

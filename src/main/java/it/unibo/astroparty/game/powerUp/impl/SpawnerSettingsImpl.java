@@ -1,10 +1,10 @@
-package it.unibo.astroparty.game.powerUp.impl;
+package it.unibo.astroparty.game.powerup.impl;
 
 import java.util.EnumSet;
 
 import it.unibo.astroparty.game.EntityType;
-import it.unibo.astroparty.game.powerUp.api.PowerUpSpawner;
-import it.unibo.astroparty.game.powerUp.api.SpawnerSettings;
+import it.unibo.astroparty.game.powerup.api.PowerUpSpawner;
+import it.unibo.astroparty.game.powerup.api.SpawnerSettings;
 
 /** 
  * a concrete implementation of {@link SpawnerSettings }.

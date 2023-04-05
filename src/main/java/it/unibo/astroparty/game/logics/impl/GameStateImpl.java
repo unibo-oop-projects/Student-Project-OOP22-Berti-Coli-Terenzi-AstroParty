@@ -3,6 +3,7 @@ package it.unibo.astroparty.game.logics.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
 
 import it.unibo.astroparty.common.Position;
@@ -34,11 +35,11 @@ public class GameStateImpl implements GameState, Observable {
      * Constructor for GameStateImpl.
      */
     public GameStateImpl() {
-        spaceships = new ArrayList<>();
-        obstacles = new ArrayList<>();
-        projectiles = new ArrayList<>();
-        powerUps = new ArrayList<>();
-        observers = new ArrayList<>();
+        spaceships = new CopyOnWriteArrayList<>();
+        obstacles = new CopyOnWriteArrayList<>();
+        projectiles = new CopyOnWriteArrayList<>();
+        powerUps = new CopyOnWriteArrayList<>();
+        observers = new CopyOnWriteArrayList<>();
         eventFactory = new EventFactoryImpl();
     }
 

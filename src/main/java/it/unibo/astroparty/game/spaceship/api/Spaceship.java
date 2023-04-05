@@ -3,7 +3,7 @@ package it.unibo.astroparty.game.spaceship.api;
 import it.unibo.astroparty.core.impl.PlayerId;
 import it.unibo.astroparty.game.Entity;
 import it.unibo.astroparty.game.hitbox.api.CircleHitBox;
-import it.unibo.astroparty.game.powerups.api.PowerUp;
+import it.unibo.astroparty.game.powerup.api.PowerUp;
 
 /**
  * 

@@ -57,17 +57,18 @@ public class GameEngineImpl implements GameEngine, Runnable {
 	private boolean powerupsBool;
     
     //Constructor
-    public GameEngineImpl(GameView view, List<String> players, boolean obstacle, boolean powerup, int rounds) {
+    public GameEngineImpl(GameView view) {
         this.view = view;
+    }
+    
+    public void init(List<String> players, boolean obstacle, boolean powerup, int rounds) {
+
         spaceshipBuilder = new SpaceshipBuilderImpl();
         spaceshipBuilder.setNames(players);
-        this.init();
         this.roundsGame = rounds;
         this.obstaclesBool = obstacle;
         this.powerupsBool = powerup;
-    }
-    
-    public void init() {
+    	
         gameState = new GameStateImpl();
         collisionObserver = new CollisionObserver();
         gameState.registerObserver(collisionObserver);

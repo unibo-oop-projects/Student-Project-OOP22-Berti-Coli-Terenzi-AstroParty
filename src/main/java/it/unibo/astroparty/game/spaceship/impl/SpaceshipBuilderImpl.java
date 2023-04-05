@@ -1,10 +1,11 @@
 package it.unibo.astroparty.game.spaceship.impl;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.HashSet;
@@ -62,13 +63,11 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
     private boolean startingShield;
 
     //variabli usate per caricare i parametri dal file di config
-    private static final String SEP = File.separator;
     private static final String SPEED = "speed: ";
     private static final String BULLETS = "maxBullets: ";
     private static final String SHIELD = "startingShield: ";
     private static final String TIME = "time: ";
-    private static final String FILE_NAME = System.getProperty("user.dir") + SEP
-            + "src" + SEP + "main" + SEP + "resources" + SEP + "default_settings" + SEP + "SpaceshipBuilder_config.yml ";
+    private static final InputStream INPUT_FILE = ClassLoader.getSystemResourceAsStream("config.yml");
 
     private final Collection<PlayerId> playerIds = new HashSet<>();
 
@@ -287,7 +286,11 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
         int ind;
 
         try (
-                BufferedReader r = new BufferedReader(new FileReader(FILE_NAME, StandardCharsets.UTF_8))
+            BufferedReader r = new BufferedReader(
+                new InputStreamReader(
+                    new BufferedInputStream(
+                            INPUT_FILE)
+                            , StandardCharsets.UTF_8))
        ) {
             while ((line = r.readLine()) != null) { // NOPMD
                 //suppressed as it is a false positive
@@ -310,9 +313,10 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
                 }
             }
         } catch (FileNotFoundException e) {
-            LOGGER.log(Level.SEVERE, " file " + FILE_NAME + " non trovato");
+            //LOGGER.log(Level.SEVERE, " file " + FILE_PATH + " non trovato");
+            e.printStackTrace();
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, " errore nella lettura di " + FILE_NAME);
+            LOGGER.log(Level.SEVERE, " errore nella lettura del file di config");
         }
     }
 }

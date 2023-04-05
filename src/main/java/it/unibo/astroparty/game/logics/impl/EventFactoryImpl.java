@@ -25,7 +25,11 @@ public class EventFactoryImpl implements EventFactory {
      */
     @Override
     public Event projectileHitEvent(final Projectile projectile) {
-        return state -> state.removeProjectile(projectile);
+        return state -> {
+            if (projectile.hit()) {
+                state.removeProjectile(projectile);
+            }
+        };
     }
 
     /**

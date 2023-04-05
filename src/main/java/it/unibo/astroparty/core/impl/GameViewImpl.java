@@ -17,7 +17,7 @@ public class GameViewImpl implements GameView {
 
     private final Stage stage;
     private final SceneFactory sceneFactory;
-    private GameEngine engine;
+    private final GameEngine engine;
 
     /**
      * GameViewImpl constructor.
@@ -32,6 +32,7 @@ public class GameViewImpl implements GameView {
     public GameViewImpl(final Stage stage) {
         this.stage = stage;
         this.sceneFactory = new SceneFactoryImpl(this);
+        this.engine = new GameEngineImpl(this);
     }
 
     /**
@@ -65,7 +66,7 @@ public class GameViewImpl implements GameView {
      */
     @Override
     public void start(final List<String> players, final boolean obstacle, final boolean powerup, final int rounds) {
-        this.engine = new GameEngineImpl(this, players, obstacle, powerup, rounds); //TODO modificare gestione ingresso dati in engine in modo da inizializzarlo nel costruttore
+        this.engine.init(players, obstacle, powerup, rounds);
         this.nextRound();
     }
 
@@ -74,7 +75,6 @@ public class GameViewImpl implements GameView {
      */
     @Override
     public void nextRound() {
-        this.engine.init();
         this.engine.mainLoop();
     }
 }

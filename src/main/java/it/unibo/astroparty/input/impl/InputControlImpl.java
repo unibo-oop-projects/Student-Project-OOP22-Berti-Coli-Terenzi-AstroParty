@@ -24,6 +24,7 @@ public class InputControlImpl implements InputControl {
     @Override
     public void stop() {
         this.read = false;
+        this.commands.clear();
     }
 
     /**

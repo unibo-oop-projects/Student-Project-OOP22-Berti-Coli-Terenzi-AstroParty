@@ -1,7 +1,8 @@
-package it.unibo.astroparty.game.api;
+package it.unibo.astroparty.game.logics.api;
 
 import java.util.Collection;
 
+import it.unibo.astroparty.game.Entity;
 import it.unibo.astroparty.game.obstacle.api.Obstacle;
 import it.unibo.astroparty.game.powerUp.api.PowerUp;
 import it.unibo.astroparty.game.projectile.api.Projectile;

@@ -1,7 +1,7 @@
 package it.unibo.astroparty.game.powerUp.impl;
 
 import it.unibo.astroparty.common.Position;
-import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.game.powerUp.api.PowerUp;
 import it.unibo.astroparty.game.powerUp.api.PowerUpFactory;
 

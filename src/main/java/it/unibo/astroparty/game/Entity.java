@@ -1,4 +1,4 @@
-package it.unibo.astroparty.game.api;
+package it.unibo.astroparty.game;
 
 import it.unibo.astroparty.common.Position;
 import it.unibo.astroparty.game.hitbox.api.HitBox;

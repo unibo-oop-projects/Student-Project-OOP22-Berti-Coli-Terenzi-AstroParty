@@ -3,7 +3,7 @@ package it.unibo.astroparty.game.obstacle.impl;
 import java.util.Optional;
 
 import it.unibo.astroparty.common.Position;
-import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.game.hitbox.api.RectangleHitBox;
 import it.unibo.astroparty.game.hitbox.impl.RectangleHitBoxImpl;
 import it.unibo.astroparty.game.obstacle.api.Obstacle;

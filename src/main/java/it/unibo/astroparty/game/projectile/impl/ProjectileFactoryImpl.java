@@ -2,7 +2,7 @@ package it.unibo.astroparty.game.projectile.impl;
 
 import it.unibo.astroparty.common.Direction;
 import it.unibo.astroparty.common.Position;
-import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.game.projectile.api.Projectile;
 import it.unibo.astroparty.game.projectile.api.ProjectileFactory;
 

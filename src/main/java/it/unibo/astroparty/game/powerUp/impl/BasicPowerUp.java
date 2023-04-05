@@ -2,7 +2,7 @@ package it.unibo.astroparty.game.powerUp.impl;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import it.unibo.astroparty.common.Position;
-import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.game.hitbox.api.CircleHitBox;
 import it.unibo.astroparty.game.hitbox.impl.CircleHitBoxImpl;
 import it.unibo.astroparty.game.powerUp.api.PowerUp;

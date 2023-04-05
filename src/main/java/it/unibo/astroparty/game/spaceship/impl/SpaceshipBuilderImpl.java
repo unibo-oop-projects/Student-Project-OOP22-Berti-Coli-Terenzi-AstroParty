@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import it.unibo.astroparty.common.Direction;
 import it.unibo.astroparty.common.Position;
 import it.unibo.astroparty.core.impl.PlayerId;
-import it.unibo.astroparty.game.api.GameState;
+import it.unibo.astroparty.game.logics.api.GameState;
 import it.unibo.astroparty.game.spaceship.api.Spaceship;
 import it.unibo.astroparty.game.spaceship.api.SpaceshipBuilder;
 import it.unibo.astroparty.input.api.GameId;

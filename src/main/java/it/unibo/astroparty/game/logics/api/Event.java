@@ -1,4 +1,4 @@
-package it.unibo.astroparty.game.api;
+package it.unibo.astroparty.game.logics.api;
 
 /**
  * Interface that models a game event.

@@ -1,6 +1,6 @@
 package it.unibo.astroparty.game.hitbox.api;
 
-import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.graphics.api.GraphicEntity;
 
 /**

@@ -3,7 +3,7 @@ package it.unibo.astroparty.game.spaceship.api;
 import java.util.Collection;
 
 import it.unibo.astroparty.core.impl.PlayerId;
-import it.unibo.astroparty.game.api.GameState;
+import it.unibo.astroparty.game.logics.api.GameState;
 
 /**
  * 

@@ -3,7 +3,7 @@ package it.unibo.astroparty.graphics.impl;
 import java.util.Optional;
 
 import it.unibo.astroparty.common.Position;
-import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.graphics.api.GraphicEntity;
 import it.unibo.astroparty.input.api.GameId;
 

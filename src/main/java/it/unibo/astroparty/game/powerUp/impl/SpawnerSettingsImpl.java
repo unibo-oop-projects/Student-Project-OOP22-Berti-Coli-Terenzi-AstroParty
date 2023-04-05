@@ -2,7 +2,7 @@ package it.unibo.astroparty.game.powerUp.impl;
 
 import java.util.EnumSet;
 
-import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.game.powerUp.api.PowerUpSpawner;
 import it.unibo.astroparty.game.powerUp.api.SpawnerSettings;
 

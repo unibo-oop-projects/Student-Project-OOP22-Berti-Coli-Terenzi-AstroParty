@@ -1,6 +1,6 @@
 package it.unibo.astroparty.game.obstacle.api;
 
-import it.unibo.astroparty.game.api.Entity;
+import it.unibo.astroparty.game.Entity;
 import it.unibo.astroparty.game.hitbox.api.RectangleHitBox;
 
 /**

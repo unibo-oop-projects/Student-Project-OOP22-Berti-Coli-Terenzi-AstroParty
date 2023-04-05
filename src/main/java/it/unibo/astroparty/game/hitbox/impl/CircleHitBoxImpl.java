@@ -1,7 +1,7 @@
 package it.unibo.astroparty.game.hitbox.impl;
 
 import it.unibo.astroparty.common.Position;
-import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.game.hitbox.api.CircleHitBox;
 import it.unibo.astroparty.graphics.api.GraphicEntity;
 import it.unibo.astroparty.graphics.impl.GraphicEntityImpl;

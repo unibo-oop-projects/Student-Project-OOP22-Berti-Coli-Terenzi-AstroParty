@@ -1,7 +1,7 @@
 package it.unibo.astroparty.game.obstacle.impl;
 
 import it.unibo.astroparty.common.Position;
-import it.unibo.astroparty.game.api.EntityType;
+import it.unibo.astroparty.game.EntityType;
 import it.unibo.astroparty.game.obstacle.api.Obstacle;
 import it.unibo.astroparty.game.obstacle.api.ObstacleFactory;
 

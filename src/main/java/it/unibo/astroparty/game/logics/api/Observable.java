@@ -1,4 +1,4 @@
-package it.unibo.astroparty.game.api;
+package it.unibo.astroparty.game.logics.api;
 
 /**
  * Subject interface from observer pattern.

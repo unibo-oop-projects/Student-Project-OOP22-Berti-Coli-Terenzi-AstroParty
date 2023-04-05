@@ -1,6 +1,6 @@
 package it.unibo.astroparty.game.projectile.api;
 
-import it.unibo.astroparty.game.api.Entity;
+import it.unibo.astroparty.game.Entity;
 import it.unibo.astroparty.game.hitbox.api.CircleHitBox;
 
 /**

@@ -1,7 +1,7 @@
-package it.unibo.astroparty.game.impl;
+package it.unibo.astroparty.game.logics.impl;
 
-import it.unibo.astroparty.game.api.Event;
-import it.unibo.astroparty.game.api.EventFactory;
+import it.unibo.astroparty.game.logics.api.Event;
+import it.unibo.astroparty.game.logics.api.EventFactory;
 import it.unibo.astroparty.game.obstacle.api.Obstacle;
 import it.unibo.astroparty.game.powerUp.api.PowerUp;
 import it.unibo.astroparty.game.projectile.api.Projectile;

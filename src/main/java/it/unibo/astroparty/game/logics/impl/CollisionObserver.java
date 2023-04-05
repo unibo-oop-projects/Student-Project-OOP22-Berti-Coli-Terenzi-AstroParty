@@ -1,11 +1,11 @@
-package it.unibo.astroparty.game.impl;
+package it.unibo.astroparty.game.logics.impl;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import it.unibo.astroparty.game.api.Event;
-import it.unibo.astroparty.game.api.GameState;
-import it.unibo.astroparty.game.api.Observer;
+import it.unibo.astroparty.game.logics.api.Event;
+import it.unibo.astroparty.game.logics.api.GameState;
+import it.unibo.astroparty.game.logics.api.Observer;
 
 /**
  * EventObserver implementation for the game collisions.

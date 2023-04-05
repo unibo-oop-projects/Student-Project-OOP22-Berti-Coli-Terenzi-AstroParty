@@ -1,6 +1,6 @@
 package it.unibo.astroparty.game.powerUp.api;
 
-import it.unibo.astroparty.game.api.GameState;
+import it.unibo.astroparty.game.logics.api.GameState;
 
 /** 
  * 

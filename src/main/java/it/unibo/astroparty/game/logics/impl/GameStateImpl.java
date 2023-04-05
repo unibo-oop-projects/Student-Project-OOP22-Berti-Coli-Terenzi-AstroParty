@@ -1,17 +1,17 @@
-package it.unibo.astroparty.game.impl;
+package it.unibo.astroparty.game.logics.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import it.unibo.astroparty.common.Position;
-import it.unibo.astroparty.game.api.Entity;
-import it.unibo.astroparty.game.api.Event;
-import it.unibo.astroparty.game.api.EventFactory;
-import it.unibo.astroparty.game.api.GameState;
-import it.unibo.astroparty.game.api.Observable;
-import it.unibo.astroparty.game.api.Observer;
+import it.unibo.astroparty.game.Entity;
 import it.unibo.astroparty.game.hitbox.api.CircleHitBox;
+import it.unibo.astroparty.game.logics.api.Event;
+import it.unibo.astroparty.game.logics.api.EventFactory;
+import it.unibo.astroparty.game.logics.api.GameState;
+import it.unibo.astroparty.game.logics.api.Observable;
+import it.unibo.astroparty.game.logics.api.Observer;
 import it.unibo.astroparty.game.obstacle.api.Obstacle;
 import it.unibo.astroparty.game.powerUp.api.PowerUp;
 import it.unibo.astroparty.game.projectile.api.Projectile;

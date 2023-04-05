@@ -42,7 +42,6 @@ public class GameViewImpl implements GameView {
     public void switchScene(final Scene scene) {
         this.stage.setScene(scene);
         this.stage.show();
-        this.stage.sizeToScene();
     }
 
     /**

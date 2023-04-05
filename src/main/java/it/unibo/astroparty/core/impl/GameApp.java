@@ -38,5 +38,6 @@ public class GameApp extends Application {
 
         final GameView view = new GameViewImpl(primaryStage);
         view.switchScene(view.getSceneFactory().createMain());
+        primaryStage.sizeToScene();
     }
 }

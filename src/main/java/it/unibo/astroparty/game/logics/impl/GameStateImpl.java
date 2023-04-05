@@ -3,6 +3,7 @@ package it.unibo.astroparty.game.logics.impl;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 import it.unibo.astroparty.common.Position;
 import it.unibo.astroparty.game.Entity;
@@ -114,45 +115,55 @@ public class GameStateImpl implements GameState, Observable {
         });
     }
 
+    private boolean checkCollisionWith(final List<? extends Entity> entities, final CircleHitBox targetHB,
+            final Function<Entity, Event> eventGetter) {
+
+        final List<? extends Entity> hitted = entities.stream()
+                .filter(e -> e.getHitBox().checkCircleCollision(targetHB))
+                .toList();
+
+        if (hitted.isEmpty()) {
+            return false;
+        } else {
+            hitted.stream().forEach(e -> this.notifyObservers(eventGetter.apply(e)));
+            return true;
+        }
+    }
+
     private void checkProjectileInteractions() {
         projectiles.stream().forEach(p -> {
-            boolean hit = false;
+            final CircleHitBox hBox = p.getHitBox();
 
-            if (checkBoundariesCollisions(p.getHitBox())) {
-                hit = true;
-            }
-
-            for (final Spaceship s : spaceships) {
-                if (s.getHitBox().checkCircleCollision(p.getHitBox())) {
-                    this.notifyObservers(eventFactory.spaceshipHittedEvent(s));
-                    hit = true;
-                }
-            }
-
-            for (final Obstacle o : obstacles) {
-                if (o.getHitBox().checkCircleCollision(p.getHitBox())) {
-                    this.notifyObservers(eventFactory.obstacleHittedEvent(o));
-                    hit = true;
-                }
-            }
-
-            if (hit) {
+            if (checkBoundariesCollisions(p.getHitBox())
+                    || this.checkCollisionWith(
+                            spaceships,
+                            hBox,
+                            e -> this.eventFactory.spaceshipHittedEvent((Spaceship) e))
+                    || this.checkCollisionWith(
+                            obstacles,
+                            hBox,
+                            e -> this.eventFactory.obstacleHittedEvent((Obstacle) e))) {
                 this.notifyObservers(eventFactory.projectileHitEvent(p));
             }
         });
     }
 
     private void checkSpaceshipInteractions() {
-        for (final Spaceship s : spaceships) {
+        spaceships.stream().forEach(s -> {
+            final CircleHitBox hBox = s.getHitBox();
 
-            powerUps.stream()
-                    .filter(p -> p.getHitBox().checkCircleCollision(s.getHitBox()))
-                    .forEach(p -> this.notifyObservers(eventFactory.powerUpEquipEvent(p, s)));
+            this.checkCollisionWith(
+                    powerUps,
+                    hBox,
+                    p -> this.eventFactory.powerUpEquipEvent((PowerUp) p, s)
+                );
 
-            obstacles.stream()
-                    .filter(o -> o.isActive() && o.isHarmful() && o.getHitBox().checkCircleCollision(s.getHitBox()))
-                    .forEach(o -> this.notifyObservers(eventFactory.spaceshipHittedEvent(s)));
-        }
+            this.checkCollisionWith(
+                    obstacles.stream().filter(o -> o.isActive() && o.isHarmful()).toList(),
+                    hBox,
+                    o -> this.eventFactory.spaceshipHittedEvent(s)
+                );
+        });
     }
 
     private boolean checkBoundariesCollisions(final CircleHitBox hb) {

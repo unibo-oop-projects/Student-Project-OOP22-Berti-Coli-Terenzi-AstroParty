@@ -1,18 +1,19 @@
 package it.unibo.astroparty.core.impl;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import it.unibo.astroparty.common.Pair;
 import it.unibo.astroparty.common.Position;
 import it.unibo.astroparty.core.api.GameEngine;
 import it.unibo.astroparty.core.api.GameView;
-import it.unibo.astroparty.game.logics.api.GameState;
 import it.unibo.astroparty.game.logics.impl.CollisionObserver;
 import it.unibo.astroparty.game.logics.impl.GameStateImpl;
 import it.unibo.astroparty.game.obstacle.api.Obstacle;
@@ -51,6 +52,7 @@ public class GameEngineImpl implements GameEngine {
 	private Map<Pair<Integer, Integer>, Pair<Integer, Integer>> mapObstacles;
 	private ObstacleFactory obstacleFactory;
 	private Random rand;
+	private Integer p1,p2,p3,p4;
     
     //Constructor
     public GameEngineImpl(GameView view) {
@@ -66,7 +68,38 @@ public class GameEngineImpl implements GameEngine {
         this.roundsGame = rounds;
         this.obstaclesBool = obstacle;
         this.powerupsBool = powerup;
+        this.p1 = 0;
+        this.p2 = 0;
+        this.p3 = 0;
+        this.p4 = 0;
     }
+    
+  //chiamata ogni round
+    private void createMap() {
+    	this.gameState = new GameStateImpl();
+    	this.inputControl = new InputControlImpl();
+        this.collisionObserver = new CollisionObserver();
+        //this.spaceshipBuilder = new SpaceshipBuilderImpl();
+
+        createObstacles();
+
+        if(this.powerupsBool) {
+        	createPowerups();
+        }
+        
+        createLasers();
+
+        this.gameState.registerObserver(this.collisionObserver);
+
+        this.spaceshipBuilder.create(this.gameState).forEach(s -> this.gameState.addSpaceship(s));
+
+        try {
+            this.view.switchScene(this.view.getSceneFactory().createGame(this.inputControl));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        this.gameScene = (GameScene) this.view.getScene();
+	}
 
     private void createPowerups() {
     	 //Set of the SpawnDelay and enumeration of PowerUpTypes
@@ -86,7 +119,6 @@ public class GameEngineImpl implements GameEngine {
         int b, cont = 0;
         Pair<Integer, Integer> c;
         
-    	
     	
     	//Ostacolo fisso
         this.gameState.addObstacle(this.obstacleFactory.createUndestroyableObstacle(new Position(47, 47)));
@@ -119,6 +151,13 @@ public class GameEngineImpl implements GameEngine {
         }
         
 	}
+	
+	private void createLasers() {
+		this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(17, 47)));
+		this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(77, 47)));
+		this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(47, 17)));
+		this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(47, 77)));
+	}
 
 	public void mainLoop() {
 		this.createMap();
@@ -126,31 +165,6 @@ public class GameEngineImpl implements GameEngine {
         round.start();
     }
     
-	//chiamata ogni round
-    private void createMap() {
-    	this.gameState = new GameStateImpl();
-    	this.inputControl = new InputControlImpl();
-        this.collisionObserver = new CollisionObserver();
-        //this.spaceshipBuilder = new SpaceshipBuilderImpl();
-
-        createObstacles();
-
-        if(this.powerupsBool) {
-        	createPowerups();
-        }
-
-        this.gameState.registerObserver(this.collisionObserver);
-
-        this.spaceshipBuilder.create(this.gameState).forEach(s -> this.gameState.addSpaceship(s));
-
-        try {
-            this.view.switchScene(this.view.getSceneFactory().createGame(this.inputControl));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        this.gameScene = (GameScene) this.view.getScene();
-	}
-
 	private class Round extends Thread{
         public void run() {
             double viewRefreshInterval = 1000/FPS;
@@ -158,7 +172,6 @@ public class GameEngineImpl implements GameEngine {
             double nextRefreshTime = viewRefreshInterval + System.currentTimeMillis();
             
             if(powerupsBool) {
-            	//start of Spawner of PowerUps
                 spawnerSettings.startGame().start(gameState);
             }
             
@@ -167,7 +180,6 @@ public class GameEngineImpl implements GameEngine {
             while(!gameState.isOver()) {
                 //currentTime= System.currentTimeMillis();
                 //System.out.println("current time:"+currentTime);
-                
                 
                 processInput();
                 
@@ -189,18 +201,49 @@ public class GameEngineImpl implements GameEngine {
                     e.printStackTrace();
                 }
             }
+   
+            CopyOnWriteArrayList<PlayerId> a = new CopyOnWriteArrayList<>();
+            
+            gameState.getSpaceships().stream().forEach(s -> a.add(s.getId()));
+            
+            switch(a.get(0).getGameId().toString()) {
+            case "Player1":
+            	p1 = p1 + 1;
+            	break;
+            	
+            case "Player2":
+            	p2 = p2 + 1;
+            	break;
+            	
+            case "Player3":
+            	p3 = p3 + 1;
+            	break;
+            	
+            case "Player4":
+            	p4 = p4 + 1;
+            	break;
+            	
+            	default:
+            		throw new UnsupportedOperationException();
+            }
+			
+			
+
             Platform.runLater(new Runnable() {
 
                 @Override
                 public void run() {
                     try {
-                        view.switchScene(view.getSceneFactory().createScoreboard(List.of(1,2,3,4), roundsGame));
+                        view.switchScene(view.getSceneFactory().createScoreboard(List.of(p1,p2,p3,p4), roundsGame));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
                 
             });
+            
+            
+            //MANDO QUA GAMEOVER CON CONTROLLO DEI ROUND
         }
     }
     
@@ -216,8 +259,4 @@ public class GameEngineImpl implements GameEngine {
     protected void render() {
         ( (GameScene) this.view.getScene() ).renderAll(this.gameState.getEntities().stream().filter(e -> !(e instanceof Obstacle) || ((Obstacle) e).isActive()).map(e -> e.getGraphicComponent()).toList());
     }
-
-	
-
-
 }

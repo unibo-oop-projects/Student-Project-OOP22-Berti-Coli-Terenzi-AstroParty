@@ -14,7 +14,7 @@ import it.unibo.astroparty.common.Pair;
 import it.unibo.astroparty.common.Position;
 import it.unibo.astroparty.core.api.GameEngine;
 import it.unibo.astroparty.core.api.GameView;
-import it.unibo.astroparty.game.logics.impl.CollisionObserver;
+import it.unibo.astroparty.game.logics.impl.CollisionEventQueue;
 import it.unibo.astroparty.game.logics.impl.GameStateImpl;
 import it.unibo.astroparty.game.obstacle.api.Obstacle;
 import it.unibo.astroparty.game.obstacle.api.ObstacleFactory;
@@ -43,7 +43,7 @@ public class GameEngineImpl implements GameEngine {
     private GameView view;
     private InputControl inputControl;
     private GameScene gameScene;
-    private CollisionObserver collisionObserver;
+    private CollisionEventQueue collisionObserver;
     private int roundsGame;
 	private boolean obstaclesBool;
 	private boolean powerupsBool;
@@ -78,7 +78,7 @@ public class GameEngineImpl implements GameEngine {
     private void createMap() {
     	this.gameState = new GameStateImpl();
     	this.inputControl = new InputControlImpl();
-        this.collisionObserver = new CollisionObserver();
+        this.collisionObserver = new CollisionEventQueue();
         //this.spaceshipBuilder = new SpaceshipBuilderImpl();
 
         createObstacles();

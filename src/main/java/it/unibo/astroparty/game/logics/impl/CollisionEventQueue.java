@@ -8,16 +8,16 @@ import it.unibo.astroparty.game.logics.api.GameState;
 import it.unibo.astroparty.game.logics.api.Observer;
 
 /**
- * EventObserver implementation for the game collisions.
+ * EventQueue implementation for the game collisions.
  */
-public class CollisionObserver implements Observer {
+public class CollisionEventQueue implements Observer {
 
     private final Queue<Event> eventQueue;
 
     /**
      * Constructor for CollisionObserver.
      */
-    public CollisionObserver() {
+    public CollisionEventQueue() {
         eventQueue = new LinkedList<>();
     }
 

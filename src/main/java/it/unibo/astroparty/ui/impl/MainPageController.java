@@ -39,7 +39,7 @@ public class MainPageController implements Controller {
     @FXML
     public void playOnClick(final ActionEvent event) {
         try {
-            this.view.switchScene(view.getSceneFactory().createSettings());
+            this.view.renderScene(view.getSceneFactory().createSettings());
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error during loading of Settings scene");
         }
@@ -52,7 +52,7 @@ public class MainPageController implements Controller {
     @FXML
     public void tutorialOnClick(final ActionEvent event) {
         try {
-            this.view.switchScene(view.getSceneFactory().createTutorial());
+            this.view.renderScene(view.getSceneFactory().createTutorial());
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error during loading of Tutorial scene");
         }

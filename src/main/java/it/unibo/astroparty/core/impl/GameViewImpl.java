@@ -39,7 +39,7 @@ public class GameViewImpl implements GameView {
      * {@inheritDoc}
      */
     @Override
-    public void switchScene(final Scene scene) {
+    public void renderScene(final Scene scene) {
         this.stage.setScene(scene);
         this.stage.show();
     }

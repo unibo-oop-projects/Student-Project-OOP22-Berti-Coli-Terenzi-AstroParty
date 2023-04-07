@@ -88,7 +88,7 @@ public class SettingsController implements Controller {
     @FXML
     public void backOnClick(final ActionEvent event) {
         try {
-            this.view.switchScene(view.getSceneFactory().createMain());
+            this.view.renderScene(view.getSceneFactory().createMain());
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Error during loading of MainPage scene");
         }

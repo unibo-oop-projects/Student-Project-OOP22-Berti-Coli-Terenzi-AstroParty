@@ -94,7 +94,7 @@ public class GameEngineImpl implements GameEngine {
         this.spaceshipBuilder.create(this.gameState).forEach(s -> this.gameState.addSpaceship(s));
 
         try {
-            this.view.switchScene(this.view.getSceneFactory().createGame(this.inputControl));
+            this.view.renderScene(this.view.getSceneFactory().createGame(this.inputControl));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -234,7 +234,7 @@ public class GameEngineImpl implements GameEngine {
                 @Override
                 public void run() {
                     try {
-                        view.switchScene(view.getSceneFactory().createScoreboard(List.of(p1,p2,p3,p4), roundsGame));
+                        view.renderScene(view.getSceneFactory().createScoreboard(List.of(p1,p2,p3,p4), roundsGame));
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

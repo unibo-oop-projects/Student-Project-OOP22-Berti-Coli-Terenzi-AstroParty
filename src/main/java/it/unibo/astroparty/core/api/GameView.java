@@ -14,7 +14,7 @@ public interface GameView {
      * Called to set a new scene visible.
      * @param scene to set on stage
      */
-    void switchScene(Scene scene);
+    void renderScene(Scene scene);
 
     /**
      * @return the current scene

@@ -1,6 +1,16 @@
 #pane{
     -fx-background-image: url('../sprites/space_background.jpg');
 }
+
+.simple-background {
+    -fx-background-color: #0d0e47;
+}
+
+.space-background {
+    -fx-background-image: url('../sprites/space_background.jpg');
+    -fx-background-repeat: repeat;
+}
+
 #p1{
     -fx-image: url('../sprites/player_red.gif');
     -fx-background-size: cover;

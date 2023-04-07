@@ -1,7 +1,6 @@
 package it.unibo.astroparty.core.impl;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -87,7 +86,9 @@ public class GameEngineImpl implements GameEngine {
         	createPowerups();
         }
         
-        createLasers();
+        if(this.obstaclesBool) {
+        	createLasers();
+        }
 
         this.gameState.registerObserver(this.collisionObserver);
 
@@ -98,7 +99,7 @@ public class GameEngineImpl implements GameEngine {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.gameScene = (GameScene) this.view.getScene();
+        //this.gameScene = (GameScene) this.view.getScene();
 	}
 
     private void createPowerups() {
@@ -228,7 +229,10 @@ public class GameEngineImpl implements GameEngine {
             }
 			
 			
-
+            
+            //IF(uno dei p raggiunge punteggio==numero di round del menu iniziale)
+            //ALLORA->NON LANCIO PIU' QUESTA SWITCH SCENE E LANCIO LA SCENA DEL GAMEOVER
+            
             Platform.runLater(new Runnable() {
 
                 @Override
@@ -243,7 +247,6 @@ public class GameEngineImpl implements GameEngine {
             });
             
             
-            //MANDO QUA GAMEOVER CON CONTROLLO DEI ROUND
         }
     }
     

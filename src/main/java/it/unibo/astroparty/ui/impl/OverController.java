@@ -8,14 +8,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 public class OverController implements Controller {
-	
+
 	@FXML
     private Button restartGame;
-	
+
 	@FXML
 	private TextField t1,t2,t3,t4;
-	
-	
+
+
 	private final GameView view;
 	private String winner;
 	
@@ -23,9 +23,8 @@ public class OverController implements Controller {
 		this.view = gameView;
 		this.winner = winnerPlayer;
 	}
-	
-	
-	
+
+	@FXML
 	public void initialize() {
 		switch(this.winner) {
         case "Player1":
@@ -45,7 +44,7 @@ public class OverController implements Controller {
         	
         }
     }
-	
+
 	@FXML
     public void nextOnClick() {
         this.view.nextRound();

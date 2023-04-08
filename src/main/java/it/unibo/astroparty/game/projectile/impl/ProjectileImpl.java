@@ -20,7 +20,7 @@ public class ProjectileImpl implements Projectile {
     private Direction direction;
     private EntityType entityType;
     private double projectileSpeed;
-    
+
     /**
      * constructor for the class, it sets all the fields of the projectile
      * @param pos

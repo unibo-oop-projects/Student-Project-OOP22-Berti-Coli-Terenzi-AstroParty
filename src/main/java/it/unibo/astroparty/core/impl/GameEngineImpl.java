@@ -36,7 +36,6 @@ import javafx.scene.Scene;
  */
 
 public class GameEngineImpl implements GameEngine {
-    
     private static final int FPS = 60;
     private GameStateImpl gameState;
     private SpawnerSettings spawnerSettings;
@@ -53,17 +52,17 @@ public class GameEngineImpl implements GameEngine {
 	private ObstacleFactory obstacleFactory;
 	private Random rand;
 	private Integer p1,p2,p3,p4;
-    
+
     //Constructor
     public GameEngineImpl(GameView view) {
         this.view = view;
     }
-    
+
     //chiamata solo una volta
     public void init(List<String> players, boolean obstacle, boolean powerup, int rounds) {
 
         this.spaceshipBuilder = new SpaceshipBuilderImpl();
-        
+
         this.spaceshipBuilder.setNames(players);
         this.roundsGame = rounds;
         this.obstaclesBool = obstacle;
@@ -73,7 +72,7 @@ public class GameEngineImpl implements GameEngine {
         this.p3 = 0;
         this.p4 = 0;
     }
-    
+
   //chiamata ogni round
     private void createMap() {
     	this.gameState = new GameStateImpl();
@@ -86,7 +85,7 @@ public class GameEngineImpl implements GameEngine {
         if(this.powerupsBool) {
         	createPowerups();
         }
-        
+
         if(this.obstaclesBool) {
         	createLasers();
         }
@@ -114,16 +113,16 @@ public class GameEngineImpl implements GameEngine {
         this.mapObstacles = new HashMap<>();
         this.obstacleFactory = new ObstacleFactoryImpl();
         this.rand = new Random();
-    	
+
     	Object[] arrayObstacles;
         Object a;
         int b, cont = 0;
         Pair<Integer, Integer> c;
-        
-    	
+
+
     	//Ostacolo fisso
         this.gameState.addObstacle(this.obstacleFactory.createUndestroyableObstacle(new Position(47, 47)));
-        
+
         if(this.obstaclesBool) {
         	this.mapObstacles.put(new Pair<>(47, 27), new Pair<>(47, 67));
             this.mapObstacles.put(new Pair<>(47, 7), new Pair<>(47, 87));
@@ -133,7 +132,6 @@ public class GameEngineImpl implements GameEngine {
             this.keySetObstacles = this.mapObstacles.keySet();
             arrayObstacles = this.keySetObstacles.toArray();
             b = arrayObstacles.length;
-
 
             while(cont < b/2) {
                 a = arrayObstacles[rand.nextInt(arrayObstacles.length)];
@@ -150,9 +148,8 @@ public class GameEngineImpl implements GameEngine {
                 }
             }
         }
-        
 	}
-	
+
 	private void createLasers() {
 		this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(17, 47)));
 		this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(77, 47)));
@@ -165,7 +162,7 @@ public class GameEngineImpl implements GameEngine {
         Round round = new Round();
         round.start();
     }
-    
+
 	private class Round extends Thread{
 		String winner;
 		boolean flag = false;

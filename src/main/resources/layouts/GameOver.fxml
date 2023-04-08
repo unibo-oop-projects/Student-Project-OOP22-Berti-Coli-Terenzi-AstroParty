@@ -20,8 +20,8 @@
       </Label>
       <ImageView id="p1" fitHeight="75.0" fitWidth="75.0" layoutX="36.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView id="p2" fitHeight="75.0" fitWidth="75.0" layoutX="36.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView id="p3" fitHeight="75.0" fitWidth="75.0" layoutX="36.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView id="p4" fitHeight="75.0" fitWidth="75.0" layoutX="36.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView id="p3" fitHeight="75.0" fitWidth="75.0" layoutX="36.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView id="p4" fitHeight="75.0" fitWidth="75.0" layoutX="36.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="restartGame" layoutX="139.0" layoutY="420.0" mnemonicParsing="false" onAction="#nextOnClick" prefHeight="65.0" prefWidth="221.0" text="RESTART GAME">
          <font>
             <Font size="26.0" />

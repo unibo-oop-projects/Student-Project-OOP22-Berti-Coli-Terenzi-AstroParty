@@ -10,11 +10,15 @@ public interface HitBox {
 
     /**
      * Used to get to know if the {@link Entity} modelled by this hitbox and another (circle-shaped) have collied.
-     * @param hBox the {@link HitBox} of the other {@link Entity}
+     * @param hBox the {@link CircleHitBox} of the other {@link Entity}
      * @return true if the two entities have collied
      */
-    boolean checkCircleCollision(CircleHitBox hBox);    // at the moment we have to manage
-                                                        // only collisions with circle-shaped hitbox
+    boolean checkCollision(CircleHitBox hBox);
+
+    /*
+     * For future implementation, at the moment we have to manage only collisions with circles.
+     */
+    // boolean checkCollision(RectangleHitBox hBox);
 
     /**
      * @return the height

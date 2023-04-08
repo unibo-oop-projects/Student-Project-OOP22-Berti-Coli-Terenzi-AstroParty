@@ -1,5 +1,6 @@
 package it.unibo.astroparty.game.obstacle.impl;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import it.unibo.astroparty.common.Position;
@@ -43,7 +44,7 @@ public class ObstacleImpl implements Obstacle {
      */
     public ObstacleImpl(final Position pos, final boolean destroyable, final boolean harm, final EntityType type,
             final Timer timer) {
-        this(pos, destroyable, harm, type, Optional.of(timer));
+        this(pos, destroyable, harm, type, Optional.of(Objects.requireNonNull(timer)));
     }
 
     /**

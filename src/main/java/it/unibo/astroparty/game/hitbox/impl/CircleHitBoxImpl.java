@@ -28,7 +28,7 @@ public class CircleHitBoxImpl implements CircleHitBox {
      * {@inheritDoc}}
      */
     @Override
-    public boolean checkCircleCollision(final CircleHitBox hBox) {
+    public boolean checkCollision(final CircleHitBox hBox) {
         return center.getDistanceFrom(hBox.getCenter()) <= hBox.getRadius() + this.radius;
     }
 

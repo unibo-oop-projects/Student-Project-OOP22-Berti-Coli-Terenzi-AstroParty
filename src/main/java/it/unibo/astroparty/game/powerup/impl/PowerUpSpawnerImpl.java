@@ -115,6 +115,6 @@ public class PowerUpSpawnerImpl implements PowerUpSpawner {
         final CircleHitBox hbox = new CircleHitBoxImpl(position, PowerUp.RELATIVE_SIZE);
         return  this.world.getEntities().stream()
                 .map(entity -> entity.getHitBox())
-                .anyMatch(e -> e.checkCircleCollision(hbox));
+                .anyMatch(e -> e.checkCollision(hbox));
     }
 }

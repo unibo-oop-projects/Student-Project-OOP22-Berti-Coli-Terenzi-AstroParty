@@ -56,7 +56,7 @@ public class SettingsController implements Controller {
     @FXML
     public void startOnClick(final ActionEvent event) {
         final List<String> players = nameFields.stream()
-                .map(t -> t.getText())
+                .map(TextField::getText)
                 .filter(n -> !n.isBlank())
                 .toList();
         if (players.size() < MIN_PLAYERS) {

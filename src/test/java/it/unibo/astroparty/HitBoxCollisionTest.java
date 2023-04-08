@@ -77,7 +77,7 @@ class HitBoxCollisionTest {
     // check for collisions with a circle in [0,0]
     private boolean testCircleCollision(final HitBox hBox) {
         final CircleHitBox circle = new CircleHitBoxImpl(new Position(MAIN_COORD, MAIN_COORD), HALF_SIDE);
-        return hBox.checkCircleCollision(circle);
+        return hBox.checkCollision(circle);
     }
 
     private HitBox createCircle(final double x, final double y) {

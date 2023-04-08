@@ -45,7 +45,7 @@ public class RectangleHitBoxImpl implements RectangleHitBox {
      * {@inheritDoc}}
      */
     @Override
-    public boolean checkCircleCollision(final CircleHitBox hBox) {
+    public boolean checkCollision(final CircleHitBox hBox) {
         final Position center = hBox.getCenter();
         return center.getDistanceFrom(clampOnRectangle(center)) < hBox.getRadius();
     }

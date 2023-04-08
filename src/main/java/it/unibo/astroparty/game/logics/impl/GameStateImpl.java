@@ -107,10 +107,10 @@ public class GameStateImpl implements GameState, Observable {
             if (checkBoundariesCollisions(s.getHitBox())
                     || obstacles.stream()
                             .filter(o -> !o.isHarmful())
-                            .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))
+                            .anyMatch(e -> e.getHitBox().checkCollision(s.getHitBox()))
                     || spaceships.stream()
                             .filter(targetSpaceship -> !targetSpaceship.equals(s))
-                            .anyMatch(e -> e.getHitBox().checkCircleCollision(s.getHitBox()))) {
+                            .anyMatch(e -> e.getHitBox().checkCollision(s.getHitBox()))) {
                 this.notifyObservers(eventFactory.spaceshipColliedEvent(s));
             }
         });
@@ -120,7 +120,7 @@ public class GameStateImpl implements GameState, Observable {
             final Function<Entity, Event> eventGetter) {
 
         final List<? extends Entity> hitted = entities.stream()
-                .filter(e -> e.getHitBox().checkCircleCollision(targetHB))
+                .filter(e -> e.getHitBox().checkCollision(targetHB))
                 .toList();
 
         if (hitted.isEmpty()) {

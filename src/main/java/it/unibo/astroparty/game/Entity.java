@@ -10,39 +10,40 @@ import it.unibo.astroparty.graphics.api.GraphicEntity;
 
 /**
  * 
- * an interface rappresenting most of the objects in the game, such as {@link Spaceship}, {@link Obstacle}, {@link PowerUp} and {@link Projectile}
+ * an interface rappresenting most of the objects in the game, such as 
+ * {@link Spaceship}, {@link Obstacle}, {@link PowerUp} and {@link Projectile}.
  *
  */
 public interface Entity {
     /**
      * @return the {@link HitBox} of the entity
      */
-    public HitBox getHitBox();
-    
+    HitBox getHitBox();
+
     /**
      * @return the {@link Position} of the entity
      */
-    public Position getPosition();
-    
+    Position getPosition();
+
     /**
      * @return true if is killed/destroyed
      */
-    public boolean hit();
-    
+    boolean hit();
+
     /**
-     * tells the entity how much time has passed since the last update
+     * tells the entity how much time has passed since the last update.
      * @param time in milliseconds
      */
-    public void update(double time);
-    
+    void update(double time);
+
     /**
      * @return the {@link PowerUpTypes} of this Entity
      */
-    public EntityType getType();
-    
+    EntityType getType();
+
     /**
      * 
      * @return the {@link GraphicEntity} of this Entity
      */
-    public GraphicEntity getGraphicComponent() ;
+    GraphicEntity getGraphicComponent();
 }

@@ -5,25 +5,35 @@ package it.unibo.astroparty.common;
  */
 
 /**
- * a class saving a couple of elements
+ * a class saving a couple of elements.
  * @param <X> the type of the first element
  * @param <Y> the type of the second element
  */
-public class Pair<X,Y> {
+public final class Pair<X, Y> {
 
     private final X x;
     private final Y y;
 
+    /**
+     * @param x
+     * @param y
+     */
     public Pair(final X x, final Y y) {
         super();
         this.x = x;
         this.y = y;
     }
 
+    /**
+     * @return
+     */
     public X getX() {
         return x;
     }
 
+    /**
+     * @return
+     */
     public Y getY() {
         return y;
     }
@@ -40,28 +50,28 @@ public class Pair<X,Y> {
     @SuppressWarnings("rawtypes")
     @Override
     public boolean equals(final Object obj) {
-        if (this == obj){
+        if (this == obj) {
             return true;
         }
-        if (obj == null){
+        if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()){
+        if (getClass() != obj.getClass()) {
             return false;
         }
         final Pair other = (Pair) obj;
         if (x == null) {
-            if (other.x != null){
+            if (other.x != null) {
                 return false;
             }
         } else if (!x.equals(other.x)){
             return false;
         }
         if (y == null) {
-            if (other.y != null){
+            if (other.y != null) {
                 return false;
             }
-        } else if (!y.equals(other.y)){
+        } else if (!y.equals(other.y)) {
             return false;
         }
         return true;

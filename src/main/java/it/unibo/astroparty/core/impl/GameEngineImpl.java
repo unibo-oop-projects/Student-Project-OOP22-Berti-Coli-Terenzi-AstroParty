@@ -179,13 +179,13 @@ public class GameEngineImpl implements GameEngine {
             if(powerupsBool) {
                 spawnerSettings.startGame().start(gameState);
             }
-            
-            
+
+
             inputControl.start();
             while(!gameState.isOver()) {
                 //currentTime= System.currentTimeMillis();
                 //System.out.println("current time:"+currentTime);
-                
+
                 processInput();
                 
                 updateGame(viewRefreshInterval);
@@ -205,6 +205,11 @@ public class GameEngineImpl implements GameEngine {
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }
+            }
+
+            inputControl.stop();
+            if(powerupsBool) {
+                spawnerSettings.startGame().stop();
             }
 
             gameState.getSpaceships().stream().forEach(s -> a.add(s.getId()));

@@ -289,8 +289,8 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
             BufferedReader r = new BufferedReader(
                 new InputStreamReader(
                     new BufferedInputStream(
-                            INPUT_FILE)
-                            , StandardCharsets.UTF_8))
+                            INPUT_FILE),
+                            StandardCharsets.UTF_8))
        ) {
             while ((line = r.readLine()) != null) { // NOPMD
                 //suppressed as it is a false positive
@@ -313,8 +313,7 @@ public class SpaceshipBuilderImpl implements SpaceshipBuilder {
                 }
             }
         } catch (FileNotFoundException e) {
-            //LOGGER.log(Level.SEVERE, " file " + FILE_PATH + " non trovato");
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, " file " + INPUT_FILE + " non trovato");
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, " errore nella lettura del file di config");
         }

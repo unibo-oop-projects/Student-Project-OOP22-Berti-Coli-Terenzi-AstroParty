@@ -2,6 +2,7 @@ package it.unibo.astroparty.core.impl;
 
 import it.unibo.astroparty.core.api.GameView;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.stage.Screen;
@@ -35,6 +36,10 @@ public class GameApp extends Application {
         primaryStage.setTitle("AstroParty");
         primaryStage.getIcons().add(new Image(ClassLoader.getSystemResource("sprites/icon.png").toString()));
         primaryStage.setResizable(false);
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();    // close the JavaFX Application
+            Runtime.getRuntime().exit(0);
+        });
 
         final GameView view = new GameViewImpl(primaryStage);
         view.renderScene(view.getSceneFactory().createMain());

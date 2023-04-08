@@ -57,7 +57,7 @@ public class SceneFactoryImpl implements SceneFactory {
      * {@inheritDoc}
      */
     @Override
-    public Scene createGame(final InputControl inputControl) throws IOException {
+    public Scene createGame(final InputControl inputControl) {
         return new GameSceneImpl(inputControl);
     }
 
@@ -74,7 +74,7 @@ public class SceneFactoryImpl implements SceneFactory {
      */
     @Override
     public Scene createOver(final String winnerPlayer) throws IOException {
-    	 return loadFXML("layouts/GameOver.fxml", new OverController(view, winnerPlayer));
+        return loadFXML("layouts/GameOver.fxml", new OverController(view, winnerPlayer));
     }
 
     /**
@@ -82,7 +82,7 @@ public class SceneFactoryImpl implements SceneFactory {
      * @param path to the fxml file
      * @param controller of the scene
      * @return a new scene loaded from the path given in input
-     * @throws IOException
+     * @throws IOException could be launched while loading the file .fxml
      */
     private Scene loadFXML(final String path, final Controller controller) throws IOException {
         final FXMLLoader loader = new FXMLLoader(ClassLoader.getSystemResource(path));
@@ -92,5 +92,4 @@ public class SceneFactoryImpl implements SceneFactory {
         root.getTransforms().add(new Scale(size, size));
         return new Scene(root, GameApp.WINDOW_SIZE, GameApp.WINDOW_SIZE);
     }
-
 }

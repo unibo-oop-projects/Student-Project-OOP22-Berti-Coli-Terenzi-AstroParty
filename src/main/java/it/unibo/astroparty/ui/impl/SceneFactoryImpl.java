@@ -73,9 +73,8 @@ public class SceneFactoryImpl implements SceneFactory {
      * {@inheritDoc}
      */
     @Override
-    public Scene createOver() throws IOException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'createOver'");
+    public Scene createOver(final String winnerPlayer) throws IOException {
+    	 return loadFXML("layouts/GameOver.fxml", new OverController(view, winnerPlayer));
     }
 
     /**

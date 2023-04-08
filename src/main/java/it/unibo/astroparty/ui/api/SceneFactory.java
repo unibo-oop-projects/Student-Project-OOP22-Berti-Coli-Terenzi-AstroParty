@@ -48,5 +48,5 @@ public interface SceneFactory {
      * @return a new game over scene
      * @throws IOException
      */
-    Scene createOver() throws IOException;
+    Scene createOver(String winnerPlayer) throws IOException;
 }

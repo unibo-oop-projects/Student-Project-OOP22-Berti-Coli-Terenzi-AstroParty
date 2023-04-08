@@ -25,7 +25,9 @@ import it.unibo.astroparty.game.spaceship.impl.SpaceshipBuilderImpl;
 import it.unibo.astroparty.graphics.api.GameScene;
 import it.unibo.astroparty.input.api.InputControl;
 import it.unibo.astroparty.input.impl.InputControlImpl;
+import it.unibo.astroparty.ui.impl.OverController;
 import javafx.application.Platform;
+import javafx.scene.Scene;
 
 /**
  * class for the core of the game: the gameLoop
@@ -41,7 +43,6 @@ public class GameEngineImpl implements GameEngine {
     private SpaceshipBuilder spaceshipBuilder;
     private GameView view;
     private InputControl inputControl;
-    private GameScene gameScene;
     private CollisionEventQueue collisionObserver;
     private int roundsGame;
 	private boolean obstaclesBool;
@@ -99,7 +100,6 @@ public class GameEngineImpl implements GameEngine {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //this.gameScene = (GameScene) this.view.getScene();
 	}
 
     private void createPowerups() {
@@ -167,10 +167,14 @@ public class GameEngineImpl implements GameEngine {
     }
     
 	private class Round extends Thread{
+		String winner;
+		boolean flag = false;
+		
         public void run() {
             double viewRefreshInterval = 1000/FPS;
             //long currentTime=0;
             double nextRefreshTime = viewRefreshInterval + System.currentTimeMillis();
+            CopyOnWriteArrayList<PlayerId> a = new CopyOnWriteArrayList<>();
             
             if(powerupsBool) {
                 spawnerSettings.startGame().start(gameState);
@@ -202,51 +206,70 @@ public class GameEngineImpl implements GameEngine {
                     e.printStackTrace();
                 }
             }
-   
-            CopyOnWriteArrayList<PlayerId> a = new CopyOnWriteArrayList<>();
-            
+
             gameState.getSpaceships().stream().forEach(s -> a.add(s.getId()));
             
             switch(a.get(0).getGameId().toString()) {
             case "Player1":
             	p1 = p1 + 1;
+            	if(p1.equals(roundsGame)) {
+            		this.winner = "Player1";
+            		this.flag = true;
+            	}
             	break;
             	
             case "Player2":
             	p2 = p2 + 1;
+            	if(p2.equals(roundsGame)) {
+            		this.winner = "Player2";
+            		this.flag = true;
+            	}
             	break;
             	
             case "Player3":
             	p3 = p3 + 1;
+            	if(p3.equals(roundsGame)) {
+            		this.winner = "Player3";
+            		this.flag = true;
+            	}
             	break;
             	
             case "Player4":
             	p4 = p4 + 1;
+            	if(p4.equals(roundsGame)) {
+            		this.winner = "Player4";
+            		this.flag = true;
+            	}
             	break;
             	
             	default:
             		throw new UnsupportedOperationException();
             }
-			
-			
             
-            //IF(uno dei p raggiunge punteggio==numero di round del menu iniziale)
-            //ALLORA->NON LANCIO PIU' QUESTA SWITCH SCENE E LANCIO LA SCENA DEL GAMEOVER
-            
-            Platform.runLater(new Runnable() {
+        	Platform.runLater(new Runnable() {
 
                 @Override
                 public void run() {
-                    try {
-                        view.renderScene(view.getSceneFactory().createScoreboard(List.of(p1,p2,p3,p4), roundsGame));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+                	if(flag) {
+                		p1 = 0;
+                    	p2 = 0;
+                    	p3 = 0;
+                    	p4 = 0;
+                    	flag = false;
+                    	try {
+                    		view.renderScene(view.getSceneFactory().createOver(winner));
+                    	} catch (IOException e) {
+                    		e.printStackTrace();
+                    	}
+                	}else {
+                		try {
+                			view.renderScene(view.getSceneFactory().createScoreboard(List.of(p1,p2,p3,p4), roundsGame));
+                		} catch (IOException e) {
+                			e.printStackTrace();
+                		}
+                	}
                 }
-                
             });
-            
-            
         }
     }
     

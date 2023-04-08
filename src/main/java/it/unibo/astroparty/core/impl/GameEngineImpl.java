@@ -38,7 +38,7 @@ public class GameEngineImpl implements GameEngine {
     private GameStateImpl gameState;
     private SpawnerSettings spawnerSettings;
     private SpaceshipBuilder spaceshipBuilder;
-    private GameView view;
+    private final GameView view;
     private InputControl inputControl;
     private CollisionEventQueue collisionObserver;
     private int roundsGame;
@@ -49,18 +49,21 @@ public class GameEngineImpl implements GameEngine {
     private Map<Pair<Integer, Integer>, Pair<Integer, Integer>> mapObstacles;
     private ObstacleFactory obstacleFactory;
     private Random rand;
-    private Integer p1,p2,p3,p4;
+    private Integer p1, p2, p3, p4;
 
-    //Constructor
-    public GameEngineImpl(GameView view) {
+    /**
+     * Contructor of {@link GameEngine}.
+     * @param view
+     */
+    public GameEngineImpl(final GameView view) {
         this.view = view;
     }
 
-    //chiamata solo una volta
-    public void init(List<String> players, boolean obstacle, boolean powerup, int rounds) {
-
+    /**
+     * {@inheritDoc}
+     */
+    public void init(final List<String> players, final boolean obstacle, final boolean powerup, final int rounds) {
         this.spaceshipBuilder = new SpaceshipBuilderImpl();
-
         this.spaceshipBuilder.setNames(players);
         this.roundsGame = rounds;
         this.obstaclesBool = obstacle;
@@ -71,7 +74,10 @@ public class GameEngineImpl implements GameEngine {
         this.p4 = 0;
     }
 
-//chiamata ogni round
+    /**
+     * creates the map every round based on the input of the settings of the Main Page.
+     * it is called at the very beginning of the match and not after every round
+     */
     private void createMap() {
         this.gameState = new GameStateImpl();
         this.inputControl = new InputControlImpl();
@@ -80,11 +86,11 @@ public class GameEngineImpl implements GameEngine {
 
         createObstacles();
 
-        if(this.powerupsBool) {
+        if (this.powerupsBool) {
             createPowerups();
         }
 
-        if(this.obstaclesBool) {
+        if (this.obstaclesBool) {
             createLasers();
         }
 
@@ -99,12 +105,17 @@ public class GameEngineImpl implements GameEngine {
         }
     }
 
+    /**
+     * Sets the {@link SpawnerSettings}.
+     */
     private void createPowerups() {
-        //Set of the SpawnDelay and enumeration of PowerUpTypes
         this.spawnerSettings = new SpawnerSettingsImpl();
         this.spawnerSettings.enableAll();
     }
 
+    /**
+     * creates on the map the {@link Obstacle} by combining randomly from a collection of pairs of Obstacles.
+     */
     private void createObstacles() {
         this.keySetObstacles = new HashSet<>();
         this.addedObstacles = new HashSet<>();
@@ -121,7 +132,7 @@ public class GameEngineImpl implements GameEngine {
         //Ostacolo fisso
         this.gameState.addObstacle(this.obstacleFactory.createUndestroyableObstacle(new Position(47, 47)));
 
-        if(this.obstaclesBool) {
+        if (this.obstaclesBool) {
             this.mapObstacles.put(new Pair<>(47, 27), new Pair<>(47, 67));
             this.mapObstacles.put(new Pair<>(47, 7), new Pair<>(47, 87));
             this.mapObstacles.put(new Pair<>(7, 47), new Pair<>(87, 47));
@@ -138,7 +149,7 @@ public class GameEngineImpl implements GameEngine {
                 @SuppressWarnings("unchecked")
                 Pair<Integer,Integer> aPair = (Pair<Integer, Integer>) a;
 
-                if(!this.addedObstacles.contains(new Pair<>(aPair.getX(), aPair.getY()))) {
+                if (!this.addedObstacles.contains(new Pair<>(aPair.getX(), aPair.getY()))) {
                     this.gameState.addObstacle(this.obstacleFactory.createSimpleObstacle(new Position(aPair.getX(), aPair.getY())));
                     this.gameState.addObstacle(this.obstacleFactory.createSimpleObstacle(new Position(c.getX(),c.getY())));
                     this.addedObstacles.add(new Pair<>(aPair.getX(), aPair.getY()));
@@ -148,6 +159,9 @@ public class GameEngineImpl implements GameEngine {
         }
     }
 
+    /**
+     *creates lasers on the map 
+     */
     private void createLasers() {
         this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(17, 47)));
         this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(77, 47)));
@@ -155,26 +169,36 @@ public class GameEngineImpl implements GameEngine {
         this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(47, 77)));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public void mainLoop() {
         this.createMap();
         Round round = new Round();
         round.start();
     }
 
+    /**
+     * round class.
+     * @author dario
+     *
+     */
     private class Round extends Thread{
         String winner;
         boolean flag = false;
 
+        /**
+         * method that handles real time changes and everything that happen between rounds.
+         */
         public void run() {
             double viewRefreshInterval = 1000/FPS;
             //long currentTime=0;
             double nextRefreshTime = viewRefreshInterval + System.currentTimeMillis();
             CopyOnWriteArrayList<PlayerId> a = new CopyOnWriteArrayList<>();
 
-            if(powerupsBool) {
+            if (powerupsBool) {
                 spawnerSettings.startGame().start(gameState);
             }
-
 
             inputControl.start();
             while(!gameState.isOver()) {
@@ -192,7 +216,7 @@ public class GameEngineImpl implements GameEngine {
                 try {
                     double surplusTime = nextRefreshTime - System.currentTimeMillis();
 
-                    if(surplusTime < 0) {
+                    if (surplusTime < 0) {
                         surplusTime = 0;
                     }
                     Thread.sleep((long) surplusTime);
@@ -203,7 +227,7 @@ public class GameEngineImpl implements GameEngine {
             }
 
             inputControl.stop();
-            if(powerupsBool) {
+            if (powerupsBool) {
                 spawnerSettings.startGame().stop();
             }
 
@@ -212,7 +236,7 @@ public class GameEngineImpl implements GameEngine {
             switch(a.get(0).getGameId().toString()) {
             case "Player1":
                 p1 = p1 + 1;
-                if(p1.equals(roundsGame)) {
+                if (p1.equals(roundsGame)) {
                     this.winner = "Player1";
                     this.flag = true;
                 }
@@ -220,7 +244,7 @@ public class GameEngineImpl implements GameEngine {
 
             case "Player2":
                 p2 = p2 + 1;
-                if(p2.equals(roundsGame)) {
+                if (p2.equals(roundsGame)) {
                     this.winner = "Player2";
                     this.flag = true;
                 }
@@ -228,7 +252,7 @@ public class GameEngineImpl implements GameEngine {
 
             case "Player3":
                 p3 = p3 + 1;
-                if(p3.equals(roundsGame)) {
+                if (p3.equals(roundsGame)) {
                     this.winner = "Player3";
                     this.flag = true;
                 }
@@ -236,7 +260,7 @@ public class GameEngineImpl implements GameEngine {
 
             case "Player4":
                 p4 = p4 + 1;
-                if(p4.equals(roundsGame)) {
+                if (p4.equals(roundsGame)) {
                     this.winner = "Player4";
                     this.flag = true;
                 }
@@ -250,7 +274,7 @@ public class GameEngineImpl implements GameEngine {
 
                 @Override
                 public void run() {
-                    if(flag) {
+                    if (flag) {
                         p1 = 0;
                         p2 = 0;
                         p3 = 0;
@@ -272,15 +296,25 @@ public class GameEngineImpl implements GameEngine {
             });
         }
     }
-
+    
+    /**
+     * decides the right time to pass all the {@link Spaceship to the {@link InputControl}.
+     */
     protected void processInput() {
         this.inputControl.computeAll(this.gameState.getSpaceships());
     }
 
+    /**
+     * updates the time of {@link GameState} with real time.
+     * @param timePassedCycle real time passed
+     */
     protected void updateGame(double timePassedCycle) {
         this.gameState.update(timePassedCycle);
     }
 
+    /**
+     * render to the {@link GameView} the active elements in the map.
+     */
     protected void render() {
         ( (GameScene) this.view.getScene() ).renderAll(this.gameState.getEntities().stream().filter(e -> !(e instanceof Obstacle) || ((Obstacle) e).isActive()).map(e -> e.getGraphicComponent()).toList());
     }

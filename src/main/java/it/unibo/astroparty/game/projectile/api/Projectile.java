@@ -4,18 +4,19 @@ import it.unibo.astroparty.game.Entity;
 import it.unibo.astroparty.game.hitbox.api.CircleHitBox;
 
 /**
- * interface for projectiles with the following methods
- * 
+ * interface for projectiles with the following methods.
  * @author dario
  *
  */
 public interface Projectile extends Entity {
-    static final double radius = 1.3;
-    
+    /**
+     * radius of the {@link Projectile}.
+     */
+    double RADIUS = 1.3;
+
     /**
      * {@inheritDoc}}
      */
     @Override
-    public CircleHitBox getHitBox();
-    
+    CircleHitBox getHitBox();
 }

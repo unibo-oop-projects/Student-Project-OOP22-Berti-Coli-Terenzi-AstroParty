@@ -2,15 +2,11 @@ package it.unibo.astroparty.game;
 
 import it.unibo.astroparty.common.Position;
 import it.unibo.astroparty.game.hitbox.api.HitBox;
-import it.unibo.astroparty.game.obstacle.api.Obstacle;
-import it.unibo.astroparty.game.powerup.api.PowerUp;
-import it.unibo.astroparty.game.projectile.api.Projectile;
-import it.unibo.astroparty.game.spaceship.api.Spaceship;
 import it.unibo.astroparty.graphics.api.GraphicEntity;
 
 /**
  * 
- * an interface rappresenting most of the objects in the game, such as 
+ * an interface rappresenting most of the objects in the game, such as .
  * {@link Spaceship}, {@link Obstacle}, {@link PowerUp} and {@link Projectile}.
  *
  */

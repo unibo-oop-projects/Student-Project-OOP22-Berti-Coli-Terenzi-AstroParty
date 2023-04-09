@@ -93,15 +93,15 @@ public class KeyboardEventsHandler implements EventHandler<KeyEvent> {
         }
     }
 
-    private void shoot(GameId id){
+    private void shoot(final GameId id) {
         control.shoot(id);
     }
 
-    private void stopTurn(GameId id){
+    private void stopTurn(final GameId id) {
         control.stopTurn(id);
     }
 
-    private void startTurn(GameId id){
+    private void startTurn(final GameId id) {
         control.startTurn(id);
     }
 }

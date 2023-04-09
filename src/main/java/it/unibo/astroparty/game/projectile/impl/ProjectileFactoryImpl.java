@@ -7,16 +7,17 @@ import it.unibo.astroparty.game.projectile.api.Projectile;
 import it.unibo.astroparty.game.projectile.api.ProjectileFactory;
 
 /**
- * class that implements the ProjectileFactory interface with the following method
+ * class that implements the ProjectileFactory interface with the following method.
  * 
  * @author dario
  *
  */
 public class ProjectileFactoryImpl implements ProjectileFactory {
+    private static final double P_SPEED = 0.3;
     /**
      * {@inheritDoc}
      */
-    public Projectile createProjectile(Position pos, Direction dir) {
-        return new ProjectileImpl(pos, dir, EntityType.PROJECTILE, 0.3);
+    public Projectile createProjectile(final Position pos, final Direction dir) {
+        return new ProjectileImpl(pos, dir, EntityType.PROJECTILE, P_SPEED);
     }
 }

@@ -15,10 +15,10 @@ public interface GameEngine {
      * @param powerup
      * @param rounds
      */
-    public void init(List<String> players, boolean obstacle, boolean powerup, int rounds);
-    
+    void init(List<String> players, boolean obstacle, boolean powerup, int rounds);
+
     /**
      * creates every round with its map.
      */
-    public void mainLoop();
+    void mainLoop();
 }

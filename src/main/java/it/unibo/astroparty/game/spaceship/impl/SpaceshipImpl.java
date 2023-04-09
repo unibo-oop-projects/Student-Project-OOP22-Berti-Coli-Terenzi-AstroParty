@@ -326,7 +326,7 @@ public class SpaceshipImpl implements SimpleSpaceship {
     private void createProjectile() {
 
         this.world.addProjectile(new ProjectileFactoryImpl()
-                .createProjectile(position.move(direction.multiply(Projectile.radius)), direction));
+                .createProjectile(position.move(direction.multiply(Projectile.RADIUS)), direction));
     }
 
     /**

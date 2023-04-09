@@ -4,18 +4,17 @@ import it.unibo.astroparty.common.Direction;
 import it.unibo.astroparty.common.Position;
 
 /**
- * interface for the Factory of the Projectiles with the following method
- * 
+ * interface for the Factory of the Projectiles with the following method.
  * @author dario
  *
  */
 public interface ProjectileFactory {
     /**
-     * creates the Projectile given the position and direction of the Spaceship
+     * creates the Projectile given the position and direction of the Spaceship.
      * 
      * @param pos the {@link Position} of the Spaceship
      * @param dir the {@link Direction} of the SpaceShip
-     * @return
+     * @return Projectile the created projectile
      */
-    public Projectile createProjectile(Position pos, Direction dir);
+    Projectile createProjectile(Position pos, Direction dir);
 }

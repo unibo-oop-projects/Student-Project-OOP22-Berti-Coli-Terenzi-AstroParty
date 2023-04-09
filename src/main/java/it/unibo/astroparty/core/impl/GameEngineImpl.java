@@ -50,7 +50,7 @@ public class GameEngineImpl implements GameEngine {
     private ObstacleFactory obstacleFactory;
     private Random rand;
     private Integer p1, p2, p3, p4;
-    private final static Integer O1X = 47, O1Y = 27, O2X = 47, O2Y = 67, O3Y = 7, O4Y = 87, L1X = O3Y + 10, L2X = O2Y + 10;
+    private final Integer o1X = 47, o1Y = 27, o2X = 47, o2Y = 67, o3Y = 7, o4Y = 87, l1X = o3Y + 10, l2X = o2Y + 10;
 
     /**
      * Contructor of {@link GameEngine}.
@@ -131,19 +131,19 @@ public class GameEngineImpl implements GameEngine {
 
 
         //Ostacolo fisso
-        this.gameState.addObstacle(this.obstacleFactory.createUndestroyableObstacle(new Position(47, 47)));
+        this.gameState.addObstacle(this.obstacleFactory.createUndestroyableObstacle(new Position(o1X, o1X)));
 
         if (this.obstaclesBool) {
-            this.mapObstacles.put(new Pair<>(O1X, O1Y), new Pair<>(O2X, O2Y));
-            this.mapObstacles.put(new Pair<>(O1X, O3Y), new Pair<>(O1X, O4Y));
-            this.mapObstacles.put(new Pair<>(O3Y, O1X), new Pair<>(O4Y, O1X));
-            this.mapObstacles.put(new Pair<>(O1Y, O1X), new Pair<>(O2Y, O1X));
+            this.mapObstacles.put(new Pair<>(o1X, o1Y), new Pair<>(o2X, o2Y));
+            this.mapObstacles.put(new Pair<>(o1X, o3Y), new Pair<>(o1X, o4Y));
+            this.mapObstacles.put(new Pair<>(o3Y, o1X), new Pair<>(o4Y, o1X));
+            this.mapObstacles.put(new Pair<>(o1Y, o1X), new Pair<>(o2Y, o1X));
 
             this.keySetObstacles = this.mapObstacles.keySet();
             arrayObstacles = this.keySetObstacles.toArray();
             b = arrayObstacles.length;
 
-            while (cont < b/ 2) {
+            while (cont < b / 2) {
                 a = arrayObstacles[rand.nextInt(arrayObstacles.length)];
                 c = this.mapObstacles.get(a);
 
@@ -151,8 +151,10 @@ public class GameEngineImpl implements GameEngine {
                 Pair<Integer, Integer> aPair = (Pair<Integer, Integer>) a;
 
                 if (!this.addedObstacles.contains(new Pair<>(aPair.getX(), aPair.getY()))) {
-                    this.gameState.addObstacle(this.obstacleFactory.createSimpleObstacle(new Position(aPair.getX(), aPair.getY())));
-                    this.gameState.addObstacle(this.obstacleFactory.createSimpleObstacle(new Position(c.getX(),c.getY())));
+                    this.gameState.addObstacle(this.obstacleFactory.
+                    createSimpleObstacle(new Position(aPair.getX(), aPair.getY())));
+                    this.gameState.addObstacle(this.obstacleFactory.
+                    createSimpleObstacle(new Position(c.getX(), c.getY())));
                     this.addedObstacles.add(new Pair<>(aPair.getX(), aPair.getY()));
                     cont = cont + 1;
                 }
@@ -164,10 +166,10 @@ public class GameEngineImpl implements GameEngine {
      *creates lasers on the map. 
      */
     private void createLasers() {
-        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(L1X, O1X)));
-        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(L2X, O1X)));
-        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(O1X, L1X)));
-        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(O1X, L2X)));
+        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(l1X, o1X)));
+        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(l2X, o1X)));
+        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(o1X, l1X)));
+        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(o1X, l2X)));
     }
 
     /**
@@ -192,7 +194,7 @@ public class GameEngineImpl implements GameEngine {
          * method that handles real time changes and everything that happen between rounds.
          */
         public void run() {
-            double viewRefreshInterval = 1000/ FPS;
+            double viewRefreshInterval = 1000 / FPS;
             //long currentTime=0;
             double nextRefreshTime = viewRefreshInterval + System.currentTimeMillis();
             CopyOnWriteArrayList<PlayerId> a = new CopyOnWriteArrayList<>();
@@ -309,7 +311,7 @@ public class GameEngineImpl implements GameEngine {
      * updates the time of {@link GameState} with real time.
      * @param timePassedCycle real time passed
      */
-    protected void updateGame(double timePassedCycle) {
+    protected void updateGame(final double timePassedCycle) {
         this.gameState.update(timePassedCycle);
     }
 

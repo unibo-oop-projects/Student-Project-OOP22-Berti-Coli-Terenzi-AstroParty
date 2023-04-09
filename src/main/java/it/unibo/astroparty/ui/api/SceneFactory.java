@@ -44,8 +44,10 @@ public interface SceneFactory {
     Scene createScoreboard(List<Integer> scores, int rounds) throws IOException;
 
     /**
-     * @return a new game over scene
-     * @throws IOException could be launched while loading the file .fxml
+     * 
+     * @param winnerPlayer
+     * @return Scene the game over scene
+     * @throws IOException
      */
     Scene createOver(String winnerPlayer) throws IOException;
 }

@@ -25,14 +25,14 @@ public final class Pair<X, Y> {
     }
 
     /**
-     * @return
+     * @return X coordinate x
      */
     public X getX() {
         return x;
     }
 
     /**
-     * @return
+     * @return Y coordinate y
      */
     public Y getY() {
         return y;
@@ -64,7 +64,7 @@ public final class Pair<X, Y> {
             if (other.x != null) {
                 return false;
             }
-        } else if (!x.equals(other.x)){
+        } else if (!x.equals(other.x)) {
             return false;
         }
         if (y == null) {

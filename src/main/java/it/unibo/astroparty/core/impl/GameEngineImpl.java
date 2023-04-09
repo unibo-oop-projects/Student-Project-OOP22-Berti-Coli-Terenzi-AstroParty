@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import it.unibo.astroparty.common.Pair;
 import it.unibo.astroparty.common.Position;
@@ -34,6 +36,7 @@ import javafx.application.Platform;
  */
 
 public class GameEngineImpl implements GameEngine {
+    private static final Logger LOGGER = Logger.getLogger("GameEngineImpl");
     private static final int FPS = 60;
     private GameStateImpl gameState;
     private SpawnerSettings spawnerSettings;
@@ -44,13 +47,10 @@ public class GameEngineImpl implements GameEngine {
     private int roundsGame;
     private boolean obstaclesBool;
     private boolean powerupsBool;
-    private Set<Pair<Integer, Integer>> keySetObstacles;
-    private Set<Pair<Integer, Integer>> addedObstacles;
-    private Map<Pair<Integer, Integer>, Pair<Integer, Integer>> mapObstacles;
     private ObstacleFactory obstacleFactory;
-    private Random rand;
     private Integer p1, p2, p3, p4;
-    private final Integer o1X = 47, o1Y = 27, o2X = 47, o2Y = 67, o3Y = 7, o4Y = 87, l1X = o3Y + 10, l2X = o2Y + 10;
+    private static final Integer O1_X = 47, O1_Y = 27, O2_X = 47, O2_Y = 67, O3_Y = 7,
+            O4_Y = 87, L1_X = O3_Y + 10, L2_X = O2_Y + 10;
 
     /**
      * Contructor of {@link GameEngine}.
@@ -63,6 +63,7 @@ public class GameEngineImpl implements GameEngine {
     /**
      * {@inheritDoc}
      */
+    @Override
     public void init(final List<String> players, final boolean obstacle, final boolean powerup, final int rounds) {
         this.spaceshipBuilder = new SpaceshipBuilderImpl();
         this.spaceshipBuilder.setNames(players);
@@ -99,11 +100,7 @@ public class GameEngineImpl implements GameEngine {
 
         this.spaceshipBuilder.create(this.gameState).forEach(s -> this.gameState.addSpaceship(s));
 
-        try {
-            this.view.renderScene(this.view.getSceneFactory().createGame(this.inputControl));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.view.renderScene(this.view.getSceneFactory().createGame(this.inputControl));
     }
 
     /**
@@ -118,44 +115,49 @@ public class GameEngineImpl implements GameEngine {
      * creates on the map the {@link Obstacle} by combining randomly from a collection of pairs of Obstacles.
      */
     private void createObstacles() {
-        this.keySetObstacles = new HashSet<>();
-        this.addedObstacles = new HashSet<>();
-        this.mapObstacles = new HashMap<>();
+
+        Set<Pair<Integer, Integer>> keySetObstacles;
+
+        Set<Pair<Integer, Integer>> addedObstacles;
+        Map<Pair<Integer, Integer>, Pair<Integer, Integer>> mapObstacles;
+        Random rand;
+
+        addedObstacles = new HashSet<>();
+        mapObstacles = new HashMap<>();
+
         this.obstacleFactory = new ObstacleFactoryImpl();
-        this.rand = new Random();
+        rand = new Random();
 
         Object[] arrayObstacles;
         Object a;
         int b, cont = 0;
         Pair<Integer, Integer> c;
 
-
         //Ostacolo fisso
-        this.gameState.addObstacle(this.obstacleFactory.createUndestroyableObstacle(new Position(o1X, o1X)));
+        this.gameState.addObstacle(this.obstacleFactory.createUndestroyableObstacle(new Position(O1_X, O1_X)));
 
         if (this.obstaclesBool) {
-            this.mapObstacles.put(new Pair<>(o1X, o1Y), new Pair<>(o2X, o2Y));
-            this.mapObstacles.put(new Pair<>(o1X, o3Y), new Pair<>(o1X, o4Y));
-            this.mapObstacles.put(new Pair<>(o3Y, o1X), new Pair<>(o4Y, o1X));
-            this.mapObstacles.put(new Pair<>(o1Y, o1X), new Pair<>(o2Y, o1X));
+            mapObstacles.put(new Pair<>(O1_X, O1_Y), new Pair<>(O2_X, O2_Y));
+            mapObstacles.put(new Pair<>(O1_X, O3_Y), new Pair<>(O1_X, O4_Y));
+            mapObstacles.put(new Pair<>(O3_Y, O1_X), new Pair<>(O4_Y, O1_X));
+            mapObstacles.put(new Pair<>(O1_Y, O1_X), new Pair<>(O2_Y, O1_X));
 
-            this.keySetObstacles = this.mapObstacles.keySet();
-            arrayObstacles = this.keySetObstacles.toArray();
+            keySetObstacles = mapObstacles.keySet();
+            arrayObstacles = keySetObstacles.toArray();
             b = arrayObstacles.length;
-
-            while (cont < b / 2) {
+            while (cont < b / 2 && keySetObstacles.size() == b) {
                 a = arrayObstacles[rand.nextInt(arrayObstacles.length)];
-                c = this.mapObstacles.get(a);
+                c = mapObstacles.get(a);
 
                 @SuppressWarnings("unchecked")
-                Pair<Integer, Integer> aPair = (Pair<Integer, Integer>) a;
+                final Pair<Integer, Integer> aPair = (Pair<Integer, Integer>) a;
 
-                if (!this.addedObstacles.contains(new Pair<>(aPair.getX(), aPair.getY()))) {
+                if (!addedObstacles.contains(new Pair<>(aPair.getX(), aPair.getY()))) {
                     this.gameState.addObstacle(this.obstacleFactory.
                     createSimpleObstacle(new Position(aPair.getX(), aPair.getY())));
                     this.gameState.addObstacle(this.obstacleFactory.
                     createSimpleObstacle(new Position(c.getX(), c.getY())));
-                    this.addedObstacles.add(new Pair<>(aPair.getX(), aPair.getY()));
+                    addedObstacles.add(new Pair<>(aPair.getX(), aPair.getY()));
                     cont = cont + 1;
                 }
             }
@@ -166,18 +168,19 @@ public class GameEngineImpl implements GameEngine {
      *creates lasers on the map. 
      */
     private void createLasers() {
-        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(l1X, o1X)));
-        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(l2X, o1X)));
-        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(o1X, l1X)));
-        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(o1X, l2X)));
+        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(L1_X, O1_X)));
+        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(L2_X, O1_X)));
+        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(O1_X, L1_X)));
+        this.gameState.addObstacle(this.obstacleFactory.createLaser(new Position(O1_X, L2_X)));
     }
 
     /**
      * {@inheritDoc}
      */
+    @Override
     public void mainLoop() {
         this.createMap();
-        Round round = new Round();
+        final Round round = new Round();
         round.start();
     }
 
@@ -188,16 +191,17 @@ public class GameEngineImpl implements GameEngine {
      */
     private class Round extends Thread {
         private String winner;
-        private boolean flag = false;
+        private boolean flag;
 
         /**
          * method that handles real time changes and everything that happen between rounds.
          */
+        @Override
         public void run() {
-            double viewRefreshInterval = 1000 / FPS;
+            final double viewRefreshInterval = 1000 / FPS;
             //long currentTime=0;
             double nextRefreshTime = viewRefreshInterval + System.currentTimeMillis();
-            CopyOnWriteArrayList<PlayerId> a = new CopyOnWriteArrayList<>();
+            final CopyOnWriteArrayList<PlayerId> a = new CopyOnWriteArrayList<>();
 
             if (powerupsBool) {
                 spawnerSettings.startGame().start(gameState);
@@ -225,7 +229,7 @@ public class GameEngineImpl implements GameEngine {
                     Thread.sleep((long) surplusTime);
                     nextRefreshTime += viewRefreshInterval;
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    LOGGER.log(Level.SEVERE, "Error during thread sleep: ", e);
                 }
             }
 
@@ -286,13 +290,13 @@ public class GameEngineImpl implements GameEngine {
                         try {
                             view.renderScene(view.getSceneFactory().createOver(winner));
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "Error  during render of the game over scene: ", e);
                         }
                     } else {
                         try {
                             view.renderScene(view.getSceneFactory().createScoreboard(List.of(p1, p2, p3, p4), roundsGame));
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "Error during render of the scoreboard scene", e);
                         }
                     }
                 }

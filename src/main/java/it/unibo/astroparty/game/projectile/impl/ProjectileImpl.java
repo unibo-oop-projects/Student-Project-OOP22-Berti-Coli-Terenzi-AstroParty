@@ -40,7 +40,6 @@ public class ProjectileImpl implements Projectile {
      */
     @Override
     public Position getPosition() {
-        // TODO Auto-generated method stub
         return position;
     }
 
@@ -57,7 +56,6 @@ public class ProjectileImpl implements Projectile {
      */
     @Override
     public void update(final double time) {
-        // TODO Auto-generated method stub
         position = this.position.move(this.direction.multiply(this.projectileSpeed * time));
     }
 
@@ -74,7 +72,6 @@ public class ProjectileImpl implements Projectile {
      */
     @Override
     public GraphicEntity getGraphicComponent() {
-        // TODO Auto-generated method stub
         return new CircleHitBoxImpl(position, Projectile.RADIUS).getGraphicComponent(entityType);
     }
 
@@ -83,7 +80,6 @@ public class ProjectileImpl implements Projectile {
      */
     @Override
     public CircleHitBox getHitBox() {
-        // TODO Auto-generated method stub
         return new CircleHitBoxImpl(position, Projectile.RADIUS);
     }
 

@@ -22,11 +22,7 @@
       <ImageView id="p2" fitHeight="75.0" fitWidth="75.0" layoutX="36.0" layoutY="163.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView id="p3" fitHeight="75.0" fitWidth="75.0" layoutX="36.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView id="p4" fitHeight="75.0" fitWidth="75.0" layoutX="36.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="restartGame" layoutX="139.0" layoutY="420.0" mnemonicParsing="false" onAction="#nextOnClick" prefHeight="65.0" prefWidth="221.0" text="RESTART GAME">
-         <font>
-            <Font size="26.0" />
-         </font></Button>
-      <TextField fx:id="t1" layoutX="140.0" layoutY="104.0" prefHeight="43.0" prefWidth="102.0" promptText=" " text="LOSER">
+      <TextField fx:id="t1" layoutX="140.0" layoutY="104.0" prefHeight="43.0" prefWidth="102.0" text="LOSER">
          <font>
             <Font size="20.0" />
          </font></TextField>
@@ -38,6 +34,11 @@
          <font>
             <Font size="20.0" />
          </font></TextField>
+      <Button fx:id="rematch" layoutX="165.0" layoutY="424.0" mnemonicParsing="false" onAction="#rematchOnClick" prefHeight="52.0" prefWidth="170.0" text="REMATCH">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
       <TextField fx:id="t4" layoutX="140.0" layoutY="325.0" prefHeight="43.0" prefWidth="102.0" text="LOSER">
          <font>
             <Font size="20.0" />

@@ -1,6 +1,7 @@
 package it.unibo.astroparty.ui.impl;
 
 import javafx.scene.control.TextField;
+
 import it.unibo.astroparty.core.api.GameView;
 import it.unibo.astroparty.ui.api.Controller;
 import javafx.fxml.FXML;
@@ -12,7 +13,6 @@ import javafx.scene.control.Button;
  *
  */
 public class OverController implements Controller {
-
     @FXML
     private Button restartGame;
 
@@ -37,6 +37,10 @@ public class OverController implements Controller {
      */
     @FXML
     public void initialize() {
+        this.t1.setEditable(false);
+        this.t2.setEditable(false);
+        this.t3.setEditable(false);
+        this.t4.setEditable(false);
         final String winnerString = "WINNER!";
         switch (this.winner) {
         case "Player1":
@@ -57,11 +61,12 @@ public class OverController implements Controller {
     }
 
     /**
-     * called after pressing the "RESTART GAME" button.
-     * it starts another match with the same settings chosen before 
+     * called after pressing "REMATCH" button.
+     * it restarts the match directly from a new round, keeping all the prevoius settings
+     * 
      */
     @FXML
-    public void nextOnClick() {
+    public void rematchOnClick() {
         this.view.nextRound();
     }
 }
